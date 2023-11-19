@@ -2,6 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 import LAdminDashboardVue from 'processes/layouts/LAdminDashboard.vue';
 import { PAdminDetailed } from 'pages/PAdminDetailed';
 import { PAdminDetailedBio } from 'pages/PAdminDetailedBio';
+import { PAdminDetailedNutrition } from 'pages/PAdminDetailedNutrition';
 import { PAdminDetailedTrainings } from 'pages/PAdminDetailedTrainings';
 import { PAdminProfile } from 'pages/PAdminProfile';
 import { PAdminPrompt } from 'pages/PAdminPrompt';
@@ -51,6 +52,11 @@ export const adminRoutes: RouteRecordRaw = {
           path: 'trainings',
           name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_TRAININGS,
           component: PAdminDetailedTrainings,
+        },
+        {
+          path: 'nutrition',
+          name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_NUTRITION,
+          component: PAdminDetailedNutrition,
         },
       ],
     },

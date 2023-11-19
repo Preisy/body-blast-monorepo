@@ -15,4 +15,5 @@ export enum ROUTES_NAMES {
   ADMIN_DETAILED = 'adminDetailed',
   ADMIN_DETAILED_BIO = 'adminDetailedBio',
   ADMIN_DETAILED_TRAININGS = 'adminDetailedTrainings',
+  ADMIN_DETAILED_NUTRITION = 'adminDetailedNutrition',
 }
