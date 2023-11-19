@@ -64,7 +64,7 @@ const onremove = (index: number) => prompts.value.splice(index, 1);
         </div>
 
         <template #submit-btn>
-          <FListControls
+          <SListControls
             :disabled-add="index !== prompts.length - 1"
             :disabled-submit="index !== prompts.length - 1"
             :disabled-remove="prompts.length === 1"
