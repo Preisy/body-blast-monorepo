@@ -1,7 +1,6 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { assign, keys, pick, uniqueId } from 'lodash';
+import { assign, uniqueId } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { FListControls } from 'features/FListControls';
 import { PromptPage, Prompt, useAdminPromptStore } from 'shared/api/admin';
@@ -64,7 +63,7 @@ const onremove = (index: number) => prompts.value.splice(index, 1);
         </div>
 
         <template #submit-btn>
-          <SListControls
+          <FListControls
             :disabled-add="index !== prompts.length - 1"
             :disabled-submit="index !== prompts.length - 1"
             :disabled-remove="prompts.length === 1"
