@@ -1,10 +1,10 @@
 import { api } from 'shared/config';
-import { useServiceAction } from 'shared/lib/utils';
+import { useServiceAction, DatePaginationRequest } from 'shared/lib/utils';
 import { AppPagination } from '../base';
 import { Anthropometry } from './types';
 
 export const profileService = {
-  getAnthropometry: useServiceAction((params: Omit<AppPagination.DateDto, 'expanded'>) =>
-    api.get<Anthropometry.Response>(`/admin/anthropometrics?from=${params.from}&to=${params.to}&expanded=false`),
+  getAnthropometry: useServiceAction((params: Partial<AppPagination.DateDto>) =>
+    api.get<Anthropometry.Response>(DatePaginationRequest(`/admin/anthropometrics`, params)),
   ),
 };

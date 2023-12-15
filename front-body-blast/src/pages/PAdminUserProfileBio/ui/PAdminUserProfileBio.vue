@@ -9,7 +9,7 @@ import {
   EForbiddensSignUpForm,
   EMotivationsSignUpForm,
 } from 'entities/form';
-import { useAdminProfileStore } from 'shared/api/admin';
+import { useAdminHomeStore } from 'shared/api/admin';
 import { SignUp } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoading } from 'shared/lib/loading';
@@ -21,7 +21,7 @@ import { SStructure } from 'shared/ui/SStructure';
 const { t } = useI18n();
 const id = parseInt(useRoute().params.id as string);
 
-const { clientProfiles, getUserProfiles } = useAdminProfileStore();
+const { clientProfiles, getUserProfiles } = useAdminHomeStore();
 useLoading(clientProfiles);
 if (!clientProfiles.data) getUserProfiles({ page: 1, limit: 1000, expanded: false });
 

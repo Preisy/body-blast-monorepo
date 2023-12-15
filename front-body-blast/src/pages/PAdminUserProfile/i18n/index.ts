@@ -1,7 +1,7 @@
 import en from './en';
 import ru from './ru';
 
-export const TPAdminDetailsI18n = {
+export const TPAdminUserProfileI18n = {
   'en-US': en,
   'ru-RU': ru,
 };

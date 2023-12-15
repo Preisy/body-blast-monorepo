@@ -1,6 +1,5 @@
-/* eslint-disable boundaries/element-types */
+//TODO: REMOVE
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { api } from 'app/boot/axios';
 import { requestSimulator, useServiceAction } from 'shared/lib/utils';
 import { Prompt } from './types';
 

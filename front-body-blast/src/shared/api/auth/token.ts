@@ -24,4 +24,8 @@ export const TokenService = {
     TokenService.setAccessToken(tokenPair.accessToken);
     TokenService.setRefreshToken(tokenPair.refreshToken);
   },
+  clearTokens: () => {
+    Cookies.remove(Keys.access);
+    Cookies.remove(Keys.refresh);
+  },
 };

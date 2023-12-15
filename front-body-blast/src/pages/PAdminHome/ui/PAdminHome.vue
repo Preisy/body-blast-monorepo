@@ -1,27 +1,29 @@
 <script setup lang="ts">
 import { FSearchPanel } from 'features/FSearchPanel';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
-import { useAdminProfileStore } from 'shared/api/admin';
+import { useAdminHomeStore, useAdminUserProfileStore } from 'shared/api/admin';
+import { useAuthStore } from 'shared/api/auth';
 import { useMeStore } from 'shared/api/me';
+import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
-import { useLoading } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
-export interface PAdminProfileProps {}
-defineProps<PAdminProfileProps>();
+export interface PAdminHomeProps {}
+defineProps<PAdminHomeProps>();
 
-const profileStore = useAdminProfileStore();
-const { clientProfiles } = profileStore;
-useLoading(clientProfiles);
-profileStore.getUserProfiles({ page: 1, limit: 1000, expanded: false });
+const router = useRouter();
+
+const { clientProfiles, getUserProfiles } = useAdminHomeStore();
+useLoadingAction(clientProfiles, getUserProfiles);
 
 const nameFilter = ref<string>('');
 const cards = computed(
   () =>
-    clientProfiles.data?.filter((card) => {
+    clientProfiles.data?.data.filter((card) => {
       const fullName = `${card.firstName} ${card.lastName}`;
       const searchFilter = fullName.toLocaleLowerCase().includes(nameFilter.value.toLocaleLowerCase());
       const roleUserFilter = card.role === 'client';
@@ -30,17 +32,20 @@ const cards = computed(
 );
 
 const { me, getMe } = useMeStore();
-useLoading(me);
-if (!me.data) getMe();
-const myName = computed(() =>
-  me.state.isLoading() ? 'Loading...' : me.data?.data.firstName + ' ' + me.data?.data.lastName,
-);
+useLoadingAction(me, getMe);
+const myName = computed(() => me.data?.data.firstName + ' ' + me.data?.data.lastName);
 
 const edit = () => {
   console.log('onedit click');
 };
 const logout = () => {
+  useAuthStore().logout();
   console.log('logout click');
+};
+
+const onUserProfileClick = (user: User) => {
+  useAdminUserProfileStore().setCurrentUser(user);
+  router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE, params: { id: user.id } });
 };
 </script>
 
@@ -49,7 +54,7 @@ const logout = () => {
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          :header="myName"
+          :header="myName ?? 'Loading...'"
           :describe="$t('home.profile.header.admin')"
           dark
           mx--0.5rem
@@ -74,11 +79,7 @@ const logout = () => {
           >
             <template #action>
               <div flex flex-row justify-between>
-                <SBtn
-                  icon="sym_r_help"
-                  bg="bg!"
-                  :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED, params: { id: user.id } }"
-                />
+                <SBtn icon="sym_r_help" bg="bg!" @click="() => onUserProfileClick(user)" />
                 <SBtn icon="sym_r_delete" />
               </div>
             </template>

@@ -1,14 +1,14 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { merge } from 'lodash';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
-import { useAdminProfileStore } from 'shared/api/admin';
-import { Anthropometry, useProfileStore } from 'shared/api/profile';
+import { useAdminHomeStore, useAdminUserProfileStore } from 'shared/api/admin';
+import { useProfileStore } from 'shared/api/profile';
+import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
-import { useLoading } from 'shared/lib/loading';
+import { useLoading, useLoadingAction } from 'shared/lib/loading';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -16,34 +16,35 @@ import { SPaginationSlider } from 'shared/ui/SPaginationSlider';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
+export interface PAdminUserProfileProps {
+  id: string;
+}
+const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
-const id = parseInt(useRoute().params.id as string); //Current user id
 
-const adminProfileStore = useAdminProfileStore();
-useLoading(adminProfileStore.clientProfiles);
+const adminProfileStore = useAdminHomeStore();
 
-//if already have data in store -> don't need to fetch
-//otherwise, if no data -> fetch some
-if (!adminProfileStore.clientProfiles.state.isSuccess())
-  adminProfileStore.getUserProfiles({ page: 1, limit: 1000, expanded: false });
+const currentUser = computed(() => useAdminUserProfileStore().currentUser);
+const setCurrentUser = useAdminUserProfileStore().setCurrentUser;
 
-const currentUser = computed(() => adminProfileStore.clientProfiles.data?.find((client) => client.id === id));
+if (!currentUser.value)
+  useLoadingAction(adminProfileStore.clientProfiles, async () => {
+    await adminProfileStore.getUserProfiles();
+    const user = adminProfileStore.clientProfiles.data?.data.find((user) => user.id.toString() === props.id);
+    console.log(user);
+    if (!user) return; //TODO: 404 screen
+    setCurrentUser(user);
+  });
+
 const currentUserName = computed(() => `${currentUser.value?.firstName} ${currentUser.value?.lastName}`);
 
 const canWatchVideo = computed(() => currentUser.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => currentUser.value?.anthrpJobPeriod);
-const updateCanWatchVideo = (newValue: boolean) => {
-  if (!currentUser.value) return;
-  currentUser.value.canWatchVideo = newValue;
-  adminProfileStore.patchUserProfile(currentUser.value);
-};
-const updateAnthrpJobPeriod = (newValue: number) => {
-  if (!currentUser.value) return;
-  currentUser.value.anthrpJobPeriod = newValue;
-  adminProfileStore.patchUserProfile(currentUser.value);
-};
 
-const date = ref<string>(new Date().toISOString());
+useLoading(adminProfileStore.patchUserResponse);
+const updateUserField = (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
+  adminProfileStore.patchUserProfile(props.id, { [field]: newValue }); // TODO: 400 Bad Request - написать беку
+
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
   { value: true, label: t('admin.detailed.accessToggle.enable') },
@@ -55,26 +56,34 @@ const anthrpJobPeriodOptions = [
   { value: 14, label: '14' },
 ];
 
-const profileStore = useProfileStore();
-const { anthropometry, getAnthropometry } = profileStore;
+const { anthropometry, getAnthropometry } = useProfileStore();
 
 const index = ref(0);
 const lock = computed(() => anthropometry.state.isLoading());
 const slides = computed(
   () =>
     anthropometry.data?.data
-      .filter((slide) => slide.userId === id)
+      .filter((slide) => slide.userId.toString() === props.id)
       .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
 );
 
-//TODO: need the big think
-const update = () =>
-  getAnthropometry({
-    from: moment(date.value).subtract(1, 'M').toISOString(),
-    to: moment(date.value).add(1, 'd').toISOString(),
-  });
-useLoading(anthropometry);
-if (!slides.value) update();
+const date = ref<Moment>(moment());
+const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
+  let from = createdAt;
+  let to = createdAt;
+
+  if (direction === 'back') {
+    date.value.subtract(2, 'w');
+    from = date.value.toISOString();
+  } else {
+    date.value.add(2, 'w');
+    to = date.value.toISOString();
+  }
+
+  console.log({ from, to });
+  return getAnthropometry({ from, to });
+};
+useLoadingAction(anthropometry, () => update('back'));
 </script>
 
 <template>
@@ -82,7 +91,6 @@ if (!slides.value) update();
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          v-bind="$props"
           :header="currentUserName ?? 'Loading...'"
           :describe="$t('home.profile.header.student')"
           dark
@@ -92,25 +100,26 @@ if (!slides.value) update();
         >
           <template #action>
             <div flex flex-row justify-between>
-              <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_BIO }" />
+              <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO }" />
               <SBtn icon="sym_r_delete" />
             </div>
           </template>
         </EUnitedProfileCard>
       </template>
+
       <template #body>
         <SComponentWrapper py-1.5rem>
           <!-- Access to learning section -->
           <p mb-0.5rem>{{ $t('admin.detailed.accessTitle') }}</p>
           <SBtnToggle
             :model-value="canWatchVideo"
-            @update:model-value="updateCanWatchVideo"
+            @update:model-value="(value: boolean) => updateUserField('canWatchVideo', value)"
             :options="canWatchVideoOptions"
           />
           <p mb-0.5rem mt-1rem>{{ $t('admin.detailed.anthropometryTitle') }}</p>
           <SBtnToggle
             :model-value="anthrpJobPeriod"
-            @update:model-value="updateAnthrpJobPeriod"
+            @update:model-value="(value: boolean) => updateUserField('anthrpJobPeriod', value)"
             :options="anthrpJobPeriodOptions"
           />
         </SComponentWrapper>
@@ -121,8 +130,8 @@ if (!slides.value) update();
             :slides="slides"
             :lock="lock"
             v-model="index"
-            @first-element="update"
-            @last-element="update"
+            @first-element="() => update('back')"
+            @last-element="() => update('front')"
           >
             <EAthropometricsItem
               v-if="slides"
