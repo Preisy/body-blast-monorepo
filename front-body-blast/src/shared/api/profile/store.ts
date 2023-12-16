@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
-import { AppPagination } from '../base';
+import { AppPagination } from '../pagination';
 import { profileService } from './service';
 import { Anthropometry } from './types';
 

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { AppBaseEntity, AppPagination } from '../base';
+import { AppBaseEntity } from '../base';
+import { AppPagination } from '../pagination';
 
 export interface Anthropometry {
   weight: number;

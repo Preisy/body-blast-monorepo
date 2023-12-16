@@ -52,7 +52,7 @@ export default route(function (/* { store, ssrContext } */) {
     }
 
     //if authed and role==admin - reroute on admin page
-    if (!to.meta.admin && role === 'admin' && isAuth()) return { path: ENUMS.ROUTES_NAMES.ADMIN };
+    if (!to.meta.admin && role === 'admin' && isAuth()) return { path: ENUMS.ROUTES_NAMES.ADMIN.BASE };
 
     return;
   });

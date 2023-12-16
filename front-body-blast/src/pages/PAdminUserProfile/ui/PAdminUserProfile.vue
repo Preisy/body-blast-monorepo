@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
-import { useAdminHomeStore, useAdminUserProfileStore } from 'shared/api/admin';
+import { useAdminUserProfileStore } from 'shared/api/admin';
 import { useProfileStore } from 'shared/api/profile';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
@@ -22,16 +22,16 @@ export interface PAdminUserProfileProps {
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
 
-const adminProfileStore = useAdminHomeStore();
+const adminProfileStore = useAdminUserProfileStore();
 
-const currentUser = computed(() => useAdminUserProfileStore().currentUser);
-const setCurrentUser = useAdminUserProfileStore().setCurrentUser;
+const currentUser = computed(() => adminProfileStore.currentUser);
+const setCurrentUser = adminProfileStore.setCurrentUser;
 
 if (!currentUser.value)
-  useLoadingAction(adminProfileStore.clientProfiles, async () => {
-    await adminProfileStore.getUserProfiles();
-    const user = adminProfileStore.clientProfiles.data?.data.find((user) => user.id.toString() === props.id);
-    console.log(user);
+  useLoadingAction(adminProfileStore.getUserProfileResponse, async () => {
+    await adminProfileStore.getUserProfile({ id: parseInt(props.id) });
+    const user = adminProfileStore.getUserProfileResponse.data?.data;
+
     if (!user) return; //TODO: 404 screen
     setCurrentUser(user);
   });
@@ -68,16 +68,23 @@ const slides = computed(
 );
 
 const date = ref<Moment>(moment());
+const dateISOString = computed(() => date.value.toISOString());
+const updateDate = (newValue: string) => {
+  const val = newValue.split('/').join('-');
+  console.log(val);
+  date.value = moment(val);
+};
+
 const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
   let from = createdAt;
   let to = createdAt;
 
   if (direction === 'back') {
     date.value.subtract(2, 'w');
-    from = date.value.toISOString();
+    from = dateISOString.value;
   } else {
     date.value.add(2, 'w');
-    to = date.value.toISOString();
+    to = dateISOString.value;
   }
 
   console.log({ from, to });
@@ -125,7 +132,7 @@ useLoadingAction(anthropometry, () => update('back'));
         </SComponentWrapper>
 
         <div>
-          <SCalendar v-model="date" />
+          <SCalendar :model-value="dateISOString" @update:model-value="updateDate" />
           <SPaginationSlider
             :slides="slides"
             :lock="lock"

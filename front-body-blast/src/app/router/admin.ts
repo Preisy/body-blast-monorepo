@@ -45,6 +45,7 @@ export const adminRoutes: RouteRecordRaw = {
           path: 'bio',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO,
+          props: true,
           component: PAdminUserProfileBio,
         },
       ],

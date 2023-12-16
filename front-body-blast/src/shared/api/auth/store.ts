@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth-store', () => {
     useSimpleStoreAction({
       stateWrapper: logoutState.value,
       serviceAction: authService.logout(),
-      onSuccess: () => TokenService.clearTokens,
+      onSuccess: () => TokenService.clearTokens(),
     });
 
   const loginState = ref(useSingleState<Auth.Response>());

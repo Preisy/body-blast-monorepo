@@ -1,6 +1,6 @@
 import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
-import { BaseResponse } from '../base';
+import { AppBaseEntity } from '../base';
 import { User } from '../user';
 
 // Authentication
@@ -27,7 +27,7 @@ export namespace Refresh {
 }
 
 export namespace Logout {
-  export interface Response extends BaseResponse<{ status: boolean }> {}
+  export interface Response extends AppBaseEntity.Response<{ status: boolean }> {}
 }
 
 export namespace SignUp {

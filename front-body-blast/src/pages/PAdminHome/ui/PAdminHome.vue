@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FSearchPanel } from 'features/FSearchPanel';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
-import { useAdminHomeStore, useAdminUserProfileStore } from 'shared/api/admin';
+import { useAdminUserProfileStore } from 'shared/api/admin';
 import { useAuthStore } from 'shared/api/auth';
 import { useMeStore } from 'shared/api/me';
 import { User } from 'shared/api/user';
@@ -17,11 +17,11 @@ defineProps<PAdminHomeProps>();
 
 const router = useRouter();
 
-const { clientProfiles, getUserProfiles } = useAdminHomeStore();
+const { clientProfiles, getUserProfiles } = useAdminUserProfileStore();
 useLoadingAction(clientProfiles, getUserProfiles);
 
 const nameFilter = ref<string>('');
-const cards = computed(
+const displayCards = computed(
   () =>
     clientProfiles.data?.data.filter((card) => {
       const fullName = `${card.firstName} ${card.lastName}`;
@@ -40,7 +40,7 @@ const edit = () => {
 };
 const logout = () => {
   useAuthStore().logout();
-  console.log('logout click');
+  router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
 };
 
 const onUserProfileClick = (user: User) => {
@@ -70,9 +70,9 @@ const onUserProfileClick = (user: User) => {
       <template #body>
         <FSearchPanel v-model:query="nameFilter" />
 
-        <div v-if="clientProfiles.state.isSuccess() || cards?.length">
+        <div v-if="clientProfiles.state.isSuccess() || displayCards?.length">
           <EUnitedProfileCard
-            v-for="user in cards"
+            v-for="user in displayCards"
             :key="user.id"
             :header="user.firstName + ' ' + user.lastName"
             :describe="$t('home.profile.header.student')"

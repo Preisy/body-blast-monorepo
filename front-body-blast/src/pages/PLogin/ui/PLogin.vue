@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { ELoginForm } from 'entities/form';
