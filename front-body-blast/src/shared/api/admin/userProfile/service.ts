@@ -10,7 +10,7 @@ export const adminProfileService = {
     api.get<AdminGetUsers.Response>(basePaginationRequest(`/admin/users`, data)),
   ),
   getUser: useServiceAction((data: AppBaseEntity.Dto) =>
-    api.get<AdminGetUser.Response>(baseRequest(`/admin/users`, data)),
+    api.get<AdminGetUser.Response>(baseRequest(`/admin/users`, data.id)),
   ),
   patchUser: useServiceAction((id: number | string, data: Partial<User>) =>
     api.patch<AdminPatchUser.Response>(`/admin/users/${id}`, data),

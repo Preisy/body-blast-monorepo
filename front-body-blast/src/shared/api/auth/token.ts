@@ -17,7 +17,6 @@ export const TokenService = {
     accessToken: TokenService.getAccessToken(),
     refreshToken: TokenService.getRefreshToken(),
   }),
-  // is it ok to 'path': '/' ?
   setAccessToken: (accessToken: string) => Cookies.set(Keys.access, accessToken, { sameSite: 'Strict', path: '/' }),
   setRefreshToken: (refreshToken: string) => Cookies.set(Keys.refresh, refreshToken, { sameSite: 'Strict', path: '/' }),
   setTokens: (tokenPair: TokenPair) => {

@@ -25,12 +25,12 @@ const dateValue = computed({
     return emit('update:modelValue', value);
   },
 });
-//TODO: total mess with date formats. Force quasar to use ISO format
+
 const getDate = (td: string) => {
+  const localTd = moment(td);
+
   if (props.defaultView == 'Months') return new Date(td).toLocaleString('ru-RU', { month: 'long' });
-  return today.diff(td.split('/').join('-'), 'days') <= 1
-    ? td.split('/').reverse().slice(0, 2).join('.')
-    : t('global.date.today');
+  return Math.abs(today.diff(localTd, 'days')) === 0 ? t('global.date.today') : localTd.format('DD.MM');
 };
 </script>
 

@@ -12,6 +12,7 @@ import { useLoading, useLoadingAction } from 'shared/lib/loading';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
+import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SPaginationSlider } from 'shared/ui/SPaginationSlider';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
@@ -27,12 +28,17 @@ const adminProfileStore = useAdminUserProfileStore();
 const currentUser = computed(() => adminProfileStore.currentUser);
 const setCurrentUser = adminProfileStore.setCurrentUser;
 
+const router = useRouter();
+
 if (!currentUser.value)
   useLoadingAction(adminProfileStore.getUserProfileResponse, async () => {
     await adminProfileStore.getUserProfile({ id: parseInt(props.id) });
     const user = adminProfileStore.getUserProfileResponse.data?.data;
 
-    if (!user) return; //TODO: 404 screen
+    if (!user) {
+      router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
+      return;
+    }
     setCurrentUser(user);
   });
 
@@ -42,8 +48,16 @@ const canWatchVideo = computed(() => currentUser.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => currentUser.value?.anthrpJobPeriod);
 
 useLoading(adminProfileStore.patchUserResponse);
-const updateUserField = (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
-  adminProfileStore.patchUserProfile(props.id, { [field]: newValue }); // TODO: 400 Bad Request - написать беку
+const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) => {
+  await adminProfileStore.patchUserProfile(props.id, { [field]: newValue }); // TODO: 400 Bad Request - написать беку
+  const user = adminProfileStore.patchUserResponse.data?.data;
+
+  if (!user) {
+    router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
+    return;
+  }
+  setCurrentUser(user);
+};
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
@@ -71,8 +85,12 @@ const date = ref<Moment>(moment());
 const dateISOString = computed(() => date.value.toISOString());
 const updateDate = (newValue: string) => {
   const val = newValue.split('/').join('-');
-  console.log(val);
   date.value = moment(val);
+
+  const from = date.value.clone().subtract(2, 'w').toISOString();
+  const to = dateISOString.value;
+
+  getAnthropometry({ from, to });
 };
 
 const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
@@ -87,7 +105,6 @@ const update = (direction: 'back' | 'front', createdAt: string = date.value.toIS
     to = dateISOString.value;
   }
 
-  console.log({ from, to });
   return getAnthropometry({ from, to });
 };
 useLoadingAction(anthropometry, () => update('back'));
@@ -134,21 +151,16 @@ useLoadingAction(anthropometry, () => update('back'));
         <div>
           <SCalendar :model-value="dateISOString" @update:model-value="updateDate" />
           <SPaginationSlider
+            v-if="slides && slides.length"
             :slides="slides"
             :lock="lock"
             v-model="index"
             @first-element="() => update('back')"
             @last-element="() => update('front')"
           >
-            <EAthropometricsItem
-              v-if="slides"
-              :profile="slides[index]"
-              p="0!"
-              readonly
-              pointer-events-none
-              select-none
-            />
+            <EAthropometricsItem :profile="slides[index]" p="0!" readonly pointer-events-none select-none />
           </SPaginationSlider>
+          <SNoResultsScreen v-else p-1.5rem />
         </div>
       </template>
     </SWithHeaderLayout>

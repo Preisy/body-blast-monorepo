@@ -8,6 +8,7 @@ export enum ROUTES_NAMES {
   AUTH = 'auth',
   LOGIN = 'login',
   REGISTER = 'register',
+  NOT_FOUND = 'NOT_FOUND',
 }
 
 export namespace ROUTES_NAMES {
