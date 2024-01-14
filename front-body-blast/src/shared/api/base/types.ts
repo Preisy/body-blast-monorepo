@@ -5,8 +5,12 @@ export interface AppBaseEntity {
   deletedAt: string; // iso date format: 2023-11-23T12:17:00.852Z
 }
 
-export interface PaginationDto {
-  page: number;
-  limit: number;
-  expanded: boolean;
+export namespace AppBaseEntity {
+  export interface Dto {
+    id: number;
+  }
+
+  export interface Response<T> {
+    data: T;
+  }
 }

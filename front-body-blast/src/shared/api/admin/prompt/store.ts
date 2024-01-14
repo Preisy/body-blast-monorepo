@@ -2,20 +2,20 @@ import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
 import { useAdminFileStore } from '../file';
 import { adminPromptsService } from './service';
-import { PromptPage, Prompt } from './types';
+import { Prompt } from './types';
 
 export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   const fileStore = useAdminFileStore();
 
-  const prompts = ref(useSingleState<PromptPage.Get.Response>());
-  const getPrompts = async (data: PromptPage.Get.Dto) =>
+  const prompts = ref(useSingleState<Prompt.Get.Response>());
+  const getPrompts = async (data: Prompt.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: prompts.value,
       serviceAction: adminPromptsService.getPrompts(data),
     });
 
-  const postPromptsState = ref(useSingleState<PromptPage.Post.Response>());
-  const postPrompts = async (data: Array<Prompt.WithFiles>) => {
+  const postPromptsState = ref(useSingleState<Prompt.Post.Response>());
+  const postPrompts = async (data: Array<Prompt.Post.Dto>) => {
     postPromptsState.value.state.loading();
     for (const prompt of data) {
       const photoLink = await fileStore.postFile({ file: prompt.photo });
@@ -39,15 +39,15 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     }
   };
 
-  const deletePromptState = ref(useSingleState<PromptPage.Delete.Response>());
-  const deletePrompt = async (data: PromptPage.Delete.Dto) =>
+  const deletePromptState = ref(useSingleState<Prompt.Delete.Response>());
+  const deletePrompt = async (data: Prompt.Delete.Dto) =>
     useSimpleStoreAction({
       stateWrapper: deletePromptState.value,
       serviceAction: adminPromptsService.deletePrompt(data),
     });
 
-  const patchPromptState = ref(useSingleState<PromptPage.Patch.Response>());
-  const patchPrompt = async (data: PromptPage.Patch.Dto) =>
+  const patchPromptState = ref(useSingleState<Prompt.Patch.Response>());
+  const patchPrompt = async (data: Prompt.Patch.Dto) =>
     useSimpleStoreAction({
       stateWrapper: patchPromptState.value,
       serviceAction: adminPromptsService.patchPrompt(data),

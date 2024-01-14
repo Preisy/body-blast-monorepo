@@ -1,18 +1,17 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { assign, keys, pick, uniqueId } from 'lodash';
+import { assign, uniqueId } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { FListControls } from 'features/FListControls';
-import { PromptPage, Prompt, useAdminPromptStore } from 'shared/api/admin';
+import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { SInput, SFilePicker } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
 
 const { t } = useI18n();
 
-const prompts = ref<Array<Partial<Prompt.WithFiles & { key: string }>>>([{ key: uniqueId('prompt-') }]);
-const schema = toTypedSchema(PromptPage.validation(t));
+const prompts = ref<Array<Partial<Prompt.Post.Dto & { key: string }>>>([{ key: uniqueId('prompt-') }]);
+const schema = toTypedSchema(Prompt.validation(t));
 const forms = ref<Array<InstanceType<typeof SForm>>>([]);
 const { postPrompts, postPromptsState } = useAdminPromptStore();
 
@@ -20,13 +19,13 @@ const onsubmit = async () => {
   // apply values of each form to array
   for (let index = 0; index < forms.value.length; index++) {
     const form = forms.value[index];
-    await form.handleSubmit((values: Prompt.WithFiles) => assign(prompts.value[index], values))();
+    await form.handleSubmit((values: Prompt.Post.Dto) => assign(prompts.value[index], values))();
   }
 
   //filter empty and partial values if some exists
-  const promptsDto: Array<Prompt.WithFiles> = prompts.value
+  const promptsDto: Array<Prompt.Post.Dto> = prompts.value
     .filter((prompt) => prompt.photo && prompt.video && prompt.type)
-    .map<Prompt.WithFiles>((prompt) => ({
+    .map<Prompt.Post.Dto>((prompt) => ({
       photo: prompt.photo!,
       type: prompt.type!,
       video: prompt.video!,
