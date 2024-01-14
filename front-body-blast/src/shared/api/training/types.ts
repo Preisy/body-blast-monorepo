@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { z } from 'zod';
 import { AppBaseEntity } from '../base';
+import { AppPagination } from '../pagination';
 import { User } from '../user';
 
 export namespace Training {
@@ -24,14 +25,8 @@ export namespace Training {
   }
 
   export namespace Response {
-    export interface Base {
-      data: Array<Training.Base>;
-      count: number;
-    }
-    export interface Expanded {
-      data: Array<Training.Expanded>;
-      count: number;
-    }
+    export interface Base extends AppPagination.Response<Training.Base> {}
+    export interface Expanded extends AppPagination.Response<Training.Expanded> {}
   }
 
   export interface Exercise extends AppBaseEntity {

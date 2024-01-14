@@ -1,7 +1,5 @@
-/* eslint-disable boundaries/element-types */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { api } from 'app/boot/axios';
-import { requestSimulator, useServiceAction } from 'shared/lib/utils';
+import { api } from 'shared/config/axios';
+import { useServiceAction } from 'shared/lib/utils';
 import { AdminFile } from './types';
 
 export const adminFileService = {

@@ -1,13 +1,13 @@
 :root {
   --q-bg: theme('colors.bg');
   --q-primary: theme('colors.primary');
-  --q-primary50: theme('colors.primary50');
+  --q-primary-50-solid: theme('colors.primary-50-solid');
   --q-secondary: theme('colors.secondary');
 }
 
-.text-primary50 {
-  color: var(--q-primary50) !important;
+.text-primary-50-solid {
+  color: var(--q-primary-50-solid) !important;
 }
-.bg-primary50 {
-  background-color: var(--q-primary50) !important;
+.bg-primary-50-solid {
+  background-color: var(--q-primary-50-solid) !important;
 }

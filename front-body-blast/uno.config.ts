@@ -14,7 +14,7 @@ export default defineConfig<Theme>({
       bg: '#FFFFFF',
       primary: '#000000',
       positive: '#FFFFFF',
-      primary50: '#787878',
+      'primary-50-solid': '#787878',
       secondary: '#FCD844',
       accent: '#4844FC',
     },

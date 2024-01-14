@@ -6,9 +6,15 @@ import { Repository } from 'typeorm';
 import { AdminUserService } from './admin-user.service';
 import { BaseUserModule } from '../../core/user/base-user.module';
 import { AdminUserController } from './admin-user.controller';
+import { AdminAntropometricsModule } from '../anthropometrics/admin-anthropomerics.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), forwardRef(() => AuthModule), BaseUserModule],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    forwardRef(() => AuthModule),
+    BaseUserModule,
+    AdminAntropometricsModule,
+  ],
   providers: [AdminUserService, Repository],
   controllers: [AdminUserController],
   exports: [AdminUserService],

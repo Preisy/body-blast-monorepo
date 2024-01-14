@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { QIcon, QDate, QDateProps } from 'quasar';
+import { useI18n } from 'vue-i18n';
+
+export interface SCalendarProps extends QDateProps {}
+const props = defineProps<SCalendarProps>();
+
+const { t } = useI18n();
 
 const today = moment();
 const showDateModal = ref(false);
-
-export interface SCalendarProps extends QDateProps {}
-
-const props = defineProps<SCalendarProps>();
 
 const emit = defineEmits<{
   (e: 'update:modelValue', newValue: string): void;
@@ -23,10 +25,12 @@ const dateValue = computed({
     return emit('update:modelValue', value);
   },
 });
-//TODO: get from locale from browser
+
 const getDate = (td: string) => {
+  const localTd = moment(td);
+
   if (props.defaultView == 'Months') return new Date(td).toLocaleString('ru-RU', { month: 'long' });
-  return today.diff(td.split('/').join('-'), 'days') > 0 ? td.split('/').reverse().slice(0, 2).join('.') : 'Сегодня';
+  return Math.abs(today.diff(localTd, 'days')) === 0 ? t('global.date.today') : localTd.format('DD.MM');
 };
 </script>
 
