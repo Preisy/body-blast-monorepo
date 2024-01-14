@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { ELoginForm } from 'entities/form';
@@ -20,7 +21,7 @@ const login = async (values: Auth.Dto) => {
 
 <template>
   <SStructure relative mt--6.5rem class="h-[calc(100vh-4rem)]" flex items-center justify-center>
-    <SForm :field-schema="schema" @submit="login" :loading="authStore.loginState.state.isLoading()" w-full>
+    <SForm :field-schema="schema" @submit="login" w-full>
       <ELoginForm />
       <template #submit-btn>
         <div fixed bottom-1rem left-2rem right-2rem flex justify-between>
