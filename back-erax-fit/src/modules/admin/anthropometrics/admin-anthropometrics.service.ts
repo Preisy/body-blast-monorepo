@@ -9,6 +9,7 @@ import { BaseUserService } from '../../core/user/base-user.service';
 import { AppPagination } from '../../../utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { CreateAnthropometricsByAdminRequest } from './dto/create-anthropometrics-by-admin.dto';
+import { GetAnthropometricsForUserByAdminRequest } from './dto/get-anthropometrics-for-user-by-admin.dto';
 
 @Injectable()
 export class AdminAnthropometricsService {
@@ -25,8 +26,29 @@ export class AdminAnthropometricsService {
     return this.baseService.create(request);
   }
 
-  async findAll(query: AppDatePagination.Request): Promise<AppDatePagination.Response<AnthropometricsEntity>> {
-    return this.baseService.findAll(query);
+  // async findAll(
+  //   query: AppPagination.Request,
+  //   options?: AppDatePagination.GetExecutorOptions<AnthropometricsEntity>,
+  // ): Promise<AppDatePagination.Response<AnthropometricsEntity>> {
+  //   const { getPaginatedData } = AppDatePagination.getExecutor(this.anthrpRepository, this.relations);
+
+  //   return getPaginatedData(query, options);
+  // }
+
+  async findAll(
+    request: GetAnthropometricsForUserByAdminRequest,
+  ): Promise<AppDatePagination.Response<AnthropometricsEntity>> {
+    const { getPaginatedData } = AppDatePagination.getExecutor(this.anthrpRepository, this.relations);
+
+    const query = request;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id } = query;
+    const { data: anthrpRecords, count: count } = await getPaginatedData(query, {
+      where: {
+        userId: request.id,
+      },
+    });
+    return new AppDatePagination.Response(anthrpRecords, count);
   }
 
   async findOne(id: AnthropometricsEntity['id']) {

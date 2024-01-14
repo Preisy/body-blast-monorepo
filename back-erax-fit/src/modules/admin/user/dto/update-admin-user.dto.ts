@@ -1,15 +1,17 @@
 import { UpdateUserRequest } from '../../../core/user/dto/update-user.dto';
-import { IsBoolean, Min, Max, IsNumber } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsBoolean, Min, Max, IsNumber, IsOptional } from 'class-validator';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateUserByAdminRequest extends UpdateUserRequest {
+  @IsOptional()
   @IsBoolean()
-  @ApiProperty()
+  @ApiPropertyOptional()
   public canWatchVideo: boolean;
 
+  @IsOptional()
   @IsNumber()
   @Min(1)
   @Max(14)
-  @ApiProperty()
+  @ApiPropertyOptional()
   public anthrpJobPeriod: number;
 }
