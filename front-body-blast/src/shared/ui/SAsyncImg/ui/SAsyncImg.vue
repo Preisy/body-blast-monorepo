@@ -14,6 +14,9 @@ onMounted(async () => {
   const data = await getFileByName({ filename: getFilename(props.src) });
   link.value = data.data ? URL.createObjectURL(data.data) : undefined;
 });
+onUnmounted(() => {
+  if (link.value) URL.revokeObjectURL(link.value);
+});
 </script>
 
 <template>
