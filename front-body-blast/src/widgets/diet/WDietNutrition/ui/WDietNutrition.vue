@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { EDietItem } from 'entities/diet/EDietItem';
-import { Diet } from 'shared/api/diet';
+import { Nutrition } from 'shared/api/nutrition';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
-defineProps<Diet.Response.Nutrition>();
+defineProps<Nutrition.Response>();
 </script>
 
 <template>
@@ -21,7 +21,7 @@ defineProps<Diet.Response.Nutrition>();
       }"
       class="[&>ul>li:nth-last-child(2)]:hidden!"
     >
-      <SSplideSlide v-for="(panel, index) in meals" :key="index">
+      <SSplideSlide v-for="(panel, index) in data" :key="index">
         <EDietItem v-bind="panel" class="mx-0!" />
       </SSplideSlide>
       <SSplideSlide>
