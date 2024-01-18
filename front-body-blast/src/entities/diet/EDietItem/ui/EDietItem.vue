@@ -26,6 +26,7 @@ const colorsText = ['positive', 'positive', 'primary'];
         :color="colorsText[item.category - 1]"
         :active-color="colorsText[item.category - 1]"
         :active-bg-color="colorsBg[item.category - 1]"
+        class="pointer-events-none select-none"
       />
     </div>
   </div>

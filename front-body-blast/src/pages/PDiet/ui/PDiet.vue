@@ -6,6 +6,7 @@ import { WDietNutrition } from 'widgets/diet/WDietNutrition';
 import { EDietItem } from 'entities/diet/EDietItem';
 import { Food, useFoodStore } from 'shared/api/food';
 import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SCenteredNav } from 'shared/ui/SCenteredNav';
 import { STabPanels } from 'shared/ui/STabPanels';
 
@@ -33,9 +34,9 @@ const foodList = computed(
 const nutrition = computed(() => nutritionStore.nutrition.data);
 
 // API GET /food call
-foodStore.getFood();
+useLoadingAction(foodStore.getFoodResponse, foodStore.getFood);
 // API GET /nutrition call
-nutritionStore.getNutrition();
+useLoadingAction(nutritionStore.nutrition, nutritionStore.getNutrition);
 
 // Building upper navbar elements. See: SCenteredNav
 const pages = computed(() => foodList.value?.map((it) => ({ value: it.name, label: t(`home.diet.${it.name}`) })) || []);
