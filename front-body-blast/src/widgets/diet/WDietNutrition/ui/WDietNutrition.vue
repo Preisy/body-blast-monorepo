@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { EDietItem } from 'entities/diet/EDietItem';
 import { Nutrition } from 'shared/api/nutrition';
+import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
@@ -9,6 +10,7 @@ defineProps<Nutrition.Response>();
 </script>
 
 <template>
+  {{ console.log($props) }}
   <SStructure relative>
     <SSplide
       :options="{
@@ -22,8 +24,11 @@ defineProps<Nutrition.Response>();
       class="[&>ul>li:nth-last-child(2)]:hidden!"
     >
       <SSplideSlide v-for="(panel, index) in data" :key="index">
-        <EDietItem v-bind="panel" class="mx-0!" />
+        <EDietItem v-if="panel.mealItems" v-bind="panel" class="mx-0!" />
+        <SNoResultsScreen v-else p-1.5rem />
       </SSplideSlide>
+
+      <!-- Workaround for Splide lib -->
       <SSplideSlide>
         <div />
       </SSplideSlide>

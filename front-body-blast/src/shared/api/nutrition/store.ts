@@ -8,7 +8,7 @@ export const useNutritionStore = defineStore('diet-store', () => {
   const getNutrition = () =>
     useSimpleStoreAction({
       stateWrapper: nutrition.value,
-      serviceAction: ProductsService.getMockNutrition(),
+      serviceAction: ProductsService.getNutrition(),
     });
   return { nutrition, getNutrition };
 });

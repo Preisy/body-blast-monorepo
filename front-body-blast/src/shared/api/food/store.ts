@@ -8,7 +8,7 @@ export const useFoodStore = defineStore('food-store', () => {
   const getFood = () =>
     useSimpleStoreAction({
       stateWrapper: getFoodResponse.value,
-      serviceAction: FoodService.mockGetFood(),
+      serviceAction: FoodService.getFood(),
     });
   return { getFoodResponse, getFood };
 });
