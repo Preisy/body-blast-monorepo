@@ -10,6 +10,12 @@
     "back-erax-fit",
     "front-body-blast"
   ],
+  "scripts": {
+    "lint-all": "yarn workspace back-erax-fit run lint && yarn workspace front-body-blast run lint"
+  },
+  "pre-push": [
+    "lint-all"
+  ],
   "devDependencies": {
     "@types/node": "^20.6.4",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
@@ -21,6 +27,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "5.0.0",
     "eslint-plugin-promise": "^6.1.1",
+    "pre-push": "^0.1.4",
     "prettier": "^3.0.3",
     "source-map-support": "^0.5.21",
     "tsconfig-paths": "^4.2.0",

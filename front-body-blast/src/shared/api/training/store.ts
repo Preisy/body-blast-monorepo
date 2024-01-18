@@ -4,11 +4,11 @@ import { TrainingsService } from './service';
 import { Addition, Training } from './types';
 
 export const useTrainingStore = defineStore('training-store', () => {
-  const trainings = ref(useSingleState<Array<Training.Response>>());
-  const getTrainingsByDate = (date?: Date) =>
+  const trainings = ref(useSingleState<Training.Response.Expanded>());
+  const getTrainings = (page: number, limit: number) =>
     useSimpleStoreAction({
       stateWrapper: trainings.value,
-      serviceAction: TrainingsService.getTrainingsByDate(date ?? new Date()),
+      serviceAction: TrainingsService.getExpandedTrainings({ page, limit }),
     });
 
   const additionRequestState = ref(useSingleState<Addition.Response>());
@@ -18,5 +18,5 @@ export const useTrainingStore = defineStore('training-store', () => {
       serviceAction: TrainingsService.postAddition(data),
     });
 
-  return { trainings, getTrainingsByDate, additionRequestState, sendAddition };
+  return { trainings, getTrainings, additionRequestState, sendAddition };
 });

@@ -23,8 +23,8 @@ export class CreateExerciseRequest {
   @IsDefined()
   @IsNumber()
   @ApiProperty()
-  @Min(1)
-  public repetitions: number;
+  @Length(1, 50)
+  public repetitions: string;
 
   @IsDefined()
   @IsNumber()

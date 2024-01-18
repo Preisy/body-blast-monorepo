@@ -7,9 +7,7 @@
     "module": "CommonJS",
     "target": "ES2021",
     "sourceMap": true,
-    "lib": [
-      "es2021"
-    ],
+    "lib": ["es2021"],
     "esModuleInterop": true,
     "alwaysStrict": true,
     "allowJs": false,
@@ -18,12 +16,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": false,
-    "resolveJsonModule": true,
-    "paths": {
-      "@monorepo/*": [
-        "packages/*/src/index.ts"
-      ]
-    }
+    "resolveJsonModule": true
   },
   "references": [
     {
@@ -33,9 +26,5 @@
       "path": "front-body-blast"
     }
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "*.d.ts"
-  ]
+  "exclude": ["node_modules", "dist", "*.d.ts"]
 }

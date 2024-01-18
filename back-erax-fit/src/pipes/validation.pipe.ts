@@ -4,7 +4,7 @@ import { validate } from 'class-validator';
 import { MainException } from '../exceptions/main.exception';
 
 export class ValidationPipe implements PipeTransform {
-  public async transform(value: any, metaData: ArgumentMetadata) {
+  public async transform(value: unknown, metaData: ArgumentMetadata) {
     const { metatype } = metaData;
     const object = plainToClass(metatype!, value);
 

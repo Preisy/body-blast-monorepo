@@ -12,6 +12,6 @@ export class AppSingleResponse<Entity extends ObjectLiteral> {
       @ApiProperty({ type })
       public data: T;
     }
-    return createDerivedClass(`AppPagination${type.name}ResponseType`, AppSingleResponseType); 
+    return createDerivedClass(`AppPagination${type.name}ResponseType`, AppSingleResponseType);
   }
 }

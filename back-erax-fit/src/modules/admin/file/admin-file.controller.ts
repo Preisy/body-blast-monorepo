@@ -11,7 +11,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 import { diskStorage } from 'multer';
 import { UserRole } from 'src/constants/constants';
@@ -21,8 +21,10 @@ import { RoleGuard } from 'src/modules/authentication/guards/role.guard';
 import { AppPagination } from 'src/utils/app-pagination.util';
 import { AdminFileService } from './admin-file.service';
 import { CreateFileByAdminResponse } from './dto/admin-create-file.dto';
+import { FileEntity } from 'src/modules/core/file/entity/file.entity';
 
 @Controller('admin/files')
+@ApiTags('Admin files')
 export class AdminFileController {
   constructor(private readonly adminfilesService: AdminFileService) {}
 
@@ -72,7 +74,7 @@ export class AdminFileController {
   }
 
   @Get()
-  @AppResponses({ status: 200, type: AppPagination.Response })
+  @AppResponses({ status: 200, type: AppPagination.Response.type(FileEntity) })
   @BaseAuthGuard(RoleGuard(UserRole.Admin))
   async getUsers(@Query() query: AppPagination.Request) {
     return await this.adminfilesService.findAll(query);

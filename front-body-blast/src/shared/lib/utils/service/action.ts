@@ -1,4 +1,4 @@
-import type { AxiosResponse } from 'axios';
+import { AxiosError, type AxiosResponse } from 'axios';
 import type { IResource } from 'shared/lib/utils';
 import { ErrorHandler, handleAxiosError } from './errorHandler';
 import { Notify } from './notify';
@@ -11,6 +11,7 @@ export function useServiceAction<P extends unknown[], R, T = never>(
   return async (...params: P): Promise<IResource<[T] extends [never] ? R : Awaited<T>>> => {
     try {
       const res = await query(...params);
+      if (res instanceof AxiosError) throw res;
 
       for (const mw of middlewares?.success ?? [Notify.success]) {
         await mw(res.data);

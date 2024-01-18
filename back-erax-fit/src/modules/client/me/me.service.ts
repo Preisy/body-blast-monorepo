@@ -19,7 +19,7 @@ export class MeService {
     return this.baseService.getUserByEmail(email);
   }
 
-  async getUserById(id: UserEntity['id']) {
+  async getMe(id: UserEntity['id']) {
     return this.baseService.getUserById(id);
   }
 

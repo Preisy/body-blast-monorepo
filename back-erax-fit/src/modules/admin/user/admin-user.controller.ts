@@ -43,7 +43,7 @@ export class AdminUserController {
   }
 
   @Get()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppPagination.Response) })
+  @AppResponses({ status: 200, type: AppSingleResponse.type(UserEntity) })
   async getUsers(@Query() query: AppPagination.Request) {
     return await this.adminService.getUsers(query);
   }

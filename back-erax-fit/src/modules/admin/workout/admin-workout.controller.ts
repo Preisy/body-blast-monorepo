@@ -7,7 +7,6 @@ import {
   Patch,
   Post,
   Query,
-  Req,
   UseFilters,
   UsePipes,
   ValidationPipe,
@@ -21,16 +20,15 @@ import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard'
 import { AppPagination } from 'src/utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
-import { MainException } from '../../../exceptions/main.exception';
 import { RoleGuard } from '../../authentication/guards/role.guard';
-import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
 import { CreateWorkoutRequest } from '../../core/workout/dto/create-workout.dto';
 import { UpdateWorkoutRequest } from '../../core/workout/dto/update-workout.dto';
 import { AdminWorkoutService } from './admin-workout.service';
 import { GetWorkoutByAdminDTO } from './dto/admin-get-workout.dto';
+import { WorkoutEntity } from 'src/modules/core/workout/entity/workout.entity';
 
 @Controller('admin/workouts')
-@ApiTags('Workouts')
+@ApiTags('Admin workouts')
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
 @BaseAuthGuard(RoleGuard(UserRole.Admin))
@@ -45,7 +43,7 @@ export class AdminWorkoutController {
   }
 
   @Get()
-  @AppResponses({ status: 200, type: AppPagination.Response })
+  @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
   async getAll(@Query() query: AppPagination.Request) {
     return await this.adminService.findAll(query);
   }
@@ -64,7 +62,7 @@ export class AdminWorkoutController {
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
-  async deleteOne(@Param('id') id: number, @Req() req: RequestWithUser) {
+  async deleteOne(@Param('id') id: number) {
     return await this.adminService.deleteOne(id);
   }
 }

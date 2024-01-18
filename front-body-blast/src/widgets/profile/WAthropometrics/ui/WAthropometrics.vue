@@ -8,11 +8,11 @@ const panel = ref(today);
 export interface WAthropometricsSlide extends EAthropometricsItemProps {
   dateValue: string;
 }
-export interface WAthropometrics {
+export interface WAthropometricsProps {
   slides: WAthropometricsSlide[];
 }
 
-const props = defineProps<WAthropometrics>();
+const props = defineProps<WAthropometricsProps>();
 const dates = props.slides.map((it) => it.dateValue);
 </script>
 

@@ -1,9 +1,18 @@
 <script setup lang="ts">
-import { SBtn } from 'shared/ui/SBtn';
+import { useAuthStore } from 'shared/api/auth';
+import { ENUMS } from 'shared/lib/enums';
+import { SBtn } from 'shared/ui/btns';
 export interface EProfileHeaderProps {
   userName: string;
 }
 defineProps<EProfileHeaderProps>();
+
+const router = useRouter();
+
+const logout = () => {
+  useAuthStore().logout();
+  router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
+};
 </script>
 
 <template>
@@ -12,7 +21,7 @@ defineProps<EProfileHeaderProps>();
     <p>{{ $t('home.profile.header.student') }}</p>
     <div mt-4 flex justify-between>
       <SBtn icon="edit" class="bg-bg!" />
-      <SBtn icon="sym_r_move_item" />
+      <SBtn icon="sym_r_move_item" @click="logout" />
     </div>
   </div>
 </template>

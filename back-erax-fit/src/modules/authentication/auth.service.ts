@@ -93,12 +93,20 @@ export class AuthService {
     return new AuthResponse(accessToken, refreshToken);
   }
 
-  async refreshTokens(userId: number, refresh: string): Promise<AuthResponse> {
-    const { data: user } = await this.getUserByIdWithToken(userId);
+  async refreshTokens(access: string, refresh: string): Promise<AuthResponse> {
+    const refreshToken = await this.jwtService.verifyAsync(refresh, {
+      secret: process.env.JWT_REFRESH_SECRET,
+      publicKey: process.env.JWT_PUBLIC_KEY,
+    });
+    if (!refreshToken || !refreshToken?.email) throw MainException.invalidData('Invalid token provided');
 
-    const refreshMatches = bcrypt.compare(refresh, user.token!.refreshHash);
-    if (!refreshMatches)
-      throw MainException.forbidden(`Failed to refresh access: current tokens for user ${userId} don't match`);
+    const { data: user } = await this.getUserByEmailWithToken(refreshToken.email);
+
+    const refreshMatches = await bcrypt.compare(refresh, user.token!.refreshHash);
+    const accessMatches = await bcrypt.compare(access, user.token!.hash);
+
+    if (!refreshMatches || !accessMatches)
+      throw MainException.forbidden(`Failed to refresh access: current tokens for user ${user.id} don't match`);
 
     const tokens = await this.getTokens(user.id, user.email);
     await this.updateRefreshHash(user.id, tokens.accessToken, tokens.refreshToken);
@@ -187,9 +195,5 @@ export class AuthService {
     if (!savedUser) throw MainException.internalRequestError('Error upon saving user');
 
     return new UpdateUserResponse(savedUser);
-  }
-
-  async getMe(userId: UserEntity['id']): Promise<UserEntity> {
-    return (await this.getUserByIdWithToken(userId)).data;
   }
 }

@@ -22,7 +22,7 @@ export class CreateWorkoutRequest {
 
   @IsDefined()
   @IsDateString()
-  @ApiProperty()
+  @ApiProperty({ example: '2023-01-01' })
   @Length(1, 255)
   public date: string;
 

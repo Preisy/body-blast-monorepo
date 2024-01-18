@@ -13,7 +13,7 @@ export class MainException {
   public status!: number;
 
   @ApiProperty()
-  public details: any;
+  public details: unknown;
 
   public constructor(error: RequestError) {
     this.code = error.code;

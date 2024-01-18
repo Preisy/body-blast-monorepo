@@ -1,3 +1,4 @@
+// import { MainException } from 'src/exceptions/main.exception';
 import { MainException } from 'src/exceptions/main.exception';
 import { FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
 
@@ -14,8 +15,5 @@ export const checkFieldForExistAndThrowErrorIfExist = async <
       [field]: value,
     } as FindOptionsWhere<TEntity>,
   });
-  if (entity)
-    throw MainException.invalidData(
-      `Entity with ${field.toString()} ${value} already exist`,
-    );
+  if (entity) throw MainException.invalidData(`Entity with ${field.toString()} ${value} already exist`);
 };

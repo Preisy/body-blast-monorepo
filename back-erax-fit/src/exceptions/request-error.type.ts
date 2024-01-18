@@ -5,4 +5,4 @@ export type RequestError = {
   details?: ErrorDetails;
 };
 
-export type ErrorDetails = any;
+export type ErrorDetails = object | string;

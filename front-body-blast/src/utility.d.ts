@@ -1,4 +1,5 @@
 declare type Nullable<T> = T | null;
+declare type DeepNullable<T> = T extends object ? { [P in keyof T]: T[P] | null } : T | null;
 declare type Nillable<T> = T | null | undefined;
 declare type Optional<T> = T | undefined;
 

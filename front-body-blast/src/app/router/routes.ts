@@ -1,48 +1,13 @@
 import { RouteRecordRaw } from 'vue-router';
 import LAuthVue from 'processes/layouts/LAuth.vue';
-import PDiaryVue from 'pages/PDiary.vue';
-import { PDiet } from 'pages/PDiet';
-import PLearningVue from 'pages/PLearning.vue';
 import { PLogin } from 'pages/PLogin';
-import { PProfile } from 'pages/PProfile';
+import { PNotFound } from 'pages/PNotFound';
 import { PRegister } from 'pages/PRegister';
-import { PTraining } from 'pages/PTraining';
 import { ENUMS } from 'shared/lib/enums';
+import { adminRoutes } from './admin';
+import { dashboardRoutes } from './dashboard';
 
 const routes: RouteRecordRaw[] = [
-  {
-    path: '/home/',
-    name: ENUMS.ROUTES_NAMES.HOME,
-    component: () => import('processes/layouts/LDashboard.vue'),
-    children: [
-      {
-        path: 'training',
-        component: PTraining,
-        name: ENUMS.ROUTES_NAMES.TRAINING,
-      },
-      {
-        path: 'profile',
-        component: PProfile,
-        name: ENUMS.ROUTES_NAMES.PROFILE,
-      },
-      {
-        path: 'diary',
-        component: PDiaryVue,
-        name: ENUMS.ROUTES_NAMES.DIARY,
-      },
-      {
-        path: 'diet',
-        component: PDiet,
-        name: ENUMS.ROUTES_NAMES.DIET,
-      },
-      {
-        path: 'learning',
-        component: PLearningVue,
-        name: ENUMS.ROUTES_NAMES.LEARNING,
-      },
-    ],
-  },
-
   {
     path: '/',
     component: LAuthVue,
@@ -61,14 +26,23 @@ const routes: RouteRecordRaw[] = [
         meta: { transition: 'slide-right' },
       },
     ],
-    redirect: '/login',
+    redirect: { name: ENUMS.ROUTES_NAMES.LOGIN },
   },
+
+  {
+    path: '/404',
+    component: PNotFound,
+    name: ENUMS.ROUTES_NAMES.NOT_FOUND,
+  },
+
+  adminRoutes,
+  dashboardRoutes,
 
   // Always leave this as last one,
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    redirect: '/',
+    redirect: { name: ENUMS.ROUTES_NAMES.LOGIN },
   },
 ];
 

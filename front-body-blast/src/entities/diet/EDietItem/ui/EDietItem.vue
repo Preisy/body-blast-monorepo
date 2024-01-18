@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Food } from 'shared/api/food';
 import { Nutrition } from 'shared/api/nutrition';
-import { SInput } from 'shared/ui/SInput';
+import { SInput } from 'shared/ui/inputs';
 
 const props = defineProps<Pick<Nutrition, 'name' | 'mealItems'>>();
 const categories: XOR<Nutrition.Item, Food>[][] = [[], [], []]

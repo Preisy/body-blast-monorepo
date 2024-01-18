@@ -18,8 +18,6 @@ export class Static<T extends string> {
   }
 
   public isValid(key: string): boolean {
-    return this.list[key as any];
+    return this.list[key];
   }
 }
-
-export default Static;

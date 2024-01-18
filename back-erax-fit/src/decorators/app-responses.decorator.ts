@@ -8,8 +8,7 @@ const getBaseOptions = () => {
   return [
     {
       status: 500,
-      description:
-        'Internal error occurred (while internal HTTP requests, etc).',
+      description: 'Internal error occurred (while internal HTTP requests, etc).',
       type: MainException,
     },
     {
@@ -25,11 +24,6 @@ const getBaseOptions = () => {
   ];
 };
 
-export function AppResponses(
-  ...options: Exclude<ApiResponseOptions, DefaultStatusCodes>[]
-) {
-  return applyDecorators(
-    ...getBaseOptions().map((it) => ApiResponse(it)),
-    ...options.map((it) => ApiResponse(it)),
-  );
+export function AppResponses(...options: Exclude<ApiResponseOptions, DefaultStatusCodes>[]) {
+  return applyDecorators(...getBaseOptions().map((it) => ApiResponse(it)), ...options.map((it) => ApiResponse(it)));
 }

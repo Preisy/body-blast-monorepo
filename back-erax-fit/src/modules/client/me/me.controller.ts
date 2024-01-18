@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Patch,
-  Param,
-  Req,
-  UseFilters,
-  UsePipes,
-  ValidationPipe,
-  ParseIntPipe,
-} from '@nestjs/common';
+import { Body, Controller, Get, Patch, Req, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { MeService } from './me.service';
 import { UpdateUserByClientRequest } from './dto/update-client-user.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -28,10 +17,10 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 export class MeController {
   constructor(private readonly meService: MeService) {}
 
-  @Get(':id')
+  @Get()
   @AppResponses({ status: 200, type: AppSingleResponse.type(UserEntity) })
-  async getUserById(@Param('id', ParseIntPipe) id: number) {
-    return await this.meService.getUserById(id);
+  async getMe(@Req() req: RequestWithUser) {
+    return await this.meService.getMe(req.user.id);
   }
 
   @Patch()

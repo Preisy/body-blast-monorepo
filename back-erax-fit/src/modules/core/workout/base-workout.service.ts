@@ -1,25 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { WorkoutEntity } from './entity/workout.entity';
-import { Repository } from 'typeorm';
-import { MainException } from 'src/exceptions/main.exception';
-import { GetWorkoutDTO } from './dto/get-workout.dto';
-import { CreateWorkoutRequest } from './dto/create-workout.dto';
-import { UpdateWorkoutRequest } from './dto/update-workout.dto';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
 import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppPagination } from 'src/utils/app-pagination.util';
 import { AppStatusResponse } from 'src/dto/app-status-response.dto';
+import { MainException } from 'src/exceptions/main.exception';
+import { AppPagination } from 'src/utils/app-pagination.util';
+import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { Repository } from 'typeorm';
 import { ExerciseEntity } from '../exerсise/entities/exercise.entity';
-import { UserEntity } from '../user/entities/user.entity';
+import { CreateWorkoutRequest } from './dto/create-workout.dto';
+import { GetWorkoutDTO } from './dto/get-workout.dto';
+import { UpdateWorkoutRequest } from './dto/update-workout.dto';
+import { WorkoutEntity } from './entity/workout.entity';
 
 @Injectable()
 export class BaseWorkoutService {
   constructor(
     @InjectRepository(WorkoutEntity)
     private readonly workoutRepository: Repository<WorkoutEntity>,
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
     @InjectRepository(ExerciseEntity)
     private readonly exerciseRepository: Repository<ExerciseEntity>,
   ) {}
@@ -30,21 +27,10 @@ export class BaseWorkoutService {
       ...request,
       date: new Date(request.date),
     });
-    const user = await this.userRepository.findOne({
-      where: {
-        id: newWorkout.userId,
-      },
-    });
-
-    if (!user) throw MainException.entityNotFound(`User with id: ${request.userId} not found`);
-
-    if (!user.workouts) user.workouts = [];
-    user.workouts.push(newWorkout);
-    this.userRepository.save(user);
 
     const savedWorkout = await this.workoutRepository.save(newWorkout);
 
-    return new AppSingleResponse(savedWorkout);
+    return new AppSingleResponse<GetWorkoutDTO>(this.getWorkoutDTO(savedWorkout));
   }
 
   async findAll(
@@ -82,9 +68,8 @@ export class BaseWorkoutService {
     const savedWorkout = await this.workoutRepository.save({
       ...workout,
       ...filterUndefined(request),
-      date: new Date(request.date!),
+      date: new Date(request.date || workout.date),
     });
-    if (!savedWorkout) throw MainException.internalRequestError('Error upon saving workout');
     return new AppSingleResponse<GetWorkoutDTO>(this.getWorkoutDTO(savedWorkout));
   }
 

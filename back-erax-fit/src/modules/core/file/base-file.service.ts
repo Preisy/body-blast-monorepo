@@ -4,8 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { MainException } from 'src/exceptions/main.exception';
 import { AppPagination } from 'src/utils/app-pagination.util';
 import { Repository } from 'typeorm';
-import { FileEntity } from './entity/file.entity';
 import { CreateFileResponse } from './dto/create-file.dto';
+import { FileEntity } from './entity/file.entity';
 
 @Injectable()
 export class BaseFileService {
