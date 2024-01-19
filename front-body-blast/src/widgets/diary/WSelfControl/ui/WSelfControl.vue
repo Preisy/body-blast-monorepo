@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { omit } from 'lodash';
 import { date, QTabPanel } from 'quasar';
 import { EDiaryActivity } from 'entities/diary/EDiaryActivity';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
@@ -37,7 +38,7 @@ const panel = ref(today);
             class="[&>ul>li:nth-last-child(2)]:hidden!"
           >
             <SSplideSlide>
-              <EDiarySelfControlItem v-bind="slide" />
+              <EDiarySelfControlItem v-bind="omit(slide, ['dateValue', 'physical', 'steps'])" />
             </SSplideSlide>
 
             <SSplideSlide>
