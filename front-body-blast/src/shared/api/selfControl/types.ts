@@ -9,6 +9,7 @@ export interface SelfControl extends AppBaseEntity {
   activivty: Nullable<string>;
   steps: Nullable<number>;
   userId: number;
+  props: Array<SelfControl.Prop>;
 }
 
 export namespace SelfControl {
@@ -24,18 +25,14 @@ export namespace SelfControl {
   }
 
   export namespace GetById {
-    export interface Response extends SelfControl {
+    interface SelfControlWithUser extends SelfControl {
       user: User;
-      props: Array<Prop>;
     }
+    export interface Response extends AppBaseEntity.Response<SelfControlWithUser> {}
   }
 
   export namespace Patch {
-    export interface Dto {
-      props: Array<SelfControl.Prop>;
-      steps: number;
-      activity: string;
-    }
+    export interface Dto extends Pick<SelfControl, 'activivty' | 'steps' | 'props'> {}
     export interface Response {}
   }
 }

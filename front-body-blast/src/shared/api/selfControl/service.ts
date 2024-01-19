@@ -3,7 +3,6 @@ import { date } from 'quasar';
 import { requestSimulator, useServiceAction } from 'shared/lib/utils';
 import { SelfControl } from './types';
 
-const today = date.formatDate(Date.now(), 'YYYY/MM/DD');
 export const getSelfControlResponse: SelfControl.Get.Response = {
   data: [
     {
@@ -17,6 +16,26 @@ export const getSelfControlResponse: SelfControl.Get.Response = {
       sum: 50000,
       userId: 2,
       steps: 20000,
+      props: [
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 1,
+          label: 'Сон',
+          selfControlId: 3,
+          value: 1,
+        },
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 3,
+          label: 'Занятия',
+          selfControlId: 3,
+          value: 5,
+        },
+      ],
     },
     {
       createdAt: '',
@@ -29,6 +48,26 @@ export const getSelfControlResponse: SelfControl.Get.Response = {
       sum: 40000,
       userId: 2,
       steps: 12000,
+      props: [
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 2,
+          label: 'Еда',
+          selfControlId: 2,
+          value: 1,
+        },
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 3,
+          label: 'Занятия',
+          selfControlId: 2,
+          value: 1,
+        },
+      ],
     },
     {
       createdAt: '',
@@ -41,52 +80,83 @@ export const getSelfControlResponse: SelfControl.Get.Response = {
       sum: 30000,
       userId: 2,
       steps: 8000,
+      props: [
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 1,
+          label: 'Сон',
+          selfControlId: 3,
+          value: 2,
+        },
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 2,
+          label: 'Еда',
+          selfControlId: 3,
+          value: 2,
+        },
+        {
+          createdAt: '',
+          updatedAt: '',
+          deletedAt: '',
+          id: 3,
+          label: 'Занятия',
+          selfControlId: 3,
+          value: 2,
+        },
+      ],
     },
   ],
   count: 3,
 };
 
 export const getSelfControlByIdResponse: SelfControl.GetById.Response = {
-  createdAt: '',
-  updatedAt: '',
-  deletedAt: '',
-  activivty: '',
-  behaviour: '',
-  date: '2024-01-19',
-  id: 3,
-  sum: 50000,
-  userId: 2,
-  steps: 20000,
-  props: [
-    {
-      createdAt: '',
-      updatedAt: '',
-      deletedAt: '',
-      id: 1,
-      label: 'Сон',
-      selfControlId: 3,
-      value: 4,
-    },
-    {
-      createdAt: '',
-      updatedAt: '',
-      deletedAt: '',
-      id: 2,
-      label: 'Еда',
-      selfControlId: 3,
-      value: 5,
-    },
-    {
-      createdAt: '',
-      updatedAt: '',
-      deletedAt: '',
-      id: 3,
-      label: 'Занятия',
-      selfControlId: 3,
-      value: 2,
-    },
-  ],
-  user: null,
+  data: {
+    createdAt: '',
+    updatedAt: '',
+    deletedAt: '',
+    activivty: '',
+    behaviour: '',
+    date: '2024-01-19',
+    id: 3,
+    sum: 50000,
+    userId: 2,
+    steps: 20000,
+    props: [
+      {
+        createdAt: '',
+        updatedAt: '',
+        deletedAt: '',
+        id: 1,
+        label: 'Сон',
+        selfControlId: 3,
+        value: 4,
+      },
+      {
+        createdAt: '',
+        updatedAt: '',
+        deletedAt: '',
+        id: 2,
+        label: 'Еда',
+        selfControlId: 3,
+        value: 5,
+      },
+      {
+        createdAt: '',
+        updatedAt: '',
+        deletedAt: '',
+        id: 3,
+        label: 'Занятия',
+        selfControlId: 3,
+        value: 2,
+      },
+    ],
+    user: null,
+  },
 };
 
 export namespace SelfControlService {
