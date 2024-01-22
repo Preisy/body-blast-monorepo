@@ -1,14 +1,8 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script lang="ts" setup>
-import moment from 'moment';
-import { Diary } from 'shared/api/diary';
 import { SelfControl } from 'shared/api/selfControl';
 import { SInput } from 'shared/ui/SInput';
 
-const componentProps = defineProps<SelfControl>();
-const today = moment(); // Current date
-// Item is editable, if passed less then 1 week
-const isReadonly = computed(() => today.diff(moment(componentProps.date)) < 7);
+defineProps<{ selfControl: SelfControl; readonly: boolean }>();
 </script>
 
 <template>
@@ -18,9 +12,14 @@ const isReadonly = computed(() => today.diff(moment(componentProps.date)) < 7);
       mb-2
       name="field"
       :label="$t('home.diary.activity.physical')"
-      :readonly="isReadonly"
-      :model-value="() => sum"
+      :readonly="readonly"
+      :model-value="selfControl.activivty"
     />
-    <SInput name="field" :label="$t('home.diary.activity.steps')" :readonly="isReadonly" :model-value="() => steps" />
+    <SInput
+      name="field"
+      :label="$t('home.diary.activity.steps')"
+      :readonly="readonly"
+      :model-value="selfControl.steps"
+    />
   </div>
 </template>

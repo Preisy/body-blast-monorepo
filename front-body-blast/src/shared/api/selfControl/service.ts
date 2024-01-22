@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { date } from 'quasar';
 import { requestSimulator, useServiceAction } from 'shared/lib/utils';
 import { SelfControl } from './types';
 
@@ -41,7 +39,7 @@ export const getSelfControlResponse: SelfControl.Get.Response = {
       createdAt: '',
       updatedAt: '',
       deletedAt: '',
-      activivty: '',
+      activivty: 'Упражнения прошли отлично',
       behaviour: '',
       date: '2024-01-12',
       id: 2,
@@ -159,6 +157,7 @@ export const getSelfControlByIdResponse: SelfControl.GetById.Response = {
   },
 };
 
+// TODO: api
 export namespace SelfControlService {
   export const patch = useServiceAction(() => requestSimulator<SelfControl.Patch.Response>({}));
   export const get = useServiceAction(() => requestSimulator<SelfControl.Get.Response>(getSelfControlResponse));

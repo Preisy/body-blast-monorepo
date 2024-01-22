@@ -1,6 +1,4 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
-import { Diary } from 'shared/api/diary';
 import { SelfControl } from 'shared/api/selfControl';
 defineProps<SelfControl>();
 const week = 0; //TODO: ???

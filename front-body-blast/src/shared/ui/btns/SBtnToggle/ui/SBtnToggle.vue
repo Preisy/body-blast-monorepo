@@ -53,12 +53,12 @@ const currentStyle = computed(() => styles.value?.at(currentIndex.value));
       class="toggle [&_.q-btn]:(relative z-1 rounded-1rem!) [&_span]:(text-base capitalize)"
       v-bind="$props"
       flat
-      bg-primary50
       relative
       w-full
       flex
       justify-between
       rounded-0.75rem
+      bg-primary50
       color="primary50"
       toggle-color="primary50"
       text-color="bg"

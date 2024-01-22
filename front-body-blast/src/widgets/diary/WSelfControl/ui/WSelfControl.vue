@@ -1,12 +1,11 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
-import { omit } from 'lodash';
+import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import moment from 'moment';
-import { date, QTabPanel } from 'quasar';
+import { QTabPanel } from 'quasar';
 import { EDiaryActivity } from 'entities/diary/EDiaryActivity';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
-import { Diary } from 'shared/api/diary';
 import { SelfControl } from 'shared/api/selfControl';
+import { SBtn } from 'shared/ui/SBtn';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
@@ -23,6 +22,9 @@ const modelDate = ref(dates[0]);
 const updateModel = (newDate: string) => {
   modelDate.value = moment(newDate).format('YYYY-MM-DD');
 };
+
+const today = moment(); // Current date
+const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 </script>
 
 <template>
@@ -44,17 +46,19 @@ const updateModel = (newDate: string) => {
               omitEnd: true,
               gap: '2.5rem',
             }"
-            class="[&>ul>li:nth-last-child(2)]:hidden!"
           >
             <SSplideSlide>
-              <EDiarySelfControlItem v-bind="slide" />
+              <EDiarySelfControlItem :self-control="slide" :readonly="isReadonly(slide.date)" />
+              <div mt-1.5rem flex v-if="!isReadonly(slide.date)">
+                <SBtn :icon="symRoundedDone" ml-auto />
+              </div>
             </SSplideSlide>
 
             <SSplideSlide>
-              <EDiaryActivity v-bind="slide" />
-            </SSplideSlide>
-            <SSplideSlide>
-              <div />
+              <EDiaryActivity :self-control="slide" :readonly="isReadonly(slide.date)" />
+              <div mt-0.5rem flex v-if="!isReadonly(slide.date)">
+                <SBtn :icon="symRoundedDone" ml-auto />
+              </div>
             </SSplideSlide>
           </SSplide>
         </SStructure>

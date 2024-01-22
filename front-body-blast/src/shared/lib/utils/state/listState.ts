@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { IPagination } from '../http';
 import { ISingleState } from './singleState';
 import { IState, useState } from './state';
@@ -8,7 +7,6 @@ export interface IListState<L = unknown, I = L> extends Omit<ISingleState<L[]>, 
   pagination: IPagination;
   items: Record<string | number, ISingleState<I>>;
 }
-const foo: IListState<number> = { data: null };
 
 export namespace IListState {
   type TState = true | IState.Simple;

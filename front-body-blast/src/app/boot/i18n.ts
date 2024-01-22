@@ -10,6 +10,7 @@ import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
 import { TClientFormsI18n } from 'entities/profile/form';
 import { TTrainingI18n } from 'entities/trainings/ETrainingCard';
 import { mergeI18n } from 'shared/lib/i18utils';
+import { TSNoResultsScreenI18n } from 'shared/ui/SNoResultsScreen';
 
 export default boot(({ app }) => {
   const i18n = createI18n({
@@ -25,6 +26,7 @@ export default boot(({ app }) => {
       TEDiaryHeaderI18n,
       TEDiaryActivityI18n,
       TEDiarySelfControlItemI18n,
+      TSNoResultsScreenI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

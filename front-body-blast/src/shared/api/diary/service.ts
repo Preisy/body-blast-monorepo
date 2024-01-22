@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import axios, { AxiosResponse } from 'axios';
 import { date } from 'quasar';
 import { requestSimulator, useServiceAction } from 'shared/lib/utils';
 import { Diary } from './types';
@@ -47,8 +45,7 @@ export const SummaryApi = {
   done: 5000,
 };
 
-const getDiarySlideApi = axios.create({ baseURL: '/api/diary/slides' });
-const getDiarySummaryApi = axios.create({ baseURL: '/api/diary/summary' });
+//TODO: api
 export namespace DiaryService {
   export const getSlides = useServiceAction(() => requestSimulator<Diary.Response.DiarySlide[]>(DiarySlideApi));
   export const getSummary = useServiceAction(() => requestSimulator<Diary.Response.Summary>(SummaryApi));
