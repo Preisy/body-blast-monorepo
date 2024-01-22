@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { SelfControl } from 'shared/api/selfControl';
-import { SInput } from 'shared/ui/SInput';
+import { SInput } from 'shared/ui/inputs';
 
 defineProps<{ selfControl: SelfControl; readonly: boolean }>();
 </script>

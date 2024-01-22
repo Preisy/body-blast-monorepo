@@ -5,8 +5,9 @@ import { QTabPanel } from 'quasar';
 import { EDiaryActivity } from 'entities/diary/EDiaryActivity';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
 import { SelfControl } from 'shared/api/selfControl';
-import { SBtn } from 'shared/ui/SBtn';
+import { SBtn } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
+import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
@@ -28,7 +29,7 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 </script>
 
 <template>
-  <div h-full>
+  <SComponentWrapper h-full>
     <SCalendar
       :model-value="moment(modelDate).format('YYYY/MM/DD')"
       @update:model-value="updateModel"
@@ -36,7 +37,7 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
     />
     <STabPanels v-model="modelDate">
       <q-tab-panel v-for="slide in slides" :name="slide.date" :key="slide.id">
-        <SStructure relative>
+        <SStructure px="0!" relative>
           <SSplide
             :options="{
               direction: 'ttb',
@@ -64,5 +65,5 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
         </SStructure>
       </q-tab-panel>
     </STabPanels>
-  </div>
+  </SComponentWrapper>
 </template>

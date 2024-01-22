@@ -1,21 +1,30 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { ELoginForm } from 'entities/profile/form';
+import { ELoginForm } from 'entities/form';
 import { Auth, useAuthStore } from 'shared/api/auth';
-import { SBtn } from 'shared/ui/SBtn';
+import { ENUMS } from 'shared/lib/enums';
+import { SBtn } from 'shared/ui/btns';
 import { SForm } from 'shared/ui/SForm';
 import { SStructure } from 'shared/ui/SStructure';
 
+const router = useRouter();
 const schema = toTypedSchema(Auth.validation());
 const authStore = useAuthStore();
+const { loginState } = authStore;
+const login = async (values: Auth.Dto) => {
+  await authStore.login(values);
+  if (loginState.state.isError()) return;
+  router.push({ name: ENUMS.ROUTES_NAMES.TRAINING });
+};
 </script>
 
 <template>
-  <SStructure relative mt--6.5rem h-screen flex items-center justify-center>
-    <SForm :field-schema="schema" @submit="authStore.login" :loading="authStore.loginState.state.isLoading()" w-full>
+  <SStructure relative mt--6.5rem class="h-[calc(100vh-4rem)]" flex items-center justify-center>
+    <SForm :field-schema="schema" @submit="login" w-full>
       <ELoginForm />
       <template #submit-btn>
-        <div absolute bottom-1rem left-0rem right-0rem flex justify-between>
+        <div fixed bottom-1rem left-2rem right-2rem flex justify-between>
           <SBtn bg="bg!" boxshadow-btn>
             <p fw-800 normal-case>{{ $t('auth.login.controls.forget') }}</p>
           </SBtn>

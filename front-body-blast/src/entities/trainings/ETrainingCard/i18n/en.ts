@@ -4,9 +4,9 @@ export default {
       infoBlock: {
         weight: 'Weight',
         sets: 'Sets',
-        repeats: 'Repeats',
-        rest: 'Rest',
-        temp: 'Temp',
+        repetitions: 'Repeats',
+        restTime: 'Rest',
+        pace: 'Temp',
         metrics: 'kg',
       },
     },

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { QIcon, QDate, date, QDateProps } from 'quasar';
-
-const today = date.formatDate(Date.now(), 'YYYY/MM/DD');
-const showDateModal = ref(false);
+import moment from 'moment';
+import { QIcon, QDate, QDateProps } from 'quasar';
+import { useI18n } from 'vue-i18n';
 
 export interface SCalendarProps extends QDateProps {}
-
 const props = defineProps<SCalendarProps>();
+
+const { t } = useI18n();
+
+const today = moment();
+const showDateModal = ref(false);
 
 const emit = defineEmits<{
   (e: 'update:modelValue', newValue: string): void;
@@ -22,17 +25,18 @@ const dateValue = computed({
     return emit('update:modelValue', value);
   },
 });
-//TODO: get from locale from browser
+
 const getDate = (td: string) => {
+  const localTd = moment(td);
+
   if (props.defaultView == 'Months') return new Date(td).toLocaleString('ru-RU', { month: 'long' });
-  if (td) return td != today ? td.split('/').reverse().slice(0, 2).join('.') : 'Сегодня';
-  else return 'Сегодня';
+  return Math.abs(today.diff(localTd, 'days')) === 0 ? t('global.date.today') : localTd.format('DD.MM');
 };
 </script>
 
 <template>
   <div>
-    <div mt-7 flex items-center justify-center gap-2 @click="showDateModal = true">
+    <div flex items-center justify-center gap-2 @click="showDateModal = true">
       <p text-center font-800>{{ getDate(dateValue) }}</p>
       <q-icon name="calendar_month" text-black />
     </div>

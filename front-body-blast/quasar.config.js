@@ -10,6 +10,7 @@
 
 const path = require('path');
 const { configure } = require('quasar/wrappers');
+require('dotenv').config()
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -110,10 +111,10 @@ module.exports = configure(function (/* ctx */) {
       open: false, // opens browser window automatically
       proxy: {
         '/api': {
-          target: 'http://localhost:4000',
+          target: process.env.APP_PROXY_BASE_URL,
           changeOrigin: true,
           // secure: false,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          // rewrite: (path) => path.replace(/^\/api/, ''),
         },
         // cors: false,
       },
