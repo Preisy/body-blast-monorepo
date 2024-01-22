@@ -11,6 +11,7 @@ defineProps<FooterNavLinkProps>();
   <q-route-tab
     :ripple="false"
     :to="href"
+    class="px-0!"
     active-class="opacity-100! [&_span]:fw-800!"
     opacity-20
     transition-opacity-300

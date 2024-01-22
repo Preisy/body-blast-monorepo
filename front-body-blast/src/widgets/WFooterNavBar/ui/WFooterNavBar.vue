@@ -3,6 +3,7 @@ import {
   symRoundedAccountCircle,
   symRoundedEdit,
   symRoundedExercise,
+  symRoundedPlayArrow,
   symRoundedRestaurant,
 } from '@quasar/extras/material-symbols-rounded';
 import { useI18n } from 'vue-i18n';
@@ -31,12 +32,17 @@ const links: FooterNavLinkProps[] = [
     title: t('dashboard.footer.links.diet'),
     href: ENUMS.ROUTES_NAMES.DIET,
   },
+  {
+    imgSrc: symRoundedPlayArrow,
+    title: t('dashboard.footer.links.learning'),
+    href: ENUMS.ROUTES_NAMES.LEARNING,
+  },
 ];
 </script>
 
 <template>
   <q-footer fixed bottom-0 left-0 right-0 rounded-t-2rem bg-bg boxshadow-footer class="w-footer">
-    <q-tabs px-0.rem flex flex-row justify-between>
+    <q-tabs flex flex-row class="justify-between!">
       <FooterNavLink v-for="navlink of links" :key="navlink.imgSrc" v-bind="navlink" />
     </q-tabs>
   </q-footer>
