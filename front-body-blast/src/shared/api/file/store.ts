@@ -3,16 +3,16 @@ import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
 import { adminFileService } from './service';
 import { File } from './types';
 
-export const useAdminFileStore = defineStore('admin-file-store', () => {
-  const getFileState = ref(useSingleState<File.Response>());
+export const useFileStore = defineStore('file-store', () => {
+  const getFileResponse = ref(useSingleState<File.Response>());
   const getFileByName = (data: File.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getFileState.value,
+      stateWrapper: getFileResponse.value,
       serviceAction: adminFileService.getFileByName(data),
     });
 
   return {
     getFileByName,
-    getFileState,
+    getFileResponse,
   };
 });
