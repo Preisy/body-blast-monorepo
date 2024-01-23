@@ -1,3 +1,4 @@
+import { api } from 'shared/config';
 import { requestSimulator, useServiceAction } from 'shared/lib/utils';
 import { BonusVideo } from './types';
 
@@ -28,7 +29,8 @@ export const LearningVideos: BonusVideo[] = [
   },
 ];
 
-//TODO: api
 export const LearningService = {
-  getVideos: useServiceAction(() => requestSimulator<BonusVideo[]>(LearningVideos)),
+  getVideos: useServiceAction(() => api.get<BonusVideo.Response>('/bonus-video')),
+  getVideoById: useServiceAction((id: string | number) => api.get<BonusVideo>(`/bonus-video/${id}`)),
+  getMockVideos: useServiceAction(() => requestSimulator<BonusVideo[]>(LearningVideos)),
 };
