@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { ISingleState, useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
 import { adminFileService } from './service';
 import { File } from './types';
 
 export const useFileStore = defineStore('file-store', () => {
   const getFileResponse = ref(useSingleState<File.Response>());
-  const getFileByName = (data: File.Dto) =>
+  const getFileByName = (data: File.Dto, stateWrapper?: ISingleState<File.Response>) =>
     useSimpleStoreAction({
-      stateWrapper: getFileResponse.value,
+      stateWrapper: stateWrapper ?? getFileResponse.value,
       serviceAction: adminFileService.getFileByName(data),
     });
 

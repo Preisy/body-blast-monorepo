@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { BonusVideo } from 'shared/api/bonusVideo';
-import { useFileStore } from 'shared/api/file';
+import { File, useFileStore } from 'shared/api/file';
 import { useLoadingAction } from 'shared/lib/loading';
+import { useSingleState } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
@@ -10,10 +11,9 @@ const props = defineProps<SAuthVideoProps>();
 
 const fileStore = useFileStore();
 const videoFileName = props.linkUrl.split('/').pop() || '';
-useLoadingAction(fileStore.getFileResponse, () => fileStore.getFileByName({ filename: videoFileName }));
-const videoLink = computed(() =>
-  fileStore.getFileResponse.data ? URL.createObjectURL(fileStore.getFileResponse.data) : null,
-);
+const state = ref(useSingleState<File.Response>());
+useLoadingAction(state.value, () => fileStore.getFileByName({ filename: videoFileName }, state.value));
+const videoLink = computed(() => (state.value.data ? URL.createObjectURL(state.value.data) : null));
 
 const video = ref<HTMLVideoElement>();
 const isPlaying = ref(false);
