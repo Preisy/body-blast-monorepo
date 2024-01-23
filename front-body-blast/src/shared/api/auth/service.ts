@@ -1,22 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import axios, { AxiosResponse } from 'axios';
-import { requestSimulator, useServiceAction } from 'shared/lib/utils';
-import { Auth, SignUp } from './types';
+import { api } from 'shared/config';
+import { useServiceAction } from 'shared/lib/utils';
+import { Auth, SignUp, Refresh, Logout } from './types';
 
-const signUpApi = axios.create({ baseURL: '/api/register' });
-const loginApi = axios.create({ baseURL: '/api/login' });
-
-export const loginService = {
-  login: useServiceAction((data: Auth.Dto) =>
-    // return loginApi.post<Auth.Response>('/', data);
-    requestSimulator<Auth.Response>({ message: 'Successfully logged in' }),
-  ),
-  forgot: useServiceAction((data) => loginApi.post('/forgot', data)),
-};
-
-export const signUpService = {
-  signUp: useServiceAction((data: Partial<SignUp.Dto>) =>
-    // return signUpApi.post<SignUp.Response>('/', data);
-    requestSimulator<SignUp.Response>({ message: 'Successfully registered' }),
-  ),
+export const authService = {
+  login: useServiceAction((data: Auth.Dto) => api.post<Auth.Response>('/auth/login', data)),
+  refresh: useServiceAction((data: Refresh.Dto) => api.post<Refresh.Response>(`/auth/refresh`, data)),
+  logout: useServiceAction(() => api.post<Logout.Response>(`/auth/logout`)),
+  signUp: useServiceAction((data: Partial<SignUp.Dto>) => api.post<SignUp.Response>('/auth/signup', data)),
 };

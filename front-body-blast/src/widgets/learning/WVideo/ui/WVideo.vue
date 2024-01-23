@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { BonusVideo } from 'shared/api/bonusVideo';
-import { SBtn } from 'shared/ui/SBtn';
+import { SBtn } from 'shared/ui/btns';
 
 defineProps<BonusVideo>();
 

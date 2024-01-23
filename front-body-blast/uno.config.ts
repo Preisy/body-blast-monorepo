@@ -13,6 +13,7 @@ export default defineConfig<Theme>({
       unset: 'unset',
       bg: '#FFFFFF',
       primary: '#000000',
+      'primary-50-solid': '#787878',
       secondary: '#FCD844',
     },
     fontSize: {

@@ -28,7 +28,7 @@ const e = ({ direction }: SwipeEventData) => {
 </script>
 
 <template>
-  <q-layout view="hHh lpr fFf" px-0.5rem v-touch-swipe.horizontal.capture="e">
+  <q-layout view="hHh lpr fFf" v-touch-swipe.horizontal.capture="e">
     <q-page-container>
       <SNavList :routes="routes" relative z-1 pb-30px pt-20px />
 

@@ -5,14 +5,26 @@ const Keys = {
   refresh: 'refresh_token',
 };
 
+interface TokenPair {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export const TokenService = {
   getAccessToken: () => Cookies.get(Keys.access),
   getRefreshToken: () => Cookies.get(Keys.refresh),
-  getTokenPair: () => ({ access: TokenService.getAccessToken(), refresh: TokenService.getRefreshToken() }),
-  setAccessToken: (accessToken: string) => Cookies.set(Keys.access, accessToken, { sameSite: 'Strict' }),
-  setRefreshToken: (refreshToken: string) => Cookies.set(Keys.access, refreshToken, { sameSite: 'Strict' }),
-  setTokens: (tokenPair: { accessToken: string; refreshToken: string }) => {
+  getTokenPair: (): DeepNullable<TokenPair> => ({
+    accessToken: TokenService.getAccessToken(),
+    refreshToken: TokenService.getRefreshToken(),
+  }),
+  setAccessToken: (accessToken: string) => Cookies.set(Keys.access, accessToken, { sameSite: 'Strict', path: '/' }),
+  setRefreshToken: (refreshToken: string) => Cookies.set(Keys.refresh, refreshToken, { sameSite: 'Strict', path: '/' }),
+  setTokens: (tokenPair: TokenPair) => {
     TokenService.setAccessToken(tokenPair.accessToken);
     TokenService.setRefreshToken(tokenPair.refreshToken);
+  },
+  clearTokens: () => {
+    Cookies.remove(Keys.access);
+    Cookies.remove(Keys.refresh);
   },
 };
