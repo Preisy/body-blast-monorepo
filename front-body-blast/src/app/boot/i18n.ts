@@ -2,6 +2,7 @@ import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
 import { TPAdminHomeI18n } from 'pages/PAdminHome';
 import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
+import { TPDietI18n } from 'pages/PDiet';
 import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
@@ -31,6 +32,7 @@ export default boot(({ app }) => {
       TAuthFormsI18n,
       TEProfileHeaderI18n,
       TEAthropometricsItemI18n,
+      TPDietI18n,
       TWPromptCreationI18n,
       TEProfileCardI18n,
       TSNoResultsScreenI18n,

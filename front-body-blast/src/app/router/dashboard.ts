@@ -1,7 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import LClientDashboardVue from 'processes/layouts/LClientDashboard.vue';
 import PDiaryVue from 'pages/PDiary.vue';
-import PDietVue from 'pages/PDiet.vue';
+import { PDiet } from 'pages/PDiet';
 import PLearningVue from 'pages/PLearning.vue';
 import { PProfile } from 'pages/PProfile';
 import { PTraining } from 'pages/PTraining';
@@ -34,7 +34,7 @@ export const dashboardRoutes: RouteRecordRaw = {
     {
       meta: { auth: true },
       path: 'diet',
-      component: PDietVue,
+      component: PDiet,
       name: ENUMS.ROUTES_NAMES.DIET,
     },
     {
