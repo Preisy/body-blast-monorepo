@@ -4,7 +4,7 @@ export default {
       athropometrics: {
         weight: 'Вес',
         waist: 'Талия',
-        underbelly: 'Низ живота',
+        abdomen: 'Низ живота',
         shoulder: 'Плечо',
         hip: 'Бедро',
         hipVolume: 'Объем бедер',

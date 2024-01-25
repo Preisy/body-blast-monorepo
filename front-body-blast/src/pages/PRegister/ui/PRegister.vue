@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
 import {
   EBodyParamsSignUpForm,
   ECredentialsSignUpForm,
@@ -10,8 +11,7 @@ import {
 } from 'entities/form';
 import { useAuthStore, TokenService, SignUp } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
-import { GetZodInnerType } from 'shared/lib/utils';
-import { SBtn } from 'shared/ui/SBtn';
+import { SBtn } from 'shared/ui/btns';
 import { SForm, SFormProps } from 'shared/ui/SForm';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
@@ -34,7 +34,7 @@ const slides: RegisterSlides = [
     is: ECredentialsSignUpForm,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Credentials.validation(t)),
-      onSubmit: (values: GetZodInnerType<typeof SignUp.Credentials.validation>) => {
+      onSubmit: (values: z.infer<ReturnType<typeof SignUp.Credentials.validation>>) => {
         const [firstName, lastName] = values.username.split(' ');
         authStore.applyCredentials({
           email: values.email,
@@ -49,7 +49,7 @@ const slides: RegisterSlides = [
     is: EBodyParamsSignUpForm,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.BodyParams.validation(t)),
-      onSubmit: (values: GetZodInnerType<typeof SignUp.BodyParams.validation>) => {
+      onSubmit: (values: z.infer<ReturnType<typeof SignUp.BodyParams.validation>>) => {
         const [weight, height] = values.weightAndHeight.split('/');
         authStore.applyBodyParams({
           age: values.age,

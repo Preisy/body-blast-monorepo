@@ -1,9 +1,10 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { ELoginForm } from 'entities/form';
 import { Auth, useAuthStore } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
-import { SBtn } from 'shared/ui/SBtn';
+import { SBtn } from 'shared/ui/btns';
 import { SForm } from 'shared/ui/SForm';
 import { SStructure } from 'shared/ui/SStructure';
 
@@ -13,13 +14,14 @@ const authStore = useAuthStore();
 const { loginState } = authStore;
 const login = async (values: Auth.Dto) => {
   await authStore.login(values);
-  if (loginState.state.isSuccess()) router.push({ name: ENUMS.ROUTES_NAMES.TRAINING });
+  if (loginState.state.isError()) return;
+  router.push({ name: ENUMS.ROUTES_NAMES.TRAINING });
 };
 </script>
 
 <template>
   <SStructure relative mt--6.5rem class="h-[calc(100vh-4rem)]" flex items-center justify-center>
-    <SForm :field-schema="schema" @submit="login" :loading="authStore.loginState.state.isLoading()" w-full>
+    <SForm :field-schema="schema" @submit="login" w-full>
       <ELoginForm />
       <template #submit-btn>
         <div fixed bottom-1rem left-2rem right-2rem flex justify-between>

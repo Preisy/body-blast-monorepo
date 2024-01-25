@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 
-import { Profile } from 'shared/api/profile';
+import { Anthropometry } from 'shared/api/anthropometry';
+import { SInput } from 'shared/ui/inputs';
 import { SForm } from 'shared/ui/SForm';
-import { SInput } from 'shared/ui/SInput';
 
 export interface EAthropometricsItemProps {
   readonly: boolean;
-  profile: Profile.Athropometrics;
+  profile: Anthropometry;
 }
-
-const schema = toTypedSchema(Profile.validation());
-const fields: (keyof Profile.Athropometrics)[] = ['weight', 'waist', 'underbelly', 'shoulder', 'hip', 'hipVolume'];
+const schema = toTypedSchema(Anthropometry.validation());
+const fields: (keyof Anthropometry)[] = ['weight', 'waist', 'abdomen', 'shoulder', 'hip', 'hipVolume'];
 
 defineProps<EAthropometricsItemProps>();
 </script>
 
 <template>
-  <SForm :action="() => {}" :field-schema="schema" class="[&>div]:(grid grid-cols-2 mt-8 gap-2)">
+  <SForm :readonly="readonly" :field-schema="schema" class="[&_.s-form-inputs]:(grid grid-cols-2 gap-2)">
     <SInput
       v-for="field of fields"
       :key="field"
@@ -29,3 +28,4 @@ defineProps<EAthropometricsItemProps>();
     />
   </SForm>
 </template>
+shared/api/anthropometry
