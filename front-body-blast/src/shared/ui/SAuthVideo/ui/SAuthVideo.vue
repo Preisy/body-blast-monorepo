@@ -58,7 +58,15 @@ onMounted(() => {
 <template>
   <div>
     <template v-if="videoLink">
-      <video width="480" w-full border-rounded-4 @click="toggleFullscreenAndControls" ref="video">
+      <video
+        width="480"
+        w-full
+        border-rounded-4
+        @click="toggleFullscreenAndControls"
+        ref="video"
+        @play="isPlaying = true"
+        @pause="isPlaying = false"
+      >
         <source :src="videoLink" type="video/mp4" />
         Your browser doesn't support HTML5 video tag.
       </video>
