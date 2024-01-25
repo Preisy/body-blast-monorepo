@@ -2,10 +2,12 @@
 import { QImg, QImgProps } from 'quasar';
 import { AdminFile, useAdminFileStore } from 'shared/api/admin';
 import { useSingleState } from 'shared/lib/utils';
-export interface SAsyncImgProps {
+
+export interface SAuthImgProps {
   src: string;
 }
-const props = defineProps<SAsyncImgProps>();
+
+const props = defineProps<SAuthImgProps>();
 const { getFileByName } = useAdminFileStore();
 const getFilename = (rawlink: string) => rawlink.split('/').pop()!;
 

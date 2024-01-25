@@ -70,7 +70,9 @@ onMounted(() => {
         <source :src="videoLink" type="video/mp4" />
         Your browser doesn't support HTML5 video tag.
       </video>
-      <SBtn :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
+      <slot name="controlBtn">
+        <SBtn :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
+      </slot>
     </template>
     <SNoResultsScreen v-else />
   </div>

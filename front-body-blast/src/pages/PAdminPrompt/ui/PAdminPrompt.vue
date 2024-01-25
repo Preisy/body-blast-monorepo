@@ -7,7 +7,7 @@ import { WPromptEditDialog } from 'widgets/WPromptEditDialog';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { useLoading } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
-import { SAsyncImg } from 'shared/ui/SAsyncImg';
+import { SAuthImg } from 'shared/ui/SAuthImg';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
@@ -86,7 +86,8 @@ const openDialog = (data: Prompt) => {
       <QTabPanel :name="routes[1].name" p="0!">
         <SProxyScroll h-full v-if="promptList" overflow-hidden>
           <SComponentWrapper v-for="(prompt, index) in promptList" :key="prompt.id">
-            <SAsyncImg :src="prompt.photoLink" rounded-1rem />
+            <SAuthImg :src="prompt.photoLink" rounded-1rem />
+            <SAuthVideo />
             <div mx-5px mt--1rem flex flex-row gap-x-0.5rem>
               <!-- TODO: implement onplay event: take videoplayer from other branch? -->
               <SBtn :icon="symRoundedPlayArrow" bg="bg!" />
