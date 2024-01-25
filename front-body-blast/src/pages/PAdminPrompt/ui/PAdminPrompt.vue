@@ -3,7 +3,8 @@ import { symRoundedDelete, symRoundedEdit, symRoundedPlayArrow } from '@quasar/e
 import { QTab, QTabs, QTabProps, QTabPanels, QTabPanel } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WPromptCreation } from 'widgets/WPromptCreation';
-import { useAdminPromptStore } from 'shared/api/admin';
+import { WPromptEditDialog } from 'widgets/WPromptEditDialog';
+import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { useLoading } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SAsyncImg } from 'shared/ui/SAsyncImg';
@@ -19,8 +20,9 @@ const routes: QTabProps[] = [
 ];
 const currentRoute = ref(routes[0].name);
 const { prompts, getPrompts, deletePrompt, deletePromptState } = useAdminPromptStore();
+const promptList = computed(() => prompts.data?.data);
 
-if (!prompts.state.isSuccess()) getPrompts({ page: 1, limit: 1000, expanded: false, type: '' });
+if (!prompts.state.isSuccess()) getPrompts({ type: '' });
 useLoading(prompts);
 
 const onTransition = (newVal: string) => {
@@ -33,10 +35,19 @@ const onDeleteClick = async (id: number, index: number) => {
 
   if (deletePromptState.state.isSuccess()) prompts.data?.data.splice(index, 1);
 };
+
+// Edit dialog data
+const isEditDialogOpen = ref<boolean>(false);
+const editPromptData = ref<Prompt>();
+const openDialog = (data: Prompt) => {
+  editPromptData.value = data;
+  isEditDialogOpen.value = true;
+};
 </script>
 
 <template>
   <SStructure h-full>
+    <!-- Navigation -->
     <q-tabs
       content-class="gap-x-0.5rem justify-center"
       v-model="currentRoute"
@@ -62,6 +73,7 @@ const onDeleteClick = async (id: number, index: number) => {
       />
     </q-tabs>
 
+    <!-- Page body -->
     <QTabPanels @transition="onTransition" v-model="currentRoute" animated swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <QTabPanel :name="routes[0].name" h-full overflow-hidden p="0!">
@@ -72,14 +84,13 @@ const onDeleteClick = async (id: number, index: number) => {
 
       <!-- All prompts -->
       <QTabPanel :name="routes[1].name" p="0!">
-        <SProxyScroll h-full v-if="prompts.data" overflow-hidden>
-          <SComponentWrapper v-for="(prompt, index) in prompts.data.data" :key="prompt.id">
+        <SProxyScroll h-full v-if="promptList" overflow-hidden>
+          <SComponentWrapper v-for="(prompt, index) in promptList" :key="prompt.id">
             <SAsyncImg :src="prompt.photoLink" rounded-1rem />
             <div mx-5px mt--1rem flex flex-row gap-x-0.5rem>
               <!-- TODO: implement onplay event: take videoplayer from other branch? -->
               <SBtn :icon="symRoundedPlayArrow" bg="bg!" />
-              <!-- TODO: implement onedit event: popup with same form as WPromptCreation? -->
-              <SBtn :icon="symRoundedEdit" bg="bg!" />
+              <SBtn :icon="symRoundedEdit" bg="bg!" @click="() => openDialog(prompt)" />
               <SBtn :icon="symRoundedDelete" ml-auto @click="() => onDeleteClick(prompt.id, index)" />
             </div>
           </SComponentWrapper>
@@ -88,4 +99,7 @@ const onDeleteClick = async (id: number, index: number) => {
       </QTabPanel>
     </QTabPanels>
   </SStructure>
+
+  <!-- onEditPopup -->
+  <WPromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt-data="editPromptData" />
 </template>

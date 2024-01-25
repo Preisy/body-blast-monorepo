@@ -1,5 +1,5 @@
 import { api } from 'shared/config/axios';
-import { useServiceAction } from 'shared/lib/utils';
+import { basePaginationRequest, useServiceAction } from 'shared/lib/utils';
 import { Prompt } from './types';
 
 export const adminPromptsService = {
@@ -11,13 +11,14 @@ export const adminPromptsService = {
     api.delete<Prompt.Delete.Response>(`/admin/prompts/${data.id}`),
   ),
 
-  patchPrompt: useServiceAction((data: Prompt.Patch.Dto) =>
-    api.patch<Prompt.Patch.Response>(`/admin/prompts/${data.id}`, data.data),
+  patchPrompt: useServiceAction((id, data: Pick<Prompt, 'type' | 'photoLink' | 'videoLink'>) =>
+    api.patch<Prompt.Patch.Response>(`/admin/prompts/${id}`, data),
   ),
 
   getPrompts: useServiceAction((data: Prompt.Get.Dto) =>
     api.get<Prompt.Get.Response>(
-      `/admin/prompts?type=${data.type}&page=${data.page}&limit=${data.limit}&expanded=${data.expanded}`,
+      basePaginationRequest('/admin/prompts', data),
+      // `/admin/prompts?type=${data.type}&page=${data.page}&limit=${data.limit}&expanded=${data.expanded}`,
     ),
   ),
 };

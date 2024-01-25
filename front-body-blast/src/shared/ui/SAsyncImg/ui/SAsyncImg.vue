@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import { QImg, QImgProps } from 'quasar';
-import { useAdminFileStore } from 'shared/api/admin';
+import { AdminFile, useAdminFileStore } from 'shared/api/admin';
+import { useSingleState } from 'shared/lib/utils';
 export interface SAsyncImgProps {
   src: string;
 }
 const props = defineProps<SAsyncImgProps>();
 const { getFileByName } = useAdminFileStore();
-
 const getFilename = (rawlink: string) => rawlink.split('/').pop()!;
 
-const link = ref<QImgProps['src']>(undefined);
-onMounted(async () => {
-  const data = await getFileByName({ filename: getFilename(props.src) });
-  link.value = data.data ? URL.createObjectURL(data.data) : undefined;
-});
+const state = ref(useSingleState<AdminFile.GetByName.Response>());
+
+const data = computed(() => state.value.data);
+const link = computed<QImgProps['src']>(() => (data.value ? URL.createObjectURL(data.value) : undefined));
+
+watchEffect(() => getFileByName({ filename: getFilename(props.src) }, state.value));
 onUnmounted(() => {
   if (link.value) URL.revokeObjectURL(link.value);
 });

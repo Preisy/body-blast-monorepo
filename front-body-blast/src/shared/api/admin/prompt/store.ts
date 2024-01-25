@@ -47,11 +47,28 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     });
 
   const patchPromptState = ref(useSingleState<Prompt.Patch.Response>());
-  const patchPrompt = async (data: Prompt.Patch.Dto) =>
-    useSimpleStoreAction({
+  const patchPrompt = async (id: string | number, data: Prompt.Patch.Dto) => {
+    patchPromptState.value.state.loading();
+    const photoLink = await fileStore.postFile({ file: data.photo });
+    if (!photoLink.data) {
+      console.error(photoLink.error);
+      postPromptsState.value.state.error();
+      return;
+    }
+
+    const videoLink = await fileStore.postFile({ file: data.video });
+    if (!videoLink.data) {
+      console.error(videoLink.error);
+      postPromptsState.value.state.error();
+      return;
+    }
+
+    const promptDto = { type: data.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link };
+    await useSimpleStoreAction({
       stateWrapper: patchPromptState.value,
-      serviceAction: adminPromptsService.patchPrompt(data),
+      serviceAction: adminPromptsService.patchPrompt(id, promptDto),
     });
+  };
 
   return {
     prompts,

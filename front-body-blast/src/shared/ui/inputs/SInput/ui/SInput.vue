@@ -18,6 +18,7 @@ if (props.readonly && props.modelValue) setValue(props.modelValue);
 watch(
   () => props.modelValue,
   (next) => setValue(next ?? undefined),
+  { immediate: true },
 );
 </script>
 

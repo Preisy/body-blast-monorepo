@@ -27,9 +27,7 @@ export namespace Prompt {
     export interface Response extends AppPagination.Response<Prompt> {}
   }
   export namespace Patch {
-    export interface Dto extends Pick<AppBaseEntity, 'id'> {
-      data: Post.Dto;
-    }
+    export interface Dto extends Post.Dto {}
 
     export interface Response extends AppBaseEntity.Response<Prompt> {}
   }
