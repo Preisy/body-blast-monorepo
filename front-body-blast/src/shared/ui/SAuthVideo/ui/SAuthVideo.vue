@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { BonusVideo } from 'shared/api/bonusVideo';
 import { File, useFileStore } from 'shared/api/file';
 import { useLoadingAction } from 'shared/lib/loading';
 import { useSingleState } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
-export interface SAuthVideoProps extends BonusVideo {}
+export interface SAuthVideoProps {
+  linkUrl: string;
+}
 const props = defineProps<SAuthVideoProps>();
 
 const fileStore = useFileStore();
@@ -17,6 +18,7 @@ const videoLink = computed(() => (state.value.data ? URL.createObjectURL(state.v
 
 const video = ref<HTMLVideoElement>();
 const isPlaying = ref(false);
+
 const toggleFullscreenAndControls = () => {
   if (!video.value) return;
 
@@ -52,6 +54,15 @@ onUnmounted(() => {
 });
 onMounted(() => {
   document.addEventListener('fullscreenchange', handleFullscreenChange);
+});
+
+defineExpose({
+  isPlaying,
+  toggleFullscreenAndControls,
+  play,
+  pause,
+  togglePlay,
+  handleFullscreenChange,
 });
 </script>
 

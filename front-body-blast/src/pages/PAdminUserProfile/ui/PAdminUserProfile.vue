@@ -49,7 +49,7 @@ const anthrpJobPeriod = computed(() => currentUser.value?.anthrpJobPeriod);
 
 useLoading(adminProfileStore.patchUserResponse);
 const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) => {
-  await adminProfileStore.patchUserProfile(props.id, { [field]: newValue }); // TODO: 400 Bad Request - написать беку
+  await adminProfileStore.patchUserProfile(props.id, { [field]: newValue });
   const user = adminProfileStore.patchUserResponse.data?.data;
 
   if (!user) {

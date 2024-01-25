@@ -15,7 +15,7 @@ module.exports = {
     'import/resolver': {
       typescript: {
         alwaysTryTypes: true,
-      }
+      },
     },
   },
 
@@ -52,17 +52,20 @@ module.exports = {
 
   rules: {
     'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
-    "@typescript-eslint/no-namespace": 0,
-    "vue/html-self-closing": ["error", {
-      "html": {
-        "void": "never",
-        "normal": "always",
-        "component": "always"
+    '@typescript-eslint/no-namespace': 0,
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          void: 'always',
+          normal: 'always',
+          component: 'always',
+        },
+        svg: 'always',
+        math: 'always',
       },
-      "svg": "always",
-      "math": "always"
-    }],
-    "vue/padding-line-between-blocks": ["error"],
-    "arrow-body-style": 2
+    ],
+    'vue/padding-line-between-blocks': ['error'],
+    'arrow-body-style': 2,
   },
 };

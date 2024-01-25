@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { symRoundedDelete, symRoundedEdit, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
+import {
+  symRoundedDelete,
+  symRoundedEdit,
+  symRoundedPause,
+  symRoundedPlayArrow,
+} from '@quasar/extras/material-symbols-rounded';
 import { QTab, QTabs, QTabProps, QTabPanels, QTabPanel } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WPromptCreation } from 'widgets/WPromptCreation';
@@ -8,6 +13,7 @@ import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { useLoading } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SAuthImg } from 'shared/ui/SAuthImg';
+import { SAuthVideo } from 'shared/ui/SAuthVideo';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
@@ -43,6 +49,9 @@ const openDialog = (data: Prompt) => {
   editPromptData.value = data;
   isEditDialogOpen.value = true;
 };
+
+// Video control
+const videoList = ref<Array<InstanceType<typeof SAuthVideo>>>();
 </script>
 
 <template>
@@ -86,11 +95,26 @@ const openDialog = (data: Prompt) => {
       <QTabPanel :name="routes[1].name" p="0!">
         <SProxyScroll h-full v-if="promptList" overflow-hidden>
           <SComponentWrapper v-for="(prompt, index) in promptList" :key="prompt.id">
-            <SAuthImg :src="prompt.photoLink" rounded-1rem />
-            <SAuthVideo />
+            <div relative>
+              <SAuthImg
+                v-if="!videoList?.[index].isPlaying"
+                :src="prompt.photoLink"
+                absolute
+                h-full
+                w-full
+                rounded-1rem
+              />
+              <SAuthVideo ref="videoList" :link-url="prompt.videoLink">
+                <template #controlBtn> <div /> </template>
+              </SAuthVideo>
+            </div>
+
             <div mx-5px mt--1rem flex flex-row gap-x-0.5rem>
-              <!-- TODO: implement onplay event: take videoplayer from other branch? -->
-              <SBtn :icon="symRoundedPlayArrow" bg="bg!" />
+              <SBtn
+                :icon="videoList?.[index].isPlaying ? symRoundedPause : symRoundedPlayArrow"
+                bg="bg!"
+                @click="videoList?.[index].togglePlay"
+              />
               <SBtn :icon="symRoundedEdit" bg="bg!" @click="() => openDialog(prompt)" />
               <SBtn :icon="symRoundedDelete" ml-auto @click="() => onDeleteClick(prompt.id, index)" />
             </div>
