@@ -26,7 +26,6 @@ useLoading(patchPromptState);
 
 const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>>) => {
   await patchPrompt(props.promptData.id, values);
-  console.log(patchPromptState.state.value);
   if (patchPromptState.state.isSuccess()) {
     emit('update:model-value', false); //close dialog after success
     getPrompts({ type: '' });

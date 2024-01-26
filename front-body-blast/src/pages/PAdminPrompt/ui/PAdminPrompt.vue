@@ -83,7 +83,7 @@ const videoList = ref<Array<InstanceType<typeof SAuthVideo>>>();
     </q-tabs>
 
     <!-- Page body -->
-    <QTabPanels @transition="onTransition" v-model="currentRoute" animated swipeable h-full pt-3rem>
+    <QTabPanels @transition="onTransition" v-model="currentRoute" keep-alive animated swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <QTabPanel :name="routes[0].name" h-full overflow-hidden p="0!">
         <SProxyScroll h-full>
