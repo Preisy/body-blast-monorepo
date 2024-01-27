@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Patch, Req, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Query, Req, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { MeService } from './me.service';
 import { UpdateUserByClientRequest } from './dto/update-client-user.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -8,6 +8,9 @@ import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
 import { UserEntity } from '../../core/user/entities/user.entity';
+import { AppDatePagination } from 'src/utils/app-date-pagination.util';
+import { ClientSelfControlService } from '../self-control/client-self-control.service';
+import { GetStepsByUserIdByClientDTO } from '../self-control/dto/client-get-steps-by-userId.dto';
 
 @AppAuthGuard()
 @Controller('me')
@@ -15,7 +18,10 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
 export class MeController {
-  constructor(private readonly meService: MeService) {}
+  constructor(
+    private readonly meService: MeService,
+    private readonly selfControlService: ClientSelfControlService,
+  ) {}
 
   @Get()
   @AppResponses({ status: 200, type: AppSingleResponse.type(UserEntity) })
@@ -27,5 +33,11 @@ export class MeController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(UserEntity) })
   async updateUser(@Req() req: RequestWithUser, @Body() body: UpdateUserByClientRequest) {
     return await this.meService.updateUser(req.user.id, body);
+  }
+
+  @Get('steps')
+  @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByClientDTO) })
+  async getSteps(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
+    return this.selfControlService.getStepsByUserId(req.user.id, query);
   }
 }

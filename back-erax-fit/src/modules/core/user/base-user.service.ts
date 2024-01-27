@@ -1,15 +1,15 @@
-import { Repository } from 'typeorm';
-import { UserEntity } from './entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserRequest } from './dto/create-user.dto';
-import { AppSingleResponse } from '../../../dto/app-single-response.dto';
-import { AppPagination } from '../../../utils/app-pagination.util';
-import { MainException } from '../../../exceptions/main.exception';
-import * as bcrypt from 'bcrypt';
-import { UpdateUserRequest } from './dto/update-user.dto';
-import { filterUndefined } from '../../../utils/filter-undefined.util';
-import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
+import { CreateUserRequest } from './dto/create-user.dto';
+import { UpdateUserRequest } from './dto/update-user.dto';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class BaseUserService {

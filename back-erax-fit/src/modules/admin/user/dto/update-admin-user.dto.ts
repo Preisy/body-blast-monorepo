@@ -14,4 +14,9 @@ export class UpdateUserByAdminRequest extends UpdateUserRequest {
   @Max(14)
   @ApiPropertyOptional()
   public anthrpJobPeriod: number;
+
+  @IsNumber()
+  @Min(1)
+  @ApiProperty()
+  public stepsGoal: number;
 }

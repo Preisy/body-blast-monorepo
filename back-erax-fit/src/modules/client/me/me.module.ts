@@ -6,9 +6,15 @@ import { Repository } from 'typeorm';
 import { MeService } from './me.service';
 import { BaseUserModule } from '../../core/user/base-user.module';
 import { MeController } from './me.controller';
+import { ClientSelfControlModule } from '../self-control/client-self-control.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity]), forwardRef(() => AuthModule), BaseUserModule],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity]),
+    forwardRef(() => AuthModule),
+    BaseUserModule,
+    ClientSelfControlModule,
+  ],
   controllers: [MeController],
   providers: [MeService, Repository],
   exports: [MeService],
