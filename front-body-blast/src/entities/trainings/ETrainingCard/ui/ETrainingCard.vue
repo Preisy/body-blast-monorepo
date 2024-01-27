@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { Training } from 'shared/api/training';
-import { SReadonlyFieldProps } from 'shared/ui/SReadonlyField';
+import { SReadonlyFieldProps } from 'shared/ui/inputs';
+import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import InfoBlock from './InfoBlock.vue';
 import TrainingAnim from './TrainingAnim.vue';
 
@@ -21,7 +22,7 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
 </script>
 
 <template>
-  <div>
+  <SComponentWrapper>
     <div flex flex-col gap-1rem>
       <div>
         <h1>{{ training.name }}</h1>
@@ -30,5 +31,5 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
       <TrainingAnim :url="training.videoLink" />
       <InfoBlock :cards="cards" />
     </div>
-  </div>
+  </SComponentWrapper>
 </template>
