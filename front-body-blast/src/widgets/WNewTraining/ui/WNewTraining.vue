@@ -1,25 +1,28 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
-import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
 import { FListControls } from 'features/FListControls';
 import { FNewTrainingFields } from 'features/FNewTrainingFields';
-import { AdminTraining, Exercise, useAdminPromptStore, useAdminTrainingStore, Training } from 'shared/api/admin';
+import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
+import { Workout } from 'shared/api/workout';
 import { useLoading } from 'shared/lib/loading';
-import { GetZodInnerType } from 'shared/lib/utils';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
 
-const props = defineProps<{
+type Exercise = NonNullable<Workout['exercises']>[number];
+const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;
+
+export interface WNewTrainingProps {
+  id: number;
   date: string; //ISO date
-}>();
+}
+const props = defineProps<WNewTrainingProps>();
 
-const { id } = useRoute().params as { id: string };
-
-const adminTrainingStore = useAdminTrainingStore();
+const adminTrainingStore = useAdminWorkoutStore();
 const { prompts, getPrompts } = useAdminPromptStore();
-const { t } = useI18n();
 
 const exercises = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
@@ -28,7 +31,7 @@ const onsubmit = async () => {
   if (!exercises.value) return;
   for (let i = 0; i < exercises.value.length; i++) {
     const exerciseForm = exercises.value[i];
-    await exerciseForm.handleSubmit((values: GetZodInnerType<typeof Exercise.validation>) => {
+    await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
       //find prompt with id. use prompt to pick photoLink and videoLink
       const prompt = prompts.data?.data.find((prompt) => prompt.id === values._promptId);
       if (!prompt) {
@@ -36,7 +39,7 @@ const onsubmit = async () => {
         return;
       }
 
-      const exercise: Exercise = {
+      const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
         name: values.name,
         pace: values.pace,
         photoLink: prompt.photoLink,
@@ -52,16 +55,16 @@ const onsubmit = async () => {
     })();
   }
 
-  await trainingForm.value?.handleSubmit((values: GetZodInnerType<typeof AdminTraining.validation>) => {
-    const training: Training = {
+  await trainingForm.value?.handleSubmit((values: z.infer<ReturnType<typeof Workout.validation>>) => {
+    const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
       name: values.name,
       comment: values.comment,
       date: props.date,
       exercises: trainings.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
       loop: parseInt(values.loop),
-      userId: parseInt(id),
+      userId: props.id,
     };
-    adminTrainingStore.sendTraining(training);
+    adminTrainingStore.postWorkout(workout);
   })();
 };
 const onadd = () => trainings.value.push({ key: uniqueId('prompt-') });
@@ -74,8 +77,9 @@ getPrompts({ type: '', page: 1, limit: 1000, expanded: false });
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <h1>{{ $t('admin.prompt.training.training') }}</h1>
+    TrainingTrainingTraining
 
-    <SForm ref="trainingForm" :field-schema="toTypedSchema(AdminTraining.validation(t))" p="0!">
+    <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation())" p="0!">
       <SInput name="loop" :label="$t('admin.prompt.training.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
       <SInput name="comment" :label="$t('admin.prompt.training.commentary')" />
@@ -83,7 +87,7 @@ getPrompts({ type: '', page: 1, limit: 1000, expanded: false });
         ref="exercises"
         v-for="(training, index) in trainings"
         :key="training.key"
-        :field-schema="toTypedSchema(Exercise.validation(t))"
+        :field-schema="toTypedSchema(ExerciseValidation)"
         p="0!"
         mt-0.5rem
       >

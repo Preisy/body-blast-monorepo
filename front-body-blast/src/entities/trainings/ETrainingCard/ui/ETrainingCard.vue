@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { Training } from 'shared/api/training';
+import { Workout } from 'shared/api/training';
 import { SReadonlyFieldProps } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import InfoBlock from './InfoBlock.vue';
@@ -33,3 +33,4 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
     </div>
   </SComponentWrapper>
 </template>
+shared/api/workout

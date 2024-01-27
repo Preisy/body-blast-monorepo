@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { WAdditionCard } from 'widgets/WAdditionCard';
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
-import { useTrainingStore } from 'shared/api/training';
+import { useWorkoutStore } from 'shared/api/training';
 import { useLoading } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
-const trainingStore = useTrainingStore();
+const trainingStore = useWorkoutStore();
 useLoading(trainingStore.trainings);
 trainingStore.getTrainings(1, 100); //Debug only
 
@@ -30,3 +30,4 @@ const exercises = computed(() => trainingStore.trainings.data?.data.at(0)?.exerc
     </SSplide>
   </SStructure>
 </template>
+shared/api/workout
