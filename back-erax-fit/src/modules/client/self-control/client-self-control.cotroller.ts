@@ -1,14 +1,15 @@
-import { Body, Controller, Get, Param, Patch, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Query, Req, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppAuthGuard } from 'src/modules/authentication/guards/appAuth.guard';
-import { SelfControlEntity } from 'src/modules/core/self-control/entity/self-control.entity';
-import { AppDatePagination } from 'src/utils/app-date-pagination.util';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppAuthGuard } from '../../../modules/authentication/guards/appAuth.guard';
+import { SelfControlEntity } from '../../../modules/core/self-control/entity/self-control.entity';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { ClientSelfControlService } from './client-self-control.service';
 import { GetSelfControlByClientDTO } from './dto/client-get-self-control.dto';
 import { UpdateSelfControlByClientRequest } from './dto/client-update-self-control.dto';
+import { RequestWithUser } from '../../../modules/authentication/types/requestWithUser.type';
 
 @Controller('self-control')
 @ApiTags('Self-control')
@@ -20,8 +21,8 @@ export class ClientSelfControlController {
 
   @Get()
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(SelfControlEntity) })
-  async getAll(@Query() query: AppDatePagination.Request) {
-    return await this.clientService.findAll(query);
+  async getAll(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
+    return await this.clientService.findAll(req.user.id, query);
   }
 
   @Get(':id')
