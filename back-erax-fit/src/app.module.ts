@@ -14,12 +14,15 @@ import { ClientAnthropometricsModule } from './modules/client/anthropometrics/cl
 import { AdminAntropometricsModule } from './modules/admin/anthropometrics/admin-anthropomerics.module';
 import { AdminPromptModule } from './modules/admin/prompt/admin-prompt.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { AdminDiaryTemplateModule } from './modules/admin/diary-template/admin-diary-template.module';
 import { AdminBonusVideoModule } from './modules/admin/bonus-video/admin-bonus-video.module';
 import { ClientBonusVideoModule } from './modules/client/bonus-video/client-bonus-video.module';
 import { AdminFoodModule } from './modules/admin/food/admin-food.module';
 import { ClientFoodModule } from './modules/client/food/client-food.module';
 import { AdminNutritionModule } from './modules/admin/nutrition/admin-nutrition.module';
 import { ClientNutritionModule } from './modules/client/nutrition/client-nutrition.module';
+import { AdminSelfControlModule } from './modules/admin/self-control/admin-self-control.module';
+import { ClientSelfControlModule } from './modules/client/self-control/client-self-control.module';
 
 @Module({
   imports: [
@@ -38,11 +41,14 @@ import { ClientNutritionModule } from './modules/client/nutrition/client-nutriti
     ClientAnthropometricsModule,
     AdminAntropometricsModule,
     AdminPromptModule,
+    AdminDiaryTemplateModule,
     AdminBonusVideoModule,
     AdminFoodModule,
     ClientFoodModule,
     AdminNutritionModule,
     ClientNutritionModule,
+    AdminSelfControlModule,
+    ClientSelfControlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

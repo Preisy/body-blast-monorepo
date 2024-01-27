@@ -26,6 +26,10 @@ import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AppPagination } from '../../../utils/app-pagination.util';
+import { AdminSelfControlService } from '../self-control/admin-self-control.service';
+import { AppDatePagination } from 'src/utils/app-date-pagination.util';
+import { SelfControlEntity } from 'src/modules/core/self-control/entity/self-control.entity';
+import { GetStepsByUserIdByAdminDTO } from '../self-control/dto/admin-get-steps-by-userId.dto';
 
 @AppAuthGuard(RoleGuard(UserRole.Admin))
 @Controller('admin/users')
@@ -33,7 +37,10 @@ import { AppPagination } from '../../../utils/app-pagination.util';
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
 export class AdminUserController {
-  constructor(private readonly adminService: AdminUserService) {}
+  constructor(
+    private readonly adminService: AdminUserService,
+    private readonly selfControlService: AdminSelfControlService,
+  ) {}
 
   @Post()
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
@@ -64,5 +71,17 @@ export class AdminUserController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   async deleteUserById(@Param('id', ParseIntPipe) id: number) {
     return await this.adminService.deleteUserById(+id);
+  }
+
+  @Get(':id/self-controls')
+  @AppResponses({ status: 200, type: AppDatePagination.Response.type(SelfControlEntity) })
+  async getSelfControls(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
+    return this.selfControlService.findAllByUserId(id, query);
+  }
+
+  @Get(':id/steps')
+  @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByAdminDTO) })
+  async getSteps(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
+    return this.selfControlService.getStepsByUserId(id, query);
   }
 }

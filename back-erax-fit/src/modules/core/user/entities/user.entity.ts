@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Constants, UserRole } from '../../../../constants/constants';
+import { Exclude } from 'class-transformer';
 import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
+import { DiaryTemplateEntity } from '../../diary-template/entity/diary-template.entity';
 import { TokenEntity } from '../../../authentication/entities/token.entity';
 
 @Entity('users')
@@ -104,6 +105,19 @@ export class UserEntity extends AppBaseEntity {
   @ApiProperty()
   @Column({ type: 'integer', nullable: true })
   public anthrpJobPeriod?: number;
+
+  @ApiProperty()
+  @Column({ type: 'integer' })
+  public stepsGoal: number;
+
+  @ApiProperty({ type: () => DiaryTemplateEntity })
+  @ManyToOne(() => DiaryTemplateEntity)
+  @JoinColumn({ name: 'templateId' })
+  public template!: DiaryTemplateEntity;
+
+  @ApiProperty()
+  @Column('integer', { name: 'templateId' })
+  public templateId!: number;
 
   @ApiProperty()
   @Column({ type: 'boolean' })
