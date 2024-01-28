@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AnthropometricsEntity } from '../../../core/anthropometrics/entities/anthropometrics.entity';
 import { ClientAnthropometricsService } from '../client-anthropometrics.service';
-import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
+import { AnthropometricsEntity } from '../../../core/anthropometrics/entities/anthropometrics.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { MeService } from '../../me/me.service';
+import { UpdateAnthropometricsByClientRequest } from '../dto/client-update-anthropometrics.dto';
 import { BaseAnthropometrcisService } from '../../../core/anthropometrics/base-anthropometrics.service';
+import { UserEntity } from '../../../../modules/core/user/entities/user.entity';
+import { MeService } from '../../me/me.service';
+import { BaseUserService } from '../../../../modules/core/user/base-user.service';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
-import { UserEntity } from '../../../core/user/entities/user.entity';
-import { BaseUserService } from '../../../core/user/base-user.service';
-import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
 import { CreateAnthropometricsByClientRequest } from '../dto/client-create-anthropometrics.dto';
+import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
 
 describe('ClientAnthropometricsService', () => {
   let service: ClientAnthropometricsService;
@@ -39,9 +39,6 @@ describe('ClientAnthropometricsService', () => {
           useValue: {
             save: jest.fn(() => AnthropometricsEntity),
             create: jest.fn(() => AnthropometricsEntity),
-            findOne: jest.fn(() => AnthropometricsEntity),
-            delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(() => AppDatePagination.Response<AnthropometricsEntity>),
           },
         },
       ],
@@ -56,9 +53,8 @@ describe('ClientAnthropometricsService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('findAll method', () => {
-    it('it should return all antropometrics records without any input data', async () => {
-      const query = {} as AppDatePagination.Request;
+  describe('update', () => {
+    it('should not update existing anthrp record because of wrong data', async () => {
       const userRequest: CreateUserByClientRequest = {
         email: 'test1@mail.ru',
         password: 'Qwertyuiop1',
@@ -83,25 +79,26 @@ describe('ClientAnthropometricsService', () => {
       const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
       const request: CreateAnthropometricsByClientRequest = {
-        weight: 90,
-        waist: 40,
-        abdomen: 88,
-        shoulder: 101,
-        hip: 56,
-        hipVolume: 56,
         userId: savedUser.id,
+        waist: 100,
+        weight: 100,
+        hip: 100,
+        hipVolume: 100,
+        abdomen: 100,
+        shoulder: 100,
       };
-      for (let i = 0; i < 5; ++i) {
-        await repository.save(await repository.create(request));
-      }
-      const { data: result } = await service.findAll(savedUser, query);
 
-      for (const anthrp of result) {
-        expect(anthrp.createdAt).toBeGreaterThanOrEqual(query.from?.getTime() || 0);
-        expect(anthrp.createdAt).toBeLessThanOrEqual(query.to?.getTime() || 0);
-      }
-      // expect(result).toBeInstanceOf(AppDatePagination.Response);
-      // expect(result).toBeInstanceOf(AppDatePagination.Response<AnthropometricsEntity>);
+      const savedData = await repository.save(await repository.create(request));
+
+      const invalidAnthrpRequest: UpdateAnthropometricsByClientRequest = {
+        waist: 100,
+        weight: -100,
+        shoulder: 100,
+        hip: 20,
+        hipVolume: 100,
+        abdomen: 100,
+      };
+      await expect(service.update(savedData.id, invalidAnthrpRequest)).rejects.toThrow();
     });
   });
 });

@@ -1,18 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { BaseAnthropometrcisService } from '../base-anthropometrics.service';
-import { CreateAnthropometricsRequest } from '../dto/create-anthropometrics.dto';
-import { UpdateAnthropometricsRequest } from '../dto/update-anthropometrics';
-//import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
-import { AnthropometricsEntity } from '../entities/anthropometrics.entity';
-import { getRepositoryToken } from '@nestjs/typeorm';
+import { ClientAnthropometricsService } from '../client-anthropometrics.service';
+import { CreateAnthropometricsByClientRequest } from '../dto/client-create-anthropometrics.dto';
+import { UpdateAnthropometricsByClientRequest } from '../dto/client-update-anthropometrics.dto';
+// import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
+import { AnthropometricsEntity } from '../../../core/anthropometrics/entities/anthropometrics.entity';
 import { Repository } from 'typeorm';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { UserEntity } from '../../../../modules/core/user/entities/user.entity';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
-import { UserEntity } from '../../user/entities/user.entity';
-import { BaseUserService } from '../../user/base-user.service';
-import { CreateUserRequest } from '../../user/dto/create-user.dto';
+import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
+import { MeService } from '../../me/me.service';
+import { BaseAnthropometrcisService } from '../../../../modules/core/anthropometrics/base-anthropometrics.service';
+import { BaseUserService } from '../../../../modules/core/user/base-user.service';
 
-describe('BaseAnthropometricsService', () => {
-  let service: BaseAnthropometrcisService;
+describe('ClientAnthropometricsService', () => {
+  let service: ClientAnthropometricsService;
   let repository: Repository<AnthropometricsEntity>;
   let userRepository: Repository<UserEntity>;
 
@@ -20,6 +22,7 @@ describe('BaseAnthropometricsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BaseUserService,
+        MeService,
         {
           provide: getRepositoryToken(UserEntity),
           useValue: {
@@ -31,6 +34,7 @@ describe('BaseAnthropometricsService', () => {
           },
         },
         BaseAnthropometrcisService,
+        ClientAnthropometricsService,
         {
           provide: getRepositoryToken(AnthropometricsEntity),
           useValue: {
@@ -44,14 +48,14 @@ describe('BaseAnthropometricsService', () => {
       ],
     }).compile();
 
-    service = module.get<BaseAnthropometrcisService>(BaseAnthropometrcisService);
+    service = module.get<ClientAnthropometricsService>(ClientAnthropometricsService);
     repository = module.get<Repository<AnthropometricsEntity>>(getRepositoryToken(AnthropometricsEntity));
     userRepository = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
   });
 
   describe('create method', () => {
     it('should create a new anthropometrics record and save it', async () => {
-      const userRequest: CreateUserRequest = {
+      const userRequest: CreateUserByClientRequest = {
         email: 'test1@mail.ru',
         password: 'Qwertyuiop1',
         firstName: 'Test',
@@ -74,16 +78,16 @@ describe('BaseAnthropometricsService', () => {
       };
       const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-      const request: CreateAnthropometricsRequest = {
-        weight: 67,
-        waist: 33,
-        abdomen: 71,
-        shoulder: 92,
-        hip: 30,
-        hipVolume: 30,
+      const request: CreateAnthropometricsByClientRequest = {
+        weight: 90,
+        waist: 40,
+        abdomen: 88,
+        shoulder: 101,
+        hip: 56,
+        hipVolume: 56,
         userId: savedUser.id,
       };
-      const savedAnthropometrics = await service.create(request);
+      const savedAnthropometrics = await service.create(savedUser, request);
       expect(savedAnthropometrics).toBeDefined();
       expect({ data: savedAnthropometrics.data }).toBeDefined();
     });
@@ -91,12 +95,13 @@ describe('BaseAnthropometricsService', () => {
 
   // describe('findAll method', () => {
   //   it('it should return all antropometrics records between given period', async () => {
+  //     const { data: user } = await userService.getMe(3);
   //     const query: AppDatePagination.Request = {
   //       from: new Date('2023-18-10'),
   //       to: new Date('2023-20-11'),
   //     };
 
-  //     const result = await service.findAll(query);
+  //     const result = await service.findAll(user, query);
 
   //     expect(result).toBeInstanceOf(AppDatePagination.Response);
   //     expect(result.data).toBeInstanceOf(AppDatePagination.Response<AnthropometricsEntity>);
@@ -105,7 +110,7 @@ describe('BaseAnthropometricsService', () => {
 
   describe('findOne method', () => {
     it('should find an anthropometrics record by its ID', async () => {
-      const userRequest: CreateUserRequest = {
+      const userRequest: CreateUserByClientRequest = {
         email: 'test1@mail.ru',
         password: 'Qwertyuiop1',
         firstName: 'Test',
@@ -128,7 +133,7 @@ describe('BaseAnthropometricsService', () => {
       };
       const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-      const request: CreateAnthropometricsRequest = {
+      const request: CreateAnthropometricsByClientRequest = {
         userId: savedUser.id,
         waist: 100,
         weight: 100,
@@ -148,7 +153,7 @@ describe('BaseAnthropometricsService', () => {
 
   describe('update method', () => {
     it('should update an existing anthropometrics record', async () => {
-      const userRequest: CreateUserRequest = {
+      const userRequest: CreateUserByClientRequest = {
         email: 'test1@mail.ru',
         password: 'Qwertyuiop1',
         firstName: 'Test',
@@ -171,7 +176,7 @@ describe('BaseAnthropometricsService', () => {
       };
       const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-      const request: CreateAnthropometricsRequest = {
+      const request: CreateAnthropometricsByClientRequest = {
         userId: savedUser.id,
         waist: 100,
         weight: 100,
@@ -183,7 +188,7 @@ describe('BaseAnthropometricsService', () => {
 
       const savedData = await repository.save(await repository.create(request));
 
-      const updateRequest: UpdateAnthropometricsRequest = {
+      const updateRequest: UpdateAnthropometricsByClientRequest = {
         weight: 57,
         waist: 30,
         abdomen: 78,
@@ -199,7 +204,7 @@ describe('BaseAnthropometricsService', () => {
 
   describe('delete method', () => {
     it('should delete an anthropometrics record by its ID', async () => {
-      const userRequest: CreateUserRequest = {
+      const userRequest: CreateUserByClientRequest = {
         email: 'test1@mail.ru',
         password: 'Qwertyuiop1',
         firstName: 'Test',
@@ -222,7 +227,7 @@ describe('BaseAnthropometricsService', () => {
       };
       const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-      const request: CreateAnthropometricsRequest = {
+      const request: CreateAnthropometricsByClientRequest = {
         userId: savedUser.id,
         waist: 100,
         weight: 100,
