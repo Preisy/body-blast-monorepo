@@ -4,7 +4,7 @@ import { AppPagination } from '../pagination';
 import { Workout } from './types';
 
 export namespace WorkoutsService {
-  export const getTrainings = useServiceAction((pagination: AppPagination.BaseDto) =>
+  export const getTrainings = useServiceAction((pagination?: AppPagination.BaseDto) =>
     api.get<Workout.Get.Response>('/workouts', { params: pagination }),
   );
 }

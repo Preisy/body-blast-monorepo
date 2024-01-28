@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { Workout } from 'shared/api/training';
+import { Workout } from 'shared/api/workout';
 import { SReadonlyFieldProps } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import InfoBlock from './InfoBlock.vue';
 import TrainingAnim from './TrainingAnim.vue';
 
 export interface ETrainingCardProps {
-  training: Training.Exercise;
+  training: NonNullable<Workout['exercises']>[number];
 }
 const props = defineProps<ETrainingCardProps>();
 const { t } = useI18n();
@@ -33,4 +33,3 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
     </div>
   </SComponentWrapper>
 </template>
-shared/api/workout

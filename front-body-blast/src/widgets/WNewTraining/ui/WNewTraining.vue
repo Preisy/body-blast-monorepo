@@ -71,13 +71,12 @@ const onadd = () => trainings.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => trainings.value.splice(index, 1);
 
 useLoading(prompts);
-getPrompts({ type: '', page: 1, limit: 1000, expanded: false });
+getPrompts({ type: '' });
 </script>
 
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <h1>{{ $t('admin.prompt.training.training') }}</h1>
-    TrainingTrainingTraining
 
     <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation())" p="0!">
       <SInput name="loop" :label="$t('admin.prompt.training.cycle')" />

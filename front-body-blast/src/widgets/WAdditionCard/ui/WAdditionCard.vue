@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { Addition, useWorkoutStore } from 'shared/api/training';
+import { Addition, useWorkoutStore } from 'shared/api/workout';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
@@ -22,4 +22,3 @@ const additionStore = useWorkoutStore();
     </SForm>
   </SComponentWrapper>
 </template>
-shared/api/workout

@@ -1,24 +1,23 @@
 <script setup lang="ts">
 import { WAdditionCard } from 'widgets/WAdditionCard';
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
-import { useWorkoutStore } from 'shared/api/training';
-import { useLoading } from 'shared/lib/loading';
+import { useWorkoutStore } from 'shared/api/workout';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
-const trainingStore = useWorkoutStore();
-useLoading(trainingStore.trainings);
-trainingStore.getTrainings(1, 100); //Debug only
+const { getWorkouts, getWorkoutsResponse } = useWorkoutStore();
+useLoadingAction(getWorkoutsResponse, getWorkouts);
 
-const exercises = computed(() => trainingStore.trainings.data?.data.at(0)?.exercises);
+const exercises = computed(() => getWorkoutsResponse.data?.data.at(0)?.exercises);
 </script>
 
 <template>
   <SStructure>
     <SSplide :options="{ direction: 'ttb', height: '35rem' }">
-      <SSplideSlide v-if="!trainingStore.trainings.state.isSuccess()">
+      <SSplideSlide v-if="!getWorkoutsResponse.state.isSuccess()">
         <SNoResultsScreen />
       </SSplideSlide>
       <SSplideSlide v-for="exercise in exercises" :key="exercise.name">
@@ -30,4 +29,3 @@ const exercises = computed(() => trainingStore.trainings.data?.data.at(0)?.exerc
     </SSplide>
   </SStructure>
 </template>
-shared/api/workout

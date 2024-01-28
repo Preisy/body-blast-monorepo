@@ -52,6 +52,7 @@ export const adminRoutes: RouteRecordRaw = {
         {
           path: 'trainings',
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_TRAININGS,
+          props: true,
           component: PAdminDetailedTrainings,
         },
       ],

@@ -1,5 +1,5 @@
 import { api } from 'shared/config/axios';
-import { basePaginationRequest, useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib/utils';
 import { Prompt } from './types';
 
 export const adminPromptsService = {
@@ -16,9 +16,6 @@ export const adminPromptsService = {
   ),
 
   getPrompts: useServiceAction((data: Prompt.Get.Dto) =>
-    api.get<Prompt.Get.Response>(
-      basePaginationRequest('/admin/prompts', data),
-      // `/admin/prompts?type=${data.type}&page=${data.page}&limit=${data.limit}&expanded=${data.expanded}`,
-    ),
+    api.get<Prompt.Get.Response>('/admin/prompts', { params: data }),
   ),
 };
