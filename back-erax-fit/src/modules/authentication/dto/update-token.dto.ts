@@ -27,7 +27,12 @@ export class UpdateRefreshAccess {
   @ApiProperty()
   public refreshToken: string;
 
-  constructor(refreshToken: string) {
+  @IsString()
+  @ApiProperty()
+  public accessToken: string;
+
+  constructor(accessToken: string, refreshToken: string) {
+    this.accessToken = accessToken;
     this.refreshToken = refreshToken;
   }
 }

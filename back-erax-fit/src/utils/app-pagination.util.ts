@@ -1,7 +1,7 @@
 import { FindManyOptions, FindOneOptions, ObjectLiteral, Repository } from 'typeorm';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsNumberString, IsOptional } from 'class-validator';
-import { ToBoolean } from 'src/decorators/to-boolean.decorator';
+import { ToBoolean } from '../decorators/to-boolean.decorator';
 import { createDerivedClass } from './create-derived-class.util';
 
 export namespace AppPagination {
@@ -62,7 +62,7 @@ export namespace AppPagination {
       ) => {
         const request = new AppPagination.Request(query.expanded, query.page, query.limit);
         const page = request.page || 1;
-        const limit = request.limit;
+        const limit = request.limit || 0;
         const skip = (page - 1) * limit!;
 
         const [sellers, count] = await repository.findAndCount({

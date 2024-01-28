@@ -23,7 +23,7 @@ export class ExerciseEntity extends AppBaseEntity {
 
   @ApiProperty()
   @Column()
-  public repetitions: number;
+  public repetitions: string;
 
   @ApiProperty()
   @Column()
