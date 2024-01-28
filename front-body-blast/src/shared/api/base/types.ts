@@ -4,3 +4,13 @@ export interface AppBaseEntity {
   updatedAt: string; // iso date format: 2023-11-23T12:17:00.852Z
   deletedAt: string; // iso date format: 2023-11-23T12:17:00.852Z
 }
+
+export namespace AppBaseEntity {
+  export interface Dto {
+    id: number;
+  }
+
+  export interface Response<T> {
+    data: T;
+  }
+}

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SReadonlyField, SReadonlyFieldProps } from 'shared/ui/SReadonlyField';
+import { SReadonlyField, SReadonlyFieldProps } from 'shared/ui/inputs';
 
 defineProps<{
   cards: Array<SReadonlyFieldProps>;

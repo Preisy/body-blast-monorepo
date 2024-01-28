@@ -1,5 +1,6 @@
 import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
+import { AppBaseEntity } from '../base';
 import { User } from '../user';
 
 // Authentication
@@ -25,6 +26,10 @@ export namespace Refresh {
   export interface Response extends Auth.Response {}
 }
 
+export namespace Logout {
+  export interface Response extends AppBaseEntity.Response<{ status: boolean }> {}
+}
+
 export namespace SignUp {
   export interface Dto extends User {}
 
@@ -37,18 +42,10 @@ export namespace SignUp {
   export namespace BodyParams {
     export interface Dto extends Pick<User, 'age' | 'weight' | 'height' | 'weightInYouth'> {}
     export const validation = (t: ComposerTranslation) =>
-      z.object({
-        age: z.coerce.number().min(1).max(100),
-        weightAndHeight: z.string().superRefine((val, ctx) => {
-          const [weight, height] = val.split('/');
-          const numWeight = parseFloat(weight);
-          const numHeight = parseFloat(height);
-          if (numWeight < 20 || numWeight > 600)
-            ctx.addIssue({ code: 'custom', message: t('auth.signUp.bodyParams.errors.weight') });
-          if (numHeight < 100 || numHeight > 250)
-            ctx.addIssue({ code: 'custom', message: t('auth.signUp.bodyParams.errors.height') });
-        }),
-        weightInYouth: z.coerce.number().min(20).max(600),
+      User.validation(t).pick({
+        age: true,
+        weightAndHeight: true,
+        weightInYouth: true,
       });
   }
 
@@ -87,24 +84,24 @@ export namespace SignUp {
     export interface Dto
       extends Pick<User, 'gastroDeseases' | 'insulinResistance' | 'kidneyDesease' | 'heartDesease' | 'muscleDesease'> {}
 
-    export const validation = () =>
-      z.object({
-        gastroDeseases: z.string().min(1),
-        insulinResistance: z.coerce.boolean(),
-        kidneyDesease: z.string().min(1),
-        heartDesease: z.string().min(1),
-        muscleDesease: z.string().min(1),
+    export const validation = (t: ComposerTranslation) =>
+      User.validation(t).pick({
+        gastroDeseases: true,
+        insulinResistance: true,
+        kidneyDesease: true,
+        heartDesease: true,
+        muscleDesease: true,
       });
   }
 
   // Sign up (Forbiddens)
   export namespace Forbiddens {
     export interface Dto extends Pick<User, 'nutritRestrict' | 'allergy' | 'mealIntolerance'> {}
-    export const validation = () =>
-      z.object({
-        nutritRestrict: z.string().min(1),
-        allergy: z.string().min(1),
-        mealIntolerance: z.string().min(1),
+    export const validation = (t: ComposerTranslation) =>
+      User.validation(t).pick({
+        nutritRestrict: true,
+        allergy: true,
+        mealIntolerance: true,
       });
   }
 
@@ -112,11 +109,11 @@ export namespace SignUp {
   export namespace Motivations {
     export interface Dto extends Pick<User, 'loadRestrictions' | 'sportsExp' | 'goals'> {}
 
-    export const validation = () =>
-      z.object({
-        loadRestrictions: z.string().min(3).max(50),
-        sportsExp: z.string().min(3).max(50),
-        goals: z.string().min(3).max(50),
+    export const validation = (t: ComposerTranslation) =>
+      User.validation(t).pick({
+        loadRestrictions: true,
+        sportsExp: true,
+        goals: true,
       });
   }
 }
