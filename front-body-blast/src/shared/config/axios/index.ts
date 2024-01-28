@@ -15,7 +15,7 @@ api.interceptors.request.use((value) => {
 api.interceptors.response.use(
   (value) => value,
   async (error: AxiosError) => {
-    error = await refreshInterceptor(error);
+    await refreshInterceptor(error);
     return error;
   },
 );

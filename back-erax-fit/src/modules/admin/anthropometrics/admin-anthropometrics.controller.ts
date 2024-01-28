@@ -12,6 +12,7 @@ import { AppAuthGuard } from '../../authentication/guards/appAuth.guard';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { Throttle } from '@nestjs/throttler';
 import { CreateAnthropometricsByAdminRequest } from './dto/create-anthropometrics-by-admin.dto';
+import { GetAnthropometricsForUserByAdminRequest } from './dto/get-anthropometrics-for-user-by-admin.dto';
 
 @Controller('admin/anthropometrics')
 @ApiTags('Admin anthropometrics')
@@ -29,7 +30,7 @@ export class AdminAnthropometricsController {
 
   @Get()
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(AnthropometricsEntity) })
-  async getAll(@Query() query: AppDatePagination.Request) {
+  async getAll(@Query() query: GetAnthropometricsForUserByAdminRequest) {
     return await this.adminService.findAll(query);
   }
 

@@ -4,7 +4,7 @@ export default {
       athropometrics: {
         weight: 'Weight',
         waist: 'Waist',
-        underbelly: 'Underbelly',
+        abdomen: 'Underbelly',
         shoulder: 'Shoulder',
         hip: 'Hip',
         hipVolume: 'Hip volume',

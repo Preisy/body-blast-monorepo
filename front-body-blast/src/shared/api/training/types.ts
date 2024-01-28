@@ -1,13 +1,10 @@
 import { Moment } from 'moment';
 import { z } from 'zod';
 import { AppBaseEntity } from '../base';
+import { AppPagination } from '../pagination';
 
 export namespace Training {
-  export interface Dto {
-    page: number;
-    limit: number;
-    expanded: boolean;
-  }
+  export interface Dto extends AppPagination.BaseDto {}
 
   export interface Base extends AppBaseEntity {
     name: string;
@@ -22,14 +19,8 @@ export namespace Training {
   }
 
   export namespace Response {
-    export interface Base {
-      data: Array<Training.Base>;
-      count: number;
-    }
-    export interface Expanded {
-      data: Array<Training.Expanded>;
-      count: number;
-    }
+    export interface Base extends AppPagination.Response<Training.Base> {}
+    export interface Expanded extends AppPagination.Response<Training.Expanded> {}
   }
 
   export interface Exercise {

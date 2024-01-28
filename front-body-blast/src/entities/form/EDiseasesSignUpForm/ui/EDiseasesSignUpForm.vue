@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SInput } from 'shared/ui/SInput';
+import { SInput } from 'shared/ui/inputs';
 import { SSelect } from 'shared/ui/SSelect';
 </script>
 
