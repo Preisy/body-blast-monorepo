@@ -4,19 +4,19 @@ import { LearningService } from './service';
 import { BonusVideo } from './types';
 
 export const useBonusVideoStore = defineStore('bonus-video-store', () => {
-  const videos = ref(useSingleState<BonusVideo.Response>());
+  const getVideosResponse = ref(useSingleState<BonusVideo.Get.Response>());
   const getVideos = () =>
     useSimpleStoreAction({
-      stateWrapper: videos.value,
+      stateWrapper: getVideosResponse.value,
       serviceAction: LearningService.getVideos(),
     });
 
-  const video = ref(useSingleState<BonusVideo>());
-  const getVideoById = (id: string | number) =>
+  const getVideoByIdResponse = ref(useSingleState<BonusVideo.GetById.Response>());
+  const getVideoById = (id: BonusVideo.GetById.Dto['id']) =>
     useSimpleStoreAction({
-      stateWrapper: video.value,
+      stateWrapper: getVideoByIdResponse.value,
       serviceAction: LearningService.getVideoById(id),
     });
 
-  return { videos, getVideos, video, getVideoById };
+  return { getVideosResponse, getVideos, getVideoByIdResponse, getVideoById };
 });
