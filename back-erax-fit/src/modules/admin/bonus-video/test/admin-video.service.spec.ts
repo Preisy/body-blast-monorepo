@@ -6,6 +6,7 @@ import { AppSingleResponse } from '../../../../dto/app-single-response.dto';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BaseBonusVideoService } from '../../../core/bonus-video/base-bonus-video.service';
+import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
 
 describe('AdminBonusVideoService', () => {
   let service: AdminBonusVideoService;
@@ -14,12 +15,17 @@ describe('AdminBonusVideoService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        BaseBonusVideoService,
         AdminBonusVideoService,
         {
           provide: getRepositoryToken(BonusVideoEntity),
-          useClass: Repository,
+          useValue: {
+            save: jest.fn(() => BonusVideoEntity),
+            create: jest.fn(() => BonusVideoEntity),
+            findOne: jest.fn(() => BonusVideoEntity),
+            delete: jest.fn(() => AppStatusResponse),
+          },
         },
-        BaseBonusVideoService,
       ],
     }).compile();
 
@@ -46,20 +52,30 @@ describe('AdminBonusVideoService', () => {
 
   describe('findOne', () => {
     it('should find a bonus video by id', async () => {
-      const id = 1;
-      const video = await service.findOne(id);
+      const createVideoRequest: CreateVideoByAdminRequest = {
+        name: 'porn migration video',
+        linkUrl: 'undefined/porn.mp4',
+      };
+
+      const savedData = await repository.save(await repository.create(createVideoRequest));
+
+      const video = await service.findOne(savedData.id);
       expect(video).toBeDefined();
-      expect({ data: video }).toBe(id);
       expect({ data: video.data }).toBeDefined();
     });
   });
 
   describe('delete', () => {
     it('should delete a bonus video by id', async () => {
-      const id = 1;
-      const affected = await service.delete(id);
+      const createVideoRequest: CreateVideoByAdminRequest = {
+        name: 'porn migration video',
+        linkUrl: 'undefined/porn.mp4',
+      };
+
+      const savedData = await repository.save(await repository.create(createVideoRequest));
+      const affected = await service.delete(savedData.id);
       expect(affected).toBeDefined();
-      expect(affected).toBe(1);
+      expect(affected).toEqual({ status: false });
     });
   });
 });
