@@ -21,7 +21,7 @@ export class CreateExerciseRequest {
   public sets: number;
 
   @IsDefined()
-  @IsNumber()
+  @IsString()
   @ApiProperty()
   @Length(1, 50)
   public repetitions: string;

@@ -110,15 +110,6 @@ export class UserEntity extends AppBaseEntity {
   @Column({ type: 'integer' })
   public stepsGoal: number;
 
-  @ApiProperty({ type: () => DiaryTemplateEntity })
-  @ManyToOne(() => DiaryTemplateEntity)
-  @JoinColumn({ name: 'templateId' })
-  public template!: DiaryTemplateEntity;
-
-  @ApiProperty()
-  @Column('integer', { name: 'templateId' })
-  public templateId!: number;
-
   @ApiProperty()
   @Column({ type: 'boolean' })
   public canWatchVideo: boolean;

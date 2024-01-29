@@ -21,8 +21,8 @@ import { AdminFoodModule } from './modules/admin/food/admin-food.module';
 import { ClientFoodModule } from './modules/client/food/client-food.module';
 import { AdminNutritionModule } from './modules/admin/nutrition/admin-nutrition.module';
 import { ClientNutritionModule } from './modules/client/nutrition/client-nutrition.module';
-import { AdminSelfControlModule } from './modules/admin/self-control/admin-self-control.module';
-import { ClientSelfControlModule } from './modules/client/self-control/client-self-control.module';
+import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
+import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
 
 @Module({
   imports: [
@@ -47,8 +47,8 @@ import { ClientSelfControlModule } from './modules/client/self-control/client-se
     ClientFoodModule,
     AdminNutritionModule,
     ClientNutritionModule,
-    AdminSelfControlModule,
-    ClientSelfControlModule,
+    AdminDiaryModule,
+    ClientDiaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],

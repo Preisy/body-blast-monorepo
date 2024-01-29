@@ -1,4 +1,13 @@
-import { OmitType, PartialType } from '@nestjs/swagger';
-import { CreateDiaryTemplateRequest } from './create-diary-template.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { ArrayNotEmpty, IsDefined, ValidateNested } from 'class-validator';
+import { UpdateDiaryTemplatePropsRequest } from '../diary-template-props/dto/update-diary-template-props.dto';
 
-export class UpdateDiaryTemplateRequest extends PartialType(OmitType(CreateDiaryTemplateRequest, ['userId'])) {}
+export class UpdateDiaryTemplateRequest {
+  @IsDefined()
+  @ArrayNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => UpdateDiaryTemplatePropsRequest)
+  @ApiProperty({ type: [UpdateDiaryTemplatePropsRequest] })
+  public props: UpdateDiaryTemplatePropsRequest[];
+}

@@ -26,10 +26,10 @@ import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AppPagination } from '../../../utils/app-pagination.util';
-import { AdminSelfControlService } from '../self-control/admin-self-control.service';
 import { AppDatePagination } from 'src/utils/app-date-pagination.util';
-import { SelfControlEntity } from 'src/modules/core/self-control/entity/self-control.entity';
-import { GetStepsByUserIdByAdminDTO } from '../self-control/dto/admin-get-steps-by-userId.dto';
+import { AdminDiaryService } from '../diary/admin-diary.service';
+import { GetStepsByUserIdByAdminDTO } from '../diary/dto/admin-get-steps-by-userId.dto';
+import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
 
 @AppAuthGuard(RoleGuard(UserRole.Admin))
 @Controller('admin/users')
@@ -39,7 +39,7 @@ import { GetStepsByUserIdByAdminDTO } from '../self-control/dto/admin-get-steps-
 export class AdminUserController {
   constructor(
     private readonly adminService: AdminUserService,
-    private readonly selfControlService: AdminSelfControlService,
+    private readonly diaryService: AdminDiaryService,
   ) {}
 
   @Post()
@@ -74,14 +74,14 @@ export class AdminUserController {
   }
 
   @Get(':id/self-controls')
-  @AppResponses({ status: 200, type: AppDatePagination.Response.type(SelfControlEntity) })
+  @AppResponses({ status: 200, type: AppDatePagination.Response.type(DiaryEntity) })
   async getSelfControls(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
-    return this.selfControlService.findAllByUserId(id, query);
+    return this.diaryService.findAllByUserId(id, query);
   }
 
   @Get(':id/steps')
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByAdminDTO) })
   async getSteps(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
-    return this.selfControlService.getStepsByUserId(id, query);
+    return this.diaryService.getStepsByUserId(id, query);
   }
 }

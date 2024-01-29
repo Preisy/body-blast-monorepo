@@ -20,7 +20,6 @@ import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
 import { AdminDiaryTemplateService } from './admin-diary-template.service';
-import { CreateDiaryTemplateByAdminRequest } from './dto/admin-create-diary-template.dto';
 import { UpdateDiaryTemplateByAdminRequest } from './dto/admin-update-diary-template.dto';
 
 @Controller('admin/diary-templates')
@@ -30,13 +29,6 @@ import { UpdateDiaryTemplateByAdminRequest } from './dto/admin-update-diary-temp
 @BaseAuthGuard(RoleGuard(UserRole.Admin))
 export class AdminDiaryTemplateController {
   constructor(private readonly adminService: AdminDiaryTemplateService) {}
-
-  @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  @Throttle(5, 1)
-  async create(@Body() request: CreateDiaryTemplateByAdminRequest) {
-    return await this.adminService.create(request);
-  }
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
@@ -48,11 +40,5 @@ export class AdminDiaryTemplateController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
   async update(@Param('id') id: number, @Body() body: UpdateDiaryTemplateByAdminRequest) {
     return await this.adminService.update(id, body);
-  }
-
-  @Delete(':id')
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
-  async deleteOne(@Param('id') id: number) {
-    return await this.adminService.deleteOne(id);
   }
 }

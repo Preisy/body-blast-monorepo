@@ -9,8 +9,8 @@ import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AppDatePagination } from 'src/utils/app-date-pagination.util';
-import { ClientSelfControlService } from '../self-control/client-self-control.service';
-import { GetStepsByUserIdByClientDTO } from '../self-control/dto/client-get-steps-by-userId.dto';
+import { ClientDiaryService } from '../diary/client-diary.service';
+import { GetStepsByUserIdByClientDTO } from '../diary/dto/client-get-steps-by-userId.dto';
 
 @AppAuthGuard()
 @Controller('me')
@@ -20,7 +20,7 @@ import { GetStepsByUserIdByClientDTO } from '../self-control/dto/client-get-step
 export class MeController {
   constructor(
     private readonly meService: MeService,
-    private readonly selfControlService: ClientSelfControlService,
+    private readonly selfControlService: ClientDiaryService,
   ) {}
 
   @Get()
