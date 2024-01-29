@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { BonusVideo } from 'shared/api/bonusVideo';
-import { SAuthVideo, useVideoLink } from 'shared/ui/SAuthVideo';
+import { useAuthLink } from 'shared/lib/utils';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
+import { SVideo } from 'shared/ui/SVideo';
 
 const props = defineProps<{
   video: BonusVideo;
 }>();
-const link = computed(() => useVideoLink(props.video.linkUrl));
+const link = computed(() => useAuthLink(props.video.linkUrl));
 
 onUnmounted(() => link.value.data?.destructor());
 </script>
@@ -15,7 +16,7 @@ onUnmounted(() => link.value.data?.destructor());
   <div w-full p-6>
     <h2 mb-4>{{ video.name }}</h2>
     <div>
-      <SAuthVideo v-if="link.data" :link-url="link.data.link" />
+      <SVideo v-if="link.data" :link-url="link.data.link" />
       <SNoResultsScreen v-else />
     </div>
   </div>
