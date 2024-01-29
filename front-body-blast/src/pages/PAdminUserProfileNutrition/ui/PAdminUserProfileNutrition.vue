@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QTabPanel, QTabPanels } from 'quasar';
-import { WAdminNutritionLong } from 'widgets/WAdminNutritionLong';
+import { WAdminNutrition } from 'widgets/WAdminNutrition';
 import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
@@ -22,7 +22,7 @@ const pageValue = ref(pages[0].value);
       </div>
       <QTabPanels :model-value="pageValue">
         <QTabPanel v-for="page in pages" :key="page.value" :name="page.value" p="0!">
-          <WAdminNutritionLong :title="page.label" />
+          <WAdminNutrition :title="page.label" />
         </QTabPanel>
       </QTabPanels>
     </SProxyScroll>

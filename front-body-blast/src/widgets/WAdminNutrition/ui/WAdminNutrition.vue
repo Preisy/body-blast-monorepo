@@ -19,6 +19,10 @@ const nutritionSlides = ref<
     type: 'Завтрак',
     items: [{ type: 'Греча', value: '100 гр' }],
   },
+  {
+    type: 'Перекус',
+    items: [{ type: 'Греча', value: '100 гр' }],
+  },
 ]);
 </script>
 
@@ -26,7 +30,7 @@ const nutritionSlides = ref<
   <SComponentWrapper>
     <h1 mb-1rem>{{ title }}</h1>
 
-    <SSplide :options="{}">
+    <SSplide :options="{ direction: 'ttb' }">
       <SSplideSlide v-for="(slide, i) of nutritionSlides" :key="slide.type">
         <FNutritionListForm :title="slide.type" :model-value="nutritionSlides[i].items" />
       </SSplideSlide>
