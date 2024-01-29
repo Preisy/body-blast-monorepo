@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { WSelfControl } from 'widgets/diary/WSelfControl';
-import { EDiaryHeader } from 'entities/diary/EDiaryHeader';
+import { EDiaryHeader } from 'entities/diary';
 import { useSelfControlStore } from 'shared/api/selfControl';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';

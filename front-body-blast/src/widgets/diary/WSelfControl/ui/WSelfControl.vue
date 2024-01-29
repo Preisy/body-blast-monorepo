@@ -2,8 +2,7 @@
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import moment from 'moment';
 import { QTabPanel } from 'quasar';
-import { EDiaryActivity } from 'entities/diary/EDiaryActivity';
-import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
+import { EDiaryActivity, EDiarySelfControlItem } from 'entities/diary/';
 import { SelfControl } from 'shared/api/selfControl';
 import { SBtn } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';

@@ -9,16 +9,16 @@ export interface SelfControl extends AppBaseEntity {
   activivty: Nullable<string>;
   steps: Nullable<number>;
   userId: number;
-  props: Array<SelfControl.Prop>;
+  props: Array<
+    AppBaseEntity & {
+      label: string;
+      value: number;
+      selfControlId: number;
+    }
+  >;
 }
 
 export namespace SelfControl {
-  export interface Prop extends AppBaseEntity {
-    label: string;
-    value: number;
-    selfControlId: number;
-  }
-
   export namespace Get {
     export interface Dto extends AppPagination.DateDto {}
     export interface Response extends AppPagination.Response<SelfControl> {}
