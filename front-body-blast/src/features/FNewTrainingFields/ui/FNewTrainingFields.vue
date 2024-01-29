@@ -4,12 +4,12 @@ import { Prompt } from 'shared/api/admin';
 import { SChooseInput, SInput } from 'shared/ui/inputs';
 
 export interface ENewTrainingFieldsProps {
-  prompts?: Array<Prompt.Base>;
+  prompts?: Array<Prompt>;
 }
 defineProps<ENewTrainingFieldsProps>();
 
-const promptValue = ref<Prompt.Base>();
-const updateValue = (next: Prompt.Base) => (promptValue.value = next);
+const promptValue = ref<Prompt>();
+const updateValue = (next: Prompt) => (promptValue.value = next);
 </script>
 
 <template>

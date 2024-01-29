@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import {
   symRoundedDelete,
@@ -10,14 +11,14 @@ import { useI18n } from 'vue-i18n';
 import { WPromptCreation } from 'widgets/WPromptCreation';
 import { WPromptEditDialog } from 'widgets/WPromptEditDialog';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
-import { useLoading } from 'shared/lib/loading';
+import { useLoading, useLoadingAction } from 'shared/lib/loading';
+import { useAuthLink } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
-import { SAuthImg } from 'shared/ui/SAuthImg';
-import { SAuthVideo } from 'shared/ui/SAuthVideo';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
+import { SVideo } from 'shared/ui/SVideo';
 
 const { t } = useI18n();
 const routes: QTabProps[] = [
@@ -25,11 +26,17 @@ const routes: QTabProps[] = [
   { name: 'all', label: t('admin.prompt.nav.all') },
 ];
 const currentRoute = ref(routes[0].name);
-const { prompts, getPrompts, deletePrompt, deletePromptState } = useAdminPromptStore();
-const promptList = computed(() => prompts.data?.data);
+const { getPromptsResponse, getPrompts, deletePrompt, deletePromptResponse } = useAdminPromptStore();
+const rawPrompts = computed(() => getPromptsResponse.data?.data);
+const promptLinks = computed(
+  () =>
+    rawPrompts.value?.map((prompt) => ({
+      photoLink: useAuthLink(prompt.photoLink),
+      videoLink: useAuthLink(prompt.videoLink),
+    })),
+);
 
-if (!prompts.state.isSuccess()) getPrompts({ type: '' });
-useLoading(prompts);
+useLoadingAction(getPromptsResponse, () => getPrompts({ type: '' }));
 
 const onTransition = (newVal: string) => {
   if (newVal != routes[1].name) return;
@@ -39,7 +46,7 @@ const onTransition = (newVal: string) => {
 const onDeleteClick = async (id: number, index: number) => {
   await deletePrompt({ id });
 
-  if (deletePromptState.state.isSuccess()) prompts.data?.data.splice(index, 1);
+  if (deletePromptResponse.state.isSuccess()) getPromptsResponse.data?.data.splice(index, 1);
 };
 
 // Edit dialog data
@@ -51,7 +58,15 @@ const openDialog = (data: Prompt) => {
 };
 
 // Video control
-const videoList = ref<Array<InstanceType<typeof SAuthVideo>>>();
+const videoList = ref<Array<InstanceType<typeof SVideo>>>();
+
+onUnmounted(() => {
+  if (promptLinks.value)
+    for (const prompt of promptLinks.value) {
+      prompt.photoLink.data?.destructor();
+      prompt.videoLink.data?.destructor();
+    }
+});
 </script>
 
 <template>
@@ -93,20 +108,32 @@ const videoList = ref<Array<InstanceType<typeof SAuthVideo>>>();
 
       <!-- All prompts -->
       <QTabPanel :name="routes[1].name" p="0!">
-        <SProxyScroll h-full v-if="promptList" overflow-hidden>
-          <SComponentWrapper v-for="(prompt, index) in promptList" :key="prompt.id">
+        <SProxyScroll h-full v-if="rawPrompts && promptLinks" overflow-hidden>
+          <SComponentWrapper v-for="(prompt, index) in rawPrompts" :key="prompt.id">
             <div relative>
-              <SAuthImg
-                v-if="!videoList?.[index].isPlaying"
-                :src="prompt.photoLink"
-                absolute
-                h-full
-                w-full
-                rounded-1rem
-              />
-              <SAuthVideo ref="videoList" :link-url="prompt.videoLink">
-                <template #controlBtn> <div /> </template>
-              </SAuthVideo>
+              <template
+                v-if="
+                  promptLinks.at(index) &&
+                  promptLinks.at(index)?.photoLink.data &&
+                  promptLinks.at(index)?.videoLink.data
+                "
+              >
+                <q-img
+                  v-if="!videoList?.[index].isPlaying"
+                  :src="promptLinks.at(index)?.photoLink.data?.link"
+                  absolute
+                  h-full
+                  w-full
+                  rounded-1rem
+                />
+
+                <SVideo ref="videoList" :link-url="promptLinks.at(index)?.videoLink.data?.link!">
+                  <template #controlBtn> <div /> </template>
+                </SVideo>
+              </template>
+              <template v-else>
+                <q-circular-progress indeterminate rounded size="50px" color="secondary" class="q-ma-md" />
+              </template>
             </div>
 
             <div mx-5px mt--1rem flex flex-row gap-x-0.5rem>

@@ -21,12 +21,12 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 const schema = toTypedSchema(Prompt.validation(t));
-const { patchPrompt, patchPromptState, getPrompts } = useAdminPromptStore();
-useLoading(patchPromptState);
+const { patchPrompt, patchPromptResponse, getPrompts } = useAdminPromptStore();
+useLoading(patchPromptResponse);
 
 const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>>) => {
   await patchPrompt(props.promptData.id, values);
-  if (patchPromptState.state.isSuccess()) {
+  if (patchPromptResponse.state.isSuccess()) {
     emit('update:model-value', false); //close dialog after success
     getPrompts({ type: '' });
   }
@@ -57,7 +57,7 @@ const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>
         <template #submit-btn>
           <div mt-0.5rem flex flex-row>
             <SBtn :icon="symRoundedClose" @click="$emit('update:model-value', false)" />
-            <SBtn type="submit" :icon="symRoundedDone" ml-auto :loading="patchPromptState.state.isLoading()" />
+            <SBtn type="submit" :icon="symRoundedDone" ml-auto :loading="patchPromptResponse.state.isLoading()" />
           </div>
         </template>
       </SForm>

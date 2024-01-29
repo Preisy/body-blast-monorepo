@@ -7,77 +7,77 @@ import { Prompt } from './types';
 export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   const fileStore = useAdminFileStore();
 
-  const prompts = ref(useSingleState<Prompt.Get.Response>());
+  const getPromptsResponse = ref(useSingleState<Prompt.Get.Response>());
   const getPrompts = async (data: Prompt.Get.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: prompts.value,
+      stateWrapper: getPromptsResponse.value,
       serviceAction: adminPromptsService.getPrompts(data),
     });
 
-  const postPromptsState = ref(useSingleState<Prompt.Post.Response>());
+  const postPromptsResponse = ref(useSingleState<Prompt.Post.Response>());
   const postPrompts = async (data: Array<Prompt.Post.Dto>) => {
-    postPromptsState.value.state.loading();
+    postPromptsResponse.value.state.loading();
     for (const prompt of data) {
       const photoLink = await fileStore.postFile({ file: prompt.photo });
       if (!photoLink.data) {
         console.error(photoLink.error);
-        postPromptsState.value.state.error();
+        postPromptsResponse.value.state.error();
         return;
       }
       const videoLink = await fileStore.postFile({ file: prompt.video });
       if (!videoLink.data) {
         console.error(videoLink.error);
-        postPromptsState.value.state.error();
+        postPromptsResponse.value.state.error();
         return;
       }
 
       const promptDto = { type: prompt.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link };
       await useSimpleStoreAction({
-        stateWrapper: postPromptsState.value,
+        stateWrapper: postPromptsResponse.value,
         serviceAction: adminPromptsService.postPrompt(promptDto),
       });
     }
   };
 
-  const deletePromptState = ref(useSingleState<Prompt.Delete.Response>());
+  const deletePromptResponse = ref(useSingleState<Prompt.Delete.Response>());
   const deletePrompt = async (data: Prompt.Delete.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: deletePromptState.value,
+      stateWrapper: deletePromptResponse.value,
       serviceAction: adminPromptsService.deletePrompt(data),
     });
 
-  const patchPromptState = ref(useSingleState<Prompt.Patch.Response>());
+  const patchPromptResponse = ref(useSingleState<Prompt.Patch.Response>());
   const patchPrompt = async (id: string | number, data: Prompt.Patch.Dto) => {
-    patchPromptState.value.state.loading();
+    patchPromptResponse.value.state.loading();
     const photoLink = await fileStore.postFile({ file: data.photo });
     if (!photoLink.data) {
       console.error(photoLink.error);
-      postPromptsState.value.state.error();
+      postPromptsResponse.value.state.error();
       return;
     }
 
     const videoLink = await fileStore.postFile({ file: data.video });
     if (!videoLink.data) {
       console.error(videoLink.error);
-      postPromptsState.value.state.error();
+      postPromptsResponse.value.state.error();
       return;
     }
 
     const promptDto = { type: data.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link };
     await useSimpleStoreAction({
-      stateWrapper: patchPromptState.value,
+      stateWrapper: patchPromptResponse.value,
       serviceAction: adminPromptsService.patchPrompt(id, promptDto),
     });
   };
 
   return {
-    prompts,
+    getPromptsResponse,
     getPrompts,
     postPrompts,
-    postPromptsState,
-    deletePromptState,
+    postPromptsResponse,
+    deletePromptResponse,
     deletePrompt,
-    patchPromptState,
+    patchPromptResponse,
     patchPrompt,
   };
 });

@@ -13,7 +13,7 @@ const { t } = useI18n();
 const prompts = ref<Array<Partial<Prompt.Post.Dto & { key: string }>>>([{ key: uniqueId('prompt-') }]);
 const schema = toTypedSchema(Prompt.validation(t));
 const forms = ref<Array<InstanceType<typeof SForm>>>([]);
-const { postPrompts, postPromptsState } = useAdminPromptStore();
+const { postPrompts, postPromptsResponse } = useAdminPromptStore();
 
 const onsubmit = async () => {
   // apply values of each form to array
@@ -37,7 +37,7 @@ const onsubmit = async () => {
     await postPrompts(promptsDto);
 
     //check response
-    if (postPromptsState.state.isSuccess()) {
+    if (postPromptsResponse.state.isSuccess()) {
       //clear forms
       forms.value.forEach((form) => form.resetForm());
       //refresh prompts forms. Remain only one
@@ -70,7 +70,7 @@ const onremove = (index: number) => prompts.value.splice(index, 1);
             @add="onadd"
             @remove="() => onremove(index)"
             @submit="onsubmit"
-            :loading-submit="postPromptsState.state.isLoading()"
+            :loading-submit="postPromptsResponse.state.isLoading()"
             mt-0.5rem
           />
         </template>

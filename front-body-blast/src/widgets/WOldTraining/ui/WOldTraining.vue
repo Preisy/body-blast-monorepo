@@ -10,7 +10,6 @@ import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 
-//TODO: props id
 export interface WOldWorkoutsProps {
   id: string | number;
 }

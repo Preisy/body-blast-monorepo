@@ -1,36 +1,29 @@
 import { RouteRecordRaw } from 'vue-router';
-import LAdminDashboardVue from 'processes/layouts/LAdminDashboard.vue';
-import { PAdminDetailedTrainings } from 'pages/PAdminDetailedTrainings';
-import { PAdminHome } from 'pages/PAdminHome';
-import { PAdminPrompt } from 'pages/PAdminPrompt';
-import { PAdminUserProfile } from 'pages/PAdminUserProfile';
-import { PAdminUserProfileBio } from 'pages/PAdminUserProfileBio';
-import PDiaryVue from 'pages/PDiary.vue';
 import { ENUMS } from 'shared/lib/enums';
 
 export const adminRoutes: RouteRecordRaw = {
   path: '/admin/',
   meta: { auth: true, admin: true },
   name: ENUMS.ROUTES_NAMES.ADMIN.BASE,
-  component: LAdminDashboardVue,
+  component: () => import('processes/layouts/LAdminDashboard.vue').then((data) => data.default),
   children: [
     {
       path: '',
       meta: { auth: true, admin: true },
       name: ENUMS.ROUTES_NAMES.ADMIN.HOME,
-      component: PAdminHome,
+      component: () => import('pages/PAdminHome').then((data) => data.PAdminHome),
     },
     {
       path: 'prompt',
       meta: { auth: true, admin: true },
       name: ENUMS.ROUTES_NAMES.ADMIN.PROMPT,
-      component: PAdminPrompt,
+      component: () => import('pages/PAdminPrompt').then((data) => data.PAdminPrompt),
     },
     {
       path: 'learning',
       meta: { auth: true, admin: true },
       name: ENUMS.ROUTES_NAMES.ADMIN.LEARNING,
-      component: PDiaryVue,
+      component: () => import('pages/PDiary.vue').then((data) => data.default),
     },
     {
       path: 'detailed/:id/',
@@ -40,20 +33,20 @@ export const adminRoutes: RouteRecordRaw = {
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE,
           props: true,
-          component: PAdminUserProfile,
+          component: () => import('pages/PAdminUserProfile').then((data) => data.PAdminUserProfile),
         },
         {
           path: 'bio',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO,
           props: true,
-          component: PAdminUserProfileBio,
+          component: () => import('pages/PAdminUserProfileBio').then((data) => data.PAdminUserProfileBio),
         },
         {
           path: 'trainings',
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_TRAININGS,
           props: true,
-          component: PAdminDetailedTrainings,
+          component: () => import('pages/PAdminUserWorkout').then((data) => data.PAdminUserWorkout),
         },
       ],
     },

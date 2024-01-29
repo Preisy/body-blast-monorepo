@@ -10,6 +10,7 @@ export interface PAdminUserWorkoutProps {
   id: string;
 }
 defineProps<PAdminUserWorkoutProps>();
+
 const date = ref(moment().toISOString());
 const isToday = computed(() => moment().diff(date.value.split('/').join('-'), 'days') === 0);
 </script>
