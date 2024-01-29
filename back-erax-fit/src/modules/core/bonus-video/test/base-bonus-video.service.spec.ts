@@ -6,6 +6,7 @@ import { AppSingleResponse } from '../../../../dto/app-single-response.dto';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
+import { AppPagination } from '../../../../utils/app-pagination.util';
 
 describe('BaseBonusVideoService', () => {
   let service: BaseBonusVideoService;
@@ -45,6 +46,28 @@ describe('BaseBonusVideoService', () => {
       const result = await service.create(createVideoRequest);
       expect(result).toBeInstanceOf(AppSingleResponse);
       expect(result.data).toEqual(createVideoRequest);
+    });
+  });
+
+  describe('findAll method', () => {
+    it('should return an AppPagination Response with array of video entity', async () => {
+      const query: AppPagination.Request = {
+        page: 1,
+        limit: 10,
+      };
+      const createVideoRequest: CreateVideoRequest = {
+        name: 'porn migration video',
+        linkUrl: 'undefined/porn.mp4',
+      };
+      for (let i = 0; i < 5; i++) {
+        await repository.save(await repository.create(createVideoRequest));
+      }
+      const result = await service.findAll(query);
+
+      for (const video of result.data) {
+        expect(video).toBe(BonusVideoEntity);
+        expect(video.linkUrl).toBe('undefined/porn.mp4');
+      }
     });
   });
 

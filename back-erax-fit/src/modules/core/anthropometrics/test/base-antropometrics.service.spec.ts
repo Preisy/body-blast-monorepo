@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BaseAnthropometrcisService } from '../base-anthropometrics.service';
 import { CreateAnthropometricsRequest } from '../dto/create-anthropometrics.dto';
 import { UpdateAnthropometricsRequest } from '../dto/update-anthropometrics';
-//import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
+import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
 import { AnthropometricsEntity } from '../entities/anthropometrics.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -89,19 +89,56 @@ describe('BaseAnthropometricsService', () => {
     });
   });
 
-  // describe('findAll method', () => {
-  //   it('it should return all antropometrics records between given period', async () => {
-  //     const query: AppDatePagination.Request = {
-  //       from: new Date('2023-18-10'),
-  //       to: new Date('2023-20-11'),
-  //     };
+  describe('findAll method', () => {
+    it('it should return all antropometrics records between given period', async () => {
+      const query: AppDatePagination.Request = {
+        from: new Date('2023-18-10'),
+        to: new Date('2023-20-11'),
+      };
 
-  //     const result = await service.findAll(query);
+      const userRequest: CreateUserRequest = {
+        email: 'test1@mail.ru',
+        password: 'Qwertyuiop1',
+        firstName: 'Test',
+        lastName: 'User',
+        age: 33,
+        weight: 80,
+        weightInYouth: 70,
+        height: 190,
+        heartDesease: 'none',
+        nutritRestrict: 'none',
+        gastroDeseases: 'none',
+        allergy: 'none',
+        kidneyDesease: 'none',
+        goals: 'Achieve volume of Arnold Schwarzenegger',
+        sportsExp: 'push-ups',
+        mealIntolerance: 'none',
+        insulinResistance: false,
+        muscleDesease: 'none',
+        loadRestrictions: 'none',
+      };
+      const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-  //     expect(result).toBeInstanceOf(AppDatePagination.Response);
-  //     expect(result.data).toBeInstanceOf(AppDatePagination.Response<AnthropometricsEntity>);
-  //   });
-  // });
+      const request: CreateAnthropometricsRequest = {
+        weight: 90,
+        waist: 40,
+        abdomen: 88,
+        shoulder: 101,
+        hip: 56,
+        hipVolume: 56,
+        userId: savedUser.id,
+      };
+      for (let i = 0; i < 5; ++i) {
+        await repository.save(await repository.create(request));
+      }
+      const result = await service.findAll(query);
+
+      for (const anthrp of result.data) {
+        expect(anthrp.createdAt).toBeGreaterThanOrEqual(Date.now() - 1000000);
+        expect(anthrp.createdAt).toBeLessThanOrEqual(Date.now() + 1000000);
+      }
+    });
+  });
 
   describe('findOne method', () => {
     it('should find an anthropometrics record by its ID', async () => {

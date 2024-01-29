@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BaseUserService } from '../base-user.service';
 import { UserEntity } from '../entities/user.entity';
 import { CreateUserRequest } from '../dto/create-user.dto';
-//import { AppPagination } from '../../../../utils/app-pagination.util';
+import { AppPagination } from '../../../../utils/app-pagination.util';
 import { UpdateUserRequest } from '../dto/update-user.dto';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
@@ -23,6 +23,7 @@ describe('BaseUserService', () => {
             save: jest.fn(() => UserEntity),
             softDelete: jest.fn(() => AppStatusResponse),
             findOne: jest.fn(() => UserEntity),
+            findAndCount: jest.fn(() => Promise<[UserEntity[], number]>),
           },
         },
       ],
@@ -61,19 +62,45 @@ describe('BaseUserService', () => {
     });
   });
 
-  // describe('getUsers method', () => {
-  //   it('should return an AppPaginationResponse', async () => {
-  //     const query = {
-  //       page: 1,
-  //       perPage: 10,
-  //     } as AppPagination.Request;
+  describe('getUsers method', () => {
+    it('should return an AppPaginationResponse', async () => {
+      const query: AppPagination.Request = {
+        page: 1,
+        limit: 10,
+      };
 
-  //     const result = await service.getUsers(query);
+      for (let i = 0; i < 5; i++) {
+        const request: CreateUserRequest = {
+          email: `${i}@mail.ru`,
+          password: 'Qwertyuiop1',
+          firstName: `Test${i}`,
+          lastName: `User${i}`,
+          age: 33,
+          weight: 80,
+          weightInYouth: 70,
+          height: 190,
+          heartDesease: 'none',
+          nutritRestrict: 'none',
+          gastroDeseases: 'none',
+          allergy: 'none',
+          kidneyDesease: 'none',
+          goals: 'Achieve volume of Arnold Schwarzenegger',
+          sportsExp: 'push-ups',
+          mealIntolerance: 'none',
+          insulinResistance: false,
+          muscleDesease: 'none',
+          loadRestrictions: 'none',
+        };
+        await repository.save(await repository.create(request));
+      }
+      const result = await service.getUsers(query);
 
-  //     expect(result).toBeInstanceOf(AppPagination.Response);
-  //     expect(result.data).toBeInstanceOf(AppPagination.Response<UserEntity>);
-  //   });
-  // });
+      for (const user of result.data) {
+        expect(result.data).not.toBeNull();
+        expect(user).toBe(UserEntity);
+      }
+    });
+  });
 
   describe('getUserById method', () => {
     it('should find user record by its ID', async () => {

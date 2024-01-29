@@ -2,13 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AdminUserService } from '../admin-user.service';
 import { UserEntity } from '../../../core/user/entities/user.entity';
 import { CreateUserByAdminRequest } from '../dto/create-admin.dto';
-//import { AppPagination } from '../../../../utils/app-pagination.util';
 import { UpdateUserByAdminRequest } from '../dto/update-admin-user.dto';
 import { UserRole } from '../../../../constants/constants';
 import { Repository } from 'typeorm';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { BaseUserService } from '../../../core/user/base-user.service';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
+import { AppPagination } from '../../../../utils/app-pagination.util';
 
 describe('AdminUserService', () => {
   let service: AdminUserService;
@@ -71,19 +71,48 @@ describe('AdminUserService', () => {
     });
   });
 
-  // describe('getUsers method', () => {
-  //   it('should return an AppPaginationResponse', async () => {
-  //     const query = {
-  //       page: 1,
-  //       perPage: 10,
-  //     } as AppPagination.Request;
+  describe('getUsers method', () => {
+    it('should return an AppPaginationResponse', async () => {
+      for (let i = 0; i < 5; i++) {
+        const request: CreateUserByAdminRequest = {
+          email: `${i}@mail.ru`,
+          password: 'Qwertyuiop1',
+          firstName: `Test${i}`,
+          lastName: `User${i}`,
+          age: 33,
+          weight: 80,
+          weightInYouth: 70,
+          height: 190,
+          heartDesease: 'none',
+          nutritRestrict: 'none',
+          gastroDeseases: 'none',
+          allergy: 'none',
+          kidneyDesease: 'none',
+          goals: 'Achieve volume of Arnold Schwarzenegger',
+          sportsExp: 'push-ups',
+          mealIntolerance: 'none',
+          insulinResistance: false,
+          muscleDesease: 'none',
+          loadRestrictions: 'none',
+          role: UserRole.Client,
+          canWatchVideo: false,
+        };
+        await repository.save(await repository.create(request));
+      }
 
-  //     const result = await service.getUsers(query);
+      const query: AppPagination.Request = {
+        limit: 10,
+        page: 1,
+      };
 
-  //     expect(result).toBeInstanceOf(AppPagination.Response);
-  //     expect(result.data).toBeInstanceOf(AppPagination.Response<UserEntity>);
-  //   });
-  // });
+      const result = await service.getUsers(query);
+
+      for (const user of result.data) {
+        expect(result.data).not.toBeNull();
+        expect(user).toBe(UserEntity);
+      }
+    });
+  });
 
   describe('getUserById method', () => {
     it('should find user record by its ID', async () => {

@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdminAnthropometricsService } from '../admin-anthropometrics.service';
 import { AnthropometricsEntity } from '../../../core/anthropometrics/entities/anthropometrics.entity';
-//import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BaseUserService } from '../../../core/user/base-user.service';
@@ -12,6 +11,7 @@ import { UserEntity } from '../../../core/user/entities/user.entity';
 import { BaseAnthropometrcisService } from '../../../core/anthropometrics/base-anthropometrics.service';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
 import { CreateUserByAdminRequest } from '../../user/dto/create-admin.dto';
+import { GetAnthropometricsForUserByAdminRequest } from '../dto/get-anthropometrics-for-user-by-admin.dto';
 
 describe('AdminAnthropometricsService', () => {
   let service: AdminAnthropometricsService;
@@ -42,7 +42,7 @@ describe('AdminAnthropometricsService', () => {
             create: jest.fn(() => AnthropometricsEntity),
             findOne: jest.fn(() => AnthropometricsEntity),
             delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(),
+            findAndCount: jest.fn(() => Promise<[AnthropometricsEntity[], number]>),
           },
         },
       ],
@@ -99,19 +99,60 @@ describe('AdminAnthropometricsService', () => {
     });
   });
 
-  // describe('findAll method', () => {
-  //   it('it should return antropometrics records without between given period', async () => {
-  //     const query: AppDatePagination.Request = {
-  //       from: new Date('2023-31-10'),
-  //       to: new Date('2023-31-11'),
-  //     };
+  describe('findAll method', () => {
+    it('it should return antropometrics records without between given period', async () => {
+      const userRequest: CreateUserByAdminRequest = {
+        email: 'test1@mail.ru',
+        password: 'Qwertyuiop1',
+        firstName: 'Test',
+        lastName: 'User',
+        age: 33,
+        weight: 80,
+        weightInYouth: 70,
+        height: 190,
+        heartDesease: 'none',
+        nutritRestrict: 'none',
+        gastroDeseases: 'none',
+        allergy: 'none',
+        kidneyDesease: 'none',
+        goals: 'Achieve volume of Arnold Schwarzenegger',
+        sportsExp: 'push-ups',
+        mealIntolerance: 'none',
+        insulinResistance: false,
+        muscleDesease: 'none',
+        loadRestrictions: 'none',
+        role: UserRole.Client,
+        canWatchVideo: false,
+      };
+      const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-  //     const result = await service.findAll(query);
+      const request: CreateAnthropometricsByAdminRequest = {
+        weight: 90,
+        waist: 40,
+        abdomen: 88,
+        shoulder: 101,
+        hip: 56,
+        hipVolume: 56,
+        userId: savedUser.id,
+      };
+      for (let i = 0; i < 5; ++i) {
+        await repository.save(await repository.create(request));
+      }
 
-  //     expect(result).toBeInstanceOf(AppDatePagination.Response);
-  //     expect(result.data).toBeInstanceOf(AppDatePagination.Response<AnthropometricsEntity>);
-  //   });
-  // });
+      const query: GetAnthropometricsForUserByAdminRequest = {
+        from: new Date('2023-18-10'),
+        to: new Date('2023-20-11'),
+        id: savedUser.id,
+      };
+
+      const result = await service.findAll(query);
+
+      for (const anthrp of result.data) {
+        expect(anthrp.createdAt).toBeGreaterThanOrEqual(Date.now() - 1000000);
+        expect(anthrp.createdAt).toBeLessThanOrEqual(Date.now() + 1000000);
+      }
+    });
+  });
 
   describe('findOne method', () => {
     it('should find an anthropometrics record by its ID', async () => {

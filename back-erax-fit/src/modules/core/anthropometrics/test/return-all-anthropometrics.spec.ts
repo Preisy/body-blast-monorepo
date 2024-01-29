@@ -1,27 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AnthropometricsEntity } from '../../../core/anthropometrics/entities/anthropometrics.entity';
-import { ClientAnthropometricsService } from '../client-anthropometrics.service';
+import { AnthropometricsEntity } from '../entities/anthropometrics.entity';
+import { BaseAnthropometrcisService } from '../base-anthropometrics.service';
 import { AppDatePagination } from '../../../../utils/app-date-pagination.util';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { MeService } from '../../me/me.service';
-import { BaseAnthropometrcisService } from '../../../core/anthropometrics/base-anthropometrics.service';
+import { BaseUserService } from '../../user/base-user.service';
+import { UserEntity } from '../../user/entities/user.entity';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
-import { UserEntity } from '../../../core/user/entities/user.entity';
-import { BaseUserService } from '../../../core/user/base-user.service';
-import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
-import { CreateAnthropometricsByClientRequest } from '../dto/client-create-anthropometrics.dto';
+import { Repository } from 'typeorm';
+import { CreateUserRequest } from '../../user/dto/create-user.dto';
+import { CreateAnthropometricsRequest } from '../dto/create-anthropometrics.dto';
 
-describe('ClientAnthropometricsService', () => {
-  let service: ClientAnthropometricsService;
-  let repository: Repository<AnthropometricsEntity>;
+describe('BaseAnthropometricsService', () => {
+  let service: BaseAnthropometrcisService;
   let userRepository: Repository<UserEntity>;
+  let repository: Repository<AnthropometricsEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         BaseUserService,
-        MeService,
         {
           provide: getRepositoryToken(UserEntity),
           useValue: {
@@ -32,8 +29,6 @@ describe('ClientAnthropometricsService', () => {
             findAndCount: jest.fn(),
           },
         },
-        BaseAnthropometrcisService,
-        ClientAnthropometricsService,
         {
           provide: getRepositoryToken(AnthropometricsEntity),
           useValue: {
@@ -41,15 +36,16 @@ describe('ClientAnthropometricsService', () => {
             create: jest.fn(() => AnthropometricsEntity),
             findOne: jest.fn(() => AnthropometricsEntity),
             delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(() => AppDatePagination.Response<AnthropometricsEntity>),
+            findAndCount: jest.fn(() => Promise<[AnthropometricsEntity[], number]>),
           },
         },
+        BaseAnthropometrcisService,
       ],
     }).compile();
 
-    service = module.get<ClientAnthropometricsService>(ClientAnthropometricsService);
-    repository = module.get<Repository<AnthropometricsEntity>>(getRepositoryToken(AnthropometricsEntity));
+    service = module.get<BaseAnthropometrcisService>(BaseAnthropometrcisService);
     userRepository = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
+    repository = module.get<Repository<AnthropometricsEntity>>(getRepositoryToken(AnthropometricsEntity));
   });
 
   it('should be defined', () => {
@@ -58,8 +54,7 @@ describe('ClientAnthropometricsService', () => {
 
   describe('findAll method', () => {
     it('it should return all antropometrics records without any input data', async () => {
-      const query = {} as AppDatePagination.Request;
-      const userRequest: CreateUserByClientRequest = {
+      const userRequest: CreateUserRequest = {
         email: 'test1@mail.ru',
         password: 'Qwertyuiop1',
         firstName: 'Test',
@@ -82,7 +77,7 @@ describe('ClientAnthropometricsService', () => {
       };
       const savedUser = await userRepository.save(await userRepository.create(userRequest));
 
-      const request: CreateAnthropometricsByClientRequest = {
+      const request: CreateAnthropometricsRequest = {
         weight: 90,
         waist: 40,
         abdomen: 88,
@@ -94,14 +89,12 @@ describe('ClientAnthropometricsService', () => {
       for (let i = 0; i < 5; ++i) {
         await repository.save(await repository.create(request));
       }
-      const { data: result } = await service.findAll(savedUser, query);
+      const result = await service.findAll(new AppDatePagination.Request());
 
-      for (const anthrp of result) {
-        expect(anthrp.createdAt).toBeGreaterThanOrEqual(query.from?.getTime() || 0);
-        expect(anthrp.createdAt).toBeLessThanOrEqual(query.to?.getTime() || 0);
+      for (const anthrp of result.data) {
+        expect(anthrp.createdAt).toBeGreaterThanOrEqual(Date.now() - 1000000);
+        expect(anthrp.createdAt).toBeLessThanOrEqual(Date.now() + 1000000);
       }
-      // expect(result).toBeInstanceOf(AppDatePagination.Response);
-      // expect(result).toBeInstanceOf(AppDatePagination.Response<AnthropometricsEntity>);
     });
   });
 });
