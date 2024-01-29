@@ -18,9 +18,9 @@ export function useLoading(state: ISingleState): void;
  */
 export function useLoading(state: XOR<IState, ISingleState>) {
   watch(
-    state,
+    () => state,
     (changedState) =>
-      changedState.state?.isLoading?.() || changedState?.isLoading?.() ? Loading.show() : Loading.hide(),
+      changedState?.state?.isLoading?.() || changedState?.isLoading?.() ? Loading.show() : Loading.hide(),
     { immediate: true },
   );
 }

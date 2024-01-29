@@ -22,7 +22,7 @@ export interface WNewTrainingProps {
 const props = defineProps<WNewTrainingProps>();
 
 const adminTrainingStore = useAdminWorkoutStore();
-const { prompts, getPrompts } = useAdminPromptStore();
+const { getPromptsResponse, getPrompts } = useAdminPromptStore();
 
 const exercises = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
@@ -33,7 +33,7 @@ const onsubmit = async () => {
     const exerciseForm = exercises.value[i];
     await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
       //find prompt with id. use prompt to pick photoLink and videoLink
-      const prompt = prompts.data?.data.find((prompt) => prompt.id === values._promptId);
+      const prompt = getPromptsResponse.data?.data.find((prompt) => prompt.id === values._promptId);
       if (!prompt) {
         console.error('Could not find prompt with this id');
         return;
@@ -70,7 +70,7 @@ const onsubmit = async () => {
 const onadd = () => trainings.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => trainings.value.splice(index, 1);
 
-useLoading(prompts);
+useLoading(getPromptsResponse);
 getPrompts({ type: '' });
 </script>
 
@@ -90,7 +90,7 @@ getPrompts({ type: '' });
         p="0!"
         mt-0.5rem
       >
-        <FNewTrainingFields :prompts="prompts.data?.data" />
+        <FNewTrainingFields :prompts="getPromptsResponse.data?.data" />
 
         <template #submit-btn>
           <FListControls
