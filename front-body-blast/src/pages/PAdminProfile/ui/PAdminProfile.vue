@@ -77,7 +77,7 @@ const logout = () => {
                 <SBtn
                   icon="sym_r_help"
                   bg="bg!"
-                  :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED, params: { id: user.id } }"
+                  :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE, params: { id: user.id } }"
                 />
                 <SBtn icon="sym_r_delete" />
               </div>

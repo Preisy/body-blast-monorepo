@@ -12,8 +12,8 @@ export enum ROUTES_NAMES {
   ADMIN_PROFILE = 'adminProfile',
   ADMIN_PROMPT = 'adminPrompt',
   ADMIN_LEARNING = 'adminLearning',
-  ADMIN_DETAILED = 'adminDetailed',
-  ADMIN_DETAILED_BIO = 'adminDetailedBio',
-  ADMIN_DETAILED_TRAININGS = 'adminDetailedTrainings',
-  ADMIN_DETAILED_NUTRITION = 'adminDetailedNutrition',
+  ADMIN_USER_PROFILE = 'adminUserProfile',
+  ADMIN_USER_PROFILE_BIO = 'adminUserProfileBio',
+  ADMIN_USER_PROFILE_TRAININGS = 'adminUserProfileTrainings',
+  ADMIN_USER_PROFILE_NUTRITION = 'adminUserProfileNutrition',
 }

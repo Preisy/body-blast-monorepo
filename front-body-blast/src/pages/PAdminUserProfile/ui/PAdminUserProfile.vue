@@ -1,13 +1,10 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
-import moment from 'moment';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
 import { useAdminProfileStore } from 'shared/api/admin';
 import { useProfileStore } from 'shared/api/profile';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoading } from 'shared/lib/loading';
-import { useListState } from 'shared/lib/utils';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SPaginationSlider } from 'shared/ui/SPaginationSlider';
@@ -45,7 +42,7 @@ const { anthropometry } = profileStore;
         >
           <template #action>
             <div flex flex-row justify-between>
-              <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_BIO }" />
+              <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE_BIO }" />
               <SBtn icon="sym_r_delete" />
             </div>
           </template>

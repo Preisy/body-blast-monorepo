@@ -1,11 +1,11 @@
 import { RouteRecordRaw } from 'vue-router';
 import LAdminDashboardVue from 'processes/layouts/LAdminDashboard.vue';
-import { PAdminDetailed } from 'pages/PAdminDetailed';
-import { PAdminDetailedBio } from 'pages/PAdminDetailedBio';
-import { PAdminDetailedNutrition } from 'pages/PAdminDetailedNutrition';
-import { PAdminDetailedTrainings } from 'pages/PAdminDetailedTrainings';
 import { PAdminProfile } from 'pages/PAdminProfile';
 import { PAdminPrompt } from 'pages/PAdminPrompt';
+import { PAdminUserProfile } from 'pages/PAdminUserProfile';
+import { PAdminUserProfileBio } from 'pages/PAdminUserProfileBio';
+import { PAdminUserProfileNutrition } from 'pages/PAdminUserProfileNutrition';
+import { PAdminUserProfileTrainings } from 'pages/PAdminUserProfileTrainings';
 import PDiaryVue from 'pages/PDiary.vue';
 import { ENUMS } from 'shared/lib/enums';
 
@@ -39,24 +39,24 @@ export const adminRoutes: RouteRecordRaw = {
         {
           path: '',
           meta: { auth: true, admin: true },
-          name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED,
-          component: PAdminDetailed,
+          name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE,
+          component: PAdminUserProfile,
         },
         {
           path: 'bio',
           meta: { auth: true, admin: true },
-          name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_BIO,
-          component: PAdminDetailedBio,
+          name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE_BIO,
+          component: PAdminUserProfileBio,
         },
         {
           path: 'trainings',
-          name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_TRAININGS,
-          component: PAdminDetailedTrainings,
+          name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE_TRAININGS,
+          component: PAdminUserProfileTrainings,
         },
         {
           path: 'nutrition',
-          name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED_NUTRITION,
-          component: PAdminDetailedNutrition,
+          name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE_NUTRITION,
+          component: PAdminUserProfileNutrition,
         },
       ],
     },

@@ -67,7 +67,7 @@ const schema = computed(() =>
       </div>
 
       <template #submit-btn>
-        <SListControls @remove="onremove" />
+        <SListControls @remove="onremove" mt-0.5rem />
       </template>
     </SForm>
 

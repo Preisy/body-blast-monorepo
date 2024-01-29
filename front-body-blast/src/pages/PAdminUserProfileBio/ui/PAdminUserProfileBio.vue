@@ -60,7 +60,7 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
 <template>
   <SStructure h-full py-1rem>
     <SProxyScroll>
-      <SBtn :icon="symRoundedClose" ml-0.5rem :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_DETAILED }" />
+      <SBtn :icon="symRoundedClose" ml-0.5rem :to="{ name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE }" />
       <div v-for="form in forms" :key="form.is.name" mt-1rem>
         <SForm :readonly="true" :field-schema="form.form.fieldSchema" :init-values="form.values">
           <component :is="form.is" />

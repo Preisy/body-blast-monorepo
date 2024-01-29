@@ -17,7 +17,9 @@ const pageValue = ref(pages[0].value);
 <template>
   <SStructure h-full>
     <SProxyScroll h-full>
-      <SCenteredNav v-model="pageValue" :pages="pages" />
+      <div overflow-x-hidden>
+        <SCenteredNav v-model="pageValue" :pages="pages" />
+      </div>
       <QTabPanels :model-value="pageValue">
         <QTabPanel v-for="page in pages" :key="page.value" :name="page.value" p="0!">
           <WAdminNutritionLong :title="page.label" />
