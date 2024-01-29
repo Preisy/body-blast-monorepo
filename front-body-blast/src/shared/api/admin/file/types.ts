@@ -1,5 +1,7 @@
-//TODO: extends AppBaseEntity
-export interface FileEntity {
+import { AppBaseEntity } from 'shared/api/base';
+import { AppPagination } from 'shared/api/pagination';
+
+export interface FileEntity extends AppBaseEntity {
   fileName: string;
   path: string;
   fileLink: string;
@@ -15,17 +17,9 @@ export namespace AdminFile {
     }
   }
   export namespace Get {
-    //TODO: pagination
-    export interface Dto {
-      page: number;
-      limit: number;
-      expanded: boolean;
-    }
+    export interface Dto extends AppPagination.BaseDto {}
 
-    export interface Response {
-      data: Array<FileEntity>;
-      count: number;
-    }
+    export interface Response extends AppPagination.Response<FileEntity> {}
   }
 
   export namespace GetByName {

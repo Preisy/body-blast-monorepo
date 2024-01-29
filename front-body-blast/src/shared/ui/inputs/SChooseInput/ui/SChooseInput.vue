@@ -55,7 +55,7 @@ watch(
       </div>
     </SProxyScroll>
     <div @click="togglePopup">
-      <!-- TODO: fixme. ___ means private field -->
+      <!-- TODO: FIXME:  ___ means private field -->
       <SInput name="_______________" :label="label" ref="anchor" readonly :model-value="display" />
     </div>
   </div>
