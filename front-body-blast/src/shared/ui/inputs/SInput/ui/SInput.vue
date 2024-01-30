@@ -66,6 +66,8 @@ const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : pro
 
 <style scoped lang="scss">
 .s_input {
+  height: fit-content;
+
   &:deep(.q-field__label) {
     color: currentColor !important;
     top: 0;

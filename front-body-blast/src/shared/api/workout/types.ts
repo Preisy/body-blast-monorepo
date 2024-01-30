@@ -6,7 +6,7 @@ import { User } from '../user';
 export interface Workout extends AppBaseEntity {
   name: string;
   date: string; //ISO string date type: 2023-12-31
-  comment: string;
+  comment: Optional<string>;
   loop: number;
   userId: number;
   exercises: Optional<
@@ -15,13 +15,13 @@ export interface Workout extends AppBaseEntity {
         name: string;
         weight: number;
         sets: number;
-        repetitions: number;
+        repetitions: string;
         restTime: number;
         pace: string;
         photoLink: string;
         videoLink: string;
-        trainerComment: string;
         workoutId: number;
+        trainerComment: Optional<string>;
       }
     >
   >;
@@ -38,17 +38,17 @@ export namespace Workout {
     z.object({
       name: z.string().min(1),
       loop: z.string().min(1),
-      comment: z.string().min(1),
+      comment: z.string().min(1).optional(),
       exercises: z.array(
         z.object({
           name: z.string().min(1),
           weight: z.string().min(1),
           sets: z.string().min(1),
           repetitions: z.string().min(1),
+          trainerComment: z.string().min(1).optional(),
           restTime: z.string().min(1),
           pace: z.string().min(1),
           _promptId: z.number(), //prompt Id will be converted to photoLink and videoLink
-          trainerComment: z.string().min(1),
         }),
       ),
     });

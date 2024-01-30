@@ -21,16 +21,16 @@ export interface WNewTrainingProps {
 }
 const props = defineProps<WNewTrainingProps>();
 
-const adminTrainingStore = useAdminWorkoutStore();
+const { postWorkout, postWorkoutResponse } = useAdminWorkoutStore();
 const { getPromptsResponse, getPrompts } = useAdminPromptStore();
 
-const exercises = ref<Array<InstanceType<typeof SForm>>>();
+const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
-const trainings = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('prompt-') }]);
+const exercises = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('workout-') }]);
 const onsubmit = async () => {
-  if (!exercises.value) return;
-  for (let i = 0; i < exercises.value.length; i++) {
-    const exerciseForm = exercises.value[i];
+  if (!exerciseForms.value) return;
+  for (let i = 0; i < exerciseForms.value.length; i++) {
+    const exerciseForm = exerciseForms.value[i];
     await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
       //find prompt with id. use prompt to pick photoLink and videoLink
       const prompt = getPromptsResponse.data?.data.find((prompt) => prompt.id === values._promptId);
@@ -44,14 +44,14 @@ const onsubmit = async () => {
         pace: values.pace,
         photoLink: prompt.photoLink,
         videoLink: prompt.videoLink,
-        repetitions: parseInt(values.repetitions),
+        repetitions: values.repetitions,
         restTime: parseInt(values.restTime),
-        sets: parseInt(values.sets),
         trainerComment: values.trainerComment,
+        sets: parseInt(values.sets),
         weight: parseInt(values.weight),
       };
 
-      assign(trainings.value[i], exercise);
+      assign(exercises.value[i], exercise);
     })();
   }
 
@@ -60,15 +60,15 @@ const onsubmit = async () => {
       name: values.name,
       comment: values.comment,
       date: props.date,
-      exercises: trainings.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
+      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
       loop: parseInt(values.loop),
       userId: props.id,
     };
-    adminTrainingStore.postWorkout(workout);
+    postWorkout(workout);
   })();
 };
-const onadd = () => trainings.value.push({ key: uniqueId('prompt-') });
-const onremove = (index: number) => trainings.value.splice(index, 1);
+const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
+const onremove = (index: number) => exercises.value.splice(index, 1);
 
 useLoading(getPromptsResponse);
 getPrompts({ type: '' });
@@ -78,13 +78,12 @@ getPrompts({ type: '' });
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <h1>{{ $t('admin.prompt.training.training') }}</h1>
 
-    <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation())" p="0!">
+    <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))" p="0!">
       <SInput name="loop" :label="$t('admin.prompt.training.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
-      <SInput name="comment" :label="$t('admin.prompt.training.commentary')" />
       <SForm
-        ref="exercises"
-        v-for="(training, index) in trainings"
+        ref="exerciseForms"
+        v-for="(training, index) in exercises"
         :key="training.key"
         :field-schema="toTypedSchema(ExerciseValidation)"
         p="0!"
@@ -94,11 +93,12 @@ getPrompts({ type: '' });
 
         <template #submit-btn>
           <FListControls
-            :disabled-add="index !== trainings.length - 1"
-            :disabled-submit="index !== trainings.length - 1"
+            :disabled-add="index !== exercises.length - 1"
+            :disabled-submit="index !== exercises.length - 1"
             @add="onadd"
             @remove="() => onremove(index)"
             @submit="onsubmit"
+            :loading-submit="postWorkoutResponse.state.isLoading()"
             mt-0.5rem
           />
         </template>

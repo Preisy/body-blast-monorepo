@@ -21,7 +21,7 @@ const exercises = computed(() => getWorkoutsResponse.data?.data.at(0)?.exercises
         <SNoResultsScreen />
       </SSplideSlide>
       <SSplideSlide v-for="exercise in exercises" :key="exercise.name">
-        <ETrainingCard :training="exercise" py-1.5rem />
+        <ETrainingCard :exercises="exercise" py-1.5rem />
       </SSplideSlide>
       <SSplideSlide>
         <WAdditionCard py-1.5rem />
