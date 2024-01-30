@@ -13,6 +13,7 @@ const emit = defineEmits<{
 
 const value = ref(props.query);
 const onsubmit = () => emit('update:query', value.value);
+watch(value, () => onsubmit);
 </script>
 
 <template>

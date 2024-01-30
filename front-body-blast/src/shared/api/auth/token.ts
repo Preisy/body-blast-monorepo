@@ -13,9 +13,9 @@ interface TokenPair {
 export const TokenService = {
   getAccessToken: () => Cookies.get(Keys.access),
   getRefreshToken: () => Cookies.get(Keys.refresh),
-  getTokenPair: (): DeepNullable<TokenPair> => ({
-    accessToken: TokenService.getAccessToken(),
-    refreshToken: TokenService.getRefreshToken(),
+  getTokenPair: (): Partial<TokenPair> => ({
+    accessToken: TokenService.getAccessToken() ?? undefined,
+    refreshToken: TokenService.getRefreshToken() ?? undefined,
   }),
   setAccessToken: (accessToken: string) => Cookies.set(Keys.access, accessToken, { sameSite: 'Strict', path: '/' }),
   setRefreshToken: (refreshToken: string) => Cookies.set(Keys.refresh, refreshToken, { sameSite: 'Strict', path: '/' }),

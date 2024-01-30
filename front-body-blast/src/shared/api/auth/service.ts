@@ -1,4 +1,4 @@
-import { api } from 'shared/config';
+import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib/utils';
 import { Auth, SignUp, Refresh, Logout } from './types';
 

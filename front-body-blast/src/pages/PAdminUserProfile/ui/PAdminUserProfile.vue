@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
 import { useAdminUserProfileStore } from 'shared/api/admin';
-import { useProfileStore } from 'shared/api/profile';
+import { useProfileStore } from 'shared/api/anthropometry';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoading, useLoadingAction } from 'shared/lib/loading';
@@ -167,3 +167,4 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
     </SWithHeaderLayout>
   </SStructure>
 </template>
+shared/api/anthropometry

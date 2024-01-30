@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import 'virtual:uno.css';
 import { SLogo } from 'shared/ui/SLogo';
 
 const $q = useQuasar();

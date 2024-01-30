@@ -28,7 +28,7 @@ export const dashboardRoutes: RouteRecordRaw = {
     {
       meta: { auth: true },
       path: 'diet',
-      component: () => import('pages/PDiet.vue').then((data) => data.default),
+      component: () => import('pages/PDiet').then((data) => data.PDiet),
       name: ENUMS.ROUTES_NAMES.DIET,
     },
     {

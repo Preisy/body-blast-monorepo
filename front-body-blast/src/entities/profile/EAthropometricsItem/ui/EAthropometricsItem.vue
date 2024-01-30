@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 
-import { Anthropometry } from 'shared/api/profile';
+import { Anthropometry } from 'shared/api/anthropometry';
 import { SInput } from 'shared/ui/inputs';
 import { SForm } from 'shared/ui/SForm';
 
@@ -28,3 +28,4 @@ defineProps<EAthropometricsItemProps>();
     />
   </SForm>
 </template>
+shared/api/anthropometry
