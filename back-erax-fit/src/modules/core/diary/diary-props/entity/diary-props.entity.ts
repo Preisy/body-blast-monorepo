@@ -6,11 +6,11 @@ import { DiaryEntity } from '../../entity/diary.entity';
 @Entity('diary-props')
 export class DiaryPropsEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public label: string;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ type: 'integer', nullable: true })
   public value?: number;
 
   @ApiProperty({ type: () => DiaryEntity })

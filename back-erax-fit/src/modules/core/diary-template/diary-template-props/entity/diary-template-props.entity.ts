@@ -6,7 +6,7 @@ import { DiaryTemplateEntity } from '../../entity/diary-template.entity';
 @Entity('diary-template-props')
 export class DiaryTemplatePropsEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public label: string;
 
   @ApiProperty({ type: () => DiaryTemplateEntity })

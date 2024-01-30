@@ -7,11 +7,11 @@ import { UserEntity } from '../../user/entities/user.entity';
 @Entity('workouts')
 export class WorkoutEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public name: string;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', length: 250, nullable: true })
   public comment?: string;
 
   @ApiProperty()
@@ -19,7 +19,7 @@ export class WorkoutEntity extends AppBaseEntity {
   public date: Date;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ type: 'integer', nullable: true })
   public loop?: number;
 
   @ApiProperty({ type: () => UserEntity })

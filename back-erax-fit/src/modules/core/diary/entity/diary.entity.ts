@@ -7,7 +7,7 @@ import { UserEntity } from '../../user/entities/user.entity';
 @Entity('diaries')
 export class DiaryEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public behaviour: string;
 
   @ApiProperty()
@@ -15,15 +15,15 @@ export class DiaryEntity extends AppBaseEntity {
   public date: Date;
 
   @ApiProperty({ nullable: true })
-  @Column()
+  @Column({ type: 'integer' })
   public sum?: number;
 
   @ApiProperty({ nullable: true })
-  @Column()
+  @Column({ type: 'varchar', length: 250 })
   public activity?: string;
 
   @ApiProperty({ nullable: true })
-  @Column()
+  @Column({ type: 'integer' })
   public steps?: number;
 
   @ApiProperty({ type: () => UserEntity })

@@ -47,7 +47,7 @@ export class AdminDiaryService {
   //       newProp.label = prop.label;
   //       newDiary.props.push(newProp);
   //     });
-  //     const newDate = new Date(Date.now());
+  //     const newDate = new Date();
   //     newDate.setHours(0, 0, 0, 0);
   //     newDiary.date = newDate;
   //     try {

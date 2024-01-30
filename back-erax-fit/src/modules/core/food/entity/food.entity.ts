@@ -5,14 +5,14 @@ import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
 @Entity('food')
 export class FoodEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 50 })
   public type: string;
 
   @ApiProperty()
-  @Column('integer')
+  @Column({ type: 'integer' })
   public category: number;
 
   @ApiProperty()
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 50 })
   public name: string;
 }
