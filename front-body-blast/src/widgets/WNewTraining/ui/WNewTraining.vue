@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
+import moment from 'moment';
 import { z } from 'zod';
 import { FListControls } from 'features/FListControls';
 import { FNewTrainingFields } from 'features/FNewTrainingFields';
@@ -18,15 +19,23 @@ const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.
 export interface WNewTrainingProps {
   id: number;
   date: string; //ISO date
+  isEdit?: boolean;
+  workoutId?: number;
 }
 const props = defineProps<WNewTrainingProps>();
+const emit = defineEmits<{
+  edit: [];
+}>();
 
-const { postWorkout, postWorkoutResponse } = useAdminWorkoutStore();
+const { postWorkout, postWorkoutResponse, patchWorkout, patchWorkoutResponse } = useAdminWorkoutStore();
 const { getPromptsResponse, getPrompts } = useAdminPromptStore();
+
+const unwatchPatch = useLoading(patchWorkoutResponse);
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
 const exercises = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('workout-') }]);
+
 const onsubmit = async () => {
   if (!exerciseForms.value) return;
   for (let i = 0; i < exerciseForms.value.length; i++) {
@@ -59,19 +68,30 @@ const onsubmit = async () => {
     const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
       name: values.name,
       comment: values.comment,
-      date: props.date,
+      date: moment().toISOString(), //today
       exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
       loop: parseInt(values.loop),
       userId: props.id,
     };
-    postWorkout(workout);
+
+    if (props.isEdit && props.workoutId) {
+      patchWorkout(props.workoutId, workout);
+      emit('edit');
+    } else {
+      postWorkout(workout);
+    }
   })();
 };
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
-useLoading(getPromptsResponse);
+const unwatchPrompt = useLoading(getPromptsResponse);
 getPrompts({ type: '' });
+
+onUnmounted(() => {
+  unwatchPrompt();
+  unwatchPatch();
+});
 </script>
 
 <template>
@@ -83,8 +103,8 @@ getPrompts({ type: '' });
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
       <SForm
         ref="exerciseForms"
-        v-for="(training, index) in exercises"
-        :key="training.key"
+        v-for="(exercise, index) in exercises"
+        :key="exercise.key"
         :field-schema="toTypedSchema(ExerciseValidation)"
         p="0!"
         mt-0.5rem
@@ -98,7 +118,7 @@ getPrompts({ type: '' });
             @add="onadd"
             @remove="() => onremove(index)"
             @submit="onsubmit"
-            :loading-submit="postWorkoutResponse.state.isLoading()"
+            :loading-submit="postWorkoutResponse.state.isLoading() || patchWorkoutResponse.state.isLoading()"
             mt-0.5rem
           />
         </template>

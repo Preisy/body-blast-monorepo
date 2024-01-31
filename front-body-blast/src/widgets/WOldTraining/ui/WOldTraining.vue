@@ -12,18 +12,21 @@ export interface WOldWorkoutsProps {
   workout: Workout;
 }
 const props = defineProps<WOldWorkoutsProps>();
+const emit = defineEmits<{
+  edit: [number];
+}>();
 
-const { deleteWorkout, deleteWorkoutResponse, getWorkoutsResponse } = useAdminWorkoutStore();
+const { deleteWorkout, deleteWorkoutResponse, getWorkouts } = useAdminWorkoutStore();
 const unwatchDelete = useLoading(deleteWorkoutResponse);
 
-//TODO
-const onEdit = () => console.log('edit');
+const onEdit = async () => {
+  emit('edit', props.workout.id);
+};
+
 const onDelete = async () => {
   await deleteWorkout(props.workout.id);
   if (deleteWorkoutResponse.state.isSuccess()) {
-    const index = getWorkoutsResponse.data?.data.findIndex((val) => val.id === props.workout.id);
-    if (!index) return;
-    getWorkoutsResponse.data?.data.splice(index, 1);
+    getWorkouts({ expanded: true });
   }
 };
 

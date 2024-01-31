@@ -25,6 +25,14 @@ watchEffect(() => getWorkouts({ expanded: true, limit: 20, page: pageNumber.valu
 
 const oldWorkouts = computed(() => getWorkoutsResponse.data?.data);
 const dateSortedWorkout = computed(() => oldWorkouts.value?.sort((left, right) => (left.date > right.date ? 1 : -1)));
+
+const editWorkoutDialog = ref(false);
+const editingWorkoutId = ref<number>();
+const onEdit = (id: number) => {
+  editingWorkoutId.value = id;
+  editWorkoutDialog.value = true;
+};
+
 onUnmounted(() => {
   unwatch();
 });
@@ -42,7 +50,7 @@ onUnmounted(() => {
         h-full
       >
         <SProxyScroll h-full>
-          <WOldTraining :workout="workout" />
+          <WOldTraining :workout="workout" @edit="onEdit" />
         </SProxyScroll>
       </q-tab-panel>
       <q-tab-panel :name="today" class="overflow-hidden! p-0!" h-full>
@@ -51,5 +59,17 @@ onUnmounted(() => {
         </SProxyScroll>
       </q-tab-panel>
     </q-tab-panels>
+
+    <q-dialog v-model="editWorkoutDialog">
+      <div bg-bg p-1rem>
+        <WNewTraining
+          :date="date"
+          :id="parseInt(id)"
+          :is-edit="true"
+          :workout-id="editingWorkoutId"
+          @edit="editWorkoutDialog = false"
+        />
+      </div>
+    </q-dialog>
   </SStructure>
 </template>
