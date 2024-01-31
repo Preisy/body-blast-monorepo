@@ -28,7 +28,7 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
         <h1>{{ exercises.name }}</h1>
         <p>{{ exercises.trainerComment }}</p>
       </div>
-      <TrainingAnim :url="exercises.videoLink" />
+      <TrainingAnim :video-link="exercises.videoLink" :photo-link="exercises.photoLink" />
       <InfoBlock :cards="cards" />
     </div>
   </SComponentWrapper>

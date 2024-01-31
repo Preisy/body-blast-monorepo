@@ -47,9 +47,7 @@ onUnmounted(() => {
         py-0.75rem
         class="[&>.title]:text-sm [&>.value]:text-base"
       />
-      <!-- TODO: onEdit difficult-->
       <SBtn @click="onEdit" :icon="symRoundedEdit" bg="bg!" ml-auto />
-      <!-- TODO: onDelete easy-->
       <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="deleteWorkoutResponse.state.isLoading()" />
     </div>
     <ETrainingCard v-for="exercise in workout.exercises" :key="exercise.id" :exercises="exercise" p="0!" mb-1rem />
