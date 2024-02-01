@@ -2,7 +2,6 @@ import { RouteRecordRaw } from 'vue-router';
 import LClientDashboardVue from 'processes/layouts/LClientDashboard.vue';
 import PDiaryVue from 'pages/PDiary.vue';
 import { PDiet } from 'pages/PDiet';
-import PLearningVue from 'pages/PLearning.vue';
 import { PLearning } from 'pages/PLearning';
 import { PProfile } from 'pages/PProfile';
 import { PTraining } from 'pages/PTraining';
