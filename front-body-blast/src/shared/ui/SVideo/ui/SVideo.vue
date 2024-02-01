@@ -62,8 +62,8 @@ onMounted(() => {
         Your browser doesn't support HTML5 video tag.
       </video>
     </a>
-    <template name="controlBtn">
+    <slot name="controlBtn">
       <SBtn :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
-    </template>
+    </slot>
   </div>
 </template>
