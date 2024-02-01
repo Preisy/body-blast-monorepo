@@ -5,7 +5,6 @@ export class DiaryMigration1706549028538 implements MigrationInterface {
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`ALTER TABLE "users" DROP CONSTRAINT "FK_d98a275f8bc6cd986fcbe2eab01"`);
-    await queryRunner.query(`ALTER TABLE "anthropometrics" DROP CONSTRAINT "FK_3b8430319ce59f020bf8d3eca55"`);
     await queryRunner.query(
       `CREATE TABLE "diary-template-props" ("id" SERIAL NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, "label" character varying NOT NULL, "templateId" integer NOT NULL, CONSTRAINT "PK_094f31bd7de57a8838b99349dc9" PRIMARY KEY ("id"))`,
     );
@@ -29,13 +28,10 @@ export class DiaryMigration1706549028538 implements MigrationInterface {
       'ALTER TABLE "users" ADD CONSTRAINT "FK_d98a275f8bc6cd986fcbe2eab01" FOREIGN KEY ("tokenId") REFERENCES "tokens"("id") ON DELETE SET NULL ON UPDATE CASCADE',
     );
     await queryRunner.query(
-      `ALTER TABLE "anthropometrics" ADD CONSTRAINT "FK_3b8430319ce59f020bf8d3eca55" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
-    );
-    await queryRunner.query(
       `ALTER TABLE "diary-template-props" ADD CONSTRAINT "FK_dce5716790cc5c863b160f0bd52" FOREIGN KEY ("templateId") REFERENCES "diary-templates"("id") ON DELETE CASCADE ON UPDATE NO ACTION`,
     );
     await queryRunner.query(
-      `ALTER TABLE "diary-templates" ADD CONSTRAINT "FK_5f67fdf2ae7685f78b8733f5058" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`,
+      `ALTER TABLE "diary-templates" ADD CONSTRAINT "FK_5f67fdf2ae7685f78b8733f5058" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE`,
     );
     await queryRunner.query(
       `ALTER TABLE "diary-props" ADD CONSTRAINT "FK_37fbf7a32d89266ce1877e84abf" FOREIGN KEY ("diaryId") REFERENCES "diaries"("id") ON DELETE CASCADE ON UPDATE NO ACTION`,
@@ -50,7 +46,6 @@ export class DiaryMigration1706549028538 implements MigrationInterface {
     await queryRunner.query(`ALTER TABLE "diary-props" DROP CONSTRAINT "FK_37fbf7a32d89266ce1877e84abf"`);
     await queryRunner.query(`ALTER TABLE "diary-templates" DROP CONSTRAINT "FK_5f67fdf2ae7685f78b8733f5058"`);
     await queryRunner.query(`ALTER TABLE "diary-template-props" DROP CONSTRAINT "FK_dce5716790cc5c863b160f0bd52"`);
-    await queryRunner.query(`ALTER TABLE "anthropometrics" DROP CONSTRAINT "FK_3b8430319ce59f020bf8d3eca55"`);
     await queryRunner.query(`ALTER TABLE "users" DROP CONSTRAINT "FK_d98a275f8bc6cd986fcbe2eab01"`);
     await queryRunner.query(`ALTER TABLE "exercises" DROP COLUMN "repetitions"`);
     await queryRunner.query(`ALTER TABLE "exercises" ADD "repetitions" character varying(50) NOT NULL`);
@@ -59,9 +54,6 @@ export class DiaryMigration1706549028538 implements MigrationInterface {
     await queryRunner.query(`DROP TABLE "diary-props"`);
     await queryRunner.query(`DROP TABLE "diary-templates"`);
     await queryRunner.query(`DROP TABLE "diary-template-props"`);
-    await queryRunner.query(
-      `ALTER TABLE "anthropometrics" ADD CONSTRAINT "FK_3b8430319ce59f020bf8d3eca55" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE`,
-    );
     await queryRunner.query(
       `ALTER TABLE "users" ADD CONSTRAINT "FK_d98a275f8bc6cd986fcbe2eab01" FOREIGN KEY ("tokenId") REFERENCES "tokens"("id") ON DELETE SET NULL ON UPDATE CASCADE`,
     );

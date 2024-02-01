@@ -14,16 +14,16 @@ export class DiaryEntity extends AppBaseEntity {
   @Column()
   public date: Date;
 
-  @ApiProperty({ nullable: true })
-  @Column({ type: 'integer' })
+  @ApiProperty()
+  @Column({ type: 'integer', nullable: true })
   public sum?: number;
 
-  @ApiProperty({ nullable: true })
-  @Column({ type: 'varchar', length: 250 })
+  @ApiProperty()
+  @Column({ type: 'varchar', length: 250, nullable: true })
   public activity?: string;
 
-  @ApiProperty({ nullable: true })
-  @Column({ type: 'integer' })
+  @ApiProperty()
+  @Column({ type: 'integer', nullable: true })
   public steps?: number;
 
   @ApiProperty({ type: () => UserEntity })

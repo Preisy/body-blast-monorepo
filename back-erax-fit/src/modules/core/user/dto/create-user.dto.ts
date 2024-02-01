@@ -120,9 +120,4 @@ export class CreateUserRequest {
   @ApiProperty()
   @Length(1, 256)
   public goals: string;
-
-  @IsNumber()
-  @Min(1)
-  @ApiProperty()
-  public templateId: number;
 }

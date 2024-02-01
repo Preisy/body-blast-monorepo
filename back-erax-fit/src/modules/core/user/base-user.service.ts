@@ -10,12 +10,14 @@ import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
+import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 
 @Injectable()
 export class BaseUserService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
+    private readonly templateService: BaseDiaryTemplateService,
   ) {}
 
   async create(request: CreateUserRequest): Promise<AppSingleResponse<UserEntity>> {
@@ -24,11 +26,14 @@ export class BaseUserService {
     const savedUser = await this.userRepository.save(
       this.userRepository.create({
         ...request,
+        stepsGoal: 70000,
         canWatchVideo: false,
         password: await bcrypt.hash(request.password, await bcrypt.genSalt(10)),
       }),
     );
     if (!savedUser) throw MainException.internalRequestError('Error upon saving user');
+
+    await this.templateService.createFromDefault(savedUser.id);
 
     return new AppSingleResponse(savedUser);
   }

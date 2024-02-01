@@ -8,6 +8,8 @@ import { Repository } from 'typeorm';
 import { DiaryTemplatePropsEntity } from './diary-template-props/entity/diary-template-props.entity';
 import { UpdateDiaryTemplateRequest } from './dto/update-diary-template.dto';
 import { DiaryTemplateEntity } from './entity/diary-template.entity';
+import { UserEntity } from '../user/entities/user.entity';
+import { AppPagination } from 'src/utils/app-pagination.util';
 
 @Injectable()
 export class BaseDiaryTemplateService {
@@ -18,6 +20,27 @@ export class BaseDiaryTemplateService {
     private readonly templatePropsEntityRepository: Repository<DiaryTemplatePropsEntity>,
   ) {}
   public readonly relations: (keyof DiaryTemplateEntity)[] = ['props'];
+
+  async createFromDefault(userId: UserEntity['id']): Promise<AppSingleResponse<DiaryTemplateEntity>> {
+    const { data: defaultTemplate } = await this.findOne(1);
+    const labels: { label: string }[] = defaultTemplate.props.map(({ label }) => ({ label }));
+
+    const newTemplate = this.diaryTemlpateRepository.create({
+      userId,
+      props: labels,
+    });
+    console.log(newTemplate);
+    const savedTemplate = await this.diaryTemlpateRepository.save(newTemplate);
+    return new AppSingleResponse(savedTemplate);
+  }
+
+  async findAll(
+    query: AppPagination.Request,
+    options?: AppPagination.GetExecutorOptions<DiaryTemplateEntity>,
+  ): Promise<AppPagination.Response<DiaryTemplateEntity>> {
+    const { getPaginatedData } = AppPagination.getExecutor(this.diaryTemlpateRepository, this.relations);
+    return getPaginatedData(query, options);
+  }
 
   async findOne(id: DiaryTemplateEntity['id']) {
     const template = await this.diaryTemlpateRepository.findOne({

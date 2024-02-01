@@ -1,19 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserRole } from 'src/constants/constants';
 import { AppSingleResponse } from 'src/dto/app-single-response.dto';
 import { AppStatusResponse } from 'src/dto/app-status-response.dto';
 import { BaseDiaryTemplateService } from 'src/modules/core/diary-template/base-diary-template.service';
-import { BaseUserService } from 'src/modules/core/user/base-user.service';
+import { BaseDiaryService } from 'src/modules/core/diary/base-diary.service';
+import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
 import { BaseWorkoutService } from 'src/modules/core/workout/base-workout.service';
 import { AppDatePagination } from 'src/utils/app-date-pagination.util';
+import { AppPagination } from 'src/utils/app-pagination.util';
 import { Repository } from 'typeorm';
-import { GetStepsByUserIdByAdminDTO } from './dto/admin-get-steps-by-userId.dto';
-import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
-import { BaseDiaryService } from 'src/modules/core/diary/base-diary.service';
-import { DiaryPropsEntity } from 'src/modules/core/diary/diary-props/entity/diary-props.entity';
 import { CreateDiaryByAdminRequest } from './dto/admin-create-diary.dto';
+import { GetStepsByUserIdByAdminDTO } from './dto/admin-get-steps-by-userId.dto';
 import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
 
 @Injectable()
@@ -24,41 +22,36 @@ export class AdminDiaryService {
     private readonly baseService: BaseDiaryService,
     private readonly workoutService: BaseWorkoutService,
     private readonly diaryTemplateService: BaseDiaryTemplateService,
-    private readonly userService: BaseUserService,
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
-  // @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-  // async createSelfControlCron() {
-  //   const { data: users } = await this.userService.getUsers(new AppDatePagination.Request(), {
-  //     where: {
-  //       role: UserRole.Client,
-  //     },
-  //   });
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async createSelfControlCron() {
+    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {});
 
-  //   users.forEach(async (user) => {
-  //     const newDiary = this.diaryRepository.create({
-  //       userId: user.id,
-  //     });
-  //     const { data: template } = await this.diaryTemplateService.findOne(user.templateId);
-  //     newDiary.props = new Array<DiaryPropsEntity>();
-  //     template.props.forEach((prop) => {
-  //       const newProp = new DiaryPropsEntity();
-  //       newProp.label = prop.label;
-  //       newDiary.props.push(newProp);
-  //     });
-  //     const newDate = new Date();
-  //     newDate.setHours(0, 0, 0, 0);
-  //     newDiary.date = newDate;
-  //     try {
-  //       const { data: workout } = await this.workoutService.findOneByDate(newDate);
-  //       newDiary.behaviour = `Цикл ${workout.loop}`;
-  //     } catch (e) {
-  //       newDiary.behaviour = 'Отдых';
-  //     }
-  //     await this.diaryRepository.save(newDiary);
-  //   });
-  // }
+    const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
+      relations: ['props'],
+    });
+    templates.forEach(async (template) => {
+      const labels: { label: string }[] = template.props.map(({ label }) => ({ label }));
+      const newDiary = this.diaryRepository.create({
+        userId: template.userId,
+        props: labels,
+      });
+
+      const newDate = new Date();
+      newDate.setHours(0, 0, 0, 0);
+      newDiary.date = newDate;
+
+      const workout = workouts.find((workout) => workout.id == template.userId);
+      if (workout) {
+        newDiary.behaviour = `Цикл ${workout.loop}`;
+      } else {
+        newDiary.behaviour = 'Отдых';
+      }
+      await this.diaryRepository.save(newDiary);
+    });
+  }
 
   async create(request: CreateDiaryByAdminRequest): Promise<AppSingleResponse<DiaryEntity>> {
     return this.baseService.create(request);
