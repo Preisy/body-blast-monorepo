@@ -13,6 +13,7 @@ defineProps<SFooterNavLinkProps>();
     :to="{ name: name }"
     exact-active-class="opacity-100! [&_span]:fw-800!"
     exact
+    class="px-0!"
     w-full
     px-0
     opacity-20
