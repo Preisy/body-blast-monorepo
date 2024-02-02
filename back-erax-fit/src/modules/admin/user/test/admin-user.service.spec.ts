@@ -26,7 +26,7 @@ describe('AdminUserService', () => {
             save: jest.fn(() => UserEntity),
             findOne: jest.fn(() => UserEntity),
             softDelete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],

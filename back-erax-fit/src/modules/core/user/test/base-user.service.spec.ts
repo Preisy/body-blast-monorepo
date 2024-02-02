@@ -23,7 +23,7 @@ describe('BaseUserService', () => {
             save: jest.fn(() => UserEntity),
             softDelete: jest.fn(() => AppStatusResponse),
             findOne: jest.fn(() => UserEntity),
-            findAndCount: jest.fn(() => Promise<[UserEntity[], number]>),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],

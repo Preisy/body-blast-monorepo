@@ -18,7 +18,7 @@ describe('AdminBonusVideoService', () => {
           useValue: {
             save: jest.fn(() => UserEntity),
             create: jest.fn(() => UserEntity),
-            findAndCount: jest.fn(() => Promise<[UserEntity[], number]>),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],

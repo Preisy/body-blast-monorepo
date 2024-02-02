@@ -42,7 +42,7 @@ describe('ClientAnthropometricsService', () => {
             create: jest.fn(() => AnthropometricsEntity),
             findOne: jest.fn(() => AnthropometricsEntity),
             delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],

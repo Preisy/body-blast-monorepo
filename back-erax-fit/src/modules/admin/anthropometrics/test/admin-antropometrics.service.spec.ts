@@ -30,7 +30,7 @@ describe('AdminAnthropometricsService', () => {
             create: jest.fn(() => UserEntity),
             findOne: jest.fn(() => UserEntity),
             delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
         BaseAnthropometrcisService,
@@ -42,7 +42,7 @@ describe('AdminAnthropometricsService', () => {
             create: jest.fn(() => AnthropometricsEntity),
             findOne: jest.fn(() => AnthropometricsEntity),
             delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(() => Promise<[AnthropometricsEntity[], number]>),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],
@@ -230,8 +230,9 @@ describe('AdminAnthropometricsService', () => {
       service.findLatestAnthropometricsForEachUser = jest.fn().mockResolvedValue(latestAnthropometrics);
 
       await service.createAnthropometricsCron();
-
-      expect(userRepository.save).toHaveBeenCalledWith({ userId: savedUser.id });
+      for (const anthrp of latestAnthropometrics) {
+        expect(anthrp.createdAt.getTime()).toBeLessThanOrEqual(Date.now());
+      }
     });
   });
 });

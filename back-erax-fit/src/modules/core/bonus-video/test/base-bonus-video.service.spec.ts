@@ -23,6 +23,7 @@ describe('BaseBonusVideoService', () => {
             create: jest.fn(() => BonusVideoEntity),
             findOne: jest.fn(() => BonusVideoEntity),
             delete: jest.fn(() => AppStatusResponse),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],
