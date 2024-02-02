@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { BaseWorkoutService } from '../../core/workout/base-workout.service';
 import { WorkoutEntity } from '../../core/workout/entity/workout.entity';
 import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
-import { UserEntity } from 'src/modules/core/user/entities/user.entity';
-import { MainException } from 'src/exceptions/main.exception';
+import { UserEntity } from '../../../modules/core/user/entities/user.entity';
+import { MainException } from '../../../exceptions/main.exception';
 
 @Injectable()
 export class ClientWorkoutService {

@@ -13,11 +13,11 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
@@ -25,7 +25,7 @@ import { CreateWorkoutRequest } from '../../core/workout/dto/create-workout.dto'
 import { UpdateWorkoutRequest } from '../../core/workout/dto/update-workout.dto';
 import { AdminWorkoutService } from './admin-workout.service';
 import { GetWorkoutByAdminDTO } from './dto/admin-get-workout.dto';
-import { WorkoutEntity } from 'src/modules/core/workout/entity/workout.entity';
+import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 
 @Controller('admin/workouts')
 @ApiTags('Admin workouts')

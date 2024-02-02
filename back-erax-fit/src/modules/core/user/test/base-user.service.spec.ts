@@ -57,6 +57,7 @@ describe('BaseUserService', () => {
         loadRestrictions: 'none',
       };
       const savedUser = await service.create(request);
+      console.log(savedUser);
       await expect(savedUser).toBeDefined();
       await expect({ data: savedUser.data }).toBeDefined();
     });
