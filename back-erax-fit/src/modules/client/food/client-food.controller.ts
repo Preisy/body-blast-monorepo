@@ -1,11 +1,11 @@
 import { Controller, Get, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { ClientFoodService } from './client-food.service';
-import { FoodEntity } from 'src/modules/core/food/entity/food.entity';
+import { FoodEntity } from '../../../modules/core/food/entity/food.entity';
 
 @Controller('food')
 @ApiTags('Food')

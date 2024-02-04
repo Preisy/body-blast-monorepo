@@ -11,14 +11,16 @@ import { UserEntity } from '../../../core/user/entities/user.entity';
 import { BaseUserService } from '../../../core/user/base-user.service';
 import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
 import { CreateAnthropometricsByClientRequest } from '../dto/client-create-anthropometrics.dto';
+import { ClientAnthropometricsController } from '../client-anthropometrics.controller';
 
 describe('ClientAnthropometricsService', () => {
   let service: ClientAnthropometricsService;
-  let repository: Repository<AnthropometricsEntity>;
   let userRepository: Repository<UserEntity>;
+  let repository: Repository<AnthropometricsEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      controllers: [ClientAnthropometricsController],
       providers: [
         BaseUserService,
         MeService,
@@ -39,17 +41,14 @@ describe('ClientAnthropometricsService', () => {
           useValue: {
             save: jest.fn(() => AnthropometricsEntity),
             create: jest.fn(() => AnthropometricsEntity),
-            findOne: jest.fn(() => AnthropometricsEntity),
-            delete: jest.fn(() => AppStatusResponse),
-            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],
     }).compile();
 
     service = module.get<ClientAnthropometricsService>(ClientAnthropometricsService);
-    repository = module.get<Repository<AnthropometricsEntity>>(getRepositoryToken(AnthropometricsEntity));
     userRepository = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
+    repository = module.get<Repository<AnthropometricsEntity>>(getRepositoryToken(AnthropometricsEntity));
   });
 
   it('should be defined', () => {

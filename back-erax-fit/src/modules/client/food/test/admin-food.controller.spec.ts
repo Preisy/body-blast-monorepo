@@ -12,13 +12,15 @@ import { FoodEntity } from '../../../../modules/core/food/entity/food.entity';
 import { BaseFoodService } from '../../../../modules/core/food/base-food.service';
 import { ClientFoodService } from '../client-food.service';
 import { CreateFoodRequest } from '../../../../modules/core/food/dto/create-food.dto';
+import { ClientFoodController } from '../client-food.controller';
 
 describe('AdminFoodController', () => {
-  let service: ClientFoodService;
+  let controller: ClientFoodController;
   let repository: Repository<FoodEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      controllers: [ClientFoodController],
       providers: [
         BaseUserService,
         AuthService,
@@ -46,11 +48,11 @@ describe('AdminFoodController', () => {
       ],
     }).compile();
 
-    service = module.get<ClientFoodService>(ClientFoodService);
+    controller = module.get<ClientFoodController>(ClientFoodController);
     repository = module.get<Repository<FoodEntity>>(getRepositoryToken(FoodEntity));
   });
 
-  describe('findAll method', () => {
+  describe('getAll method', () => {
     it('it should return paginated food records', async () => {
       const query: AppPagination.Request = {
         limit: 10,
@@ -66,7 +68,7 @@ describe('AdminFoodController', () => {
         await repository.save(await repository.create(request));
       }
 
-      const result = await service.findAll(query);
+      const result = await controller.getAll(query);
 
       for (const food of result.data) {
         expect(food).not.toBeNull();
