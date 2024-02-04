@@ -11,7 +11,6 @@ import { UserEntity } from '../../../core/user/entities/user.entity';
 import { BaseUserService } from '../../../core/user/base-user.service';
 import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
 import { CreateAnthropometricsByClientRequest } from '../dto/client-create-anthropometrics.dto';
-import { ClientAnthropometricsController } from '../client-anthropometrics.controller';
 
 describe('ClientAnthropometricsService', () => {
   let service: ClientAnthropometricsService;
@@ -20,7 +19,6 @@ describe('ClientAnthropometricsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ClientAnthropometricsController],
       providers: [
         BaseUserService,
         MeService,
@@ -41,6 +39,7 @@ describe('ClientAnthropometricsService', () => {
           useValue: {
             save: jest.fn(() => AnthropometricsEntity),
             create: jest.fn(() => AnthropometricsEntity),
+            findAndCount: jest.fn(() => [[], 0]),
           },
         },
       ],
