@@ -4,15 +4,15 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AppStatusResponse } from '../../../../dto/app-status-response.dto';
 import { ClientNutritionService } from '../client-nutrition.service';
-import { NutritionEntity } from '../../../../modules/core/nutrition/entity/nutrition.entity';
-import { MealItemEntity } from '../../../../modules/core/nutrition/entity/meal-item.entity';
-import { UserEntity } from '../../../../modules/core/user/entities/user.entity';
-import { CreateMealItemRequest } from '../../../../modules/core/nutrition/dto/create-meal-item.dto';
-import { BaseNutritionService } from '../../../../modules/core/nutrition/base-nutrition.service';
+import { NutritionEntity } from '../../../core/nutrition/entity/nutrition.entity';
+import { MealItemEntity } from '../../../core/nutrition/entity/meal-item.entity';
+import { UserEntity } from '../../../core/user/entities/user.entity';
+import { CreateMealItemRequest } from '../../../core/nutrition/dto/create-meal-item.dto';
+import { BaseNutritionService } from '../../../core/nutrition/base-nutrition.service';
 import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
-import { CreateNutritionRequest } from '../../../../modules/core/nutrition/dto/create-nutrition.dto';
+import { CreateNutritionRequest } from '../../../core/nutrition/dto/create-nutrition.dto';
 
-describe('BaseNutritionService', () => {
+describe('ClientNutritionService', () => {
   let service: ClientNutritionService;
   let repository: Repository<NutritionEntity>;
   let mealItemRepository: Repository<MealItemEntity>;
