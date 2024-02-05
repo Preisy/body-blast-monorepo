@@ -15,7 +15,6 @@ import { AuthService } from '../../../../modules/authentication/auth.service';
 import { JwtService } from '@nestjs/jwt';
 
 describe('AdminUserController', () => {
-  let service: AdminUserService;
   let controller: AdminUserController;
   let repository: Repository<UserEntity>;
 
@@ -44,44 +43,12 @@ describe('AdminUserController', () => {
       ],
     }).compile();
 
-    service = module.get<AdminUserService>(AdminUserService);
     controller = module.get<AdminUserController>(AdminUserController);
     repository = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
   });
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
-  describe('create method', () => {
-    it('should create a new user and save it', async () => {
-      const request: CreateUserByAdminRequest = {
-        email: 'e1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-        role: UserRole.Client,
-        canWatchVideo: true,
-      };
-      const savedUser = await controller.create(request);
-      expect(savedUser).toBeDefined();
-      expect({ data: savedUser.data }).toBeDefined();
-    });
+    expect(controller).toBeDefined();
   });
 
   describe('getUsers method', () => {

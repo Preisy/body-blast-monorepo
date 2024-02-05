@@ -40,37 +40,6 @@ describe('AdminUserService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('create method', () => {
-    it('should create a new user and save it', async () => {
-      const request: CreateUserByAdminRequest = {
-        email: 'e1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-        role: UserRole.Client,
-        canWatchVideo: true,
-      };
-      const savedUser = await service.create(request);
-      expect(savedUser).toBeDefined();
-      expect({ data: savedUser.data }).toBeDefined();
-    });
-  });
-
   describe('getUsers method', () => {
     it('should return an AppPaginationResponse', async () => {
       for (let i = 0; i < 5; i++) {

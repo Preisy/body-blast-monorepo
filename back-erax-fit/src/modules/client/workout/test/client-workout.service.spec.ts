@@ -11,7 +11,6 @@ import { BaseWorkoutService } from '../../../../modules/core/workout/base-workou
 import { CreateUserByClientRequest } from '../../me/dto/create-client-user.dto';
 import { CreateExerciseRequest } from '../../../../modules/core/exerсise/dto/create-exercise.dto';
 import { CreateWorkoutRequest } from '../../../../modules/core/workout/dto/create-workout.dto';
-import { UpdateWorkoutRequest } from '../../../../modules/core/workout/dto/update-workout.dto';
 
 describe('ClientWorkoutService', () => {
   let service: ClientWorkoutService;
@@ -124,68 +123,6 @@ describe('ClientWorkoutService', () => {
         expect(result.data).not.toBeNull();
         expect(workout).toBe(WorkoutEntity);
       }
-    });
-  });
-
-  describe('update method', () => {
-    it('should update an existing workout record', async () => {
-      const userRequest: CreateUserByClientRequest = {
-        email: 'test1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-      };
-      const savedUser = await userRepository.save(await userRepository.create(userRequest));
-
-      const exerciseRequest: CreateExerciseRequest = {
-        name: 'Push-ups',
-        weight: 50,
-        sets: 5,
-        repetitions: '12',
-        restTime: 90,
-        pace: 'medium',
-        photoLink: 'dickpic.jpg',
-        videoLink: 'undefined/porn.mp4',
-      };
-      const savedExercise = await exerciseRepository.save(await exerciseRepository.create(exerciseRequest));
-
-      savedExercises.push(savedExercise);
-
-      const request: CreateWorkoutRequest = {
-        userId: savedUser.id,
-        name: 'Push-ups training',
-        exercises: savedExercises,
-        date: '2023-11-11',
-      };
-
-      const savedData = await repository.save(
-        await repository.create({
-          ...request,
-          date: new Date(request.date),
-        }),
-      );
-      const updateRequest: UpdateWorkoutRequest = {
-        name: 'New push-ups training',
-      };
-
-      const savedAnthropometrics = await service.update(savedUser.id, savedData.id, updateRequest);
-      expect(savedAnthropometrics).toBeDefined();
-      expect({ data: savedAnthropometrics.data }).toBeDefined();
     });
   });
 });

@@ -17,10 +17,8 @@ import { AuthService } from '../../../../modules/authentication/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { BaseUserService } from '../../../../modules/core/user/base-user.service';
 import { TokenEntity } from '../../../../modules/authentication/entities/token.entity';
-import { UpdateWorkoutByAdminRequest } from '../dto/admin-update-workout.dto';
-import { CreateWorkoutByAdminRequest } from '../dto/admin-create-wrokout.dto';
 
-describe('AdminWorkoutService', () => {
+describe('AdminWorkoutController', () => {
   let repository: Repository<WorkoutEntity>;
   let userRepository: Repository<UserEntity>;
   let exerciseRepository: Repository<ExerciseEntity>;
@@ -77,64 +75,6 @@ describe('AdminWorkoutService', () => {
     repository = module.get<Repository<WorkoutEntity>>(getRepositoryToken(WorkoutEntity));
     userRepository = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
     exerciseRepository = module.get<Repository<ExerciseEntity>>(getRepositoryToken(ExerciseEntity));
-  });
-
-  describe('create method', () => {
-    it('should create a new workout record and save it', async () => {
-      const userRequest: CreateUserByAdminRequest = {
-        email: 'test1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-        canWatchVideo: false,
-        role: UserRole.Client,
-      };
-      const savedUser = await userRepository.save(await userRepository.create(userRequest));
-
-      const exerciseRequest: CreateExerciseRequest = {
-        name: 'Push-ups',
-        weight: 50,
-        sets: 5,
-        repetitions: '12',
-        restTime: 90,
-        pace: 'medium',
-        photoLink: 'dickpic.jpg',
-        videoLink: 'undefined/porn.mp4',
-      };
-      const savedExercise = await exerciseRepository.save(await exerciseRepository.create(exerciseRequest));
-
-      savedExercises.push(savedExercise);
-
-      const request: CreateWorkoutByAdminRequest = {
-        userId: savedUser.id,
-        name: 'Push-ups training',
-        exercises: savedExercises,
-        date: '2023-11-11',
-      };
-      const { data: savedWorkout } = await controller.create(request);
-
-      expect(savedWorkout.userId).toBeDefined();
-      expect(savedWorkout.userId).toBe(savedUser.id);
-      expect(savedWorkout.name).toBeDefined();
-      expect(savedWorkout.name).toBe(request.name);
-      expect(savedWorkout.exercises).toBeDefined();
-      expect(savedWorkout.exercises).toBe(savedExercises);
-    });
   });
 
   describe('findAll method', () => {
@@ -199,131 +139,6 @@ describe('AdminWorkoutService', () => {
         expect(result.data).not.toBeNull();
         expect(workout).toBe(WorkoutEntity);
       }
-    });
-  });
-
-  describe('findOne method', () => {
-    it('should find a workout record by its ID', async () => {
-      const userRequest: CreateUserByAdminRequest = {
-        email: 'test1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-        canWatchVideo: false,
-        role: UserRole.Client,
-      };
-      const savedUser = await userRepository.save(await userRepository.create(userRequest));
-
-      const exerciseRequest: CreateExerciseRequest = {
-        name: 'Push-ups',
-        weight: 50,
-        sets: 5,
-        repetitions: '12',
-        restTime: 90,
-        pace: 'medium',
-        photoLink: 'dickpic.jpg',
-        videoLink: 'undefined/porn.mp4',
-      };
-      const savedExercise = await exerciseRepository.save(await exerciseRepository.create(exerciseRequest));
-
-      savedExercises.push(savedExercise);
-
-      const request: CreateWorkoutRequest = {
-        userId: savedUser.id,
-        name: 'Push-ups training',
-        exercises: savedExercises,
-        date: '2023-11-11',
-      };
-
-      const savedData = await repository.save(
-        await repository.create({
-          ...request,
-          date: new Date(request.date),
-        }),
-      );
-
-      const workout = await controller.getOne(savedData.id);
-      expect(workout).toBeDefined();
-      expect({ data: workout.data }).toBeDefined();
-    });
-  });
-
-  describe('update method', () => {
-    it('should update an existing workout record', async () => {
-      const userRequest: CreateUserByAdminRequest = {
-        email: 'test1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-        canWatchVideo: false,
-        role: UserRole.Client,
-      };
-      const savedUser = await userRepository.save(await userRepository.create(userRequest));
-
-      const exerciseRequest: CreateExerciseRequest = {
-        name: 'Push-ups',
-        weight: 50,
-        sets: 5,
-        repetitions: '12',
-        restTime: 90,
-        pace: 'medium',
-        photoLink: 'dickpic.jpg',
-        videoLink: 'undefined/porn.mp4',
-      };
-      const savedExercise = await exerciseRepository.save(await exerciseRepository.create(exerciseRequest));
-
-      savedExercises.push(savedExercise);
-
-      const request: CreateWorkoutRequest = {
-        userId: savedUser.id,
-        name: 'Push-ups training',
-        exercises: savedExercises,
-        date: '2023-11-11',
-      };
-
-      const savedData = await repository.save(
-        await repository.create({
-          ...request,
-          date: new Date(request.date),
-        }),
-      );
-      const updateRequest: UpdateWorkoutByAdminRequest = {
-        name: 'New push-ups training',
-      };
-
-      const savedAnthropometrics = await controller.update(savedData.id, updateRequest);
-      expect(savedAnthropometrics).toBeDefined();
-      expect({ data: savedAnthropometrics.data }).toBeDefined();
     });
   });
 

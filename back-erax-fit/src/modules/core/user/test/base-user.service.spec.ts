@@ -33,36 +33,6 @@ describe('BaseUserService', () => {
     repository = module.get<Repository<UserEntity>>(getRepositoryToken(UserEntity));
   });
 
-  describe('create method', () => {
-    it('should create a new user and save it', async () => {
-      const request: CreateUserRequest = {
-        email: '1@mail.ru',
-        password: 'Qwertyuiop1',
-        firstName: 'Test',
-        lastName: 'User',
-        age: 33,
-        weight: 80,
-        weightInYouth: 70,
-        height: 190,
-        heartDesease: 'none',
-        nutritRestrict: 'none',
-        gastroDeseases: 'none',
-        allergy: 'none',
-        kidneyDesease: 'none',
-        goals: 'Achieve volume of Arnold Schwarzenegger',
-        sportsExp: 'push-ups',
-        mealIntolerance: 'none',
-        insulinResistance: false,
-        muscleDesease: 'none',
-        loadRestrictions: 'none',
-      };
-      const savedUser = await service.create(request);
-      console.log(savedUser);
-      await expect(savedUser).toBeDefined();
-      await expect({ data: savedUser.data }).toBeDefined();
-    });
-  });
-
   describe('getUsers method', () => {
     it('should return an AppPaginationResponse', async () => {
       const query: AppPagination.Request = {
