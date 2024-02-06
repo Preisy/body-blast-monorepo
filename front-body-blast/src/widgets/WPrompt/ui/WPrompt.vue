@@ -7,7 +7,7 @@ import {
 } from '@quasar/extras/material-symbols-rounded';
 import { FPromptEditDialog } from 'features/FPromptEditDialog';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
-import { useAuthLink } from 'shared/lib/utils';
+import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
 import { SVideo } from 'shared/ui/SVideo';
 
@@ -39,11 +39,6 @@ const onDeleteClick = async (id: number) => {
     if (index) getPromptsResponse.data?.data.splice(index, 1);
   }
 };
-
-onUnmounted(() => {
-  video.value.data?.destructor();
-  photo.value.data?.destructor();
-});
 </script>
 
 <template>

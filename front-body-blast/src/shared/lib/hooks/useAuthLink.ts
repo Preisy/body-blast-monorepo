@@ -7,7 +7,14 @@ export const useAuthLink = (link: string) => {
   const state = ref(useSingleState<URLHandler>());
   const videoFileName = link.split('/').pop() || '';
 
-  useLoadingAction(state.value, () => fileStore.getFileByName({ filename: videoFileName }, state.value));
+  const unwatch = useLoadingAction(state.value, () =>
+    fileStore.getFileByName({ filename: videoFileName }, state.value),
+  );
+
+  onUnmounted(() => {
+    unwatch();
+    state.value.data?.destructor();
+  });
 
   return state;
 };

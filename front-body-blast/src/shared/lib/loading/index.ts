@@ -17,12 +17,9 @@ export function useLoading(state: XOR<IState, ISingleState>) {
   return unwatch;
 }
 
-export async function useLoadingAction(
-  state: XOR<IState, ISingleState>,
-  fn: (() => unknown) | (() => Promise<unknown>),
-) {
+export function useLoadingAction(state: XOR<IState, ISingleState>, fn: (() => unknown) | (() => Promise<unknown>)) {
   const unwatch = useLoading(state.state ?? state);
-  await fn();
-  unwatch();
+  const result = fn() as Promise<unknown>;
+  if ('then' in result) result.then(unwatch);
   return unwatch;
 }

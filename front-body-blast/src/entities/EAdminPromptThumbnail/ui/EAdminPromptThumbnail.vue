@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthLink } from 'shared/lib/utils';
+import { useAuthLink } from 'shared/lib/hooks';
 
 export interface EAdminPromptThumbnailProps {
   photo: string;

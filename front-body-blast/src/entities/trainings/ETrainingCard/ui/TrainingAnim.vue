@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
-import { useAuthLink } from 'shared/lib/utils';
+import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
 import { SVideo } from 'shared/ui/SVideo';
 
@@ -13,11 +13,6 @@ const video = useAuthLink(props.videoLink);
 const photo = useAuthLink(props.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
-
-onUnmounted(() => {
-  video.value.data?.destructor();
-  photo.value.data?.destructor();
-});
 </script>
 
 <template>
