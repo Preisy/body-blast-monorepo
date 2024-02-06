@@ -35,7 +35,7 @@ export const dashboardRoutes: RouteRecordRaw = {
     {
       meta: { auth: true },
       path: 'learning',
-      component: () => import('pages/PLearning/ui/PLearning.vue'),
+      component: () => import('pages/PLearning.vue'),
       name: ENUMS.ROUTES_NAMES.LEARNING,
     },
   ],
