@@ -8,8 +8,6 @@ const props = defineProps<{
   video: BonusVideo;
 }>();
 const link = useAuthLink(props.video.linkUrl);
-
-onUnmounted(() => link.value.data?.destructor());
 </script>
 
 <template>

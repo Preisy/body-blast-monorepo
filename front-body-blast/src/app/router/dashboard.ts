@@ -33,9 +33,9 @@ export const dashboardRoutes: RouteRecordRaw = {
       name: ENUMS.ROUTES_NAMES.DIET,
     },
     {
-      meta: { auth: true },
+      meta: { auth: true, canWatchVideo: true },
       path: 'learning',
-      component: () => import('pages/PLearning.vue'),
+      component: () => import('pages/PLearning/ui/PLearning.vue'),
       name: ENUMS.ROUTES_NAMES.LEARNING,
     },
   ],
