@@ -4,7 +4,7 @@ import { assign, omit, uniqueId } from 'lodash';
 import moment from 'moment';
 import { z } from 'zod';
 import { FListControls } from 'features/FListControls';
-import { FNewTrainingFields } from 'features/FNewTrainingFields';
+import { ENewTrainingFields } from 'entities/ENewTrainingFields';
 import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
@@ -109,7 +109,7 @@ onUnmounted(() => {
         p="0!"
         mt-0.5rem
       >
-        <FNewTrainingFields :prompts="getPromptsResponse.data?.data" />
+        <ENewTrainingFields :prompts="getPromptsResponse.data?.data" />
 
         <template #submit-btn>
           <FListControls
