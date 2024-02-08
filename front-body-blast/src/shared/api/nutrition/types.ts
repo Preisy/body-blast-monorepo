@@ -4,8 +4,8 @@ import { User } from '../user';
 
 export interface Nutrition extends AppBaseEntity {
   name: string;
-  mealItems: Array<Nutrition.Item>;
-  user: User;
+  mealItems?: Array<Nutrition.Item>;
+  user?: User;
   userId: number;
 }
 
