@@ -1,32 +1,25 @@
 import { Loading } from 'quasar';
+import { WatchStopHandle } from 'vue';
 import { ISingleState, IState } from '../utils';
 
-export function useLoading(state: IState): void;
-export function useLoading(state: ISingleState): void;
+export function useLoading(state: IState): WatchStopHandle;
+export function useLoading(state: ISingleState): WatchStopHandle;
 
-/**
- *  Loading hook to detect is state isLoading.
- *  Displays SLogo as loading screen
- *  Global settings in 'App.vue'
- *
- *  !IMPORTANT: to proper work you should put useLoading BEFORE api request
- *  @example
- *    const { someState, someApiRequest } = useSomeStore();
- *    useLoading(someState); <----- useLoading before api
- *    someApiRequest();      <----- api request after useLoading
- *  @param state useSingleState() or use[Single/List]State().state
- */
 export function useLoading(state: XOR<IState, ISingleState>) {
-  watch(
-    state,
-    (changedState) => {
-      let s;
-      if ('state' in changedState) s = changedState.state;
-      else s = changedState;
+  const unwatch = watchEffect(() => {
+    if (state?.isLoading?.() || state.state?.isLoading?.()) {
+      Loading.show();
+    } else {
+      Loading.hide();
+    }
+  });
 
-      if (!s) return;
-      s.isLoading() ? Loading.show() : Loading.hide();
-    },
-    { immediate: true },
-  );
+  return unwatch;
+}
+
+export function useLoadingAction(state: XOR<IState, ISingleState>, fn: (() => unknown) | (() => Promise<unknown>)) {
+  const unwatch = useLoading(state.state ?? state);
+  const result = fn() as Promise<unknown>;
+  if ('then' in result) result.then(unwatch);
+  return unwatch;
 }
