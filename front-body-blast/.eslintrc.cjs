@@ -55,7 +55,7 @@ module.exports = {
     "@typescript-eslint/no-namespace": 0,
     "vue/html-self-closing": ["error", {
       "html": {
-        "void": "never",
+        "void": "any",
         "normal": "always",
         "component": "always"
       },

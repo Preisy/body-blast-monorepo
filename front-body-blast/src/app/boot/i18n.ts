@@ -1,8 +1,9 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
-import { TPAdminProfileI18n } from 'pages/PAdminProfile';
+import { TPAdminHomeI18n } from 'pages/PAdminHome';
 import { TPAdminPromptsI18n } from 'pages/PAdminPrompt';
 import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
+import { TPDietI18n } from 'pages/PDiet';
 import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
@@ -22,7 +23,7 @@ export default boot(({ app }) => {
     locale: 'ru-RU',
     legacy: false,
     messages: mergeI18n(
-      TPAdminProfileI18n,
+      TPAdminHomeI18n,
       TFooterNavigationBarI18n,
       TPAdminUserProfileI18n,
       TWAdminFooterNavBarI18n,
@@ -33,6 +34,7 @@ export default boot(({ app }) => {
       TAuthFormsI18n,
       TEProfileHeaderI18n,
       TEAthropometricsItemI18n,
+      TPDietI18n,
       TWPromptCreationI18n,
       TEProfileCardI18n,
       TSNoResultsScreenI18n,

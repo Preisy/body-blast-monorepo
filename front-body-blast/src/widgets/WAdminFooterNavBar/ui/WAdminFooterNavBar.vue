@@ -17,9 +17,9 @@ const { t } = useI18n();
 
 const links = computed<SFooterNavLinkProps[]>(() => {
   let result: SFooterNavLinkProps[] = [
-    { imgSrc: symRoundedHome, title: t('admin.footer.links.home'), name: ENUMS.ROUTES_NAMES.ADMIN_PROFILE },
-    { imgSrc: symRoundedSettings, title: t('admin.footer.links.prompt'), name: ENUMS.ROUTES_NAMES.ADMIN_PROMPT },
-    { imgSrc: symRoundedPlayArrow, title: t('admin.footer.links.learning'), name: ENUMS.ROUTES_NAMES.ADMIN_LEARNING },
+    { imgSrc: symRoundedHome, title: t('admin.footer.links.home'), name: ENUMS.ROUTES_NAMES.ADMIN.HOME },
+    { imgSrc: symRoundedSettings, title: t('admin.footer.links.prompt'), name: ENUMS.ROUTES_NAMES.ADMIN.PROMPT },
+    { imgSrc: symRoundedPlayArrow, title: t('admin.footer.links.learning'), name: ENUMS.ROUTES_NAMES.ADMIN.LEARNING },
   ];
 
   //TODO: better
@@ -28,17 +28,17 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       {
         imgSrc: symRoundedHome,
         title: t('admin.footer.links.home'),
-        name: ENUMS.ROUTES_NAMES.ADMIN_PROFILE,
+        name: ENUMS.ROUTES_NAMES.ADMIN.HOME,
       },
       {
         imgSrc: symRoundedAccountCircle,
         title: t('admin.footer.links.profile'),
-        name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE,
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE,
       },
       {
         imgSrc: symRoundedExercise,
         title: t('admin.footer.links.trainings'),
-        name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE_TRAININGS,
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_TRAININGS,
       },
       {
         imgSrc: symRoundedEdit,
@@ -48,7 +48,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       {
         imgSrc: symRoundedRestaurant,
         title: t('dashboard.footer.links.diet'),
-        name: ENUMS.ROUTES_NAMES.ADMIN_USER_PROFILE_NUTRITION,
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_NUTRITION,
       },
     ];
 

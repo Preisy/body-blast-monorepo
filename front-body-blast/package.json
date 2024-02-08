@@ -4,6 +4,7 @@
   "description": "body-blast frontend project",
   "productName": "front-body-blast",
   "author": "maksmak200305@gmail.com",
+  "license": "MIT",
   "scripts": {
     "lint": "eslint --ext .js,.ts,.vue,.cjs ./",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",

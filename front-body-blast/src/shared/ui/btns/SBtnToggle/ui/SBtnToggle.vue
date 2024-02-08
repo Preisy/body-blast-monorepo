@@ -58,9 +58,8 @@ const currentStyle = computed(() => styles.value?.at(currentIndex.value));
       flex
       justify-between
       rounded-0.75rem
-      bg-primary50
-      color="primary50"
-      toggle-color="primary50"
+      bg="primary/50"
+      toggle-color="primary"
       text-color="bg"
       toggle-text-color="bg"
       size="1rem"

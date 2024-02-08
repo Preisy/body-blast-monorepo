@@ -16,8 +16,6 @@ export const adminPromptsService = {
   ),
 
   getPrompts: useServiceAction((data: PromptPage.Get.Dto) =>
-    api.get<PromptPage.Get.Response>(
-      `/admin/prompts?type=${data.type}&page=${data.page}&limit=${data.limit}&expanded=${data.expanded}`,
-    ),
+    api.get<PromptPage.Get.Response>(`/admin/prompts`, { params: data }),
   ),
 };

@@ -19,7 +19,7 @@ const { value, errorMessage } = useField<File | FileList>(() => props.name);
     <QFile
       v-bind="$props"
       v-model="value"
-      :bg-color="value === undefined ? 'primary50' : 'primary'"
+      :bg-color="value === undefined ? 'primary-50-solid' : 'primary'"
       label-color="bg"
       standout
       :ripple="{ color: 'red' }"

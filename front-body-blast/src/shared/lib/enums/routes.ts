@@ -8,12 +8,18 @@ export enum ROUTES_NAMES {
   AUTH = 'auth',
   LOGIN = 'login',
   REGISTER = 'register',
-  ADMIN = 'admin',
-  ADMIN_PROFILE = 'adminProfile',
-  ADMIN_PROMPT = 'adminPrompt',
-  ADMIN_LEARNING = 'adminLearning',
-  ADMIN_USER_PROFILE = 'adminUserProfile',
-  ADMIN_USER_PROFILE_BIO = 'adminUserProfileBio',
-  ADMIN_USER_PROFILE_TRAININGS = 'adminUserProfileTrainings',
-  ADMIN_USER_PROFILE_NUTRITION = 'adminUserProfileNutrition',
+  NOT_FOUND = 'NOT_FOUND',
+}
+
+export namespace ROUTES_NAMES {
+  export enum ADMIN {
+    BASE = 'admin',
+    HOME = 'adminHome',
+    PROMPT = 'adminPrompt',
+    LEARNING = 'adminLearning',
+    USER_PROFILE = 'adminUserProfile',
+    USER_PROFILE_BIO = 'adminUserProfileBio',
+    USER_PROFILE_TRAININGS = 'USER_PROFILE_TRAININGS',
+    USER_PROFILE_NUTRITION = 'USER_PROFILE_NUTRITION',
+  }
 }
