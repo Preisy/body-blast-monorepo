@@ -1,26 +1,12 @@
 <script setup lang="ts">
 import { symRoundedClose, symRoundedDone } from '@quasar/extras/material-symbols-rounded';
-import { QDialog, QDialogProps } from 'quasar';
+import { QDialog } from 'quasar';
 import { SBtn } from 'shared/ui/btns';
-
-const props = defineProps<{
-  modelValue?: QDialogProps['modelValue'];
-}>();
 
 const emit = defineEmits<{
   discard: [];
   apply: [];
-  'update:modelValue': [typeof props.modelValue];
 }>();
-
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit('update:modelValue', value);
-  },
-});
 
 const dialog = ref<InstanceType<typeof QDialog>>();
 defineExpose({
@@ -30,16 +16,22 @@ defineExpose({
 
 const ondiscard = () => {
   dialog.value?.hide();
+  emit('discard');
+};
+const onapply = () => {
+  dialog.value?.hide();
+  emit('apply');
 };
 </script>
 
 <template>
-  <QDialog v-model="value" ref="dialog">
-    <div bg-primary p-1rem>
-      <h2 mb-1.5rem>Хотите удалить?</h2>
+  <QDialog ref="dialog">
+    <div rounded="1rem!" bg-primary p-1rem>
+      <!-- TODO: I18n -->
+      <h2 mb-1.5rem text-bg>Хотите удалить?</h2>
       <div flex justify-between>
         <SBtn :icon="symRoundedClose" bg="bg!" @click="ondiscard" />
-        <SBtn :icon="symRoundedDone" @click="$emit('apply')" />
+        <SBtn :icon="symRoundedDone" @click="onapply" />
       </div>
     </div>
   </QDialog>

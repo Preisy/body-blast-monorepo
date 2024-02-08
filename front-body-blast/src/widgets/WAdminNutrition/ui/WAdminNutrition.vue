@@ -1,39 +1,19 @@
 <script setup lang="ts">
-import { FNutritionListForm, FNutritionListFormProps } from 'features/FNutritionListForm';
+import { FNutritionListForm } from 'features/FNutritionListForm';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SSplide } from 'shared/ui/SSplide';
-import { SSplideSlide } from 'shared/ui/SSplideSlide';
 
 export interface WAdminNutritionLongProps {
-  title: string;
+  nutrition: Nutrition;
 }
 defineProps<WAdminNutritionLongProps>();
-
-const nutritionSlides = ref<
-  Array<{
-    type: string;
-    items: FNutritionListFormProps['modelValue'];
-  }>
->([
-  {
-    type: 'Завтрак',
-    items: [{ type: 'Греча', value: '100 гр' }],
-  },
-  {
-    type: 'Перекус',
-    items: [{ type: 'Греча', value: '100 гр' }],
-  },
-]);
 </script>
 
 <template>
-  <SComponentWrapper>
+  <SComponentWrapper h-full>
     <h1 mb-1rem>{{ title }}</h1>
 
-    <SSplide :options="{ direction: 'ttb' }">
-      <SSplideSlide v-for="(slide, i) of nutritionSlides" :key="slide.type">
-        <FNutritionListForm :title="slide.type" :model-value="nutritionSlides[i].items" />
-      </SSplideSlide>
-    </SSplide>
+    <FNutritionListForm :category="1" :title="slide.type" :init-values="getNutritions" />
+    <FNutritionListForm :category="2" :title="slide.type" :init-values="getNutritions" />
+    <FNutritionListForm :category="3" :title="slide.type" :init-values="getNutritions" />
   </SComponentWrapper>
 </template>

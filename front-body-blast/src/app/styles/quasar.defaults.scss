@@ -3,6 +3,7 @@
   --q-primary: theme('colors.primary');
   --q-primary50: theme('colors.primary50');
   --q-secondary: theme('colors.secondary');
+  --q-accent: theme('colors.accent');
 }
 
 .text-primary50 {
@@ -10,4 +11,11 @@
 }
 .bg-primary50 {
   background-color: var(--q-primary50) !important;
+}
+
+.text-accent {
+  color: var(--q-accent) !important;
+}
+.bg-accent {
+  background-color: var(--q-accent) !important;
 }

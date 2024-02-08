@@ -15,7 +15,7 @@ const props = defineProps<SFormProps>();
 const { handleSubmit, setValues, resetForm } = useForm({
   validationSchema: props.fieldSchema,
 });
-if (props.readonly && props.initValues) setValues(props.initValues);
+if (props.initValues) setValues(props.initValues);
 
 const emits = defineEmits<{
   submit: Parameters<Parameters<typeof handleSubmit>[0]>;

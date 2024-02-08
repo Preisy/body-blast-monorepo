@@ -6,68 +6,83 @@ import { SListControls } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SForm } from 'shared/ui/SForm';
 import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
+import NutritionListHeader from './NutritionListHeader.vue';
+
 export interface FNutritionListFormProps {
   title: string;
-  modelValue: Array<{
-    type: string;
-    value: string;
-  }>;
+  category: 1 | 2 | 3;
+  initValues: Array<Item>;
 }
-type Item = FNutritionListFormProps['modelValue'][number];
+interface Item {
+  type: string;
+  value: string;
+}
 
 const props = defineProps<FNutritionListFormProps>();
 const emit = defineEmits<{
-  'update:modelValue': [FNutritionListFormProps['modelValue']];
+  submit: [Array<Item>];
 }>();
 
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit('update:modelValue', value);
-  },
-});
+const lines = ref<Array<Partial<Item & { uniqueId: string }>>>(
+  props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
+);
 
 const dialog = ref<InstanceType<typeof SRemoveDialog>>();
-const onremove = () => {
-  dialog.value?.show();
-};
-const onadd = (values: Item) => {
-  value.value.push(values);
-};
+const removeItemIndex = ref<number>();
 const onRemoveApply = () => {
+  if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
+  lines.value.splice(removeItemIndex.value, 1);
+  console.log(removeItemIndex.value);
   console.log('aboba');
 };
 
-const lines = ref<Array<Partial<{ type: string; value: string; uniqueId: string }>>>([{ uniqueId: uniqueId('line-') }]);
+const onremove = (index: number) => {
+  dialog.value?.show();
+  removeItemIndex.value = index;
+};
+const onadd = () => {
+  lines.value.push({ uniqueId: uniqueId('line-') });
+};
+const onsubmit = (values: Array<Item>) => {
+  emit('submit', values);
+};
+
 const schema = computed(() =>
   toTypedSchema(
-    z
-      .object({
-        type: z.string(),
-        value: z.string(),
-      })
-      .array(),
+    z.object({
+      type: z.string(),
+      value: z.string(),
+    }),
   ),
 );
 </script>
 
 <template>
   <div flex flex-col gap-y-0.5rem>
-    <div flex gap-x-5px>
-      <p h-6p w-6px bg-secondary />
-      <p>{{ title }}</p>
-    </div>
+    <NutritionListHeader :category="category" :title="title" />
 
-    <SForm @submit="onadd" :field-schema="schema" p="0!">
-      <div flex gap-x-0.5rem v-for="line of lines" :key="line.uniqueId">
+    <SForm
+      v-for="(line, index) of lines"
+      :key="line.uniqueId"
+      @submit="onsubmit"
+      :field-schema="schema"
+      :init-values="line"
+      p="0!"
+    >
+      <div flex gap-x-0.5rem>
+        <!-- TODO: I18n -->
         <SInput name="type" label="Тип" />
         <SInput name="value" label="Количество" />
       </div>
 
       <template #submit-btn>
-        <SListControls @remove="onremove" mt-0.5rem />
+        <SListControls
+          :disabled-add="index !== lines.length - 1"
+          :disabled-submit="index !== lines.length - 1"
+          @remove="() => onremove(index)"
+          @add="onadd"
+          mt-0.5rem
+        />
       </template>
     </SForm>
 
