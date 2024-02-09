@@ -3,7 +3,7 @@ import { useServiceAction } from 'shared/lib/utils';
 import { AdminNutrition } from './types';
 
 export const adminNutritionService = {
-  getNutritions: useServiceAction((data: AdminNutrition.Get.Dto) =>
+  getNutritions: useServiceAction((data?: AdminNutrition.Get.Dto) =>
     api.get<AdminNutrition.Get.Response>(`/admin/nutrition`, { params: data }),
   ),
   postNutrition: useServiceAction((data: AdminNutrition.Post.Dto) =>

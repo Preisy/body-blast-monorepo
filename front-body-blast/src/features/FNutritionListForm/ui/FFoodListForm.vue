@@ -1,25 +1,24 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
-import { Nutrition } from 'shared/api/nutrition';
+import { Food } from 'shared/api/food';
 import { SListControls } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SForm } from 'shared/ui/SForm';
 import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
-import NutritionListHeader from './NutritionListHeader.vue';
+import NutritionListHeader, { NutritionListHeaderProps } from './NutritionListHeader.vue';
 
-export interface FNutritionListFormProps {
-  title: string;
-  category: 1 | 2 | 3;
-  initValues: Array<Nutrition.Item>;
+export interface FFoodListFormProps {
+  category: NutritionListHeaderProps['category'];
+  initValues: Array<Food>;
 }
 
-const props = defineProps<FNutritionListFormProps>();
+const props = defineProps<FFoodListFormProps>();
 const emit = defineEmits<{
-  submit: [Array<Nutrition.Item>];
+  submit: [Array<Food>];
 }>();
 
-const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
+const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
   props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
 );
 const linesVisible = computed(() => {
@@ -43,18 +42,16 @@ const onremove = (index: number) => {
 const onadd = () => {
   lines.value.push({ uniqueId: uniqueId('line-') });
 };
-const onsubmit = (values: Array<Nutrition.Item>) => {
+const onsubmit = (values: Array<Food>) => {
   emit('submit', values);
 };
 
-const validationSchema = toTypedSchema(
-  Nutrition.validation().pick({ mealItems: true }).shape.mealItems.element.pick({ type: true, quantity: true }),
-);
+const validationSchema = toTypedSchema(Food.validation().pick({ name: true }));
 </script>
 
 <template>
   <div flex flex-col gap-y-0.5rem>
-    <NutritionListHeader :category="category" :title="title" />
+    <NutritionListHeader :category="category" />
 
     <SForm
       v-for="(line, index) of linesVisible"
@@ -64,9 +61,8 @@ const validationSchema = toTypedSchema(
       :init-values="line"
       p="0!"
     >
-      <div flex gap-x-0.5rem>
-        <SInput name="type" :label="$t('admin.nutrition.type')" />
-        <SInput name="quantity" :label="$t('admin.nutrition.quantity')" />
+      <div>
+        <SInput name="name" :label="$t('admin.nutrition.type')" />
       </div>
 
       <template #submit-btn>

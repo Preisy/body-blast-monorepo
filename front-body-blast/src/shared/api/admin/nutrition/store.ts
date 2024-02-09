@@ -5,7 +5,7 @@ import { AdminNutrition } from './types';
 
 export const useAdminNutritionStore = defineStore('admin-nutrition-store', () => {
   const getNutritionsResponse = ref(useSingleState<AdminNutrition.Get.Response>());
-  const getNutritions = (data: AdminNutrition.Get.Dto) =>
+  const getNutritions = (data?: AdminNutrition.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: getNutritionsResponse.value,
       serviceAction: adminNutritionService.getNutritions(data),

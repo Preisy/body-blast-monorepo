@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { FNutritionListFormProps } from './FNutritionListForm.vue';
 
-export interface NutritionListHeaderProps extends Pick<FNutritionListFormProps, 'category' | 'title'> {}
+export interface NutritionListHeaderProps {
+  category: FNutritionListFormProps['category'];
+}
 defineProps<NutritionListHeaderProps>();
 const categoryColorMap: Record<NutritionListHeaderProps['category'], string> = {
   1: 'bg-accent',
@@ -13,6 +15,6 @@ const categoryColorMap: Record<NutritionListHeaderProps['category'], string> = {
 <template>
   <div flex gap-x-5px>
     <p h-16px w-16px rounded="100%" :class="categoryColorMap[category]" />
-    <p>{{ title }}</p>
+    <p>{{ $t('admin.nutrition.category') }} {{ category }}</p>
   </div>
 </template>

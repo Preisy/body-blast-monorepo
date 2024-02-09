@@ -3,12 +3,14 @@ import { createI18n } from 'vue-i18n';
 import { TPAdminHomeI18n } from 'pages/PAdminHome';
 import { TPAdminPromptsI18n } from 'pages/PAdminPrompt';
 import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
+import { TPAdminUserProfileNutritionI18n } from 'pages/PAdminUserProfileNutrition';
 import { TPDietI18n } from 'pages/PDiet';
 import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
 import { TWNewTrainingI18n } from 'widgets/WNewTraining';
 import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
+import { TFNutritionListFormI18n } from 'features/FNutritionListForm';
 import { TAuthFormsI18n } from 'entities/form/i18n';
 import { TEAthropometricsItemI18n } from 'entities/profile/EAthropometricsItem';
 import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
@@ -40,6 +42,8 @@ export default boot(({ app }) => {
       TSNoResultsScreenI18n,
       TWNewTrainingI18n,
       TPAdminPromptsI18n,
+      TFNutritionListFormI18n,
+      TPAdminUserProfileNutritionI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

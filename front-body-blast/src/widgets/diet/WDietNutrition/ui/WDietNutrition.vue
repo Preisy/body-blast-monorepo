@@ -6,7 +6,7 @@ import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
-defineProps<Nutrition.Response>();
+defineProps<Nutrition.Get.Response>();
 </script>
 
 <template>
