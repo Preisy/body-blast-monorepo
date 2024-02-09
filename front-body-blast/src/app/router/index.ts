@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers';
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import { useMeStore } from 'shared/api/me';
+import { ENUMS } from 'shared/lib/enums';
 import { useLoading } from 'shared/lib/loading';
 import { checkAdminPermissions, checkWatchVideoPermissions } from './permissions';
 import routes from './routes';
@@ -29,13 +30,19 @@ export default route(function (/* { store, ssrContext } */) {
   });
 
   Router.beforeEach(async (to) => {
+    // Access to login is always available
+    // Also is workaround for infinite redirect issue
+    if (to.name === ENUMS.ROUTES_NAMES.LOGIN) return;
+
     const { me, getMe } = useMeStore();
     useLoading(me);
     await getMe();
 
     if (!me.data) {
-      console.error(me.state.error);
-      return;
+      // if can't get data about self, then need to relogin
+      return {
+        path: ENUMS.ROUTES_NAMES.LOGIN,
+      };
     }
 
     const adminCheckResult = checkAdminPermissions(to, me.data.data);
