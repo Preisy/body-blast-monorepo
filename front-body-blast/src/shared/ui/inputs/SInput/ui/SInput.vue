@@ -37,6 +37,7 @@ const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : pro
     :bg="currentBgColor"
     class="s_input text-bg [&.centered_.q-field--dense.q-field--float_.q-field\_\_label]:(left-1/2 scale-3/4 -translate-x-[37.5%] -translate-y-1/3) [&.centered_.q-field\_\_label]:(left-1/2 -translate-x-2/4) [&_.q-field\_\_control]:(h-auto px-1.25rem py-1rem transition-all-300) [&.error_.q-field\_\_control]:pb-2rem [&.centered_.q-field\_\_native]:(text-center) [&_input]:(p-0! text-base!) [&_.q-field--highlighted_.q-placeholder]:pt-0.5rem! [&.not\_empty_.q-placeholder]:pt-0.5rem!"
     relative
+    h-fit
     overflow-hidden
     rounded-1rem
     transition-all-300

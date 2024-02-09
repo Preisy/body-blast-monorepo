@@ -40,7 +40,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 
   if (!foodSlides.value) return result;
   const foodPages = Object.keys(foodSlides.value).map((type, index) => ({
-    label: type,
+    label: t(`home.diet.${type}`),
     value: (index + 1).toString(),
   }));
   result.push(...foodPages);
