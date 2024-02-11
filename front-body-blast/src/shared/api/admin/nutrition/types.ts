@@ -25,6 +25,8 @@ export namespace AdminNutrition {
   }
   export namespace Delete {
     export interface Dto extends AppBaseEntity.Dto {}
-    export interface Response extends AppBaseEntity.Response<{ status: boolean }> {}
+    export interface Response {
+      status: boolean;
+    }
   }
 }

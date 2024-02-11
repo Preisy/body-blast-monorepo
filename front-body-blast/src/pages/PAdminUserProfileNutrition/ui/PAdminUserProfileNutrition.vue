@@ -72,7 +72,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
           :name="(index + 1).toString()"
           p="0!"
         >
-          <WAdminFood :title="type" :food-items="foodItems" />
+          <WAdminFood :type="type" :food-items="foodItems" />
         </QTabPanel>
       </QTabPanels>
 

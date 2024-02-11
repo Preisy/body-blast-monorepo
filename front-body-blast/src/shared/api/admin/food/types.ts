@@ -19,14 +19,19 @@ export namespace AdminFood {
   }
 
   export namespace Patch {
-    export interface Dto extends AppBaseEntity.Dto {
-      food: Pick<Food, 'name' | 'type' | 'category'>;
+    export interface Dto {
+      id: Food['id'];
+      category?: Food['category'];
+      name?: Food['name'];
+      type?: Food['type'];
     }
     export interface Response extends AppBaseEntity.Response<Food> {}
   }
 
   export namespace Delete {
     export interface Dto extends AppBaseEntity.Dto {}
-    export interface Response extends AppBaseEntity.Response<{ status: boolean }> {}
+    export interface Response {
+      status: boolean;
+    }
   }
 }

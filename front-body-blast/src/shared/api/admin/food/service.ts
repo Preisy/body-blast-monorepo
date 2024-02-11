@@ -11,7 +11,7 @@ export const FoodService = {
   ),
   postFood: useServiceAction((data: AdminFood.Post.Dto) => api.post<AdminFood.Post.Response>('/admin/food', data)),
   patchFood: useServiceAction((data: AdminFood.Patch.Dto) =>
-    api.patch<AdminFood.Patch.Response>(`/admin/food/${data.id}`, data.food),
+    api.patch<AdminFood.Patch.Response>(`/admin/food/${data.id}`, data),
   ),
   deleteFood: useServiceAction((data: AdminFood.Delete.Dto) =>
     api.delete<AdminFood.Delete.Response>(`/admin/food/${data.id}`),
