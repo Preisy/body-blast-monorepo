@@ -1,6 +1,8 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
+import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
 import { SListControls } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
@@ -19,37 +21,61 @@ const emit = defineEmits<{
   submit: [Array<Nutrition.Item>];
 }>();
 
+// Used only for buttons loading state
+const { patchNutritionResponse } = useAdminNutritionStore();
+
+// All mealItems forms
+const forms = ref<Array<InstanceType<typeof SForm>>>();
+
+// lines === mealItems, but with _.uniqueId() as vue key property
 const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
   props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
 );
+
+// Simply addes empty line, if no initValues provided
 const linesVisible = computed(() => {
   const result = [...lines.value];
   if (!result.length) result.push({ uniqueId: uniqueId('line-') });
   return result;
 });
 
+// Deletion dialog ref
 const dialog = ref<InstanceType<typeof SRemoveDialog>>();
-const removeItemIndex = ref<number>();
+const removeItemIndex = ref<number>(); // index to deletion
+// Called if user hits 'apply' in deletionDialog.
 const onRemoveApply = () => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  lines.value.splice(removeItemIndex.value, 1);
+  lines.value.splice(removeItemIndex.value, 1); // Deletes line from array
   console.log(removeItemIndex.value);
 };
-
+// If delete btn pressed -> show dialog + save index
 const onremove = (index: number) => {
   dialog.value?.show();
   removeItemIndex.value = index;
 };
+// If add btn pressed -> push empty line to end
 const onadd = () => {
   lines.value.push({ uniqueId: uniqueId('line-') });
 };
-const onsubmit = (values: Array<Nutrition.Item>) => {
-  emit('submit', values);
+// Getting mealItems from all forms
+//form.handleSubmit returns async Fn for some reason, so whole getFormValues is async
+const getFormValues = async () => {
+  if (!forms.value) return;
+  const result: Array<Nutrition.Item> = [];
+  for (const form of forms.value)
+    await form.handleSubmit((values) => result.push({ ...values, category: props.category }))();
+  return result;
 };
+// If submit btn pressed -> get values from forms and emit
+const onsubmit = async () => emit('submit', (await getFormValues()) ?? []);
 
 const validationSchema = toTypedSchema(
   Nutrition.validation().pick({ mealItems: true }).shape.mealItems.element.pick({ type: true, quantity: true }),
 );
+
+defineExpose({
+  getFormValues,
+});
 </script>
 
 <template>
@@ -57,6 +83,7 @@ const validationSchema = toTypedSchema(
     <NutritionListHeader :category="category" :title="title" />
 
     <SForm
+      ref="forms"
       v-for="(line, index) of linesVisible"
       :key="line.uniqueId"
       @submit="onsubmit"
@@ -74,6 +101,7 @@ const validationSchema = toTypedSchema(
           :disabled-add="index !== linesVisible.length - 1"
           :disabled-submit="index !== linesVisible.length - 1"
           :disabled-remove="!(linesVisible.length - 1)"
+          :loading-submit="patchNutritionResponse.state.isLoading()"
           @remove="() => onremove(index)"
           @add="onadd"
           mt-0.5rem

@@ -13,7 +13,7 @@ export const adminNutritionService = {
     api.get<AdminNutrition.GetById.Response>(`/admin/nutrition/${data.id}`),
   ),
   patchNutrition: useServiceAction((data: AdminNutrition.Patch.Dto) =>
-    api.patch<AdminNutrition.Patch.Response>(`/admin/nutrition/${data.id}`, data.nutrition),
+    api.patch<AdminNutrition.Patch.Response>(`/admin/nutrition/${data.id}`, data),
   ),
   deleteNutrition: useServiceAction((data: AdminNutrition.Delete.Dto) =>
     api.delete<AdminNutrition.Delete.Response>(`/admin/nutrition/${data.id}`),

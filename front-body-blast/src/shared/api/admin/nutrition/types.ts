@@ -16,8 +16,10 @@ export namespace AdminNutrition {
     export interface Response extends AppBaseEntity.Response<Nutrition> {}
   }
   export namespace Patch {
-    export interface Dto extends AppBaseEntity.Dto {
-      nutrition: Pick<Nutrition, 'name' | 'mealItems'>;
+    export interface Dto {
+      id: Nutrition['id'];
+      name?: Nutrition['name'];
+      mealItems?: Nutrition['mealItems'];
     }
     export interface Response extends AppBaseEntity.Response<Nutrition> {}
   }
