@@ -21,8 +21,6 @@ const onRemove = (id: number) => {
   useLoadingAction(deleteFoodResponse, () => deleteFood({ id }));
 };
 const onCreate = (food: Pick<Food, 'name' | 'category'>) => {
-  console.log('create');
-  console.log(food);
   useLoadingAction(postFoodResponse, () => postFood({ ...food, type: props.type }));
 };
 const onEdit = (food: Pick<Food, 'id' | 'name'>) => {

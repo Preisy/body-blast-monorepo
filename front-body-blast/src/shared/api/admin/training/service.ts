@@ -1,18 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { PaginationDto } from 'shared/api/base';
+import { AppPagination } from 'shared/api/pagination';
 import { Training } from 'shared/api/training';
 import { api } from 'shared/config';
-import { IPagination, requestSimulator, useServiceAction } from 'shared/lib/utils';
-import { Exercise, AdminTraining } from './types';
+import { useServiceAction } from 'shared/lib/utils';
+import { AdminTraining } from './types';
 
 export const AdminTrainingsService = {
   postTrainings: useServiceAction((data: AdminTraining.Dto) =>
     api.post<AdminTraining.Response>('/admin/workouts', data),
   ),
-  getTrainings: useServiceAction((data: PaginationDto) =>
-    api.get<Training.Response.Expanded>(
-      `/admin/workouts?page=${data.page}&limit=${data.limit}&expanded=${data.expanded}`,
-    ),
+  getTrainings: useServiceAction((data: AppPagination.BaseDto) =>
+    api.get<Training.Response.Expanded>(`/admin/workouts`, { params: data }),
   ),
   getUserTrainings: useServiceAction((id: number) => api.get<Training.Response.Expanded>(`/admin/workouts/${id}`)),
   patchUserTrainings: useServiceAction((id: number, data: AdminTraining.Dto) =>

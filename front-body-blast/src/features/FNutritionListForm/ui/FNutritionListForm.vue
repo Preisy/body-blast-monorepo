@@ -1,4 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
@@ -18,7 +17,7 @@ export interface FNutritionListFormProps {
 
 const props = defineProps<FNutritionListFormProps>();
 const emit = defineEmits<{
-  submit: [Array<Nutrition.Item>];
+  submit: [Array<Nutrition.Item>?];
 }>();
 
 // Used only for buttons loading state
@@ -32,13 +31,6 @@ const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
   props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
 );
 
-// Simply addes empty line, if no initValues provided
-const linesVisible = computed(() => {
-  const result = [...lines.value];
-  if (!result.length) result.push({ uniqueId: uniqueId('line-') });
-  return result;
-});
-
 // Deletion dialog ref
 const dialog = ref<InstanceType<typeof SRemoveDialog>>();
 const removeItemIndex = ref<number>(); // index to deletion
@@ -46,7 +38,7 @@ const removeItemIndex = ref<number>(); // index to deletion
 const onRemoveApply = () => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
   lines.value.splice(removeItemIndex.value, 1); // Deletes line from array
-  console.log(removeItemIndex.value);
+  setTimeout(() => emit('submit'), 0); // For some reason needs time to update form
 };
 // If delete btn pressed -> show dialog + save index
 const onremove = (index: number) => {
@@ -67,7 +59,7 @@ const getFormValues = async () => {
   return result;
 };
 // If submit btn pressed -> get values from forms and emit
-const onsubmit = async () => emit('submit', (await getFormValues()) ?? []);
+const onsubmit = () => emit('submit');
 
 const validationSchema = toTypedSchema(
   Nutrition.validation().pick({ mealItems: true }).shape.mealItems.element.pick({ type: true, quantity: true }),
@@ -75,6 +67,10 @@ const validationSchema = toTypedSchema(
 
 defineExpose({
   getFormValues,
+});
+
+onMounted(() => {
+  if (!lines.value.length) lines.value.push({ uniqueId: uniqueId('line-') });
 });
 </script>
 
@@ -84,7 +80,7 @@ defineExpose({
 
     <SForm
       ref="forms"
-      v-for="(line, index) of linesVisible"
+      v-for="(line, index) of lines"
       :key="line.uniqueId"
       @submit="onsubmit"
       :field-schema="validationSchema"
@@ -98,9 +94,9 @@ defineExpose({
 
       <template #submit-btn>
         <SListControls
-          :disabled-add="index !== linesVisible.length - 1"
-          :disabled-submit="index !== linesVisible.length - 1"
-          :disabled-remove="!(linesVisible.length - 1)"
+          :disabled-add="index !== lines.length - 1"
+          :disabled-submit="index !== lines.length - 1"
+          :disabled-remove="!(lines.length - 1)"
           :loading-submit="patchNutritionResponse.state.isLoading()"
           @remove="() => onremove(index)"
           @add="onadd"

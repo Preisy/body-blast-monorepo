@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
 
 export interface Exercise {
@@ -24,7 +22,7 @@ export interface Training {
 }
 
 export namespace Exercise {
-  export const validation = (t: ComposerTranslation) =>
+  export const validation = () =>
     z.object({
       name: z.string().min(1),
       weight: z.string().min(1),
@@ -44,7 +42,7 @@ export namespace AdminTraining {
     message: string;
   }
 
-  export const validation = (t: ComposerTranslation) =>
+  export const validation = () =>
     z.object({
       name: z.string().min(1),
       loop: z.string().min(1),

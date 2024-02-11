@@ -1,4 +1,3 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <!-- Significant part of component is copy-paste from FNutritionListForm.vue -->
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
@@ -29,17 +28,12 @@ const { deleteFoodResponse, patchFoodResponse, postFoodResponse } = useAdminFood
 const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
   props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
 );
-const linesVisible = computed(() => {
-  const result = [...lines.value];
-  if (!result.length) result.push({ uniqueId: uniqueId('line-') });
-  return result;
-});
 
 const dialog = ref<InstanceType<typeof SRemoveDialog>>();
 const removeItemIndex = ref<number>();
 const onRemoveApply = async () => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  const food = linesVisible.value[removeItemIndex.value];
+  const food = lines.value[removeItemIndex.value];
   if (!food) return;
   // if deletionDialog was approved -> emit 'remove' signal to parent
   emit('remove', food.id!);
@@ -54,16 +48,8 @@ const onadd = () => {
   lines.value.push({ uniqueId: uniqueId('line-') });
 };
 
-const getFormValues = async () => {
-  if (!forms.value) return;
-  const result: Array<Food> = [];
-  for (const form of forms.value)
-    await form.handleSubmit((values) => result.push({ ...values, category: props.category }))();
-  return result;
-};
-
 const onsubmit = async (index: number, values: Pick<Food, 'name'>) => {
-  const line = linesVisible.value[index];
+  const line = lines.value[index];
   if (!line) return;
 
   if (!line.name) emit('create', { name: values.name, category: props.category });
@@ -79,6 +65,9 @@ const unwatch = watchEffect(() => {
 onUnmounted(() => {
   unwatch();
 });
+onMounted(() => {
+  if (!lines.value.length) lines.value.push({ uniqueId: uniqueId('line-') });
+});
 </script>
 
 <template>
@@ -87,7 +76,7 @@ onUnmounted(() => {
 
     <SForm
       ref="forms"
-      v-for="(line, index) of linesVisible"
+      v-for="(line, index) of lines"
       :key="line.uniqueId"
       @submit="(value) => onsubmit(index, value)"
       :field-schema="validationSchema"
@@ -100,8 +89,8 @@ onUnmounted(() => {
 
       <template #submit-btn>
         <SListControls
-          :disabled-add="index !== linesVisible.length - 1"
-          :disabled-remove="!linesVisible[index].name"
+          :disabled-add="index !== lines.length - 1"
+          :disabled-remove="!lines[index].name"
           :loading-submit="patchFoodResponse.state.isLoading() || postFoodResponse.state.isLoading()"
           @remove="() => onremove(index)"
           @add="onadd"

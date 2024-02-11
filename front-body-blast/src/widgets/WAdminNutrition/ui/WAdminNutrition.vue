@@ -20,6 +20,7 @@ const onSubmit = async () => {
   if (!forms.value) return;
   const categories: Array<Array<Nutrition.Item>> = [];
   for (const form of forms.value) categories.push((await form.getFormValues()) ?? []);
+  console.log(categories);
   useLoadingAction(patchNutritionResponse, () =>
     patchNutrition({ id: props.nutrition.id, name: props.nutrition.name, mealItems: categories.flat() }),
   );
