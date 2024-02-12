@@ -1,4 +1,4 @@
-import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsNumber, IsString, Length, Min } from 'class-validator';
 import { UpdateDiaryRequest } from 'src/modules/core/diary/dto/update-diary.dto';
 

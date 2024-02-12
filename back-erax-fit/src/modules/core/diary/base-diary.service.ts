@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
 import { MainException } from 'src/exceptions/main.exception';
 import { AppDatePagination } from 'src/utils/app-date-pagination.util';
 import { filterUndefined } from 'src/utils/filter-undefined.util';
