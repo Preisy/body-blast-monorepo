@@ -5,24 +5,24 @@ import { SelfControl } from './types';
 
 export const useSelfControlStore = defineStore('self-control-store', () => {
   const getSelfControlResponse = ref(useSingleState<SelfControl.Get.Response>());
-  const getSelfControl = () =>
+  const getSelfControl = (pagination?: SelfControl.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: getSelfControlResponse.value,
-      serviceAction: SelfControlService.get(),
+      serviceAction: SelfControlService.get(pagination),
     });
 
   const getSelfControlByIdResponse = ref(useSingleState<SelfControl.GetById.Response>());
-  const getSelfControlById = () =>
+  const getSelfControlById = (id: string) =>
     useSimpleStoreAction({
       stateWrapper: getSelfControlByIdResponse.value,
-      serviceAction: SelfControlService.getById(),
+      serviceAction: SelfControlService.getById(id),
     });
 
   const patchSelfControlResponse = ref(useSingleState<SelfControl.Patch.Response>());
-  const patchSelfControl = () =>
+  const patchSelfControl = (id: string, data: SelfControl.Patch.Dto) =>
     useSimpleStoreAction({
       stateWrapper: patchSelfControlResponse.value,
-      serviceAction: SelfControlService.patch(),
+      serviceAction: SelfControlService.patch(id, data),
     });
 
   return {

@@ -8,31 +8,30 @@ export interface SelfControl extends AppBaseEntity {
   sum: Nullable<number>;
   activivty: Nullable<string>;
   steps: Nullable<number>;
+  user?: User;
   userId: number;
-  props: Array<
-    AppBaseEntity & {
-      label: string;
-      value: number;
-      selfControlId: number;
-    }
-  >;
+  props?: Array<SelfControl.Prop>;
 }
 
 export namespace SelfControl {
+  export interface Prop extends AppBaseEntity {
+    label: string;
+    value: number;
+    selfControl: string;
+    selfControlId: number;
+  }
+
   export namespace Get {
     export interface Dto extends AppPagination.DateDto {}
     export interface Response extends AppPagination.Response<SelfControl> {}
   }
 
   export namespace GetById {
-    interface SelfControlWithUser extends SelfControl {
-      user: User;
-    }
-    export interface Response extends AppBaseEntity.Response<SelfControlWithUser> {}
+    export interface Response extends AppBaseEntity.Response<SelfControl> {}
   }
 
   export namespace Patch {
     export interface Dto extends Pick<SelfControl, 'activivty' | 'steps' | 'props'> {}
-    export interface Response {}
+    export interface Response extends AppBaseEntity.Response<SelfControl> {}
   }
 }
