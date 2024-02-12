@@ -36,7 +36,7 @@ export class AdminPromptController {
   constructor(private readonly adminService: AdminPromptService) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreatePromptRequest) {
     return await this.adminService.create(request);

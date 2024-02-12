@@ -7,12 +7,11 @@ import { AppDatePagination } from 'src/utils/app-date-pagination.util';
 import { filterUndefined } from 'src/utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { BaseUserService } from '../user/base-user.service';
-import { DiaryPropsEntity } from './diary-props/entity/diary-props.entity';
-import { GetStepsByUserIdDTO } from './dto/get-steps.dto';
-import { DiaryEntity } from './entity/diary.entity';
-import { CreateDiaryRequest } from './dto/create-diary.dto';
-import { UpdateDiaryRequest } from './dto/update-diary.dto';
 import { GetDiaryDTO } from './dto/get-diary.dto';
+import { GetStepsByUserIdDTO } from './dto/get-steps.dto';
+import { UpdateDiaryRequest } from './dto/update-diary.dto';
+import { DiaryPropsEntity } from './entity/diary-props.entity';
+import { DiaryEntity } from './entity/diary.entity';
 
 @Injectable()
 export class BaseDiaryService {
@@ -24,15 +23,6 @@ export class BaseDiaryService {
     private readonly userService: BaseUserService,
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
-
-  async create(request: CreateDiaryRequest): Promise<AppSingleResponse<DiaryEntity>> {
-    const newDiary = this.diaryRepository.create({
-      ...request,
-      date: new Date(request.date),
-    });
-    const savedDiary = await this.diaryRepository.save(newDiary);
-    return new AppSingleResponse<GetDiaryDTO>(this.getSelfControlDTO(savedDiary));
-  }
 
   async findAll(
     query: AppDatePagination.Request,
@@ -53,7 +43,7 @@ export class BaseDiaryService {
     if (!diary) {
       throw MainException.entityNotFound(`Self control with id: ${id} not found`);
     }
-    return new AppSingleResponse<GetDiaryDTO>(this.getSelfControlDTO(diary));
+    return new AppSingleResponse<GetDiaryDTO>(this.getDiaryDTO(diary));
   }
 
   async findAllByUserId(
@@ -71,10 +61,10 @@ export class BaseDiaryService {
     userId: DiaryEntity['userId'],
     query: AppDatePagination.Request,
   ): Promise<GetStepsByUserIdDTO> {
-    const { data: selfControls } = await this.findAllByUserId(userId, query);
+    const { data: diaries } = await this.findAllByUserId(userId, query);
     let steps = 0;
-    selfControls.forEach((selfControl) => {
-      if (selfControl.steps) steps += selfControl.steps;
+    diaries.forEach((diary) => {
+      if (diary.steps) steps += diary.steps;
     });
     const { data: user } = await this.userService.getUserById(userId);
     const stepsGoal = user.stepsGoal;
@@ -84,10 +74,7 @@ export class BaseDiaryService {
   async update(id: DiaryEntity['id'], request: UpdateDiaryRequest) {
     const { data: diary } = await this.findOne(id);
     if (request.props) {
-      diary.sum = 0;
-      request.props.forEach((prop) => {
-        diary.sum! += prop.value;
-      });
+      diary.sum = request.props.reduce((acc, it) => acc + it.value, 0);
 
       await this.diaryPropsRepository.delete({
         diaryId: id,
@@ -98,15 +85,10 @@ export class BaseDiaryService {
       ...diary,
       ...filterUndefined(request),
     });
-    return new AppSingleResponse<GetDiaryDTO>(this.getSelfControlDTO(savedDiary));
+    return new AppSingleResponse<GetDiaryDTO>(this.getDiaryDTO(savedDiary));
   }
 
-  async deleteOne(id: DiaryEntity['id']): Promise<AppStatusResponse> {
-    const { affected } = await this.diaryRepository.delete(id);
-    return new AppStatusResponse(!!affected);
-  }
-
-  private getSelfControlDTO(diary: DiaryEntity) {
+  private getDiaryDTO(diary: DiaryEntity) {
     return {
       ...diary,
       localeDate: diary.date.toLocaleDateString('ru-RU', {

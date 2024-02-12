@@ -1,20 +1,7 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-  UseFilters,
-  UsePipes,
-  ValidationPipe,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Throttle } from '@nestjs/throttler';
 import { AppResponses } from 'src/decorators/app-responses.decorator';
 import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
 import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';

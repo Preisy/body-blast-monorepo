@@ -33,7 +33,7 @@ export class BaseUserService {
     );
     if (!savedUser) throw MainException.internalRequestError('Error upon saving user');
 
-    await this.templateService.createFromDefault(savedUser.id);
+    await this.templateService.createDefault(savedUser.id);
 
     return new AppSingleResponse(savedUser);
   }

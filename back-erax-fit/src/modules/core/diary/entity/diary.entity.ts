@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
-import { DiaryPropsEntity } from '../diary-props/entity/diary-props.entity';
+import { DiaryPropsEntity } from './diary-props.entity';
 import { UserEntity } from '../../user/entities/user.entity';
 
 @Entity('diaries')
 export class DiaryEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column({ type: 'varchar', length: 50 })
-  public behaviour: string;
+  @Column({ type: 'integer', nullable: true })
+  public cycle?: number;
 
   @ApiProperty()
   @Column()

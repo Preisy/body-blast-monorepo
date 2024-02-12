@@ -1,15 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
 import { MainException } from 'src/exceptions/main.exception';
+import { AppPagination } from 'src/utils/app-pagination.util';
 import { filterUndefined } from 'src/utils/filter-undefined.util';
 import { Repository } from 'typeorm';
-import { DiaryTemplatePropsEntity } from './diary-template-props/entity/diary-template-props.entity';
+import { UserEntity } from '../user/entities/user.entity';
+import { DiaryTemplatePropsEntity } from './entity/diary-template-props.entity';
 import { UpdateDiaryTemplateRequest } from './dto/update-diary-template.dto';
 import { DiaryTemplateEntity } from './entity/diary-template.entity';
-import { UserEntity } from '../user/entities/user.entity';
-import { AppPagination } from 'src/utils/app-pagination.util';
 
 @Injectable()
 export class BaseDiaryTemplateService {
@@ -21,15 +20,18 @@ export class BaseDiaryTemplateService {
   ) {}
   public readonly relations: (keyof DiaryTemplateEntity)[] = ['props'];
 
-  async createFromDefault(userId: UserEntity['id']): Promise<AppSingleResponse<DiaryTemplateEntity>> {
-    const { data: defaultTemplate } = await this.findOne(1);
-    const labels: { label: string }[] = defaultTemplate.props.map(({ label }) => ({ label }));
+  async createDefault(userId: UserEntity['id']): Promise<AppSingleResponse<DiaryTemplateEntity>> {
+    const labels: { label: string }[] = [
+      { label: 'Сон' },
+      { label: 'Работоспособность' },
+      { label: 'Питание' },
+      { label: 'Слежу за здоровьем' },
+    ];
 
     const newTemplate = this.diaryTemlpateRepository.create({
       userId,
       props: labels,
     });
-    console.log(newTemplate);
     const savedTemplate = await this.diaryTemlpateRepository.save(newTemplate);
     return new AppSingleResponse(savedTemplate);
   }

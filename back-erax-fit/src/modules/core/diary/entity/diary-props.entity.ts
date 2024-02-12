@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { AppBaseEntity } from '../../../../../models/app-base-entity.entity';
-import { DiaryEntity } from '../../entity/diary.entity';
+import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
+import { DiaryEntity } from './diary.entity';
 
 @Entity('diary-props')
 export class DiaryPropsEntity extends AppBaseEntity {

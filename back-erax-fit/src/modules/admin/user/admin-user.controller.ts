@@ -43,7 +43,7 @@ export class AdminUserController {
   ) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateUserByAdminRequest) {
     return await this.adminService.create(request);
@@ -73,7 +73,7 @@ export class AdminUserController {
     return await this.adminService.deleteUserById(+id);
   }
 
-  @Get(':id/self-controls')
+  @Get(':id/diaries')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(DiaryEntity) })
   async getSelfControls(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
     return this.diaryService.findAllByUserId(id, query);

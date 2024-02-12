@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { ArrayNotEmpty, IsDefined, ValidateNested } from 'class-validator';
-import { UpdateDiaryTemplatePropsRequest } from '../diary-template-props/dto/update-diary-template-props.dto';
+import { UpdateDiaryTemplatePropsRequest } from './update-diary-template-props.dto';
 
 export class UpdateDiaryTemplateRequest {
   @IsDefined()

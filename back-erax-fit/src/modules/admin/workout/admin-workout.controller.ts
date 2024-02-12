@@ -36,7 +36,7 @@ export class AdminWorkoutController {
   constructor(private readonly adminService: AdminWorkoutService) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateWorkoutByAdminRequest) {
     return await this.adminService.create(request);

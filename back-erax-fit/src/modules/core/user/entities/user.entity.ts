@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
-import { Constants, UserRole } from '../../../../constants/constants';
 import { Exclude } from 'class-transformer';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Constants, UserRole } from '../../../../constants/constants';
 import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
-import { DiaryTemplateEntity } from '../../diary-template/entity/diary-template.entity';
 import { TokenEntity } from '../../../authentication/entities/token.entity';
 
 @Entity('users')
