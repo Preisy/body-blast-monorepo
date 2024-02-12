@@ -6,7 +6,7 @@ import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
 const { getDiaryResponse, getDiary } = useDiaryStore();
-useLoadingAction(getDiaryResponse, getDiary);
+useLoadingAction(getDiaryResponse, () => getDiary({ expanded: true }));
 
 const diaryData = computed(() => getDiaryResponse.data?.data);
 const first = computed(() => diaryData.value?.[0]);

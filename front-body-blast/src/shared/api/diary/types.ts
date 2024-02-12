@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { AppBaseEntity } from '../base';
 import { AppPagination } from '../pagination';
 import { User } from '../user';
@@ -6,7 +7,7 @@ export interface Diary extends AppBaseEntity {
   behaviour: string;
   date: string;
   sum: Nullable<number>;
-  activivty: Nullable<string>;
+  activity: Nullable<string>;
   steps: Nullable<number>;
   user?: User;
   userId: number;
@@ -31,7 +32,23 @@ export namespace Diary {
   }
 
   export namespace Patch {
-    export interface Dto extends Pick<Diary, 'activivty' | 'steps' | 'props'> {}
+    export interface Dto {
+      activity?: Diary['activity'];
+      steps?: Diary['steps'];
+      props?: Diary['props'];
+    }
     export interface Response extends AppBaseEntity.Response<Diary> {}
   }
+
+  export const validation = () =>
+    z.object({
+      props: z.array(
+        z.object({
+          label: z.string(),
+          value: z.coerce.number(),
+        }),
+      ),
+      steps: z.coerce.number(),
+      activity: z.string().min(1),
+    });
 }

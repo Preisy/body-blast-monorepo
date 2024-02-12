@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { AppBaseEntity } from '../base';
 import { DiaryService } from './service';
 import { Diary } from './types';
 
@@ -19,7 +20,7 @@ export const useDiaryStore = defineStore('diary-store', () => {
     });
 
   const patchDiaryResponse = ref(useSingleState<Diary.Patch.Response>());
-  const patchDiary = (id: string, data: Diary.Patch.Dto) =>
+  const patchDiary = (id: AppBaseEntity.Dto['id'], data: Diary.Patch.Dto) =>
     useSimpleStoreAction({
       stateWrapper: patchDiaryResponse.value,
       serviceAction: DiaryService.patch(id, data),
