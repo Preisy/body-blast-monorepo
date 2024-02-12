@@ -1,9 +1,13 @@
 <script lang="ts" setup>
-import { SelfControl } from 'shared/api/selfControl';
+import { Diary } from 'shared/api/diary';
 import { SBtnToggle } from 'shared/ui/btns';
 
-const props = defineProps<{ selfControl: SelfControl; readonly: boolean }>();
-const selfControlProps = props.selfControl.props;
+export interface EDiarySelfControlItem {
+  diary: Diary;
+  readonly: boolean;
+}
+const props = defineProps<EDiarySelfControlItem>();
+const diaryProps = props.diary.props;
 
 const options = [
   { value: 1, label: '1' },
@@ -17,7 +21,7 @@ const options = [
 <template>
   <h1 mb-4>{{ $t('home.diary.item.selfcontrol') }}</h1>
 
-  <template v-for="prop of selfControlProps" :key="prop.id">
+  <template v-for="prop of diaryProps" :key="prop.id">
     <p mb-2 mt-4>{{ prop.label }}</p>
     <SBtnToggle v-model="prop.value" :options="options" :readonly="readonly" />
   </template>

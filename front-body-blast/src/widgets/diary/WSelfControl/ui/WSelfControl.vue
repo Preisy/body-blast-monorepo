@@ -3,7 +3,7 @@ import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import moment from 'moment';
 import { QTabPanel } from 'quasar';
 import { EDiaryActivity, EDiarySelfControlItem } from 'entities/diary/';
-import { SelfControl } from 'shared/api/selfControl';
+import { Diary } from 'shared/api/diary';
 import { SBtn } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -13,7 +13,7 @@ import { SStructure } from 'shared/ui/SStructure';
 import { STabPanels } from 'shared/ui/STabPanels';
 
 export interface WDiaryProps {
-  slides: Array<SelfControl>;
+  slides: Array<Diary>;
 }
 
 const props = defineProps<WDiaryProps>();
@@ -48,14 +48,14 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
             }"
           >
             <SSplideSlide>
-              <EDiarySelfControlItem :self-control="slide" :readonly="isReadonly(slide.date)" />
+              <EDiarySelfControlItem :diary="slide" :readonly="isReadonly(slide.date)" />
               <div mt-1.5rem flex v-if="!isReadonly(slide.date)">
                 <SBtn :icon="symRoundedDone" ml-auto />
               </div>
             </SSplideSlide>
 
             <SSplideSlide>
-              <EDiaryActivity :self-control="slide" :readonly="isReadonly(slide.date)" />
+              <EDiaryActivity :diary="slide" :readonly="isReadonly(slide.date)" />
               <div mt-0.5rem flex v-if="!isReadonly(slide.date)">
                 <SBtn :icon="symRoundedDone" ml-auto />
               </div>

@@ -1,21 +1,21 @@
 <script setup lang="ts">
 import { WSelfControl } from 'widgets/diary/WSelfControl';
 import { EDiaryHeader } from 'entities/diary';
-import { useSelfControlStore } from 'shared/api/selfControl';
+import { useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
-const selfControlStore = useSelfControlStore();
-useLoadingAction(selfControlStore.getSelfControlResponse, selfControlStore.getSelfControl);
+const { getDiaryResponse, getDiary } = useDiaryStore();
+useLoadingAction(getDiaryResponse, getDiary);
 
-const selfControlData = computed(() => selfControlStore.getSelfControlResponse.data?.data);
-const first = computed(() => selfControlData.value?.[0]);
+const diaryData = computed(() => getDiaryResponse.data?.data);
+const first = computed(() => diaryData.value?.[0]);
 </script>
 
 <template>
   <div h-full>
-    <EDiaryHeader v-if="first" v-bind="first" />
-    <WSelfControl v-if="selfControlData" :slides="selfControlData" />
+    <EDiaryHeader v-if="first" :diary="first" />
+    <WSelfControl v-if="diaryData" :slides="diaryData" />
     <SNoResultsScreen v-else p-1.5rem />
   </div>
 </template>

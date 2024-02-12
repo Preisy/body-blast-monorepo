@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import { SelfControl } from 'shared/api/selfControl';
+import { Diary } from 'shared/api/diary';
 import { SInput } from 'shared/ui/inputs';
 
-defineProps<{ selfControl: SelfControl; readonly: boolean }>();
+export interface EDiaryActivity {
+  diary: Diary;
+  readonly: boolean;
+}
+defineProps<EDiaryActivity>();
 </script>
 
 <template>
@@ -13,13 +17,8 @@ defineProps<{ selfControl: SelfControl; readonly: boolean }>();
       name="field"
       :label="$t('home.diary.activity.physical')"
       :readonly="readonly"
-      :model-value="selfControl.activivty"
+      :model-value="diary.activivty"
     />
-    <SInput
-      name="field"
-      :label="$t('home.diary.activity.steps')"
-      :readonly="readonly"
-      :model-value="selfControl.steps"
-    />
+    <SInput name="field" :label="$t('home.diary.activity.steps')" :readonly="readonly" :model-value="diary.steps" />
   </div>
 </template>

@@ -2,7 +2,7 @@ import { AppBaseEntity } from '../base';
 import { AppPagination } from '../pagination';
 import { User } from '../user';
 
-export interface SelfControl extends AppBaseEntity {
+export interface Diary extends AppBaseEntity {
   behaviour: string;
   date: string;
   sum: Nullable<number>;
@@ -10,10 +10,10 @@ export interface SelfControl extends AppBaseEntity {
   steps: Nullable<number>;
   user?: User;
   userId: number;
-  props?: Array<SelfControl.Prop>;
+  props?: Array<Diary.Prop>;
 }
 
-export namespace SelfControl {
+export namespace Diary {
   export interface Prop extends AppBaseEntity {
     label: string;
     value: number;
@@ -23,15 +23,15 @@ export namespace SelfControl {
 
   export namespace Get {
     export interface Dto extends AppPagination.DateDto {}
-    export interface Response extends AppPagination.Response<SelfControl> {}
+    export interface Response extends AppPagination.Response<Diary> {}
   }
 
   export namespace GetById {
-    export interface Response extends AppBaseEntity.Response<SelfControl> {}
+    export interface Response extends AppBaseEntity.Response<Diary> {}
   }
 
   export namespace Patch {
-    export interface Dto extends Pick<SelfControl, 'activivty' | 'steps' | 'props'> {}
-    export interface Response extends AppBaseEntity.Response<SelfControl> {}
+    export interface Dto extends Pick<Diary, 'activivty' | 'steps' | 'props'> {}
+    export interface Response extends AppBaseEntity.Response<Diary> {}
   }
 }
