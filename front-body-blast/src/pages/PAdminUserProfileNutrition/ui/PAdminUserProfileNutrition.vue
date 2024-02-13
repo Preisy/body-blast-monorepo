@@ -2,6 +2,7 @@
 import { QTabPanel, QTabPanels } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood } from 'widgets/WAdminFood';
+import { WAdminNewNutrition } from 'widgets/WAdminNewNutrition';
 import { WAdminNutrition } from 'widgets/WAdminNutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
 import { Food } from 'shared/api/food';
@@ -10,6 +11,11 @@ import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
+
+export interface PAdminUserProfileNutritionProps {
+  id: number;
+}
+defineProps<PAdminUserProfileNutritionProps>();
 
 const { t } = useI18n();
 
@@ -64,6 +70,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
             :key="nutrition.id"
             :title="pages[0].label"
           />
+          <WAdminNewNutrition :user-id="id" />
         </QTabPanel>
 
         <QTabPanel

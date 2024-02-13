@@ -52,13 +52,20 @@ export const adminRoutes: RouteRecordRaw = {
         },
         {
           path: 'trainings',
+          meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_TRAININGS,
           component: PAdminUserProfileTrainings,
         },
         {
           path: 'nutrition',
+          meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_NUTRITION,
           component: PAdminUserProfileNutrition,
+          props: (route) => {
+            const id = route.params.id;
+            if (!id || id instanceof Array) return { id: NaN };
+            return { id: parseInt(id) };
+          },
         },
       ],
     },

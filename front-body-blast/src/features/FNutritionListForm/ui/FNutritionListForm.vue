@@ -12,7 +12,7 @@ import NutritionListHeader from './NutritionListHeader.vue';
 export interface FNutritionListFormProps {
   title: string;
   category: 1 | 2 | 3;
-  initValues: Array<Nutrition.Item>;
+  initValues?: Array<Nutrition.Item>;
 }
 
 const props = defineProps<FNutritionListFormProps>();
@@ -28,7 +28,7 @@ const forms = ref<Array<InstanceType<typeof SForm>>>();
 
 // lines === mealItems, but with _.uniqueId() as vue key property
 const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
-  props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
+  props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
 );
 
 // Deletion dialog ref

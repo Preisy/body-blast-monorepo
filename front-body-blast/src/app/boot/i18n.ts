@@ -7,6 +7,7 @@ import { TPAdminUserProfileNutritionI18n } from 'pages/PAdminUserProfileNutritio
 import { TPDietI18n } from 'pages/PDiet';
 import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
+import { TWAdminNewNutritionI18n } from 'widgets/WAdminNewNutrition/i18n';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
 import { TWNewTrainingI18n } from 'widgets/WNewTraining';
 import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
@@ -44,6 +45,7 @@ export default boot(({ app }) => {
       TPAdminPromptsI18n,
       TFNutritionListFormI18n,
       TPAdminUserProfileNutritionI18n,
+      TWAdminNewNutritionI18n,
     ),
     fallbackLocale: 'ru-RU',
   });
