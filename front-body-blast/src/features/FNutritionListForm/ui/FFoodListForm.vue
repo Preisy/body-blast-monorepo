@@ -12,7 +12,7 @@ import NutritionListHeader, { NutritionListHeaderProps } from './NutritionListHe
 
 export interface FFoodListFormProps {
   category: NutritionListHeaderProps['category'];
-  initValues: Array<Food>;
+  initValues?: Array<Food>;
 }
 
 const props = defineProps<FFoodListFormProps>();
@@ -26,7 +26,7 @@ const forms = ref<Array<InstanceType<typeof SForm>>>();
 const { deleteFoodResponse, patchFoodResponse, postFoodResponse } = useAdminFoodStore();
 
 const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
-  props.initValues.map((el) => ({ ...el, uniqueId: uniqueId('line-') })),
+  props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
 );
 
 const dialog = ref<InstanceType<typeof SRemoveDialog>>();
@@ -84,7 +84,7 @@ onMounted(() => {
       p="0!"
     >
       <div>
-        <SInput name="name" :label="$t('admin.nutrition.type')" />
+        <SInput name="name" :label="$t('admin.nutrition.name')" />
       </div>
 
       <template #submit-btn>

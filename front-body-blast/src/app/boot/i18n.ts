@@ -6,6 +6,7 @@ import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
 import { TPAdminUserProfileNutritionI18n } from 'pages/PAdminUserProfileNutrition';
 import { TPDietI18n } from 'pages/PDiet';
 import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
+import { TWAdminNewFoodI18n } from 'widgets/WAdminFood/i18n';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
 import { TWAdminNewNutritionI18n } from 'widgets/WAdminNewNutrition/i18n';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
@@ -46,6 +47,7 @@ export default boot(({ app }) => {
       TFNutritionListFormI18n,
       TPAdminUserProfileNutritionI18n,
       TWAdminNewNutritionI18n,
+      TWAdminNewFoodI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

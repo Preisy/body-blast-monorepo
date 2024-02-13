@@ -2,6 +2,7 @@
 import { QTabPanel, QTabPanels } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood } from 'widgets/WAdminFood';
+import { WAdminNewFood } from 'widgets/WAdminNewFood';
 import { WAdminNewNutrition } from 'widgets/WAdminNewNutrition';
 import { WAdminNutrition } from 'widgets/WAdminNutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
@@ -19,7 +20,7 @@ defineProps<PAdminUserProfileNutritionProps>();
 
 const { t } = useI18n();
 
-const pageValue = ref('0');
+const pageValue = ref('nutrition');
 const { getNutritions, getNutritionsResponse } = useAdminNutritionStore();
 useLoadingAction(getNutritionsResponse, () => getNutritions({ expanded: true }));
 const { getFoods, getFoodsResponse } = useAdminFoodStore();
@@ -40,16 +41,18 @@ const foodSlides = computed(
 );
 
 const pages = computed<SCenteredNavProps['pages']>(() => {
-  const result = [];
-  const nutritionPage = { label: t('admin.nutrition.nutrition'), value: '0' };
+  const result: SCenteredNavProps['pages'] = [];
+  const nutritionPage = { label: t('admin.nutrition.nutrition'), value: 'nutrition' };
   result.push(nutritionPage);
 
   if (!foodSlides.value) return result;
-  const foodPages = Object.keys(foodSlides.value).map((type, index) => ({
+  const foodPages = Object.keys(foodSlides.value).map((type) => ({
     label: t(`home.diet.${type}`),
-    value: (index + 1).toString(),
+    value: type,
   }));
   result.push(...foodPages);
+
+  result.push({ label: 'new_food', value: 'new_food' });
 
   return result;
 });
@@ -73,13 +76,12 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
           <WAdminNewNutrition :user-id="id" />
         </QTabPanel>
 
-        <QTabPanel
-          v-for="([type, foodItems], index) in Object.entries(foodSlides)"
-          :key="type"
-          :name="(index + 1).toString()"
-          p="0!"
-        >
+        <QTabPanel v-for="[type, foodItems] in Object.entries(foodSlides)" :key="type" :name="type" p="0!">
           <WAdminFood :type="type" :food-items="foodItems" />
+        </QTabPanel>
+
+        <QTabPanel name="new_food" p="0!">
+          <WAdminNewFood :user-id="id" />
         </QTabPanel>
       </QTabPanels>
 
