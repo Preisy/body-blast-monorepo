@@ -1,6 +1,7 @@
 import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
-import { AppBaseEntity, PaginationDto } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api/base';
+import { AppPagination } from 'shared/api/pagination';
 
 export namespace Prompt {
   export interface Base extends AppBaseEntity {
@@ -27,7 +28,7 @@ export namespace PromptPage {
     }
   }
   export namespace Get {
-    export interface Dto extends PaginationDto {
+    export interface Dto extends AppPagination.BaseDto {
       type: string;
     }
 

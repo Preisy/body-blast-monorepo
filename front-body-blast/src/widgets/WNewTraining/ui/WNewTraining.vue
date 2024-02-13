@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
-import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
 import { FListControls } from 'features/FListControls';
 import { FNewTrainingFields } from 'features/FNewTrainingFields';
 import { AdminTraining, Exercise, useAdminPromptStore, useAdminTrainingStore, Training } from 'shared/api/admin';
 import { useLoading } from 'shared/lib/loading';
-import { GetZodInnerType } from 'shared/lib/utils';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
@@ -19,7 +18,6 @@ const { id } = useRoute().params as { id: string };
 
 const adminTrainingStore = useAdminTrainingStore();
 const { prompts, getPrompts } = useAdminPromptStore();
-const { t } = useI18n();
 
 const exercises = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
@@ -28,7 +26,7 @@ const onsubmit = async () => {
   if (!exercises.value) return;
   for (let i = 0; i < exercises.value.length; i++) {
     const exerciseForm = exercises.value[i];
-    await exerciseForm.handleSubmit((values: GetZodInnerType<typeof Exercise.validation>) => {
+    await exerciseForm.handleSubmit((values: z.infer<ReturnType<typeof Exercise.validation>>) => {
       //find prompt with id. use prompt to pick photoLink and videoLink
       const prompt = prompts.data?.data.find((prompt) => prompt.id === values._promptId);
       if (!prompt) {
@@ -52,7 +50,7 @@ const onsubmit = async () => {
     })();
   }
 
-  await trainingForm.value?.handleSubmit((values: GetZodInnerType<typeof AdminTraining.validation>) => {
+  await trainingForm.value?.handleSubmit((values: z.infer<ReturnType<typeof AdminTraining.validation>>) => {
     const training: Training = {
       name: values.name,
       comment: values.comment,
@@ -68,14 +66,14 @@ const onadd = () => trainings.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => trainings.value.splice(index, 1);
 
 useLoading(prompts);
-getPrompts({ type: '', page: 1, limit: 1000, expanded: false });
+getPrompts({ type: '', expanded: false });
 </script>
 
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <h1>{{ $t('admin.prompt.training.training') }}</h1>
 
-    <SForm ref="trainingForm" :field-schema="toTypedSchema(AdminTraining.validation(t))" p="0!">
+    <SForm ref="trainingForm" :field-schema="toTypedSchema(AdminTraining.validation())" p="0!">
       <SInput name="loop" :label="$t('admin.prompt.training.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
       <SInput name="comment" :label="$t('admin.prompt.training.commentary')" />
@@ -83,7 +81,7 @@ getPrompts({ type: '', page: 1, limit: 1000, expanded: false });
         ref="exercises"
         v-for="(training, index) in trainings"
         :key="training.key"
-        :field-schema="toTypedSchema(Exercise.validation(t))"
+        :field-schema="toTypedSchema(Exercise.validation())"
         p="0!"
         mt-0.5rem
       >
