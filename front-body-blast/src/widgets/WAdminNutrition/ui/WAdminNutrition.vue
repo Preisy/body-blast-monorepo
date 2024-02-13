@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { symRoundedDelete } from '@quasar/extras/material-symbols-rounded';
 import { FNutritionListForm } from 'features/FNutritionListForm';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
-import { useLoadingAction } from 'shared/lib/loading';
+import { useLoading, useLoadingAction } from 'shared/lib/loading';
+import { SBtn } from 'shared/ui/btns';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
 export interface WAdminNutritionLongProps {
@@ -12,7 +14,14 @@ const props = defineProps<WAdminNutritionLongProps>();
 const mealItems = computed(() => props.nutrition.mealItems || []);
 const categories = [1, 2, 3] as const;
 
-const { patchNutrition, patchNutritionResponse } = useAdminNutritionStore();
+const {
+  getNutritionsResponse,
+  getNutritions,
+  patchNutrition,
+  patchNutritionResponse,
+  deleteNutrition,
+  deleteNutritionResponse,
+} = useAdminNutritionStore();
 
 const forms = ref<Array<InstanceType<typeof FNutritionListForm>>>();
 
@@ -25,11 +34,21 @@ const onSubmit = async () => {
     patchNutrition({ id: props.nutrition.id, name: props.nutrition.name, mealItems: categories.flat() }),
   );
 };
+
+const onDelete = async () => {
+  const unwatch = useLoading(deleteNutritionResponse);
+  await deleteNutrition({ id: props.nutrition.id });
+  unwatch();
+  useLoadingAction(getNutritionsResponse, () => getNutritions({ expanded: true }));
+};
 </script>
 
 <template>
   <SComponentWrapper h-full>
-    <h1 mb-1rem>{{ nutrition.name }}</h1>
+    <div flex flex-row justify-between>
+      <h1 mb-1rem>{{ nutrition.name }}</h1>
+      <SBtn :icon="symRoundedDelete" @click="onDelete" :loading="deleteNutritionResponse.state.isLoading()" />
+    </div>
 
     <FNutritionListForm
       ref="forms"

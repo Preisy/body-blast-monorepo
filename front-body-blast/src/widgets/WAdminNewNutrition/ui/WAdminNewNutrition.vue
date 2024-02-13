@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { FNutritionListForm } from 'features/FNutritionListForm';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
-import { useLoadingAction } from 'shared/lib/loading';
+import { useLoading, useLoadingAction } from 'shared/lib/loading';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
@@ -14,7 +14,7 @@ export interface WAdminNewNutritionProps {
 }
 const props = defineProps<WAdminNewNutritionProps>();
 
-const { postNutrition, postNutritionResponse } = useAdminNutritionStore();
+const { postNutrition, postNutritionResponse, getNutritions, getNutritionsResponse } = useAdminNutritionStore();
 const schema = Nutrition.validation().pick({ name: true });
 
 const forms = ref<Array<InstanceType<typeof FNutritionListForm>>>();
@@ -26,9 +26,11 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
   const categories: Array<Array<Nutrition.Item>> = [];
   for (const form of forms.value) categories.push((await form.getFormValues()) ?? []);
 
-  useLoadingAction(postNutritionResponse, () =>
-    postNutrition({ name: values.name, userId: props.userId, mealItems: categories.flat() }),
-  );
+  const unwatch = useLoading(postNutritionResponse);
+  await postNutrition({ name: values.name, userId: props.userId, mealItems: categories.flat() });
+  unwatch();
+
+  useLoadingAction(getNutritionsResponse, () => getNutritions({ expanded: true }));
 };
 </script>
 
