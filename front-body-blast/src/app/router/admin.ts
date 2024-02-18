@@ -1,3 +1,4 @@
+/* eslint-disable import/no-internal-modules */
 import { RouteRecordRaw } from 'vue-router';
 import LAdminDashboardVue from 'processes/layouts/LAdminDashboard.vue';
 import { PAdminHome } from 'pages/PAdminHome';
@@ -47,6 +48,13 @@ export const adminRoutes: RouteRecordRaw = {
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO,
           props: true,
           component: PAdminUserProfileBio,
+        },
+        {
+          path: 'diary',
+          meta: { auth: true, admin: true },
+          name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY,
+          props: true,
+          component: () => import('pages/PAdminDiary/ui/PAdminDiary.vue'),
         },
       ],
     },

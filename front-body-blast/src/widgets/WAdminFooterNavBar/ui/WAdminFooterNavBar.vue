@@ -43,7 +43,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       {
         imgSrc: symRoundedEdit,
         title: t('dashboard.footer.links.diary'),
-        name: ENUMS.ROUTES_NAMES.DIARY,
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY,
       },
       {
         imgSrc: symRoundedRestaurant,
