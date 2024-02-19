@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { WSelfControlMonitoring } from 'widgets/WSelfControlMonitoring';
+import { WStepsMonitoring } from 'widgets/WStepsMonitoring';
+import { useAdminDiaryStore } from 'shared/api/admin';
+import { useLoadingAction } from 'shared/lib/loading';
+import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 
@@ -6,17 +11,20 @@ export interface PAdminDiaryProps {
   id: number;
 }
 defineProps<PAdminDiaryProps>();
-const { getSelfControlResponse, getSelfControl } = useAdminDiaryStore();
-const slides = computed(() => getSelfControlResponse.data?.data);
+const { getDiary, getDiaryResponse } = useAdminDiaryStore();
+useLoadingAction(getDiaryResponse, getDiary);
+const slides = computed(() => getDiaryResponse.data?.data);
 </script>
 
 <template>
-  <div>
+  <SComponentWrapper>
     <SSplide :options="{}">
       <SSplideSlide>
-        <WStepsMonitoring />
+        <WStepsMonitoring :data="slides ?? []" />
       </SSplideSlide>
-      <SSplideSlide v-for="slide in slides" :key="slide.id" />
+      <SSplideSlide v-for="slide in slides" :key="slide.id">
+        <WSelfControlMonitoring :data="slide" />
+      </SSplideSlide>
     </SSplide>
-  </div>
+  </SComponentWrapper>
 </template>

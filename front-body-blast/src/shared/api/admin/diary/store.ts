@@ -3,7 +3,7 @@ import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
 import { adminDiaryService } from './service';
 import { AdminDiary } from './types';
 
-export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
+export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
   const getDiaryResponse = ref(useSingleState<AdminDiary.Get.Response>());
   const getDiary = () =>
     useSimpleStoreAction({
