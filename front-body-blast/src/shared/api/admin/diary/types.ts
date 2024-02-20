@@ -4,7 +4,7 @@ import { AppPagination } from 'shared/api/pagination';
 
 export namespace AdminDiary {
   export namespace Get {
-    export interface Dto extends AppPagination.BaseDto {}
+    export interface Dto extends AppPagination.DateDto {}
     export interface Response extends AppPagination.Response<Diary> {}
   }
   export namespace GetById {

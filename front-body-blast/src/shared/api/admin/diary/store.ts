@@ -5,10 +5,10 @@ import { AdminDiary } from './types';
 
 export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
   const getDiaryResponse = ref(useSingleState<AdminDiary.Get.Response>());
-  const getDiary = () =>
+  const getDiary = (pagination?: AdminDiary.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: getDiaryResponse.value,
-      serviceAction: adminDiaryService.getDiary(),
+      serviceAction: adminDiaryService.getDiary(pagination),
     });
 
   const getDiaryByIdResponse = ref(useSingleState<AdminDiary.GetById.Response>());

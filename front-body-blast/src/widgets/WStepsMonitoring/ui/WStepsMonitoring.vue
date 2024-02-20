@@ -2,6 +2,7 @@
 import moment from 'moment';
 import { Diary } from 'shared/api/diary';
 import { SReadonlyField } from 'shared/ui/inputs';
+import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
 export interface WStepsMonitoringProps {
   data: Array<Diary>;
@@ -42,14 +43,16 @@ const stepsSlides = computed(() => {
 <template>
   <div>
     <h1>{{ $t('admin.diary.steps') }}</h1>
-
-    <div grid grid-cols-2 mt-1rem gap-0.5rem>
-      <SReadonlyField
-        v-for="slide in stepsSlides"
-        :key="slide.week"
-        :title="slide.week"
-        :value="`${slide.sum}/${slide.target}`"
-      />
-    </div>
+    <template v-if="data.length">
+      <div grid grid-cols-2 mt-1rem gap-0.5rem>
+        <SReadonlyField
+          v-for="slide in stepsSlides"
+          :key="slide.week"
+          :title="slide.week"
+          :value="`${slide.sum}/${slide.target}`"
+        />
+      </div>
+    </template>
+    <SNoResultsScreen v-else />
   </div>
 </template>
