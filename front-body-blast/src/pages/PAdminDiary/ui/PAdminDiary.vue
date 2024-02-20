@@ -5,6 +5,7 @@ import { WStepsMonitoring } from 'widgets/WStepsMonitoring';
 import { useAdminDiaryStore } from 'shared/api/admin';
 import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
+import { toWeekRange } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SSplide } from 'shared/ui/SSplide';
@@ -32,13 +33,6 @@ watchEffect(() =>
 
 const slides = computed(() => getDiaryResponse.data?.data);
 
-const toWeekRange = (dayString: string) => {
-  const date = moment(dayString);
-  const dayNumOfWeek = date.day();
-  const begin = parseInt(date.format('DD')) - dayNumOfWeek;
-  const end = parseInt(date.format('DD')) + dayNumOfWeek;
-  return `${begin}-${end}`;
-};
 const weekSlides = computed(() => {
   const weekSlides: Record<string, Array<Diary>> = {};
   slides.value?.forEach((slide) => {
@@ -54,7 +48,7 @@ const weekSlides = computed(() => {
   <SComponentWrapper>
     <SCalendar v-model="dateRaw" default-view="Months" today-btn mask="YYYY-MM-01T23:59:59.000" />
 
-    <SSplide :options="{ direction: 'ttb', height: 'auto' }">
+    <SSplide :options="{ direction: 'ttb', height: '100vh' }">
       <SSplideSlide>
         <WStepsMonitoring :data="slides ?? []" />
       </SSplideSlide>

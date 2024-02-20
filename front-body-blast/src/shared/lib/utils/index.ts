@@ -4,3 +4,4 @@ export * from './state';
 export * from './store';
 export * from './request';
 export * from './composables';
+export * from './toWeekRange';

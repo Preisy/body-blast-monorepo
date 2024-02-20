@@ -5,7 +5,7 @@ import { User } from '../user';
 
 export interface Diary extends AppBaseEntity {
   behaviour: string;
-  date: string;
+  date: `${number}.${number}`; // DD.MM format. Example: 20.02, 20th of february
   sum: Nullable<number>;
   activity: Nullable<string>;
   steps: Nullable<number>;
