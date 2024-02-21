@@ -1,6 +1,6 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiResponse, ApiResponseOptions } from '@nestjs/swagger';
-import { MainException } from 'src/exceptions/main.exception';
+import { MainException } from '../exceptions/main.exception';
 
 type DefaultStatusCodes = 500 | 400 | 401;
 
