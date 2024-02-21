@@ -6,39 +6,39 @@ import { WorkoutEntity } from '../../workout/entity/workout.entity';
 @Entity('exercises')
 export class ExerciseEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 100 })
   public name: string;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', length: 250, nullable: true })
   public trainerComment?: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'float' })
   public weight: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'integer' })
   public sets: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public repetitions: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'integer' })
   public restTime: number;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public pace: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 250 })
   public photoLink: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 250 })
   public videoLink: string;
 
   @ApiProperty({ type: () => WorkoutEntity })

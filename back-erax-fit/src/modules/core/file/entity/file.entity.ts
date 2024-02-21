@@ -5,14 +5,14 @@ import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
 @Entity('files')
 export class FileEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 50 })
   public fileName: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 250 })
   public path: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ type: 'varchar', length: 250 })
   public fileLInk: string;
 }

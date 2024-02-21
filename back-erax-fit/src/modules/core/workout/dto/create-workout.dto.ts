@@ -36,7 +36,7 @@ export class CreateWorkoutRequest {
   @IsNumber()
   @ApiPropertyOptional()
   @Min(1)
-  public loop?: number;
+  public cycle?: number;
 
   @IsDefined()
   @ApiProperty()

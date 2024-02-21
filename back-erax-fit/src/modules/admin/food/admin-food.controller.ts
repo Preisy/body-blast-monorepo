@@ -35,7 +35,7 @@ export class AdminFoodController {
   constructor(private readonly adminService: AdminFoodService) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateFoodRequest) {
     return await this.adminService.create(request);

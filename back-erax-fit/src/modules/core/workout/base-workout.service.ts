@@ -57,6 +57,20 @@ export class BaseWorkoutService {
     return new AppSingleResponse<GetWorkoutDTO>(this.getWorkoutDTO(workout));
   }
 
+  async findOneByDate(date: Date) {
+    const workout = await this.workoutRepository.findOne({
+      where: {
+        date,
+      },
+      relations: this.relations,
+    });
+
+    if (!workout) {
+      throw MainException.entityNotFound(`Workout with id: ${date} not found`);
+    }
+    return new AppSingleResponse<GetWorkoutDTO>(this.getWorkoutDTO(workout));
+  }
+
   async update(id: WorkoutEntity['id'], request: UpdateWorkoutRequest) {
     const { data: workout } = await this.findOne(id);
     if (request.exercises) {
