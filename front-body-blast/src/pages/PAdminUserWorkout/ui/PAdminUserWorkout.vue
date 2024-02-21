@@ -19,7 +19,7 @@ const date = ref(today);
 // const isToday = computed(() => moment().diff(date.value.split('/').join('-'), 'days') === 0);
 
 const { getWorkouts, getWorkoutsResponse } = useAdminWorkoutStore();
-const unwatch = useLoading(getWorkoutsResponse);
+const { unwatch } = useLoading(getWorkoutsResponse);
 const pageNumber = ref(1);
 watchEffect(() => getWorkouts({ expanded: true, limit: 20, page: pageNumber.value }));
 
