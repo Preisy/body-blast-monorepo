@@ -20,7 +20,7 @@ export class WorkoutEntity extends AppBaseEntity {
 
   @ApiProperty()
   @Column({ type: 'integer', nullable: true })
-  public loop?: number;
+  public cycle?: number;
 
   @ApiProperty({ type: () => UserEntity })
   @ManyToOne(() => UserEntity)

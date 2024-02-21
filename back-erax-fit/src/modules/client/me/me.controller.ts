@@ -20,7 +20,7 @@ import { GetStepsByUserIdByClientDTO } from '../diary/dto/client-get-steps-by-us
 export class MeController {
   constructor(
     private readonly meService: MeService,
-    private readonly selfControlService: ClientDiaryService,
+    private readonly diaryService: ClientDiaryService,
   ) {}
 
   @Get()
@@ -38,6 +38,6 @@ export class MeController {
   @Get('steps')
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByClientDTO) })
   async getSteps(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
-    return this.selfControlService.getStepsByUserId(req.user.id, query);
+    return this.diaryService.getStepsByUserId(req.user.id, query);
   }
 }

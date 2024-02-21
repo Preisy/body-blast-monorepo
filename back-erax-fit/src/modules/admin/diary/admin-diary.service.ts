@@ -10,6 +10,7 @@ import { AppPagination } from 'src/utils/app-pagination.util';
 import { Repository } from 'typeorm';
 import { GetStepsByUserIdByAdminDTO } from './dto/admin-get-steps-by-userId.dto';
 import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
+import { WorkoutEntity } from 'src/modules/core/workout/entity/workout.entity';
 
 @Injectable()
 export class AdminDiaryService {
@@ -24,8 +25,17 @@ export class AdminDiaryService {
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
   async createDiaryCron() {
-    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {});
-
+    const newDate = new Date();
+    newDate.setHours(0, 0, 0, 0);
+    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
+      where: {
+        date: newDate,
+      },
+    });
+    const workoutsToUserId = workouts.reduce(
+      (acc, it) => ({ ...acc, [it.userId]: it }),
+      {} as Record<number, WorkoutEntity>,
+    );
     const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
       relations: ['props'],
     });
@@ -36,16 +46,14 @@ export class AdminDiaryService {
         props: labels,
       });
 
-      const newDate = new Date();
-      newDate.setHours(0, 0, 0, 0);
       newDiary.date = newDate;
 
-      const workout = workouts.find((workout) => workout.id == template.userId && workout.date == newDate);
-      newDiary.cycle = workout ? workout.loop : undefined;
+      const workout = workoutsToUserId[template.userId!];
+      newDiary.cycle = workout ? workout.cycle : undefined;
       return newDiary;
     });
     const diaries = await Promise.all(promises);
-    await this.diaryRepository.save(diaries);
+    await this.diaryRepository.save(diaries, { chunk: 10000 });
   }
 
   async findAll(query: AppDatePagination.Request): Promise<AppDatePagination.Response<DiaryEntity>> {

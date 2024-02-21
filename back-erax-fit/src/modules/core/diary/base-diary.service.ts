@@ -7,7 +7,7 @@ import { filterUndefined } from 'src/utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { BaseUserService } from '../user/base-user.service';
 import { GetDiaryDTO } from './dto/get-diary.dto';
-import { GetStepsByUserIdDTO } from './dto/get-steps.dto';
+import { GetStepsByUserIdDTO, StepsByWeek } from './dto/get-steps.dto';
 import { UpdateDiaryRequest } from './dto/update-diary.dto';
 import { DiaryPropsEntity } from './entity/diary-props.entity';
 import { DiaryEntity } from './entity/diary.entity';
@@ -61,13 +61,38 @@ export class BaseDiaryService {
     query: AppDatePagination.Request,
   ): Promise<GetStepsByUserIdDTO> {
     const { data: diaries } = await this.findAllByUserId(userId, query);
-    let steps = 0;
-    diaries.forEach((diary) => {
-      if (diary.steps) steps += diary.steps;
-    });
     const { data: user } = await this.userService.getUserById(userId);
-    const stepsGoal = user.stepsGoal;
-    return new GetStepsByUserIdDTO(steps, stepsGoal);
+
+    let firstDayOfWeek = query.from!;
+    let lastDayOfWeek = query.from!;
+    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+
+    let weeksCounter = 0;
+    let result: StepsByWeek[] = [];
+    while (weeksCounter < 4) {
+      let steps = 0;
+      const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
+      newWeek.forEach((diary) => {
+        if (diary.steps) steps += diary.steps;
+      });
+      const stepsByWeek = new StepsByWeek(
+        steps,
+        user.stepsGoal,
+        firstDayOfWeek.toLocaleDateString('ru-RU', {
+          day: 'numeric',
+          month: 'numeric',
+        }),
+        lastDayOfWeek.toLocaleDateString('ru-RU', {
+          day: 'numeric',
+          month: 'numeric',
+        }),
+      );
+      result.push(stepsByWeek);
+      firstDayOfWeek = lastDayOfWeek;
+      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+      weeksCounter++;
+    }
+    return new GetStepsByUserIdDTO(result);
   }
 
   async update(id: DiaryEntity['id'], request: UpdateDiaryRequest) {
