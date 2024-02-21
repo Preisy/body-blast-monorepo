@@ -1,8 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/modules/authentication/auth.module';
-import { BaseFoodModule } from 'src/modules/core/food/base-food.module';
-import { PromptEntity } from 'src/modules/core/prompt/entity/prompt.entity';
+import { AuthModule } from '../../../modules/authentication/auth.module';
+import { BaseFoodModule } from '../../../modules/core/food/base-food.module';
+import { PromptEntity } from '../../../modules/core/prompt/entity/prompt.entity';
 import { AdminFoodController } from './admin-food.controller';
 import { AdminFoodService } from './admin-food.service';
 

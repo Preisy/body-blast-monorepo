@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/modules/authentication/auth.module';
+import { AuthModule } from '../../../modules/authentication/auth.module';
 import { FileEntity } from '../file/entity/file.entity';
 import { BasePromptService } from './base-prompt.service';
 import { PromptEntity } from './entity/prompt.entity';

@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { createDerivedClass } from 'src/utils/create-derived-class.util';
+import { createDerivedClass } from '../utils/create-derived-class.util';
 import { ObjectLiteral } from 'typeorm';
 
 export class AppSingleResponse<Entity extends ObjectLiteral> {

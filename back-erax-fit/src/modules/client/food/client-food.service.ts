@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { BaseFoodService } from 'src/modules/core/food/base-food.service';
-import { FoodEntity } from 'src/modules/core/food/entity/food.entity';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { BaseFoodService } from '../../../modules/core/food/base-food.service';
+import { FoodEntity } from '../../../modules/core/food/entity/food.entity';
+import { AppPagination } from '../../../utils/app-pagination.util';
 
 @Injectable()
 export class ClientFoodService {

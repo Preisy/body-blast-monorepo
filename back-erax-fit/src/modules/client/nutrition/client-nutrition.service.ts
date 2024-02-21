@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { BaseNutritionService } from 'src/modules/core/nutrition/base-nutrition.service';
-import { NutritionEntity } from 'src/modules/core/nutrition/entity/nutrition.entity';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { BaseNutritionService } from '../../../modules/core/nutrition/base-nutrition.service';
+import { NutritionEntity } from '../../../modules/core/nutrition/entity/nutrition.entity';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { WorkoutEntity } from '../../core/workout/entity/workout.entity';
 
 @Injectable()

@@ -14,14 +14,14 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import type { Response } from 'express';
 import { diskStorage } from 'multer';
-import { UserRole } from 'src/constants/constants';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
-import { RoleGuard } from 'src/modules/authentication/guards/role.guard';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { UserRole } from '../../../constants/constants';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
+import { RoleGuard } from '../../../modules/authentication/guards/role.guard';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { AdminFileService } from './admin-file.service';
 import { CreateFileByAdminResponse } from './dto/admin-create-file.dto';
-import { FileEntity } from 'src/modules/core/file/entity/file.entity';
+import { FileEntity } from '../../../modules/core/file/entity/file.entity';
 
 @Controller('admin/files')
 @ApiTags('Admin files')

@@ -1,3 +1,3 @@
-import { CreateWorkoutRequest } from 'src/modules/core/workout/dto/create-workout.dto';
+import { CreateWorkoutRequest } from '../../../../modules/core/workout/dto/create-workout.dto';
 
 export class CreateWorkoutByAdminRequest extends CreateWorkoutRequest {}

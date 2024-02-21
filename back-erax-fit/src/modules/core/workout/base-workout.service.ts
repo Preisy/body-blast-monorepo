@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { MainException } from 'src/exceptions/main.exception';
-import { AppPagination } from 'src/utils/app-pagination.util';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { ExerciseEntity } from '../exerсise/entities/exercise.entity';
 import { CreateWorkoutRequest } from './dto/create-workout.dto';

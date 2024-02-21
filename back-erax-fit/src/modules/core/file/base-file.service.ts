@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MainException } from 'src/exceptions/main.exception';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { Repository } from 'typeorm';
 import { CreateFileResponse } from './dto/create-file.dto';
 import { FileEntity } from './entity/file.entity';
