@@ -4,8 +4,8 @@ import { PAdminHome } from 'pages/PAdminHome';
 import { PAdminPrompt } from 'pages/PAdminPrompt';
 import { PAdminUserProfile } from 'pages/PAdminUserProfile';
 import { PAdminUserProfileBio } from 'pages/PAdminUserProfileBio';
-import PDiaryVue from 'pages/PDiary.vue';
 import { ENUMS } from 'shared/lib/enums';
+import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
 export const adminRoutes: RouteRecordRaw = {
   path: '/admin/',
@@ -29,7 +29,7 @@ export const adminRoutes: RouteRecordRaw = {
       path: 'learning',
       meta: { auth: true, admin: true },
       name: ENUMS.ROUTES_NAMES.ADMIN.LEARNING,
-      component: PDiaryVue,
+      component: SNoResultsScreen,
     },
     {
       path: 'detailed/:id/',
