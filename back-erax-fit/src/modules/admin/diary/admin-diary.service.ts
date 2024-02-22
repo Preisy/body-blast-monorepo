@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BaseDiaryTemplateService } from 'src/modules/core/diary-template/base-diary-template.service';
-import { BaseDiaryService } from 'src/modules/core/diary/base-diary.service';
-import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
-import { BaseWorkoutService } from 'src/modules/core/workout/base-workout.service';
-import { AppDatePagination } from 'src/utils/app-date-pagination.util';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { BaseDiaryTemplateService } from '../../../modules/core/diary-template/base-diary-template.service';
+import { BaseDiaryService } from '../../../modules/core/diary/base-diary.service';
+import { DiaryEntity } from '../../../modules/core/diary/entity/diary.entity';
+import { BaseWorkoutService } from '../../../modules/core/workout/base-workout.service';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { Repository } from 'typeorm';
 import { GetStepsByUserIdByAdminDTO } from './dto/admin-get-steps-by-userId.dto';
 import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
-import { WorkoutEntity } from 'src/modules/core/workout/entity/workout.entity';
-import { RedisService } from 'nestjs-redis';
+import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
+import { RedisManager } from '@liaoliaots/nestjs-redis';
 
 @Injectable()
 export class AdminDiaryService {
   constructor(
     @InjectRepository(DiaryEntity)
     private readonly diaryRepository: Repository<DiaryEntity>,
-    private readonly redisService: RedisService,
+    private readonly redisService: RedisManager,
     private readonly baseService: BaseDiaryService,
     private readonly workoutService: BaseWorkoutService,
     private readonly diaryTemplateService: BaseDiaryTemplateService,

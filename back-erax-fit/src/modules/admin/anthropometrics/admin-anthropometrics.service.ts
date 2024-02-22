@@ -7,7 +7,7 @@ import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { BaseUserService } from '../../core/user/base-user.service';
 import { AppPagination } from '../../../utils/app-pagination.util';
-import { RedisService } from 'nestjs-redis';
+import { RedisManager } from '@liaoliaots/nestjs-redis';
 import { UserRole } from '../../../constants/constants';
 import { CreateAnthropometricsByAdminRequest } from './dto/create-anthropometrics-by-admin.dto';
 import { GetAnthropometricsForUserByAdminRequest } from './dto/get-anthropometrics-for-user-by-admin.dto';
@@ -19,7 +19,7 @@ export class AdminAnthropometricsService {
     private readonly anthrpRepository: Repository<AnthropometricsEntity>,
     private readonly baseService: BaseAnthropometrcisService,
     private readonly userService: BaseUserService,
-    private readonly redisService: RedisService,
+    private readonly redisService: RedisManager,
   ) {}
 
   public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];

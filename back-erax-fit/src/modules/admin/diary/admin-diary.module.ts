@@ -1,14 +1,14 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/modules/authentication/auth.module';
-import { BaseDiaryTemplateModule } from 'src/modules/core/diary-template/base-diary-template.module';
-import { BaseDiaryModule } from 'src/modules/core/diary/base-diary.module';
-import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
-import { BaseUserModule } from 'src/modules/core/user/base-user.module';
-import { BaseWorkoutModule } from 'src/modules/core/workout/base-workout.module';
+import { AuthModule } from '../../../modules/authentication/auth.module';
+import { BaseDiaryTemplateModule } from '../../../modules/core/diary-template/base-diary-template.module';
+import { BaseDiaryModule } from '../../../modules/core/diary/base-diary.module';
+import { DiaryEntity } from '../../../modules/core/diary/entity/diary.entity';
+import { BaseUserModule } from '../../../modules/core/user/base-user.module';
+import { BaseWorkoutModule } from '../../../modules/core/workout/base-workout.module';
 import { AdminDiaryService } from './admin-diary.service';
 import { AdminDiaryController } from './admin-diary.controller';
-import { RedisModule } from 'nestjs-redis';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 @Module({
   imports: [
@@ -18,10 +18,7 @@ import { RedisModule } from 'nestjs-redis';
     BaseDiaryTemplateModule,
     BaseWorkoutModule,
     BaseDiaryModule,
-    RedisModule.register({
-      name: process.env.REDIS_NAME,
-      url: process.env.REDIS_URL,
-    }),
+    RedisModule,
   ],
   providers: [AdminDiaryService],
   controllers: [AdminDiaryController],
