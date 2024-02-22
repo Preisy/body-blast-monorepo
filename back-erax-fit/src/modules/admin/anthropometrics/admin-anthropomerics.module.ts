@@ -8,6 +8,7 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 import { AuthModule } from '../../authentication/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BaseUserModule } from '../../core/user/base-user.module';
+import { RedisModule, RedisService } from 'nestjs-redis';
 
 @Module({
   imports: [
@@ -16,9 +17,13 @@ import { BaseUserModule } from '../../core/user/base-user.module';
     BaseAnthropometricsModule,
     ScheduleModule,
     BaseUserModule,
+    RedisModule.register({
+      name: process.env.REDIS_NAME,
+      url: process.env.REDIS_URL,
+    }),
   ],
   controllers: [AdminAnthropometricsController],
-  providers: [AdminAnthropometricsService],
+  providers: [AdminAnthropometricsService, RedisService],
   exports: [AdminAnthropometricsService],
 })
 export class AdminAntropometricsModule {}

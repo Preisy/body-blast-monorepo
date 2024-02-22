@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { BaseUserService } from '../../core/user/base-user.service';
 import { AppPagination } from '../../../utils/app-pagination.util';
+import { RedisService } from 'nestjs-redis';
 import { UserRole } from '../../../constants/constants';
 import { CreateAnthropometricsByAdminRequest } from './dto/create-anthropometrics-by-admin.dto';
 import { GetAnthropometricsForUserByAdminRequest } from './dto/get-anthropometrics-for-user-by-admin.dto';
@@ -18,6 +19,7 @@ export class AdminAnthropometricsService {
     private readonly anthrpRepository: Repository<AnthropometricsEntity>,
     private readonly baseService: BaseAnthropometrcisService,
     private readonly userService: BaseUserService,
+    private readonly redisService: RedisService,
   ) {}
 
   public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];
@@ -69,11 +71,16 @@ export class AdminAnthropometricsService {
       {} as Record<number, AnthropometricsEntity>,
     );
 
+    const client = await this.redisService.getClient();
+
     users.forEach((user) => {
       const userAnthrp = anthrpMap[user.id];
       user.anthrpJobPeriod;
       const anthrpCreatedAt = userAnthrp.createdAt.getTime() || 0;
+      const key = `userId:${user.id}:anthropometrics`;
+
       if (Math.abs(anthrpCreatedAt - new Date().getTime()) >= user.anthrpJobPeriod! * 1000 * 60 * 60 * 24) {
+        client.set(key, 'locked', 'EX', user.anthrpJobPeriod! * 60 * 60 * 24);
         this.anthrpRepository.save(this.anthrpRepository.create({ userId: user.id }));
       }
     });

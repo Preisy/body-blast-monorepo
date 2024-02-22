@@ -64,11 +64,11 @@ export class BaseDiaryService {
     const { data: user } = await this.userService.getUserById(userId);
 
     let firstDayOfWeek = query.from!;
-    let lastDayOfWeek = query.from!;
+    const lastDayOfWeek = query.from!;
     lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
 
     let weeksCounter = 0;
-    let result: StepsByWeek[] = [];
+    const result: StepsByWeek[] = [];
     while (weeksCounter < 4) {
       let steps = 0;
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);

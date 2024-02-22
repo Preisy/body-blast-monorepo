@@ -8,6 +8,7 @@ import { BaseUserModule } from 'src/modules/core/user/base-user.module';
 import { BaseWorkoutModule } from 'src/modules/core/workout/base-workout.module';
 import { AdminDiaryService } from './admin-diary.service';
 import { AdminDiaryController } from './admin-diary.controller';
+import { RedisModule } from 'nestjs-redis';
 
 @Module({
   imports: [
@@ -17,6 +18,10 @@ import { AdminDiaryController } from './admin-diary.controller';
     BaseDiaryTemplateModule,
     BaseWorkoutModule,
     BaseDiaryModule,
+    RedisModule.register({
+      name: process.env.REDIS_NAME,
+      url: process.env.REDIS_URL,
+    }),
   ],
   providers: [AdminDiaryService],
   controllers: [AdminDiaryController],
