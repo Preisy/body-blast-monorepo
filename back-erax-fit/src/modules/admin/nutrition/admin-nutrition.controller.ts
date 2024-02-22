@@ -13,18 +13,18 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
 import { AdminNutritionService } from './admin-nutrition.service';
 import { CreateNutritionByAdminRequest } from './dto/admin-create-nutrition.dto';
 import { UpdateNutritionByAdminRequest } from './dto/admin-update-nutrition.dto';
-import { NutritionEntity } from 'src/modules/core/nutrition/entity/nutrition.entity';
+import { NutritionEntity } from '../../../modules/core/nutrition/entity/nutrition.entity';
 
 @Controller('admin/nutrition')
 @ApiTags('Admin Nutrition')
@@ -35,7 +35,7 @@ export class AdminNutritionController {
   constructor(private readonly adminService: AdminNutritionService) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateNutritionByAdminRequest) {
     return await this.adminService.create(request);

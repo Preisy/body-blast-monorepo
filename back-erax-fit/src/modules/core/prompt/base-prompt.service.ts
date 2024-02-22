@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { MainException } from 'src/exceptions/main.exception';
-import { GetPromptsByAdminRequest } from 'src/modules/admin/prompt/dto/admin-get-prompts.dto';
-import { AppPagination } from 'src/utils/app-pagination.util';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { GetPromptsByAdminRequest } from '../../../modules/admin/prompt/dto/admin-get-prompts.dto';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { FileEntity } from '../file/entity/file.entity';
 import { CreatePromptRequest } from './dto/create-prompt.dto';

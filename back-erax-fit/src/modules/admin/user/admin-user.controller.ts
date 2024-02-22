@@ -26,6 +26,10 @@ import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AppPagination } from '../../../utils/app-pagination.util';
+import { AppDatePagination } from 'src/utils/app-date-pagination.util';
+import { AdminDiaryService } from '../diary/admin-diary.service';
+import { GetStepsByUserIdByAdminDTO } from '../diary/dto/admin-get-steps-by-userId.dto';
+import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
 
 @AppAuthGuard(RoleGuard(UserRole.Admin))
 @Controller('admin/users')
@@ -33,10 +37,13 @@ import { AppPagination } from '../../../utils/app-pagination.util';
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
 export class AdminUserController {
-  constructor(private readonly adminService: AdminUserService) {}
+  constructor(
+    private readonly adminService: AdminUserService,
+    private readonly diaryService: AdminDiaryService,
+  ) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateUserByAdminRequest) {
     return await this.adminService.create(request);
@@ -64,5 +71,17 @@ export class AdminUserController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   async deleteUserById(@Param('id', ParseIntPipe) id: number) {
     return await this.adminService.deleteUserById(+id);
+  }
+
+  @Get(':id/diaries')
+  @AppResponses({ status: 200, type: AppDatePagination.Response.type(DiaryEntity) })
+  async getSelfControls(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
+    return this.diaryService.findAllByUserId(id, query);
+  }
+
+  @Get(':id/steps')
+  @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByAdminDTO) })
+  async getSteps(@Param('id', ParseIntPipe) id: number, @Query() query: AppDatePagination.Request) {
+    return this.diaryService.getStepsByUserId(id, query);
   }
 }

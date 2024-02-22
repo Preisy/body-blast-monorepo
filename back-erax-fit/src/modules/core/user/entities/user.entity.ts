@@ -106,6 +106,10 @@ export class UserEntity extends AppBaseEntity {
   public anthrpJobPeriod?: number;
 
   @ApiProperty()
+  @Column({ type: 'integer' })
+  public stepsGoal: number;
+
+  @ApiProperty()
   @Column({ type: 'boolean' })
   public canWatchVideo: boolean;
 }

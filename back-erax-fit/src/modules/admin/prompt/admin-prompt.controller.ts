@@ -13,19 +13,19 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
-import { CreatePromptRequest } from 'src/modules/core/prompt/dto/create-prompt.dto';
-import { UpdatePromptRequest } from 'src/modules/core/prompt/dto/update-prompt.dto';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
+import { CreatePromptRequest } from '../../../modules/core/prompt/dto/create-prompt.dto';
+import { UpdatePromptRequest } from '../../../modules/core/prompt/dto/update-prompt.dto';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
 import { AdminPromptService } from './admin-prompt.service';
 import { GetPromptsByAdminRequest } from './dto/admin-get-prompts.dto';
-import { PromptEntity } from 'src/modules/core/prompt/entity/prompt.entity';
+import { PromptEntity } from '../../../modules/core/prompt/entity/prompt.entity';
 
 @Controller('admin/prompts')
 @ApiTags('Prompts')
@@ -36,7 +36,7 @@ export class AdminPromptController {
   constructor(private readonly adminService: AdminPromptService) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreatePromptRequest) {
     return await this.adminService.create(request);

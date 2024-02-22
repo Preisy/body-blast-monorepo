@@ -9,6 +9,7 @@ import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
 import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
 import { TWSelfControlMonitoringI18n } from 'widgets/WSelfControlMonitoring';
 import { TWStepsMonitoringI18n } from 'widgets/WStepsMonitoring';
+import { TEDiaryI18n } from 'entities/diary';
 import { TAuthFormsI18n } from 'entities/form/i18n';
 import { TEAthropometricsItemI18n } from 'entities/profile/EAthropometricsItem';
 import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
@@ -28,13 +29,13 @@ export default boot(({ app }) => {
       TPAdminUserProfileI18n,
       TWAdminFooterNavBarI18n,
       TGlobalI18n,
-      TFooterNavigationBarI18n,
       TTrainingI18n,
       TTrainingAdditionBlockI18n,
       TAuthFormsI18n,
       TEProfileHeaderI18n,
       TEAthropometricsItemI18n,
       TPDietI18n,
+      TEDiaryI18n,
       TWPromptCreationI18n,
       TEProfileCardI18n,
       TSNoResultsScreenI18n,

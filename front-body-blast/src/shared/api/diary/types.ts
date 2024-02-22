@@ -32,11 +32,7 @@ export namespace Diary {
   }
 
   export namespace Patch {
-    export interface Dto {
-      activity?: Diary['activity'];
-      steps?: Diary['steps'];
-      props?: Diary['props'];
-    }
+    export interface Dto extends Partial<Pick<Diary, 'activity' | 'steps' | 'props'>> {}
     export interface Response extends AppBaseEntity.Response<Diary> {}
   }
 

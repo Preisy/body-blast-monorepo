@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { BaseNutritionService } from 'src/modules/core/nutrition/base-nutrition.service';
-import { NutritionEntity } from 'src/modules/core/nutrition/entity/nutrition.entity';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { BaseNutritionService } from '../../../modules/core/nutrition/base-nutrition.service';
+import { NutritionEntity } from '../../../modules/core/nutrition/entity/nutrition.entity';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { CreateNutritionByAdminRequest } from './dto/admin-create-nutrition.dto';
 import { UpdateNutritionByAdminRequest } from './dto/admin-update-nutrition.dto';
 
