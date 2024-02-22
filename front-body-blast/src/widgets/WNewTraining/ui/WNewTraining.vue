@@ -30,7 +30,7 @@ const emit = defineEmits<{
 const { postWorkout, postWorkoutResponse, patchWorkout, patchWorkoutResponse } = useAdminWorkoutStore();
 const { getPromptsResponse, getPrompts } = useAdminPromptStore();
 
-const unwatchPatch = useLoading(patchWorkoutResponse);
+useLoading(patchWorkoutResponse);
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
@@ -85,13 +85,8 @@ const onsubmit = async () => {
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
-const unwatchPrompt = useLoading(getPromptsResponse);
+useLoading(getPromptsResponse);
 getPrompts({ type: '' });
-
-onUnmounted(() => {
-  unwatchPrompt();
-  unwatchPatch();
-});
 </script>
 
 <template>

@@ -1,16 +1,21 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
-import { AppPagination } from '../pagination';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { WorkoutsService } from './service';
 import { Workout } from './types';
 
 export const useWorkoutStore = defineStore('workout-store', () => {
-  const getWorkoutsResponse = ref(useSingleState<Workout.Get.Response>());
-  const getWorkouts = (pagination?: AppPagination.BaseDto) =>
+  const workouts = ref(useSingleState<Workout.Get.Response>({ update: undefined }));
+  const getWorkouts = (pagination?: Workout.Get.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getWorkoutsResponse.value,
-      serviceAction: WorkoutsService.getTrainings(pagination),
+      stateWrapper: workouts.value,
+      serviceAction: WorkoutsService.getWorkouts(pagination),
     });
 
-  return { getWorkoutsResponse, getWorkouts };
+  const patchWorkout = (data: Workout.Patch.Dto) =>
+    useStoreAction({
+      state: workouts.value.updateState,
+      serviceAction: WorkoutsService.patchWorkout(data),
+    });
+
+  return { workouts, getWorkouts, patchWorkout };
 });

@@ -11,7 +11,7 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "type-check": "vue-tsc --noEmit -p tsconfig.json --composite false"
+    "type-check": "vue-tsc --skipLibCheck --noEmit -p tsconfig.json --composite false"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.0.2",

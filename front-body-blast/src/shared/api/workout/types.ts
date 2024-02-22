@@ -34,6 +34,13 @@ export namespace Workout {
     export interface Response extends AppPagination.Response<Workout> {}
   }
 
+  export namespace Patch {
+    export interface Dto {
+      id: Workout['id'];
+      data: Pick<Workout, 'comment'>;
+    }
+    export interface Response extends AppBaseEntity.Response<Workout> {}
+  }
   export const validation = () =>
     z.object({
       name: z.string().min(1),
@@ -51,21 +58,5 @@ export namespace Workout {
           _promptId: z.number(), //prompt Id will be converted to photoLink and videoLink
         }),
       ),
-    });
-}
-
-//TODO: backend endpoint?
-export namespace Addition {
-  export interface Dto {
-    message: string;
-  }
-
-  export interface Response {
-    message: string;
-  }
-
-  export const validation = () =>
-    z.object({
-      message: z.string().min(3).max(50),
     });
 }

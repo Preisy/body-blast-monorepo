@@ -17,7 +17,7 @@ const emit = defineEmits<{
 }>();
 
 const { deleteWorkout, deleteWorkoutResponse, getWorkouts } = useAdminWorkoutStore();
-const unwatchDelete = useLoading(deleteWorkoutResponse);
+useLoading(deleteWorkoutResponse);
 
 const onEdit = async () => {
   emit('edit', props.workout.id);
@@ -29,10 +29,6 @@ const onDelete = async () => {
     getWorkouts({ expanded: true });
   }
 };
-
-onUnmounted(() => {
-  unwatchDelete();
-});
 </script>
 
 <template>
