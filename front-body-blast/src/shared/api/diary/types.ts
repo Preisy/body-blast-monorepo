@@ -4,7 +4,7 @@ import { AppPagination } from '../pagination';
 import { User } from '../user';
 
 export interface Diary extends AppBaseEntity {
-  behaviour: string;
+  cycle: number;
   date: `${number}.${number}`; // DD.MM format. Example: 20.02, 20th of february
   sum: Nullable<number>;
   activity: Nullable<string>;
@@ -18,8 +18,8 @@ export namespace Diary {
   export interface Prop extends AppBaseEntity {
     label: string;
     value: number;
-    selfControl: string;
-    selfControlId: number;
+    diary: string;
+    diaryId: number;
   }
 
   export namespace Get {

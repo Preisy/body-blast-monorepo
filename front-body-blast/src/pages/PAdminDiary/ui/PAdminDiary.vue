@@ -46,7 +46,14 @@ const weekSlides = computed(() => {
 
 <template>
   <SComponentWrapper>
-    <SCalendar v-model="dateRaw" default-view="Months" today-btn mask="YYYY-MM-01T23:59:59.000" />
+    <SCalendar
+      v-model="dateRaw"
+      minimal
+      default-view="Months"
+      emit-immediately
+      today-btn
+      mask="YYYY-MM-01T23:59:59.000"
+    />
 
     <SSplide :options="{ direction: 'ttb', height: '100vh' }">
       <SSplideSlide>
