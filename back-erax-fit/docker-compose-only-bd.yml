@@ -16,9 +16,27 @@ services:
       - erax_db_data:/var/lib/postgresql/data
     networks:
       - erax_network
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - '${REDIS_PUBLIC_PORT}:6379'
+    env_file: .env
+    environment:
+      - REDIS_PASSWORD: '${RD_PASSWORD}'
+      - REDIS_PORT: '${RD_PORT}'
+      - REDIS_DATABASES: '${RD_DATABASES}'
+    volumes:
+      - redis_data:/root/redis
+      - redis_conf:/usr/local/etc/redis/redis.conf
+
 volumes:
   erax_db_data:
     name: erax_db_data
+  redis_data:
+    name: redis_data
+  redis_conf:
+    name: redis_conf
 networks:
   erax_network:
     driver: bridge
