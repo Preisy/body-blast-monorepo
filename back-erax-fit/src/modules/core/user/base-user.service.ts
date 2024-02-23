@@ -11,6 +11,8 @@ import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
+import { BaseAnthropometrcisService } from '../anthropometrics/base-anthropometrics.service';
+import { CreateAnthropometricsRequest } from '../anthropometrics/dto/create-anthropometrics.dto';
 
 @Injectable()
 export class BaseUserService {
@@ -18,6 +20,7 @@ export class BaseUserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly templateService: BaseDiaryTemplateService,
+    private readonly antrhpService: BaseAnthropometrcisService,
   ) {}
 
   async create(request: CreateUserRequest): Promise<AppSingleResponse<UserEntity>> {
@@ -34,6 +37,10 @@ export class BaseUserService {
     if (!savedUser) throw MainException.internalRequestError('Error upon saving user');
 
     await this.templateService.createDefault(savedUser.id);
+
+    const anthrpRequest = new CreateAnthropometricsRequest();
+    anthrpRequest.userId = savedUser.id;
+    await this.antrhpService.create(anthrpRequest);
 
     return new AppSingleResponse(savedUser);
   }
