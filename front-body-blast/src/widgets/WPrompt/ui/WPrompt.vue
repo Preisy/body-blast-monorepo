@@ -16,10 +16,10 @@ export interface WPromptsProps {
 }
 const props = defineProps<WPromptsProps>();
 
-const { getPromptsResponse, deletePrompt, deletePromptResponse } = useAdminPromptStore();
+const { deletePrompt, prompts } = useAdminPromptStore();
 
-const video = useAuthLink(props.prompt.videoLink);
-const photo = useAuthLink(props.prompt.photoLink);
+const { state: video } = useAuthLink(props.prompt.videoLink);
+const { state: photo } = useAuthLink(props.prompt.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
 
@@ -34,9 +34,9 @@ const openDialog = (data: Prompt) => {
 const onDeleteClick = async (id: number) => {
   await deletePrompt({ id });
 
-  if (deletePromptResponse.state.isSuccess()) {
-    const index = getPromptsResponse.data?.data.findIndex((prompt) => props.prompt.id === prompt.id);
-    if (index) getPromptsResponse.data?.data.splice(index, 1);
+  if (prompts.deleteState.isSuccess()) {
+    const index = prompts.data?.data.findIndex((prompt) => props.prompt.id === prompt.id);
+    if (index) prompts.data?.data.splice(index, 1);
   }
 };
 </script>

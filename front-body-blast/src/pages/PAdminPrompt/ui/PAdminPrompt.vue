@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QTab, QTabs, QTabProps, QTabPanels, QTabPanel } from 'quasar';
+import { QTabProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WPrompt } from 'widgets/WPrompt';
 import { WPromptCreation } from 'widgets/WPromptCreation';
@@ -16,10 +16,10 @@ const routes: QTabProps[] = [
   { name: 'all', label: t('admin.prompt.nav.all') },
 ];
 const currentRoute = ref(routes[0].name);
-const { getPromptsResponse, getPrompts } = useAdminPromptStore();
-const rawPrompts = computed(() => getPromptsResponse.data?.data);
+const { prompts, getPrompts } = useAdminPromptStore();
+const rawPrompts = computed(() => prompts.data?.data);
 
-useLoadingAction(getPromptsResponse, () => getPrompts({ type: '' }));
+useLoadingAction(prompts.state, () => getPrompts({ type: '' }));
 
 const onTransition = (newVal: string) => {
   if (newVal != routes[1].name) return;
@@ -56,23 +56,23 @@ const onTransition = (newVal: string) => {
     </q-tabs>
 
     <!-- Page body -->
-    <QTabPanels @transition="onTransition" v-model="currentRoute" keep-alive animated swipeable h-full pt-3rem>
+    <q-tab-panels @transition="onTransition" v-model="currentRoute" keep-alive animated swipeable h-full pt-3rem>
       <!-- Add prompt -->
-      <QTabPanel :name="routes[0].name" h-full overflow-hidden p="0!">
+      <q-tab-panel :name="routes[0].name" h-full overflow-hidden p="0!">
         <SProxyScroll h-full>
           <WPromptCreation />
         </SProxyScroll>
-      </QTabPanel>
+      </q-tab-panel>
 
       <!-- All prompts -->
-      <QTabPanel :name="routes[1].name" p="0!">
+      <q-tab-panel :name="routes[1].name" p="0!">
         <SProxyScroll h-full v-if="rawPrompts" overflow-hidden>
           <SComponentWrapper>
             <WPrompt v-for="prompt in rawPrompts" :prompt="prompt" :key="prompt.id" />
           </SComponentWrapper>
         </SProxyScroll>
         <SNoResultsScreen v-else />
-      </QTabPanel>
-    </QTabPanels>
+      </q-tab-panel>
+    </q-tab-panels>
   </SStructure>
 </template>

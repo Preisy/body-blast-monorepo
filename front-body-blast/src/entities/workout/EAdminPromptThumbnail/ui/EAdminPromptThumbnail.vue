@@ -7,7 +7,7 @@ export interface EAdminPromptThumbnailProps {
 }
 const props = defineProps<EAdminPromptThumbnailProps>();
 
-const link = useAuthLink(props.photo);
+const { state: link } = useAuthLink(() => props.photo);
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const link = useAuthLink(props.photo);
       <q-img :src="link.data.link" h-4rem w-6.75rem rounded-0.25rem />
     </template>
     <template v-else>
-      <q-circular-progress indeterminate rounded size="50px" color="secondary" class="q-ma-md" />
+      <q-circular-progress indeterminate rounded size="30px" color="secondary" class="q-ma-md" />
     </template>
     <p fw-800>{{ type }}</p>
   </div>

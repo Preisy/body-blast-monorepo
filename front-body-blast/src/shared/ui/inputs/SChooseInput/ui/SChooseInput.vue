@@ -1,19 +1,25 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends Record<string, SInputProps['modelValue']>">
 import { useFloating } from '@floating-ui/vue';
+import { debounce } from 'quasar';
 import { useField } from 'vee-validate';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SInput, SInputProps } from '../..';
 
-export interface SChooseInputProps extends SInputProps {
-  display: SInputProps['modelValue'];
+export interface SChooseInputProps<T> {
+  modelValue?: T;
+  label: SInputProps['label'];
+  name: NonNullable<SInputProps['name']>;
+  display?: SInputProps['modelValue'];
+  items: Array<T>;
+  optionValue: keyof T;
 }
-const props = defineProps<SChooseInputProps>();
+type ModelValue = SChooseInputProps<T>['modelValue'];
+
+const props = defineProps<SChooseInputProps<T>>();
 const emit = defineEmits<{
-  input: [SInputProps['modelValue']];
+  'update:modelValue': [ModelValue];
+  'update:innerInput': [string];
 }>();
-defineExpose({
-  input: (val?: SInputProps['modelValue']) => emit('input', val ?? props.modelValue),
-});
 
 const anchor = ref();
 const float = ref();
@@ -24,22 +30,20 @@ const { floatingStyles } = useFloating(anchor, float, {
   placement: 'top-start',
 });
 const isOpen = ref(false);
-const togglePopup = () => (isOpen.value = !isOpen.value);
 
-const { value, setValue } = useField<SInputProps['modelValue']>(props.name);
-watch(
-  () => props.modelValue,
-  () => {
-    setValue(props.modelValue);
-    emit('input', value.value);
-  },
-);
+const { value, setValue } = useField<ModelValue>(props.name);
+
+const onItemClick = (val: ModelValue) => {
+  isOpen.value = false;
+  setValue(val);
+  emit('update:modelValue', val);
+};
+const onInput = debounce((val) => emit('update:innerInput', val), 300);
 </script>
 
 <template>
   <div class="s-choose-input" relative w-full>
     <SProxyScroll
-      @click="isOpen = false"
       v-if="isOpen"
       class="popup"
       ref="float"
@@ -51,12 +55,18 @@ watch(
       bg-primary
     >
       <div ref="content" flex rounded-0.75rem>
-        <slot />
+        <slot name="item" v-for="item in items" :item="item" :onclick="() => onItemClick(item)" />
       </div>
     </SProxyScroll>
-    <div @click="togglePopup">
-      <!-- TODO: FIXME:  ___ means private field -->
-      <SInput name="_______________" :label="label" ref="anchor" readonly :model-value="display" />
+    <div>
+      <SInput
+        @focus="isOpen = true"
+        @blur="isOpen = false"
+        :label="label"
+        ref="anchor"
+        :model-value="value?.[optionValue as keyof T]"
+        @update:model-value="onInput"
+      />
     </div>
   </div>
 </template>

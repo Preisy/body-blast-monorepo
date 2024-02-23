@@ -9,8 +9,8 @@ const props = defineProps<{
   videoLink: string;
 }>();
 
-const video = useAuthLink(props.videoLink);
-const photo = useAuthLink(props.photoLink);
+const { state: video } = useAuthLink(props.videoLink);
+const { state: photo } = useAuthLink(props.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
 </script>

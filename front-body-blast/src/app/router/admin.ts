@@ -24,7 +24,7 @@ export const adminRoutes: RouteRecordRaw = {
       path: 'learning',
       meta: { auth: true, admin: true },
       name: ENUMS.ROUTES_NAMES.ADMIN.LEARNING,
-      component: () => import('pages/PDiary.vue'),
+      component: () => import('pages/PLearning/ui/PLearning.vue'),
     },
     {
       path: 'detailed/:id/',

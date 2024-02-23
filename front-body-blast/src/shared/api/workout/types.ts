@@ -49,13 +49,18 @@ export namespace Workout {
       exercises: z.array(
         z.object({
           name: z.string().min(1),
-          weight: z.string().min(1),
-          sets: z.string().min(1),
+          weight: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
+          sets: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           repetitions: z.string().min(1),
           trainerComment: z.string().min(1).optional(),
-          restTime: z.string().min(1),
+          restTime: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           pace: z.string().min(1),
-          _promptId: z.number(), //prompt Id will be converted to photoLink and videoLink
+          prompt: z.object({
+            id: z.coerce.number(),
+            type: z.string(),
+            photoLink: z.string(),
+            videoLink: z.string(),
+          }), //prompt Id will be converted to photoLink and videoLink
         }),
       ),
     });

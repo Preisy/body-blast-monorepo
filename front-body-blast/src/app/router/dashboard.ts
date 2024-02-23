@@ -23,7 +23,8 @@ export const dashboardRoutes: RouteRecordRaw = {
     {
       meta: { auth: true },
       path: 'diary',
-      component: () => import('pages/PDiary/ui/PDiary.vue'),
+      component: () => import('pages/PNotFound/ui/PNotFound.vue'), //TODO:remove after merge with dev
+      // component: () => import('pages/PDiary/ui/PDiary.vue'),
       name: ENUMS.ROUTES_NAMES.DIARY,
     },
     {

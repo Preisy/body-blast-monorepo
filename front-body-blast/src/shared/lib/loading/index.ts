@@ -7,7 +7,7 @@ export function useLoading(state: ISingleState): { unwatch: WatchStopHandle };
 
 export function useLoading(state: XOR<IState, ISingleState>) {
   const unwatch = watchEffect(() => {
-    if (state?.isLoading?.() || state.state?.isLoading?.()) {
+    if (state?.isLoading?.() || state?.state?.isLoading?.()) {
       Loading.show();
     } else {
       Loading.hide();

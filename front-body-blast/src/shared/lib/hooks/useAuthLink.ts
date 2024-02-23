@@ -9,7 +9,6 @@ export const useAuthLink = (link: MaybeRefOrGetter<string> | ComputedRef<string>
 
   watchEffect(() => {
     const videoFileName = computed(() => toValue(link).split('/').pop() || '');
-    console.log(videoFileName.value);
     useLoadingAction(state.value, () => fileStore.getFileByName({ filename: videoFileName.value }, state.value));
   });
 

@@ -28,7 +28,7 @@ const emit = defineEmits<{
 }>();
 
 const { postWorkout, postWorkoutResponse, patchWorkout, patchWorkoutResponse } = useAdminWorkoutStore();
-const { getPromptsResponse, getPrompts } = useAdminPromptStore();
+const { prompts, getPrompts } = useAdminPromptStore();
 
 useLoading(patchWorkoutResponse);
 
@@ -42,11 +42,7 @@ const onsubmit = async () => {
     const exerciseForm = exerciseForms.value[i];
     await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
       //find prompt with id. use prompt to pick photoLink and videoLink
-      const prompt = getPromptsResponse.data?.data.find((prompt) => prompt.id === values._promptId);
-      if (!prompt) {
-        console.error('Could not find prompt with this id');
-        return;
-      }
+      const { prompt } = values;
 
       const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
         name: values.name,
@@ -54,10 +50,10 @@ const onsubmit = async () => {
         photoLink: prompt.photoLink,
         videoLink: prompt.videoLink,
         repetitions: values.repetitions,
-        restTime: parseInt(values.restTime),
+        restTime: values.restTime,
         trainerComment: values.trainerComment,
-        sets: parseInt(values.sets),
-        weight: parseInt(values.weight),
+        sets: values.sets,
+        weight: values.weight,
       };
 
       assign(exercises.value[i], exercise);
@@ -85,7 +81,7 @@ const onsubmit = async () => {
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
-useLoading(getPromptsResponse);
+useLoading(prompts.state);
 getPrompts({ type: '' });
 </script>
 
@@ -104,7 +100,7 @@ getPrompts({ type: '' });
         p="0!"
         mt-0.5rem
       >
-        <FNewTrainingFields :prompts="getPromptsResponse.data?.data" />
+        <FNewTrainingFields :prompts="prompts.data?.data" />
 
         <template #submit-btn>
           <FListControls

@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import { EAdminPromptThumbnail } from 'entities/EAdminPromptThumbnail';
+import { EAdminPromptThumbnail } from 'entities/workout/EAdminPromptThumbnail';
 import { Prompt } from 'shared/api/admin';
 import { SChooseInput, SInput } from 'shared/ui/inputs';
 
 export interface ENewTrainingFieldsProps {
   prompts?: Array<Prompt>;
 }
-defineProps<ENewTrainingFieldsProps>();
+const props = defineProps<ENewTrainingFieldsProps>();
 
-const promptValue = ref<Prompt>();
-const updateValue = (next: Prompt) => (promptValue.value = next);
+//TODO: Use getPrompts with filter
+const filterStr = ref('');
+const filteredPrompts = computed(() => props.prompts?.filter((prompt) => prompt.type.includes(filterStr.value)));
 </script>
 
 <template>
   <SChooseInput
     v-if="prompts"
-    name="_promptId"
+    name="prompt"
     :label="$t('admin.prompt.training.type')"
-    :model-value="promptValue?.id"
-    :display="promptValue?.type"
+    :items="filteredPrompts ?? []"
+    option-value="type"
+    v-model:inner-input="filterStr"
   >
-    <div v-for="prompt in prompts" :key="prompt.id" @click="() => updateValue(prompt)" mr-0.5rem>
-      <EAdminPromptThumbnail :photo="prompt.photoLink" :type="prompt.type" />
-    </div>
+    <template #item="{ item, onclick }">
+      <div @click="onclick">
+        <EAdminPromptThumbnail :photo="item.photoLink" :type="item.type" />
+      </div>
+    </template>
   </SChooseInput>
 
   <div grid grid-cols-2 grid-rows-3 gap-0.5rem>
