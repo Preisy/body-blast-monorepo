@@ -8,7 +8,6 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 import { AuthModule } from '../../authentication/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BaseUserModule } from '../../core/user/base-user.module';
-import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
     BaseAnthropometricsModule,
     ScheduleModule,
     BaseUserModule,
-    RedisModule,
   ],
   controllers: [AdminAnthropometricsController],
   providers: [AdminAnthropometricsService],

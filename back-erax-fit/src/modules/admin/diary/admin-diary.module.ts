@@ -8,7 +8,6 @@ import { BaseUserModule } from '../../../modules/core/user/base-user.module';
 import { BaseWorkoutModule } from '../../../modules/core/workout/base-workout.module';
 import { AdminDiaryService } from './admin-diary.service';
 import { AdminDiaryController } from './admin-diary.controller';
-import { RedisModule } from '@liaoliaots/nestjs-redis';
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { RedisModule } from '@liaoliaots/nestjs-redis';
     BaseDiaryTemplateModule,
     BaseWorkoutModule,
     BaseDiaryModule,
-    RedisModule,
   ],
   providers: [AdminDiaryService],
   controllers: [AdminDiaryController],

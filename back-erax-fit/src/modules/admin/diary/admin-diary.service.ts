@@ -11,14 +11,12 @@ import { Repository } from 'typeorm';
 import { GetStepsByUserIdByAdminDTO } from './dto/admin-get-steps-by-userId.dto';
 import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
-import { RedisManager } from '@liaoliaots/nestjs-redis';
 
 @Injectable()
 export class AdminDiaryService {
   constructor(
     @InjectRepository(DiaryEntity)
     private readonly diaryRepository: Repository<DiaryEntity>,
-    private readonly redisService: RedisManager,
     private readonly baseService: BaseDiaryService,
     private readonly workoutService: BaseWorkoutService,
     private readonly diaryTemplateService: BaseDiaryTemplateService,
@@ -30,15 +28,6 @@ export class AdminDiaryService {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);
 
-    const client = await this.redisService.getClient();
-    const key = `createDiaryCron:${newDate.toISOString()}`;
-
-    const isLocked = await client.exists(key);
-    if (isLocked) {
-      return;
-    }
-
-    await client.set(key, 'locked', 'EX', 86400);
     const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
       where: {
         date: newDate,
