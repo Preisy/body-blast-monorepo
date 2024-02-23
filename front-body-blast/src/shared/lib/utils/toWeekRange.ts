@@ -1,14 +1,9 @@
 import moment from 'moment';
 import { Diary } from 'shared/api/diary';
 
-/// Converts 'dateString' DD.MM date format to week range,
-/// which includes 'dateString'
-/// Example: 20.02 -> 19-25
-/// 19.02 - Monday
-/// 25.02 - Sunday
-/// 20.02 takes place between this two values
-export const toWeekRange = (dateString: Diary['date']) => {
-  const [dd, mm] = dateString.split('.');
+/// Converts ISO date format to week range,
+export const toWeekRange = (isoDateString: Diary['date']) => {
+  const [dd, mm] = moment(isoDateString).format('DD.MM').split('.');
   const date = moment()
     .date(parseInt(dd))
     .month(parseInt(mm) - 1);

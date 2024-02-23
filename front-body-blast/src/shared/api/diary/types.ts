@@ -4,8 +4,8 @@ import { AppPagination } from '../pagination';
 import { User } from '../user';
 
 export interface Diary extends AppBaseEntity {
-  cycle: number;
-  date: `${number}.${number}`; // DD.MM format. Example: 20.02, 20th of february
+  cycle: Nullable<number>;
+  date: string; // ISO format
   sum: Nullable<number>;
   activity: Nullable<string>;
   steps: Nullable<number>;

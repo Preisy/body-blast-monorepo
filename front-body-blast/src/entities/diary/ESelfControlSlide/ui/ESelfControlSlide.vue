@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import moment from 'moment';
 import { Diary } from 'shared/api/diary';
 import { SBtnToggle } from 'shared/ui/btns';
 import { SReadonlyField } from 'shared/ui/inputs';
@@ -23,21 +24,21 @@ const dropdownStyle = computed(() => {
   const result = `calc(${deltaHeight} - 0.5rem)`;
   return isDropdownShown.value ? '' : result;
 });
+const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
 </script>
 
 <template>
   <div @click="isDropdownShown = !isDropdownShown" overflow-hidden rounded-1rem>
     <div flex flex-row gap-0.5rem rounded-1rem bg-bg>
-      <!-- TODO: Число цикла? -->
       <SReadonlyField
-        :title="$t('admin.diary.mode') + ' ' + diary.date"
-        :value="$t('admin.diary.cycle') + 999"
+        :title="$t('admin.diary.mode') + ' ' + ISODateToDDMM(diary.date)"
+        :value="$t('admin.diary.cycle') + ' ' + (diary.cycle ?? '?')"
         class="cycles"
         w="100%"
         bg-accent
       />
       <SReadonlyField
-        :title="$t('admin.diary.total') + ' ' + diary.date"
+        :title="$t('admin.diary.total') + ' ' + ISODateToDDMM(diary.date)"
         :value="propsTotal(diary) ?? 0"
         class="total"
         w="100%"

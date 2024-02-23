@@ -23,7 +23,7 @@ export class AdminDiaryService {
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  @Cron(CronExpression.EVERY_MINUTE)
   async createDiaryCron() {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);

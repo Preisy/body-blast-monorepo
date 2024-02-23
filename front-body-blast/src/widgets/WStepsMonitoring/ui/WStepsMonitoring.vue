@@ -20,14 +20,12 @@ const stepsSlides = computed(() => {
   const weeks: Record<string, WeekSlide> = {};
 
   props.data.forEach((diary) => {
-    if (!diary.sum || !diary.steps) return;
-
     const week = toWeekRange(diary.date);
     if (week in weeks) {
-      weeks[week].steps += diary.steps;
+      weeks[week].steps += diary.steps ?? 0;
       weeks[week].status = weeks[week].steps >= weeks[week].sum ? 'COMPLETED' : 'UNCOMPLETED';
     } else {
-      weeks[week] = { steps: diary.steps, sum: diary.sum, week, status: 'UNCOMPLETED' };
+      weeks[week] = { steps: diary.steps ?? 0, sum: diary.sum ?? 0, week, status: 'UNCOMPLETED' };
     }
   });
 
@@ -46,12 +44,12 @@ const weekStatusToClass = (status: WeekSlide['status']) => {
 <template>
   <div>
     <h1>{{ $t('admin.diary.steps') }}</h1>
-    <template v-if="data.length">
+    <template v-if="Object.keys(stepsSlides).length">
       <div grid grid-cols-2 mt-1rem gap-0.5rem>
         <SReadonlyField
           v-for="slide in stepsSlides"
           :key="slide.week"
-          :title="slide.week"
+          :title="$t('admin.diary.stepsOf') + ' ' + slide.week"
           :value="`${slide.steps}/${slide.sum}`"
           :class="weekStatusToClass(slide.status)"
         />
