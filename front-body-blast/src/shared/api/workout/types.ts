@@ -7,7 +7,7 @@ export interface Workout extends AppBaseEntity {
   name: string;
   date: string; //ISO string date type: 2023-12-31
   comment: Optional<string>;
-  loop: number;
+  cycle: number;
   userId: number;
   exercises: Optional<
     Array<
@@ -44,7 +44,7 @@ export namespace Workout {
   export const validation = () =>
     z.object({
       name: z.string().min(1),
-      loop: z.string().min(1),
+      cycle: z.string().min(1),
       comment: z.string().min(1).optional(),
       exercises: z.array(
         z.object({

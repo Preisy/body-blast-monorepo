@@ -66,7 +66,7 @@ const onsubmit = async () => {
       comment: values.comment,
       date: moment().toISOString(), //today
       exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
-      loop: parseInt(values.loop),
+      cycle: parseInt(values.cycle),
       userId: props.id,
     };
 

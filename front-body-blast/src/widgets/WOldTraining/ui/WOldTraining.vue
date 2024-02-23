@@ -36,7 +36,7 @@ const onDelete = async () => {
     <div flex gap-x-0.5rem>
       <SReadonlyField
         :title="$t('admin.prompt.training.cycle')"
-        :value="workout.loop"
+        :value="workout.cycle"
         mb-1rem
         bg-accent
         px-1rem
