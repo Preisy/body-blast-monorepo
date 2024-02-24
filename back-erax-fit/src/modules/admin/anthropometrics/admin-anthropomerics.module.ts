@@ -22,7 +22,7 @@ import { BullModule } from '@nestjs/bull';
     }),
   ],
   controllers: [AdminAnthropometricsController],
-  providers: [AdminAnthropometricsService],
+  providers: [AdminAnthropometricsService, AdminAnthropometricsController],
   exports: [AdminAnthropometricsService],
 })
 export class AdminAntropometricsModule {}

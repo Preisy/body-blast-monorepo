@@ -9,6 +9,7 @@ import { BaseWorkoutModule } from '../../../modules/core/workout/base-workout.mo
 import { AdminDiaryService } from './admin-diary.service';
 import { AdminDiaryController } from './admin-diary.controller';
 import { BullModule } from '@nestjs/bull';
+import { AdminDiaryConsumer } from './admin-diary.consumer';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { BullModule } from '@nestjs/bull';
   ],
   providers: [AdminDiaryService],
   controllers: [AdminDiaryController],
-  exports: [AdminDiaryService],
+  exports: [AdminDiaryService, AdminDiaryConsumer],
 })
 export class AdminDiaryModule {}
