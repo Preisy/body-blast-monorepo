@@ -38,7 +38,7 @@ export default route(function (/* { store, ssrContext } */) {
     useLoading(me);
     await getMe();
 
-    if (!me.data) {
+    if (me.state.isError() || !me.data) {
       // if can't get data about self, then need to relogin
       return {
         path: ENUMS.ROUTES_NAMES.LOGIN,

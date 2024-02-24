@@ -2,7 +2,7 @@ export default {
   admin: {
     nutrition: {
       name: 'Name',
-      new_nutrition_title: 'Create new',
+      new_nutrition_title: 'New nutrition',
     },
   },
 };

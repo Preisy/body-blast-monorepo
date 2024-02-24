@@ -8,7 +8,7 @@ export const AdminTrainingsService = {
   postTrainings: useServiceAction((data: AdminTraining.Dto) =>
     api.post<AdminTraining.Response>('/admin/workouts', data),
   ),
-  getTrainings: useServiceAction((data: AppPagination.BaseDto) =>
+  getTrainings: useServiceAction((data?: AppPagination.BaseDto) =>
     api.get<Training.Response.Expanded>(`/admin/workouts`, { params: data }),
   ),
   getUserTrainings: useServiceAction((id: number) => api.get<Training.Response.Expanded>(`/admin/workouts/${id}`)),

@@ -1,7 +1,7 @@
 export default {
   admin: {
     nutrition: {
-      new_food_title: 'Create new',
+      new_food_title: 'New food',
     },
   },
 };

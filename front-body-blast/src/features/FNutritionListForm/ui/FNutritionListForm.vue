@@ -21,7 +21,7 @@ const emit = defineEmits<{
 }>();
 
 // Used only for buttons loading state
-const { patchNutritionResponse } = useAdminNutritionStore();
+const { nutritions } = useAdminNutritionStore();
 
 // All mealItems forms
 const forms = ref<Array<InstanceType<typeof SForm>>>();
@@ -94,10 +94,10 @@ onMounted(() => {
 
       <template #submit-btn>
         <SListControls
+          disabled-submit
           :disabled-add="index !== lines.length - 1"
-          :disabled-submit="index !== lines.length - 1"
           :disabled-remove="!(lines.length - 1)"
-          :loading-submit="patchNutritionResponse.state.isLoading()"
+          :loading-submit="nutritions.updateState.isLoading()"
           @remove="() => onremove(index)"
           @add="onadd"
           mt-0.5rem

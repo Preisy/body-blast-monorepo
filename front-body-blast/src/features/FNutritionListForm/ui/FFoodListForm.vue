@@ -23,7 +23,7 @@ const emit = defineEmits<{
 }>();
 const forms = ref<Array<InstanceType<typeof SForm>>>();
 
-const { deleteFoodResponse, patchFoodResponse, postFoodResponse } = useAdminFoodStore();
+const { foods } = useAdminFoodStore();
 
 const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
   props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
@@ -35,13 +35,19 @@ const onRemoveApply = async () => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
   const food = lines.value[removeItemIndex.value];
   if (!food) return;
+
+  if (!food.id) {
+    lines.value.splice(removeItemIndex.value, 1);
+    return;
+  }
   // if deletionDialog was approved -> emit 'remove' signal to parent
-  emit('remove', food.id!);
+  emit('remove', food.id);
   // See watchEffect in the end of <script> to further explanaition
 };
 
 const onremove = (index: number) => {
   dialog.value?.show();
+  foods.deleteState.error();
   removeItemIndex.value = index;
 };
 const onadd = () => {
@@ -57,13 +63,22 @@ const onsubmit = async (index: number, values: Pick<Food, 'name'>) => {
 };
 const validationSchema = toTypedSchema(Food.validation().pick({ name: true }));
 
-const unwatch = watchEffect(() => {
-  if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  if (deleteFoodResponse.state.isSuccess() && deleteFoodResponse.data?.status)
-    lines.value.splice(removeItemIndex.value, 1);
+const getFormValues = async () => {
+  if (!forms.value) return;
+  const result: Array<Food> = [];
+  for (const form of forms.value)
+    await form.handleSubmit((values) => result.push({ ...values, category: props.category }))();
+  return result;
+};
+
+defineExpose({
+  getFormValues,
+  category: props.category,
 });
-onUnmounted(() => {
-  unwatch();
+
+watchEffect(() => {
+  if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
+  if (foods.deleteState.isSuccess()) lines.value.splice(removeItemIndex.value, 1);
 });
 onMounted(() => {
   if (!lines.value.length) lines.value.push({ uniqueId: uniqueId('line-') });
@@ -89,9 +104,8 @@ onMounted(() => {
 
       <template #submit-btn>
         <SListControls
+          disabled-submit
           :disabled-add="index !== lines.length - 1"
-          :disabled-remove="!lines[index].name"
-          :loading-submit="patchFoodResponse.state.isLoading() || postFoodResponse.state.isLoading()"
           @remove="() => onremove(index)"
           @add="onadd"
           mt-0.5rem

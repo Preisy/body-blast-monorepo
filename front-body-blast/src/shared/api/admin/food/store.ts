@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { FoodService } from './service';
 import { AdminFood } from './types';
 
 export const useAdminFoodStore = defineStore('admin-food-store', () => {
-  const getFoodsResponse = ref(useSingleState<AdminFood.Get.Response>());
+  const foods = ref(useSingleState<AdminFood.Get.Response>({ update: true, delete: true, create: true }));
   const getFoods = (pagination?: AdminFood.Get.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getFoodsResponse.value,
+      stateWrapper: foods.value,
       serviceAction: FoodService.getFoods(pagination),
     });
 
@@ -18,37 +18,31 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
       serviceAction: FoodService.getFoodById(data),
     });
 
-  const postFoodResponse = ref(useSingleState<AdminFood.Post.Response>());
   const postFood = (data: AdminFood.Post.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: postFoodResponse.value,
+    useStoreAction({
+      state: foods.value.createState,
       serviceAction: FoodService.postFood(data),
     });
 
-  const patchFoodResponse = ref(useSingleState<AdminFood.Patch.Response>());
   const patchFood = (data: AdminFood.Patch.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: patchFoodResponse.value,
+    useStoreAction({
+      state: foods.value.updateState,
       serviceAction: FoodService.patchFood(data),
     });
 
-  const deleteFoodResponse = ref(useSingleState<AdminFood.Delete.Response>());
   const deleteFood = (data: AdminFood.Delete.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: deleteFoodResponse.value,
+    useStoreAction({
+      state: foods.value.deleteState,
       serviceAction: FoodService.deleteFood(data),
     });
 
   return {
-    getFoodsResponse,
+    foods,
     getFoods,
     getFoodById,
     getFoodByIdResponse,
     patchFood,
-    patchFoodResponse,
     postFood,
-    postFoodResponse,
     deleteFood,
-    deleteFoodResponse,
   };
 });

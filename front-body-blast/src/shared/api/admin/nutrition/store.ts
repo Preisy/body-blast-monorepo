@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { adminNutritionService } from './service';
 import { AdminNutrition } from './types';
 
 export const useAdminNutritionStore = defineStore('admin-nutrition-store', () => {
-  const getNutritionsResponse = ref(useSingleState<AdminNutrition.Get.Response>());
+  const nutritions = ref(useSingleState<AdminNutrition.Get.Response>({ create: true, update: true, delete: true }));
   const getNutritions = (data?: AdminNutrition.Get.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getNutritionsResponse.value,
+      stateWrapper: nutritions.value,
       serviceAction: adminNutritionService.getNutritions(data),
     });
 
@@ -18,37 +18,31 @@ export const useAdminNutritionStore = defineStore('admin-nutrition-store', () =>
       serviceAction: adminNutritionService.getNutritionById(data),
     });
 
-  const postNutritionResponse = ref(useSingleState<AdminNutrition.Post.Response>());
   const postNutrition = (data: AdminNutrition.Post.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: postNutritionResponse.value,
+    useStoreAction({
+      state: nutritions.value.createState,
       serviceAction: adminNutritionService.postNutrition(data),
     });
 
-  const patchNutritionResponse = ref(useSingleState<AdminNutrition.Patch.Response>());
   const patchNutrition = (data: AdminNutrition.Patch.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: patchNutritionResponse.value,
+    useStoreAction({
+      state: nutritions.value.updateState,
       serviceAction: adminNutritionService.patchNutrition(data),
     });
 
-  const deleteNutritionResponse = ref(useSingleState<AdminNutrition.Delete.Response>());
   const deleteNutrition = (data: AdminNutrition.Delete.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: deleteNutritionResponse.value,
+    useStoreAction({
+      state: nutritions.value.deleteState,
       serviceAction: adminNutritionService.deleteNutrition(data),
     });
 
   return {
     getNutritions,
-    getNutritionsResponse,
+    nutritions,
     getNutritionById,
     getNutritionByIdResponse,
     postNutrition,
-    postNutritionResponse,
     patchNutrition,
-    patchNutritionResponse,
     deleteNutrition,
-    deleteNutritionResponse,
   };
 });

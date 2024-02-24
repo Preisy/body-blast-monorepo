@@ -1,8 +1,11 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
+import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FFoodListForm } from 'features/FNutritionListForm';
 import { useAdminFoodStore } from 'shared/api/admin';
 import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
+import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
@@ -11,12 +14,21 @@ export interface WAdminNewFoodProps {
 }
 defineProps<WAdminNewFoodProps>();
 
-const { postFood, postFoodResponse } = useAdminFoodStore();
+const { postFood, foods } = useAdminFoodStore();
 
 const categories = [1, 2, 3] as const;
 const type = ref();
-const onCreate = (food: Pick<Food, 'name' | 'category'>) => {
-  useLoadingAction(postFoodResponse, () => postFood({ ...food, type: type.value }));
+const forms = ref<Array<InstanceType<typeof FFoodListForm>>>();
+
+const onCreate = async () => {
+  if (!forms.value) return;
+
+  for (const form of forms.value) {
+    const foodValues = await form.getFormValues();
+    if (!foodValues) continue;
+
+    for (const food of foodValues) useLoadingAction(foods.createState, () => postFood({ ...food, type: type.value }));
+  }
 };
 </script>
 
@@ -26,8 +38,13 @@ const onCreate = (food: Pick<Food, 'name' | 'category'>) => {
 
     <SInput v-model="type" name="type" :label="$t('admin.nutrition.type')" mb-1rem mt-0.5rem />
 
-    <template v-for="category in categories" :key="category">
-      <FFoodListForm :category="category" @create="onCreate" mb-1.5rem />
-    </template>
+    <FFoodListForm ref="forms" v-for="category in categories" :key="category" :category="category" mb-1.5rem />
+    <div flex flex-row justify-end>
+      <SBtn
+        @click="onCreate"
+        :icon="symRoundedDone"
+        :loading="foods.updateState.isLoading() || foods.createState.isLoading()"
+      />
+    </div>
   </SComponentWrapper>
 </template>

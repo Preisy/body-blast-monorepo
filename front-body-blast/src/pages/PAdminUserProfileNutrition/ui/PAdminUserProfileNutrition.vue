@@ -18,21 +18,21 @@ export interface PAdminUserProfileNutritionProps {
 }
 defineProps<PAdminUserProfileNutritionProps>();
 
-const { t } = useI18n();
+const { t, te } = useI18n();
 
 const pageValue = ref('nutrition');
-const { getNutritions, getNutritionsResponse } = useAdminNutritionStore();
-useLoadingAction(getNutritionsResponse, () => getNutritions({ expanded: true }));
-const { getFoods, getFoodsResponse } = useAdminFoodStore();
-useLoadingAction(getFoodsResponse, getFoods);
+const { getNutritions, nutritions } = useAdminNutritionStore();
+useLoadingAction(nutritions.state, () => getNutritions({ expanded: true }));
+const { getFoods, foods } = useAdminFoodStore();
+useLoadingAction(foods.state, getFoods);
 
-const nutritions = computed(() => getNutritionsResponse.data?.data);
-const foods = computed(() => getFoodsResponse.data?.data);
+const nutritionsData = computed(() => nutritions.data?.data);
+const foodsData = computed(() => foods.data?.data);
 
 type AccumulatorType = Record<string, Array<Food>>;
 const foodSlides = computed(
   () =>
-    foods.value?.reduce<AccumulatorType>((acc: AccumulatorType, food) => {
+    foodsData.value?.reduce<AccumulatorType>((acc: AccumulatorType, food) => {
       const isTypeInAcc = food.type in acc;
       if (!isTypeInAcc) acc[food.type] = [];
       acc[food.type].push(food);
@@ -47,12 +47,12 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 
   if (!foodSlides.value) return result;
   const foodPages = Object.keys(foodSlides.value).map((type) => ({
-    label: t(`home.diet.${type}`),
+    label: te(`home.diet.${type}`) ? t(`home.diet.${type}`) : type,
     value: type,
   }));
   result.push(...foodPages);
 
-  result.push({ label: 'new_food', value: 'new_food' });
+  result.push({ label: t('admin.nutrition.new_food'), value: 'new_food' });
 
   return result;
 });
@@ -65,10 +65,10 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
         <SCenteredNav v-model="pageValue" :pages="pages" />
       </div>
 
-      <QTabPanels v-if="foodSlides && nutritions" :model-value="pageValue" swipeable infinite z-10>
+      <QTabPanels v-if="foodSlides && nutritionsData" :model-value="pageValue" swipeable infinite z-10>
         <QTabPanel :name="pages[0].value" p="0!">
           <WAdminNutrition
-            v-for="nutrition in nutritions"
+            v-for="nutrition in nutritionsData"
             :nutrition="nutrition"
             :key="nutrition.id"
             :title="pages[0].label"

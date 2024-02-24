@@ -14,7 +14,7 @@ const setPage = (p: string) => emit('update:modelValue', p);
 
 <template>
   <SCenteredByChild :gap="2" :model-value="modelValue">
-    <p
+    <a
       v-for="page in pages"
       nowrap
       font-semibold
@@ -25,6 +25,6 @@ const setPage = (p: string) => emit('update:modelValue', p);
       :class="{ 'opacity-50': modelValue !== page.value }"
     >
       {{ page.label }}
-    </p>
+    </a>
   </SCenteredByChild>
 </template>
