@@ -25,7 +25,6 @@ defineProps<WDietNutritionProps>();
           omitEnd: true,
           gap: '2rem',
         }"
-        class="[&>ul>li:nth-last-child(2)]:hidden!"
       >
         <SSplideSlide v-for="(nutrition, index) in nutritions" :key="index">
           <EDietItem
@@ -35,11 +34,6 @@ defineProps<WDietNutritionProps>();
             class="mx-0!"
           />
           <SNoResultsScreen v-else p-1.5rem />
-        </SSplideSlide>
-
-        <!-- Workaround for Splide lib -->
-        <SSplideSlide>
-          <div />
         </SSplideSlide>
       </SSplide>
     </SComponentWrapper>

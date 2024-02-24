@@ -23,7 +23,7 @@ const foodList = computed(
       // For each rec.type construct fake Nutrition. With rec.type as name
       const index = acc.findIndex((it) => it.name === rec.type);
       // If Nutrition.name with rec.type does not exists
-      if (index === -1) acc.push({ name: rec.type, mealItems: [] }); // Create one
+      if (index === -1) acc.push({ name: rec.type, mealItems: [rec] }); // Create one
       else acc[index].mealItems?.push(rec); // Otherwise - push another food to nutrition.mealItems list
       // return array of fake Nutritions
       return acc;
