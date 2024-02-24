@@ -8,6 +8,7 @@ import { BaseUserModule } from '../../../modules/core/user/base-user.module';
 import { BaseWorkoutModule } from '../../../modules/core/workout/base-workout.module';
 import { AdminDiaryService } from './admin-diary.service';
 import { AdminDiaryController } from './admin-diary.controller';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -17,6 +18,9 @@ import { AdminDiaryController } from './admin-diary.controller';
     BaseDiaryTemplateModule,
     BaseWorkoutModule,
     BaseDiaryModule,
+    BullModule.registerQueue({
+      name: 'diary',
+    }),
   ],
   providers: [AdminDiaryService],
   controllers: [AdminDiaryController],

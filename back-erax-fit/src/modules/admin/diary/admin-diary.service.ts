@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BaseDiaryTemplateService } from '../../../modules/core/diary-template/base-diary-template.service';
 import { BaseDiaryService } from '../../../modules/core/diary/base-diary.service';
@@ -11,6 +10,8 @@ import { Repository } from 'typeorm';
 import { GetStepsByUserIdByAdminDTO } from './dto/admin-get-steps-by-userId.dto';
 import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
+import { InjectQueue } from '@nestjs/bull';
+import { Queue } from 'bull';
 
 @Injectable()
 export class AdminDiaryService {
@@ -20,11 +21,15 @@ export class AdminDiaryService {
     private readonly baseService: BaseDiaryService,
     private readonly workoutService: BaseWorkoutService,
     private readonly diaryTemplateService: BaseDiaryTemplateService,
+    @InjectQueue('diary') private readonly diaryQueue: Queue,
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-  async createDiaryCron() {
+  async createDiaryQueueJob() {
+    await this.diaryQueue.add(await this.createDiary(), { delay: 24 * 60 * 60 * 1000 });
+  }
+
+  async createDiary() {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);
 

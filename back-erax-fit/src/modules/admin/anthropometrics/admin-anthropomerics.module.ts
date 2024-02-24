@@ -8,6 +8,7 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 import { AuthModule } from '../../authentication/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BaseUserModule } from '../../core/user/base-user.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -16,6 +17,9 @@ import { BaseUserModule } from '../../core/user/base-user.module';
     BaseAnthropometricsModule,
     ScheduleModule,
     BaseUserModule,
+    BullModule.registerQueue({
+      name: 'anthropometrics',
+    }),
   ],
   controllers: [AdminAnthropometricsController],
   providers: [AdminAnthropometricsService],
