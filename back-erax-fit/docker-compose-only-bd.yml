@@ -23,9 +23,9 @@ services:
       - '${REDIS_PUBLIC_PORT}:6379'
     env_file: .env
     environment:
-      - REDIS_PASSWORD: '${RD_PASSWORD}'
-      - REDIS_PORT: '${RD_PORT}'
-      - REDIS_DATABASES: '${RD_DATABASES}'
+      REDIS_PASSWORD: '${RD_PASSWORD}'
+      REDIS_PORT: '${RD_PORT}'
+      REDIS_DATABASES: '${RD_DATABASE}'
     volumes:
       - redis_data:/root/redis
       - redis_conf:/usr/local/etc/redis/redis.conf

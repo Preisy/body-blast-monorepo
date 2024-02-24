@@ -23,6 +23,7 @@ import { AdminNutritionModule } from './modules/admin/nutrition/admin-nutrition.
 import { ClientNutritionModule } from './modules/client/nutrition/client-nutrition.module';
 import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
@@ -49,6 +50,12 @@ import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
     ClientNutritionModule,
     AdminDiaryModule,
     ClientDiaryModule,
+    BullModule.forRoot({
+      redis: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
