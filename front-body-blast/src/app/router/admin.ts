@@ -6,6 +6,7 @@ import { PAdminPrompt } from 'pages/PAdminPrompt';
 import { PAdminUserProfile } from 'pages/PAdminUserProfile';
 import { PAdminUserProfileBio } from 'pages/PAdminUserProfileBio';
 import { ENUMS } from 'shared/lib/enums';
+import { getUserIdFromRoute } from 'shared/lib/utils/getUserIdFromRoute';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
 export const adminRoutes: RouteRecordRaw = {
@@ -39,7 +40,7 @@ export const adminRoutes: RouteRecordRaw = {
           path: '',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE,
-          props: true,
+          props: (route) => getUserIdFromRoute(route),
           component: PAdminUserProfile,
         },
         {
@@ -53,14 +54,7 @@ export const adminRoutes: RouteRecordRaw = {
           path: 'diary',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY,
-          props: (route) => {
-            const id = route.params.id;
-
-            if (id instanceof Array) return { id: -1 };
-            return {
-              id: parseInt(id),
-            };
-          },
+          props: (route) => getUserIdFromRoute(route),
           component: () => import('pages/PAdminDiary/ui/PAdminDiary.vue'),
         },
       ],

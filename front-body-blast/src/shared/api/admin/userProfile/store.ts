@@ -4,41 +4,59 @@ import { AppPagination } from 'shared/api/pagination';
 import { User } from 'shared/api/user';
 import { useSingleState, useSimpleStoreAction } from 'shared/lib/utils';
 import { adminProfileService } from './service';
-import { AdminGetUsers, AdminPatchUser, AdminGetUser } from './types';
+import { AdminUser } from './types';
 
 export const useAdminUserProfileStore = defineStore('admin-userProfile-store', () => {
   const currentUser = ref<User>();
   const setCurrentUser = (newVal: User) => (currentUser.value = newVal);
 
-  const clientProfiles = ref(useSingleState<AdminGetUsers.Response>());
-  const getUserProfiles = (data?: AppPagination.BaseDto) =>
+  const users = ref(useSingleState<AdminUser.Get.Response>());
+  const getUsers = (data?: AppPagination.BaseDto) =>
     useSimpleStoreAction({
-      stateWrapper: clientProfiles.value,
+      stateWrapper: users.value,
       serviceAction: adminProfileService.getUsers(data),
     });
 
-  const getUserProfileResponse = ref(useSingleState<AdminGetUser.Response>());
-  const getUserProfile = (data: AppBaseEntity.Dto) =>
+  const user = ref(useSingleState<AdminUser.GetById.Response>());
+  const getUserById = (data: AppBaseEntity.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getUserProfileResponse.value,
-      serviceAction: adminProfileService.getUser(data),
+      stateWrapper: user.value,
+      serviceAction: adminProfileService.getUserById(data),
     });
 
-  const patchUserResponse = ref(useSingleState<AdminPatchUser.Response>());
-  const patchUserProfile = (id: number | string, data: Partial<User>) =>
+  const patchUserProfileResponse = ref(useSingleState<AdminUser.Patch.Response>());
+  const patchUserProfile = (data: AdminUser.Patch.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: patchUserResponse.value,
-      serviceAction: adminProfileService.patchUser(id, data),
+      stateWrapper: patchUserProfileResponse.value,
+      serviceAction: adminProfileService.patchUser(data),
+    });
+
+  const userDiaries = ref(useSingleState<AdminUser.GetDiaries.Response>());
+  const getUserDiaries = (data: AdminUser.GetDiaries.Dto) =>
+    useSimpleStoreAction({
+      stateWrapper: userDiaries.value,
+      serviceAction: adminProfileService.getUserDiaries(data),
+    });
+
+  const userSteps = ref(useSingleState<AdminUser.GetSteps.Response>());
+  const getUserSteps = (data: AdminUser.GetSteps.Dto) =>
+    useSimpleStoreAction({
+      stateWrapper: userSteps.value,
+      serviceAction: adminProfileService.getUserSteps(data),
     });
 
   return {
-    getUserProfileResponse,
-    getUserProfile,
+    user,
+    users,
+    getUserById,
     currentUser,
     setCurrentUser,
-    clientProfiles,
-    getUserProfiles,
-    patchUserResponse,
+    getUsers,
     patchUserProfile,
+    patchUserProfileResponse,
+    userDiaries,
+    getUserDiaries,
+    userSteps,
+    getUserSteps,
   };
 });

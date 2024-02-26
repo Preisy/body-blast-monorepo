@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { WSelfControlMonitoring } from 'widgets/WSelfControlMonitoring';
 import { WStepsMonitoring } from 'widgets/WStepsMonitoring';
-import { useAdminDiaryStore } from 'shared/api/admin';
+import { useAdminUserProfileStore } from 'shared/api/admin';
 import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
@@ -14,8 +14,8 @@ import { SSplideSlide } from 'shared/ui/SSplideSlide';
 export interface PAdminDiaryProps {
   id: number;
 }
-defineProps<PAdminDiaryProps>();
-const { getDiary, getDiaryResponse } = useAdminDiaryStore();
+const props = defineProps<PAdminDiaryProps>();
+const { getUserSteps, getUserDiaries, userDiaries, userSteps } = useAdminUserProfileStore();
 
 // 2024-02-01T23:59:59.000Z
 const dateRaw = ref<string>(moment().toISOString());
@@ -26,21 +26,28 @@ const date = computed<string>(() =>
 // 2024-03-01T00:00:00.000 <- Difference with 'date' only in MM field
 const dateMonthPlusOne = computed(() => moment(date.value).add(1, 'M').toISOString());
 
-watchEffect(() =>
+watchEffect(() => {
   //get all diaries in month range
-  useLoadingAction(getDiaryResponse, () => getDiary({ expanded: true, from: date.value, to: dateMonthPlusOne.value })),
-);
+  useLoadingAction(userDiaries, () =>
+    getUserDiaries({ id: props.id, pagination: { expanded: true, from: date.value, to: dateMonthPlusOne.value } }),
+  );
+  //get all steps in month range
+  useLoadingAction(userSteps, () =>
+    getUserSteps({ id: props.id, pagination: { expanded: true, from: date.value, to: dateMonthPlusOne.value } }),
+  );
+});
 
-const slides = computed(() => getDiaryResponse.data?.data);
+const diariesData = computed(() => userDiaries.data?.data);
+const stepsData = computed(() => userSteps.data?.data);
 
-const weekSlides = computed(() => {
-  const weekSlides: Record<string, Array<Diary>> = {};
-  slides.value?.forEach((slide) => {
+const diariesSlides = computed(() => {
+  const diariesSlides: Record<string, Array<Diary>> = {};
+  diariesData.value?.forEach((slide) => {
     const week = toWeekRange(slide.date);
-    if (week in weekSlides) weekSlides[week].push(slide);
-    else weekSlides[week] = [slide];
+    if (week in diariesSlides) diariesSlides[week].push(slide);
+    else diariesSlides[week] = [slide];
   });
-  return weekSlides;
+  return diariesSlides;
 });
 </script>
 
@@ -57,10 +64,10 @@ const weekSlides = computed(() => {
 
     <SSplide :options="{ direction: 'ttb', height: '100vh' }">
       <SSplideSlide>
-        <WStepsMonitoring :data="slides ?? []" />
+        <WStepsMonitoring :weeks="stepsData?.weeks ?? []" />
       </SSplideSlide>
-      <SSplideSlide v-for="week in Object.keys(weekSlides)" :key="week">
-        <WSelfControlMonitoring :slides="weekSlides[week]" :week="week" />
+      <SSplideSlide v-for="week in Object.keys(diariesSlides)" :key="week">
+        <WSelfControlMonitoring :slides="diariesSlides[week]" :week="week" />
       </SSplideSlide>
     </SSplide>
   </SComponentWrapper>

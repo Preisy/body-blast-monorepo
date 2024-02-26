@@ -18,7 +18,7 @@ import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
 export interface PAdminUserProfileProps {
-  id: string;
+  id: number;
 }
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
@@ -31,9 +31,9 @@ const setCurrentUser = adminProfileStore.setCurrentUser;
 const router = useRouter();
 
 if (!currentUser.value)
-  useLoadingAction(adminProfileStore.getUserProfileResponse, async () => {
-    await adminProfileStore.getUserProfile({ id: parseInt(props.id) });
-    const user = adminProfileStore.getUserProfileResponse.data?.data;
+  useLoadingAction(adminProfileStore.user, async () => {
+    await adminProfileStore.getUserById({ id: props.id });
+    const user = adminProfileStore.user.data?.data;
 
     if (!user) {
       router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
@@ -47,10 +47,10 @@ const currentUserName = computed(() => `${currentUser.value?.firstName} ${curren
 const canWatchVideo = computed(() => currentUser.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => currentUser.value?.anthrpJobPeriod);
 
-useLoading(adminProfileStore.patchUserResponse);
+useLoading(adminProfileStore.patchUserProfileResponse);
 const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) => {
-  await adminProfileStore.patchUserProfile(props.id, { [field]: newValue }); // TODO: 400 Bad Request - написать беку
-  const user = adminProfileStore.patchUserResponse.data?.data;
+  await adminProfileStore.patchUserProfile({ id: props.id, user: { [field]: newValue } }); // TODO: 400 Bad Request - написать беку
+  const user = adminProfileStore.patchUserProfileResponse.data?.data;
 
   if (!user) {
     router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
@@ -77,7 +77,7 @@ const lock = computed(() => anthropometry.state.isLoading());
 const slides = computed(
   () =>
     anthropometry.data?.data
-      .filter((slide) => slide.userId.toString() === props.id)
+      .filter((slide) => slide.userId === props.id)
       .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
 );
 
