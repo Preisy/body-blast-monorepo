@@ -1,0 +1,36 @@
+version: "3.7"
+services:
+  erax_backend:
+    container_name: erax_backend
+    build:
+      context: .
+      dockerfile: ./back-erax-fit/dockerfile
+    env_file: .env
+    working_dir: /app
+    ports:
+      - "${NODEJS_PUBLIC_PORT}:3000"
+    depends_on:
+      - erax_database
+    networks:
+      - erax_network
+  erax_database:
+    image: postgres:15.3-alpine
+    container_name: erax_database
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_TITLE}"
+    ports:
+      - "${DATABASE_PUBLIC_PORT}:5432"
+    volumes:
+      - erax_db_data:/var/lib/postgresql/data
+    networks:
+      - erax_network
+volumes:
+  erax_db_data:
+    name: erax_db_data
+networks:
+  erax_network:
+    driver: bridge
