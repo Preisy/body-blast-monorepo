@@ -38,6 +38,14 @@ const handleFullscreenChange = () => {
   video.value.controls = !video.value.controls;
 };
 
+defineExpose({
+  play,
+  togglePlay,
+  pause,
+  isPlaying,
+  handleFullscreenChange,
+});
+
 onUnmounted(() => {
   document.removeEventListener('fullscreenchange', handleFullscreenChange);
 });
@@ -54,6 +62,8 @@ onMounted(() => {
         Your browser doesn't support HTML5 video tag.
       </video>
     </a>
-    <SBtn :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
+    <slot name="controlBtn">
+      <SBtn :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
+    </slot>
   </div>
 </template>

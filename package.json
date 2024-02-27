@@ -11,7 +11,7 @@
     "front-body-blast"
   ],
   "scripts": {
-    "lint-all": "yarn workspace back-erax-fit run lint && yarn workspace front-body-blast run lint"
+    "lint-all": "yarn workspace back-erax-fit run lint && yarn workspace front-body-blast run lint && yarn workspace front-body-blast run type-check"
   },
   "pre-push": [
     "lint-all"

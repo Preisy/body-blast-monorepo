@@ -7,9 +7,7 @@ import { SVideo } from 'shared/ui/SVideo';
 const props = defineProps<{
   video: BonusVideo;
 }>();
-const link = computed(() => useAuthLink(props.video.linkUrl));
-
-onUnmounted(() => link.value.data?.destructor());
+const link = useAuthLink(props.video.linkUrl);
 </script>
 
 <template>

@@ -1,8 +1,5 @@
+/* eslint-disable import/no-internal-modules */
 import { RouteRecordRaw } from 'vue-router';
-import LAuthVue from 'processes/layouts/LAuth.vue';
-import { PLogin } from 'pages/PLogin';
-import { PNotFound } from 'pages/PNotFound';
-import { PRegister } from 'pages/PRegister';
 import { ENUMS } from 'shared/lib/enums';
 import { adminRoutes } from './admin';
 import { dashboardRoutes } from './dashboard';
@@ -10,18 +7,18 @@ import { dashboardRoutes } from './dashboard';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: LAuthVue,
+    component: () => import('processes/layouts/LAuth.vue'),
     name: ENUMS.ROUTES_NAMES.AUTH,
     children: [
       {
         path: 'register',
-        component: PRegister,
+        component: () => import('pages/PRegister/ui/PRegister.vue'),
         name: ENUMS.ROUTES_NAMES.REGISTER,
         meta: { transition: 'slide-left' },
       },
       {
         path: 'login',
-        component: PLogin,
+        component: () => import('pages/PLogin/ui/PLogin.vue'),
         name: ENUMS.ROUTES_NAMES.LOGIN,
         meta: { transition: 'slide-right' },
       },
@@ -31,7 +28,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: '/404',
-    component: PNotFound,
+    component: () => import('pages/PNotFound/ui/PNotFound.vue'),
     name: ENUMS.ROUTES_NAMES.NOT_FOUND,
   },
 
