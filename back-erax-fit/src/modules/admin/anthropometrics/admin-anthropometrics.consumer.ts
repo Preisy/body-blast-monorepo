@@ -5,9 +5,9 @@ import { AdminAnthropometricsService } from './admin-anthropometrics.service';
 @Processor('anthropometrics')
 export class AdminAnthropometricsConsumer {
   constructor(private readonly service: AdminAnthropometricsService) {}
-  @Process()
+  @Process('schedule anthrp')
   async transcode(job: Job<unknown>) {
     await this.service.createAnthropometricsQueueJob();
-    await job.progress();
+    await job.moveToCompleted();
   }
 }

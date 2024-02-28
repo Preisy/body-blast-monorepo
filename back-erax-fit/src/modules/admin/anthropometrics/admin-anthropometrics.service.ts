@@ -11,6 +11,7 @@ import { CreateAnthropometricsByAdminRequest } from './dto/create-anthropometric
 import { GetAnthropometricsForUserByAdminRequest } from './dto/get-anthropometrics-for-user-by-admin.dto';
 import { Queue } from 'bull';
 import { InjectQueue } from '@nestjs/bull';
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class AdminAnthropometricsService {
@@ -49,7 +50,22 @@ export class AdminAnthropometricsService {
   }
 
   async createAnthropometricsQueueJob() {
-    await this.anthrpQueue.add(await this.createAnthropometrics(), { delay: 24 * 60 * 60 * 1000 });
+    let jobs = await this.anthrpQueue.getJobCounts();
+    while (jobs.waiting < 7) {
+      const everyDayAtMidnight = DateTime.fromObject({
+        year: DateTime.local().year,
+        month: DateTime.local().month,
+        day: DateTime.local().plus({ days: jobs.waiting + 1 }).day,
+        hour: 0,
+        minute: 0,
+        second: 0,
+      })
+        .setZone('utc')
+        .toMillis();
+      await this.anthrpQueue.add('schedule anthrp', await this.createAnthropometrics(), { delay: everyDayAtMidnight });
+      jobs = await this.anthrpQueue.getJobCounts();
+    }
+    console.log(jobs);
   }
 
   async createAnthropometrics() {

@@ -23,8 +23,8 @@ import { AdminDiaryConsumer } from './admin-diary.consumer';
       name: 'diary',
     }),
   ],
-  providers: [AdminDiaryService],
+  providers: [AdminDiaryService, AdminDiaryConsumer],
   controllers: [AdminDiaryController],
-  exports: [AdminDiaryService, AdminDiaryConsumer],
+  exports: [AdminDiaryService],
 })
 export class AdminDiaryModule {}

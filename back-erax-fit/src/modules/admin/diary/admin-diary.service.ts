@@ -12,6 +12,7 @@ import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
+import { DateTime } from 'luxon';
 
 @Injectable()
 export class AdminDiaryService {
@@ -26,7 +27,21 @@ export class AdminDiaryService {
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
   async createDiaryQueueJob() {
-    await this.diaryQueue.add(await this.createDiary(), { delay: 24 * 60 * 60 * 1000 });
+    let jobs = await this.diaryQueue.getJobCounts();
+    while (jobs.waiting < 7) {
+      const everyDayAtMidnight = DateTime.fromObject({
+        year: DateTime.local().year,
+        month: DateTime.local().month,
+        day: DateTime.local().plus({ days: jobs.waiting + 1 }).day,
+        hour: 0,
+        minute: 0,
+        second: 0,
+      })
+        .setZone('utc')
+        .toMillis();
+      await this.diaryQueue.add('schedule diary', await this.createDiary(), { delay: everyDayAtMidnight });
+      jobs = await this.diaryQueue.getJobCounts();
+    }
   }
 
   async createDiary() {

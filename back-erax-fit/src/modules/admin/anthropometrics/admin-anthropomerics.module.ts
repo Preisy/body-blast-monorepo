@@ -9,6 +9,7 @@ import { AuthModule } from '../../authentication/auth.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { BaseUserModule } from '../../core/user/base-user.module';
 import { BullModule } from '@nestjs/bull';
+import { AdminAnthropometricsConsumer } from './admin-anthropometrics.consumer';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { BullModule } from '@nestjs/bull';
     }),
   ],
   controllers: [AdminAnthropometricsController],
-  providers: [AdminAnthropometricsService, AdminAnthropometricsController],
+  providers: [AdminAnthropometricsService, AdminAnthropometricsConsumer],
   exports: [AdminAnthropometricsService],
 })
 export class AdminAntropometricsModule {}

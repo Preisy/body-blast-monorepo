@@ -5,9 +5,9 @@ import { Job } from 'bull';
 @Processor('diary')
 export class AdminDiaryConsumer {
   constructor(private readonly service: AdminDiaryService) {}
-  @Process()
-  async transcode(job: Job<unknown>) {
+  @Process('schedule diary')
+  async transcode(job: Job) {
     await this.service.createDiaryQueueJob();
-    await job.progress();
+    await job.moveToCompleted();
   }
 }
