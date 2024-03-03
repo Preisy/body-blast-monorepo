@@ -32,7 +32,7 @@ export class BaseNutritionService {
 
     return new AppSingleResponse(savedNutrition);
   }
-  async createDefault(userId: UserEntity['id']): Promise<AppSingleResponse<NutritionEntity>> {
+  async createDefault(userId: UserEntity['id']) {
     let mealItems: CreateMealItemRequest[] = [
       { category: 1, type: 'Хлеб', quantity: '50 грамм' },
       { category: 1, type: 'Крупа (1 кат.)', quantity: '100 грамм' },
@@ -51,7 +51,7 @@ export class BaseNutritionService {
       name: 'Завтрак',
       mealItems,
     });
-    let savedNutrition = await this.nutritionRepository.save(newNutrition);
+    await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Фрукты/Ягоды (1,2 кат.)', quantity: '50 грамм' },
@@ -64,7 +64,7 @@ export class BaseNutritionService {
       name: 'Перекус',
       mealItems,
     });
-    savedNutrition = await this.nutritionRepository.save(newNutrition);
+    await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Хлеб', quantity: '50 грамм' },
@@ -84,7 +84,7 @@ export class BaseNutritionService {
       name: 'Обед',
       mealItems,
     });
-    savedNutrition = await this.nutritionRepository.save(newNutrition);
+    await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Фрукты/Ягоды (1 кат.)', quantity: '200 грамм' },
@@ -98,7 +98,7 @@ export class BaseNutritionService {
       name: 'Перекус',
       mealItems,
     });
-    savedNutrition = await this.nutritionRepository.save(newNutrition);
+    await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Овощи (1 кат.)', quantity: '300 грамм' },
@@ -115,9 +115,9 @@ export class BaseNutritionService {
       name: 'Ужин',
       mealItems,
     });
-    savedNutrition = await this.nutritionRepository.save(newNutrition);
+    await this.nutritionRepository.save(newNutrition);
 
-    return new AppSingleResponse(savedNutrition);
+    return;
   }
 
   async findAll(
@@ -150,11 +150,11 @@ export class BaseNutritionService {
       });
       nutrition.mealItems = [];
     }
-    const savedNutrition = await this.nutritionRepository.save({
+    await this.nutritionRepository.save({
       ...nutrition,
       ...filterUndefined(request),
     });
-    return new AppSingleResponse(savedNutrition);
+    return;
   }
 
   async deleteOne(id: NutritionEntity['id']): Promise<AppStatusResponse> {
