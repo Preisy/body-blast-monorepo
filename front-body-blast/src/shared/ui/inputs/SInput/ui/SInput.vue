@@ -29,7 +29,6 @@ const props = withDefaults(defineProps<SInputProps>(), {
 //TODO: find a workaround for '____'. Remove it
 const { value, errorMessage, setValue } = useField<string | number | undefined>(() => props.name ?? '____');
 if (props.modelValue) setValue(props.modelValue);
-watchEffect(() => setValue(props.modelValue ?? undefined));
 
 const currentColor = computed(() => (!!value.value ? props.activeColor : props.color));
 const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : props.bgColor));
