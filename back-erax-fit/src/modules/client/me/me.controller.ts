@@ -8,9 +8,10 @@ import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
 import { UserEntity } from '../../core/user/entities/user.entity';
-import { AppDatePagination } from 'src/utils/app-date-pagination.util';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { ClientDiaryService } from '../diary/client-diary.service';
 import { GetStepsByUserIdByClientDTO } from '../diary/dto/client-get-steps-by-userId.dto';
+import { GetNotificationForClientResponse } from './dto/get-notification-for-client.dto';
 
 @AppAuthGuard()
 @Controller('me')
@@ -39,5 +40,11 @@ export class MeController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByClientDTO) })
   async getSteps(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
     return this.diaryService.getStepsByUserId(req.user.id, query);
+  }
+
+  @Get('notifications')
+  @AppResponses({ status: 200, type: AppSingleResponse.type(GetNotificationForClientResponse) })
+  async getNotification(@Req() req: RequestWithUser) {
+    return this.meService.getNotification(req.user.id);
   }
 }

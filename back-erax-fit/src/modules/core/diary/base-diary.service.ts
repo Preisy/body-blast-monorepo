@@ -1,16 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { MainException } from 'src/exceptions/main.exception';
-import { AppDatePagination } from 'src/utils/app-date-pagination.util';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { BaseUserService } from '../user/base-user.service';
-import { GetDiaryDTO } from './dto/get-diary.dto';
+import { GetDiaryDTO, GetLatestEmptyDiaryResponse } from './dto/get-diary.dto';
 import { GetStepsByUserIdDTO, StepsByWeek } from './dto/get-steps.dto';
 import { UpdateDiaryRequest } from './dto/update-diary.dto';
 import { DiaryPropsEntity } from './entity/diary-props.entity';
 import { DiaryEntity } from './entity/diary.entity';
+import { UserEntity } from '../user/entities/user.entity';
 
 @Injectable()
 export class BaseDiaryService {
@@ -19,9 +20,55 @@ export class BaseDiaryService {
     private readonly diaryRepository: Repository<DiaryEntity>,
     @InjectRepository(DiaryPropsEntity)
     private readonly diaryPropsRepository: Repository<DiaryPropsEntity>,
+    @Inject(forwardRef(() => BaseUserService))
     private readonly userService: BaseUserService,
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
+
+  async createDefault(userId: UserEntity['id']) {
+    const defaultDiary = await this.diaryRepository.create(new DiaryEntity());
+
+    defaultDiary.userId = userId;
+    defaultDiary.date = new Date();
+
+    const savedDiary = await this.diaryRepository.save(defaultDiary);
+
+    await this.createDefaultProp(savedDiary.id);
+  }
+
+  async createDefaultProp(diaryId: DiaryEntity['id']) {
+    const defaultDiaryProp = await this.diaryPropsRepository.create(new DiaryPropsEntity());
+    defaultDiaryProp.diaryId = diaryId;
+    defaultDiaryProp.label = 'Питание';
+    const savedProp = await this.diaryPropsRepository.save(defaultDiaryProp);
+    return savedProp;
+  }
+
+  async findLatestEmptyDiary(idUser: UserEntity['id']) {
+    const latestDiary = await this.diaryRepository.findOne({
+      where: {
+        userId: idUser,
+      },
+      order: { createdAt: 'DESC' },
+    });
+    if (!latestDiary) throw MainException.entityNotFound(`Diary with id ${idUser} not found`);
+
+    if (
+      latestDiary.activity == null ||
+      latestDiary.sum == null ||
+      latestDiary.steps == null ||
+      latestDiary.cycle == null
+    ) {
+      const emptyAnthrpResponse: GetLatestEmptyDiaryResponse = {
+        id: latestDiary.id,
+        userId: latestDiary.userId,
+        createdAt: latestDiary.createdAt,
+      };
+
+      return emptyAnthrpResponse;
+    }
+    return new GetLatestEmptyDiaryResponse();
+  }
 
   async findAll(
     query: AppDatePagination.Request,
