@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined, IsString, Length } from 'class-validator';
-import { IsPhoto } from 'src/decorators/photo-type.decorator';
-import { IsVideo } from 'src/decorators/video-type.decorator.dto';
+import { IsPhoto } from '../../../../decorators/photo-type.decorator';
+import { IsVideo } from '../../../../decorators/video-type.decorator.dto';
 
 export class CreatePromptRequest {
   @IsDefined()

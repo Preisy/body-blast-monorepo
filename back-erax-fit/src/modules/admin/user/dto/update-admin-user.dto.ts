@@ -1,6 +1,6 @@
 import { UpdateUserRequest } from '../../../core/user/dto/update-user.dto';
 import { IsBoolean, Min, Max, IsNumber, IsOptional } from 'class-validator';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateUserByAdminRequest extends UpdateUserRequest {
   @IsOptional()
@@ -14,4 +14,9 @@ export class UpdateUserByAdminRequest extends UpdateUserRequest {
   @Max(14)
   @ApiPropertyOptional()
   public anthrpJobPeriod: number;
+
+  @IsNumber()
+  @Min(1)
+  @ApiProperty()
+  public stepsGoal: number;
 }

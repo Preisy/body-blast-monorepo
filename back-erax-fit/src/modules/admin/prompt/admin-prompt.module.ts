@@ -1,8 +1,8 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/modules/authentication/auth.module';
-import { BasePromptModule } from 'src/modules/core/prompt/base-prompt.module';
-import { PromptEntity } from 'src/modules/core/prompt/entity/prompt.entity';
+import { AuthModule } from '../../../modules/authentication/auth.module';
+import { BasePromptModule } from '../../../modules/core/prompt/base-prompt.module';
+import { PromptEntity } from '../../../modules/core/prompt/entity/prompt.entity';
 import { AdminPromptService } from './admin-prompt.service';
 import { AdminPromptController } from './admin-prompt.controller';
 

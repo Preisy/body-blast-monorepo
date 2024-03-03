@@ -7,7 +7,7 @@ import { UserEntity } from '../../user/entities/user.entity';
 @Entity('nutrition')
 export class NutritionEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 50 })
   public name: string;
 
   @ApiProperty({ type: () => UserEntity })

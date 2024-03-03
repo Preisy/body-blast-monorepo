@@ -6,15 +6,15 @@ import { NutritionEntity } from './nutrition.entity';
 @Entity('meal-items')
 export class MealItemEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column('integer')
+  @Column({ type: 'integer' })
   public category: number;
 
   @ApiProperty()
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 50 })
   public type: string;
 
   @ApiProperty()
-  @Column('varchar')
+  @Column({ type: 'varchar', length: 50 })
   public quantity: string;
 
   @ApiProperty({ type: () => NutritionEntity })

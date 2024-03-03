@@ -1,87 +1,102 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
+import moment from 'moment';
 import { z } from 'zod';
 import { FListControls } from 'features/FListControls';
 import { FNewTrainingFields } from 'features/FNewTrainingFields';
-import { AdminTraining, Exercise, useAdminPromptStore, useAdminTrainingStore, Training } from 'shared/api/admin';
+import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
+import { Workout } from 'shared/api/workout';
 import { useLoading } from 'shared/lib/loading';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
 
-const props = defineProps<{
+type Exercise = NonNullable<Workout['exercises']>[number];
+const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;
+
+export interface WNewTrainingProps {
+  id: number;
   date: string; //ISO date
+  isEdit?: boolean;
+  workoutId?: number;
+}
+const props = defineProps<WNewTrainingProps>();
+const emit = defineEmits<{
+  edit: [];
 }>();
 
-const { id } = useRoute().params as { id: string };
-
-const adminTrainingStore = useAdminTrainingStore();
+const { postWorkout, postWorkoutResponse, patchWorkout, patchWorkoutResponse } = useAdminWorkoutStore();
 const { prompts, getPrompts } = useAdminPromptStore();
 
-const exercises = ref<Array<InstanceType<typeof SForm>>>();
-const trainingForm = ref<InstanceType<typeof SForm>>();
-const trainings = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('prompt-') }]);
-const onsubmit = async () => {
-  if (!exercises.value) return;
-  for (let i = 0; i < exercises.value.length; i++) {
-    const exerciseForm = exercises.value[i];
-    await exerciseForm.handleSubmit((values: z.infer<ReturnType<typeof Exercise.validation>>) => {
-      //find prompt with id. use prompt to pick photoLink and videoLink
-      const prompt = prompts.data?.data.find((prompt) => prompt.id === values._promptId);
-      if (!prompt) {
-        console.error('Could not find prompt with this id');
-        return;
-      }
+useLoading(patchWorkoutResponse);
 
-      const exercise: Exercise = {
+const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
+const trainingForm = ref<InstanceType<typeof SForm>>();
+const exercises = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('workout-') }]);
+
+const onsubmit = async () => {
+  if (!exerciseForms.value) return;
+  for (let i = 0; i < exerciseForms.value.length; i++) {
+    const exerciseForm = exerciseForms.value[i];
+    await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
+      //find prompt with id. use prompt to pick photoLink and videoLink
+      const { prompt } = values;
+
+      const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
         name: values.name,
         pace: values.pace,
         photoLink: prompt.photoLink,
         videoLink: prompt.videoLink,
-        repetitions: parseInt(values.repetitions),
-        restTime: parseInt(values.restTime),
-        sets: parseInt(values.sets),
+        repetitions: values.repetitions,
+        restTime: values.restTime,
         trainerComment: values.trainerComment,
-        weight: parseInt(values.weight),
+        sets: values.sets,
+        weight: values.weight,
       };
 
-      assign(trainings.value[i], exercise);
+      assign(exercises.value[i], exercise);
     })();
   }
 
-  await trainingForm.value?.handleSubmit((values: z.infer<ReturnType<typeof AdminTraining.validation>>) => {
-    const training: Training = {
+  await trainingForm.value?.handleSubmit((values: z.infer<ReturnType<typeof Workout.validation>>) => {
+    const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
       name: values.name,
       comment: values.comment,
-      date: props.date,
-      exercises: trainings.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
-      loop: parseInt(values.loop),
-      userId: parseInt(id),
+      date: moment().toISOString(), //today
+      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
+      cycle: parseInt(values.cycle),
+      userId: props.id,
     };
-    adminTrainingStore.sendTraining(training);
+
+    if (props.isEdit && props.workoutId) {
+      patchWorkout(props.workoutId, workout);
+      emit('edit');
+    } else {
+      postWorkout(workout);
+    }
   })();
 };
-const onadd = () => trainings.value.push({ key: uniqueId('prompt-') });
-const onremove = (index: number) => trainings.value.splice(index, 1);
+const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
+const onremove = (index: number) => exercises.value.splice(index, 1);
 
-useLoading(prompts);
-getPrompts({ type: '', expanded: false });
+useLoading(prompts.state);
+getPrompts({ type: '', expanded: true });
 </script>
 
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <h1>{{ $t('admin.prompt.training.training') }}</h1>
 
-    <SForm ref="trainingForm" :field-schema="toTypedSchema(AdminTraining.validation())" p="0!">
+    <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))" p="0!">
       <SInput name="loop" :label="$t('admin.prompt.training.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
-      <SInput name="comment" :label="$t('admin.prompt.training.commentary')" />
       <SForm
-        ref="exercises"
-        v-for="(training, index) in trainings"
-        :key="training.key"
-        :field-schema="toTypedSchema(Exercise.validation())"
+        ref="exerciseForms"
+        v-for="(exercise, index) in exercises"
+        :key="exercise.key"
+        :field-schema="toTypedSchema(ExerciseValidation)"
         p="0!"
         mt-0.5rem
       >
@@ -89,11 +104,12 @@ getPrompts({ type: '', expanded: false });
 
         <template #submit-btn>
           <FListControls
-            :disabled-add="index !== trainings.length - 1"
-            :disabled-submit="index !== trainings.length - 1"
+            :disabled-add="index !== exercises.length - 1"
+            :disabled-submit="index !== exercises.length - 1"
             @add="onadd"
             @remove="() => onremove(index)"
             @submit="onsubmit"
+            :loading-submit="postWorkoutResponse.state.isLoading() || patchWorkoutResponse.state.isLoading()"
             mt-0.5rem
           />
         </template>

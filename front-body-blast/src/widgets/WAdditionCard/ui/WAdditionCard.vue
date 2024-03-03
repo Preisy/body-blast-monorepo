@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { Addition, useTrainingStore } from 'shared/api/training';
+import { z } from 'zod';
+import { useWorkoutStore, Workout } from 'shared/api/workout';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
 
-const validationSchema = toTypedSchema(Addition.validation());
-const additionStore = useTrainingStore();
+export interface WAdditionCardProps {
+  id: Workout['id'];
+}
+const props = defineProps<WAdditionCardProps>();
+
+const validationSchema = Workout.validation().pick({ comment: true });
+const { workouts, patchWorkout } = useWorkoutStore();
+const onsubmit = (values: z.infer<typeof validationSchema>) => {
+  useLoadingAction(workouts.updateState, () => patchWorkout({ id: props.id, data: { comment: values.comment } }));
+};
 </script>
 
 <template>
@@ -14,9 +24,9 @@ const additionStore = useTrainingStore();
     <h1 mb-1rem>{{ $t('dashboard.trainings.addition.title') }}</h1>
     <SForm
       p="0!"
-      :action="additionStore.sendAddition"
-      :field-schema="validationSchema"
-      :loading="additionStore.additionRequestState.state.isLoading()"
+      @submit="onsubmit"
+      :field-schema="toTypedSchema(validationSchema)"
+      :loading="workouts.updateState.isLoading()"
     >
       <SInput name="message" :placeholder="$t('dashboard.trainings.addition.input')" />
     </SForm>

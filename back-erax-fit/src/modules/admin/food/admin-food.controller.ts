@@ -13,18 +13,18 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { AppStatusResponse } from 'src/dto/app-status-response.dto';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
-import { CreateFoodRequest } from 'src/modules/core/food/dto/create-food.dto';
-import { UpdateFoodRequest } from 'src/modules/core/food/dto/update-food.dto';
-import { AppPagination } from 'src/utils/app-pagination.util';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { AppStatusResponse } from '../../../dto/app-status-response.dto';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
+import { CreateFoodRequest } from '../../../modules/core/food/dto/create-food.dto';
+import { UpdateFoodRequest } from '../../../modules/core/food/dto/update-food.dto';
+import { AppPagination } from '../../../utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
 import { AdminFoodService } from './admin-food.service';
-import { FoodEntity } from 'src/modules/core/food/entity/food.entity';
+import { FoodEntity } from '../../../modules/core/food/entity/food.entity';
 
 @Controller('admin/food')
 @ApiTags('Admin Food')
@@ -35,7 +35,7 @@ export class AdminFoodController {
   constructor(private readonly adminService: AdminFoodService) {}
 
   @Post()
-  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateFoodRequest) {
     return await this.adminService.create(request);
