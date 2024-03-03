@@ -38,7 +38,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       {
         imgSrc: symRoundedExercise,
         title: t('admin.footer.links.trainings'),
-        name: ENUMS.ROUTES_NAMES.ADMIN.USER_TRAININGS,
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_TRAININGS,
       },
       {
         imgSrc: symRoundedEdit,
@@ -48,7 +48,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       {
         imgSrc: symRoundedRestaurant,
         title: t('dashboard.footer.links.diet'),
-        name: ENUMS.ROUTES_NAMES.DIET,
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_NUTRITION,
       },
     ];
 

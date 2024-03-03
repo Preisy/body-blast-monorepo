@@ -82,7 +82,7 @@ const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
 useLoading(prompts.state);
-getPrompts({ type: '' });
+getPrompts({ type: '', expanded: true });
 </script>
 
 <template>

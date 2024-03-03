@@ -19,6 +19,7 @@ export namespace ROUTES_NAMES {
     LEARNING = 'adminLearning',
     USER_PROFILE = 'adminUserProfile',
     USER_PROFILE_BIO = 'adminUserProfileBio',
-    USER_TRAININGS = 'USER_TRAININGS',
+    USER_PROFILE_TRAININGS = 'USER_PROFILE_TRAININGS',
+    USER_PROFILE_NUTRITION = 'USER_PROFILE_NUTRITION',
   }
 }

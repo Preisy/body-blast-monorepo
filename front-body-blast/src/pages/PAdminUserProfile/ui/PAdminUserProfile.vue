@@ -131,7 +131,6 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
           </template>
         </EUnitedProfileCard>
       </template>
-
       <template #body>
         <SComponentWrapper py-1.5rem>
           <!-- Access to learning section -->
@@ -167,4 +166,3 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
     </SWithHeaderLayout>
   </SStructure>
 </template>
-shared/api/anthropometry
