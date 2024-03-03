@@ -11,6 +11,7 @@ import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
+import { BaseNutritionService } from '../nutrition/base-nutrition.service';
 
 @Injectable()
 export class BaseUserService {
@@ -18,6 +19,7 @@ export class BaseUserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly templateService: BaseDiaryTemplateService,
+    private readonly nutritionService: BaseNutritionService,
   ) {}
 
   async create(request: CreateUserRequest): Promise<AppSingleResponse<UserEntity>> {
@@ -34,6 +36,7 @@ export class BaseUserService {
     if (!savedUser) throw MainException.internalRequestError('Error upon saving user');
 
     await this.templateService.createDefault(savedUser.id);
+    await this.nutritionService.createDefault(savedUser.id);
 
     return new AppSingleResponse(savedUser);
   }
