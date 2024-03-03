@@ -28,4 +28,3 @@ defineProps<EAthropometricsItemProps>();
     />
   </SForm>
 </template>
-shared/api/anthropometry

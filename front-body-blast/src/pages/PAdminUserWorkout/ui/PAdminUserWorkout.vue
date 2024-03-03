@@ -8,7 +8,7 @@ import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
 export interface PAdminUserWorkoutProps {
-  id: string;
+  id: number;
 }
 defineProps<PAdminUserWorkoutProps>();
 
@@ -47,7 +47,7 @@ const onEdit = (id: number) => {
       </q-tab-panel>
       <q-tab-panel :name="today" class="overflow-hidden! p-0!" h-full>
         <SProxyScroll h-full>
-          <WNewTraining :date="date" :id="parseInt(id)" />
+          <WNewTraining :date="date" :id="id" />
         </SProxyScroll>
       </q-tab-panel>
     </q-tab-panels>
@@ -56,7 +56,7 @@ const onEdit = (id: number) => {
       <div bg-bg p-1rem>
         <WNewTraining
           :date="date"
-          :id="parseInt(id)"
+          :id="id"
           :is-edit="true"
           :workout-id="editingWorkoutId"
           @edit="editWorkoutDialog = false"
