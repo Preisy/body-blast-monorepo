@@ -8,6 +8,7 @@ import { BaseUserModule } from '../../core/user/base-user.module';
 import { MeController } from './me.controller';
 import { ClientDiaryModule } from '../diary/client-diary.module';
 import { BaseAnthropometricsModule } from '../../../modules/core/anthropometrics/base-anthropometrics.module';
+import { BaseDiaryModule } from '../../../modules/core/diary/base-diary.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { BaseAnthropometricsModule } from '../../../modules/core/anthropometrics
     BaseUserModule,
     ClientDiaryModule,
     BaseAnthropometricsModule,
+    BaseDiaryModule,
   ],
   controllers: [MeController],
   providers: [MeService, Repository],

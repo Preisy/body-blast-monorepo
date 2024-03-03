@@ -6,12 +6,14 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 import { Injectable } from '@nestjs/common/decorators';
 import { BaseAnthropometrcisService } from '../../../modules/core/anthropometrics/base-anthropometrics.service';
 import { GetNotificationForClientResponse } from './dto/get-notification-for-client.dto';
+import { BaseDiaryService } from '../../../modules/core/diary/base-diary.service';
 
 @Injectable()
 export class MeService {
   constructor(
     private readonly baseService: BaseUserService,
     private readonly anthrpService: BaseAnthropometrcisService,
+    private readonly diaryService: BaseDiaryService,
   ) {}
 
   async create(request: CreateUserByClientRequest) {
@@ -30,8 +32,10 @@ export class MeService {
 
   async getNotification(id: UserEntity['id']) {
     const anthrp = await this.anthrpService.findLatestEmptyAnthropometrics(id);
+    const diary = await this.diaryService.findLatestEmptyDiary(id);
     const response: GetNotificationForClientResponse = {
       anthropometrics: anthrp,
+      diary: diary,
     };
     return new AppSingleResponse(response);
   }
