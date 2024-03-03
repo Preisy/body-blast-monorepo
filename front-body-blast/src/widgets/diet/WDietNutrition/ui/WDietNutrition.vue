@@ -10,7 +10,6 @@ defineProps<Nutrition.Response>();
 </script>
 
 <template>
-  {{ console.log($props) }}
   <SStructure relative>
     <SSplide
       :options="{

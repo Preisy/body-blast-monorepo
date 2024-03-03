@@ -27,7 +27,7 @@ const dateValue = computed({
 });
 
 const getDate = (td: string) => {
-  const localTd = moment(td);
+  const localTd = moment(td.split('/').join('-'));
 
   if (props.defaultView == 'Months') return new Date(td).toLocaleString('ru-RU', { month: 'long' });
   return Math.abs(today.diff(localTd, 'days')) === 0 ? t('global.date.today') : localTd.format('DD.MM');

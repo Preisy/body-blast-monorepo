@@ -1,18 +1,21 @@
-//TODO: REMOVE
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { requestSimulator, useServiceAction } from 'shared/lib/utils';
+import { api } from 'shared/config/axios';
+import { useServiceAction } from 'shared/lib/utils';
 import { Prompt } from './types';
 
 export const adminPromptsService = {
-  postPrompts: useServiceAction((data: Array<Prompt>) =>
-    // return api.post<Auth.Response>('/admin/prompt', data);
-    requestSimulator<Prompt.Response>({ msg: 'Some response to ' }),
+  postPrompt: useServiceAction((data: Pick<Prompt, 'type' | 'photoLink' | 'videoLink'>) =>
+    api.post<Prompt.Post.Response>('/admin/prompts', data),
   ),
-  getPrompts: useServiceAction(() =>
-    // return api.post<Auth.Response>('/admin/prompt', data);
-    requestSimulator<Array<Prompt>>([
-      { photo: 'https://random.imagecdn.app/500/350', video: '/', type: 'Промт1' },
-      { photo: 'https://random.imagecdn.app/500/350', video: '/', type: 'Промт11' },
-    ]),
+
+  deletePrompt: useServiceAction((data: Prompt.Delete.Dto) =>
+    api.delete<Prompt.Delete.Response>(`/admin/prompts/${data.id}`),
+  ),
+
+  patchPrompt: useServiceAction((id, data: Pick<Prompt, 'type' | 'photoLink' | 'videoLink'>) =>
+    api.patch<Prompt.Patch.Response>(`/admin/prompts/${id}`, data),
+  ),
+
+  getPrompts: useServiceAction((data: Prompt.Get.Dto) =>
+    api.get<Prompt.Get.Response>('/admin/prompts', { params: data }),
   ),
 };

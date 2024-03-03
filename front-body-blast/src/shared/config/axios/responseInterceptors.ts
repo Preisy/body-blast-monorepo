@@ -21,8 +21,8 @@ export const refreshInterceptor = async (error: AxiosError) => {
       TokenService.setTokens(newAccess.data);
     }
 
-    console.log(error.request);
-    api(error.request);
+    //TODO: how to return values to store?
+    if (error.config) await api.request(error.config);
   }
   return error;
 };

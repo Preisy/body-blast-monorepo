@@ -45,12 +45,12 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
   },
   {
     is: EForbiddensSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()) },
+    form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation(t)) },
     values: pick(currentUser.value, ['allergy', 'nutritRestrict', 'mealIntolerance']),
   },
   {
     is: EDiseasesSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation()) },
+    form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation(t)) },
     values: pick(currentUser.value, [
       'gastroDeseases',
       'insulinResistance',
@@ -61,7 +61,7 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
   },
   {
     is: EMotivationsSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation()) },
+    form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation(t)) },
     values: pick(currentUser.value, ['loadRestrictions', 'sportsExp', 'goals']),
   },
 ];

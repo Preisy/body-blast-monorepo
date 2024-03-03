@@ -30,11 +30,12 @@ export default route(function (/* { store, ssrContext } */) {
 
   Router.beforeEach(async (to) => {
     const { me, getMe } = useMeStore();
-    useLoading(me);
-    await getMe();
+    if (!me.data?.data) {
+      useLoading(me);
+      await getMe();
+    }
 
     if (!me.data) {
-      console.error(me.state.error);
       return;
     }
 

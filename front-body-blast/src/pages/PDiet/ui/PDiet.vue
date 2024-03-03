@@ -1,10 +1,9 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { QTabPanel } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WDietNutrition } from 'widgets/diet/WDietNutrition';
 import { EDietItem } from 'entities/diet/EDietItem';
-import { Food, useFoodStore } from 'shared/api/food';
+import { useFoodStore } from 'shared/api/food';
 import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SCenteredNav } from 'shared/ui/SCenteredNav';

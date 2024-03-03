@@ -10,8 +10,7 @@ defineEmits<{
   'update:model-value': [file: File | FileList | undefined];
 }>();
 
-// const value = ref<File | FileList>();
-const { value, errorMessage } = useField<File | FileList>(() => props.name);
+const { value, errorMessage } = useField<File>(() => props.name);
 </script>
 
 <template>
@@ -19,6 +18,7 @@ const { value, errorMessage } = useField<File | FileList>(() => props.name);
     <QFile
       v-bind="$props"
       v-model="value"
+      :display-value="value ? value.name : displayValue"
       :bg-color="value === undefined ? 'primary-50-solid' : 'primary'"
       label-color="bg"
       standout

@@ -63,21 +63,21 @@ const slides: RegisterSlides = [
   {
     is: EForbiddensSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()),
+      fieldSchema: toTypedSchema(SignUp.Forbiddens.validation(t)),
       onSubmit: authStore.applyForbiddens,
     },
   },
   {
     is: EDiseasesSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.Diseases.validation()),
+      fieldSchema: toTypedSchema(SignUp.Diseases.validation(t)),
       onSubmit: authStore.applyDiseases,
     },
   },
   {
     is: EMotivationsSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.Motivations.validation()),
+      fieldSchema: toTypedSchema(SignUp.Motivations.validation(t)),
       onSubmit: async (data) => {
         authStore.applyMotivations(data);
         submitBtnsExceptLast.value.forEach((btn) => btn.click());
