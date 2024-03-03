@@ -58,6 +58,13 @@ export const adminRoutes: RouteRecordRaw = {
           props: getUserIdFromRoute,
           component: () => import('pages/PAdminUserProfileNutrition/ui/PAdminUserProfileNutrition.vue'),
         },
+        {
+          path: 'diary',
+          meta: { auth: true, admin: true },
+          name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY,
+          props: getUserIdFromRoute,
+          component: () => import('pages/PAdminDiary/ui/PAdminDiary.vue'),
+        },
       ],
     },
   ],

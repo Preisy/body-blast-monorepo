@@ -12,8 +12,10 @@ import { TWAdminNewNutritionI18n } from 'widgets/WAdminNewNutrition/i18n';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
 import { TWNewTrainingI18n } from 'widgets/WNewTraining';
 import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
+import { TWSelfControlListI18n } from 'widgets/WSelfControlList';
+import { TWStepsListI18n } from 'widgets/WStepsList';
 import { TFNutritionListFormI18n } from 'features/FNutritionListForm';
-import { TEDiaryI18n } from 'entities/diary';
+import { TEDiaryI18n } from 'entities/diary/EDiaryHeader';
 import { TAuthFormsI18n } from 'entities/form/i18n';
 import { TEAthropometricsItemI18n } from 'entities/profile/EAthropometricsItem';
 import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
@@ -43,6 +45,8 @@ export default boot(({ app }) => {
       TWPromptCreationI18n,
       TEProfileCardI18n,
       TSNoResultsScreenI18n,
+      TWStepsListI18n,
+      TWSelfControlListI18n,
       TWNewTrainingI18n,
       TPAdminPromptsI18n,
       TFNutritionListFormI18n,

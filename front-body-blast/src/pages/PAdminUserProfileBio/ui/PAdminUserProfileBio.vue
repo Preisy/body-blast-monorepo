@@ -23,35 +23,34 @@ const props = defineProps<{
   id: string;
 }>();
 
-const adminProfileStore = useAdminUserProfileStore();
+const router = useRouter();
+const { getUserById, user } = useAdminUserProfileStore();
+const userData = computed(() => user.data?.data);
+if (!userData.value)
+  useLoadingAction(user, async () => {
+    await getUserById({ id: parseInt(props.id) });
 
-const currentUser = computed(() => adminProfileStore.currentUser);
-const setCurrentUser = adminProfileStore.setCurrentUser;
-
-if (!currentUser.value)
-  useLoadingAction(adminProfileStore.getUserProfileResponse, async () => {
-    await adminProfileStore.getUserProfile({ id: parseInt(props.id) });
-    const user = adminProfileStore.getUserProfileResponse.data?.data;
-
-    if (!user) return; //TODO: 404 screen
-    setCurrentUser(user);
+    if (!userData.value) {
+      router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
+      return;
+    }
   });
 
 const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; values: Record<string, unknown> }> = [
   {
     is: EBodyParamsSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.BodyParams.validation(t)) },
-    values: pick(currentUser.value, ['age', 'weightInYouth', 'weight']),
+    values: pick(userData.value, ['age', 'weightInYouth', 'weight']),
   },
   {
     is: EForbiddensSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation(t)) },
-    values: pick(currentUser.value, ['allergy', 'nutritRestrict', 'mealIntolerance']),
+    values: pick(userData.value, ['allergy', 'nutritRestrict', 'mealIntolerance']),
   },
   {
     is: EDiseasesSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation(t)) },
-    values: pick(currentUser.value, [
+    values: pick(userData.value, [
       'gastroDeseases',
       'insulinResistance',
       'kidneyDesease',
@@ -62,7 +61,7 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
   {
     is: EMotivationsSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation(t)) },
-    values: pick(currentUser.value, ['loadRestrictions', 'sportsExp', 'goals']),
+    values: pick(userData.value, ['loadRestrictions', 'sportsExp', 'goals']),
   },
 ];
 </script>
