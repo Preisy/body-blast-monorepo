@@ -17,7 +17,7 @@ const foodStore = useFoodStore();
 // Construct fake "Nutrition" array from "Food" array
 const foodList = computed(
   () =>
-    foodStore.getFoodResponse.data?.data.reduce((acc: Pick<Nutrition, 'name' | 'mealItems'>[], rec) => {
+    foodStore.food.data?.data.reduce((acc: Pick<Nutrition, 'name' | 'mealItems'>[], rec) => {
       // Tries to find Nutrition with rec.type as name
       // rec.type example: 'berries', 'cereals'
       // For each rec.type construct fake Nutrition. With rec.type as name
@@ -33,7 +33,7 @@ const foodList = computed(
 const nutritions = computed(() => getNutritionResponse.data?.data);
 
 // API GET /food call
-useLoadingAction(foodStore.getFoodResponse, foodStore.getFood);
+useLoadingAction(foodStore.food, foodStore.getFood);
 // API GET /nutrition call
 useLoadingAction(getNutritionResponse, () => getNutrition({ expanded: true }));
 

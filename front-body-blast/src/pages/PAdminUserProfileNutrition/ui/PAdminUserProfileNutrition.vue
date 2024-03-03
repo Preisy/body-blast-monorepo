@@ -41,20 +41,16 @@ const foodSlides = computed(
 );
 
 const pages = computed<SCenteredNavProps['pages']>(() => {
-  const result: SCenteredNavProps['pages'] = [];
   const nutritionPage = { label: t('admin.nutrition.nutrition'), value: 'nutrition' };
-  result.push(nutritionPage);
+  const newFoodPage = { label: t('admin.nutrition.new_food'), value: 'new_food' };
 
-  if (!foodSlides.value) return result;
+  if (!foodSlides.value) return [nutritionPage, newFoodPage];
   const foodPages = Object.keys(foodSlides.value).map((type) => ({
     label: te(`home.diet.${type}`) ? t(`home.diet.${type}`) : type,
     value: type,
   }));
-  result.push(...foodPages);
 
-  result.push({ label: t('admin.nutrition.new_food'), value: 'new_food' });
-
-  return result;
+  return [nutritionPage, ...foodPages, newFoodPage];
 });
 </script>
 
