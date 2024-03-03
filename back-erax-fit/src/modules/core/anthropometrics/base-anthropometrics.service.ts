@@ -70,7 +70,6 @@ export class BaseAnthropometrcisService {
         id: latestAnthrp.id,
         userId: latestAnthrp.userId,
         createdAt: latestAnthrp.createdAt,
-        name: 'Anthropometrics empty record',
       };
 
       return emptyAnthrpResponse;
