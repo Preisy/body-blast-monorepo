@@ -51,7 +51,7 @@ export class BaseNutritionService {
       name: 'Завтрак',
       mealItems,
     });
-    let savedTemplate = await this.nutritionRepository.save(newNutrition);
+    let savedNutrition = await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Фрукты/Ягоды (1,2 кат.)', quantity: '50 грамм' },
@@ -64,7 +64,7 @@ export class BaseNutritionService {
       name: 'Перекус',
       mealItems,
     });
-    savedTemplate = await this.nutritionRepository.save(newNutrition);
+    savedNutrition = await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Хлеб', quantity: '50 грамм' },
@@ -84,7 +84,7 @@ export class BaseNutritionService {
       name: 'Обед',
       mealItems,
     });
-    savedTemplate = await this.nutritionRepository.save(newNutrition);
+    savedNutrition = await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Фрукты/Ягоды (1 кат.)', quantity: '200 грамм' },
@@ -98,7 +98,7 @@ export class BaseNutritionService {
       name: 'Перекус',
       mealItems,
     });
-    savedTemplate = await this.nutritionRepository.save(newNutrition);
+    savedNutrition = await this.nutritionRepository.save(newNutrition);
 
     mealItems = [
       { category: 1, type: 'Овощи (1 кат.)', quantity: '300 грамм' },
@@ -115,9 +115,9 @@ export class BaseNutritionService {
       name: 'Ужин',
       mealItems,
     });
-    savedTemplate = await this.nutritionRepository.save(newNutrition);
+    savedNutrition = await this.nutritionRepository.save(newNutrition);
 
-    return new AppSingleResponse(savedTemplate);
+    return new AppSingleResponse(savedNutrition);
   }
 
   async findAll(
