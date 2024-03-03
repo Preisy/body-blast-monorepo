@@ -12,7 +12,7 @@ export interface SFormProps {
 const props = defineProps<SFormProps>();
 
 //Vee-validate controls
-const { handleSubmit, setValues } = useForm({
+const { handleSubmit, setValues, resetForm } = useForm({
   validationSchema: props.fieldSchema,
 });
 if (props.initValues) setValues(props.initValues);
@@ -22,6 +22,7 @@ const emits = defineEmits<{
 }>();
 defineExpose({
   handleSubmit,
+  resetForm,
 });
 
 //On form submit - emits @submit event with values provided to form

@@ -4,7 +4,7 @@ import { useField } from 'vee-validate';
 import ErrorMsg from './ErrorMsg.vue';
 export interface SInputProps extends Omit<QInputProps, 'modelValue' | 'name' | 'placeholder'> {
   placeholder?: string;
-  name: string;
+  name?: string;
   autocomplete?: string;
   centered?: boolean;
   modelValue?: QInputProps['modelValue'];
@@ -19,14 +19,17 @@ const props = withDefaults(defineProps<SInputProps>(), {
   autocomplete: undefined,
   placeholder: undefined,
   modelValue: undefined,
+  name: undefined,
   color: 'bg',
   activeColor: 'bg',
   bgColor: 'primary opacity-50',
   activeBgColor: 'primary',
 });
 
-const { value, errorMessage, setValue } = useField<string | number | undefined>(() => props.name);
-if (props.readonly && props.modelValue) setValue(props.modelValue);
+//TODO: find a workaround for '____'. Remove it
+const { value, errorMessage, setValue } = useField<string | number | undefined>(() => props.name ?? '____');
+if (props.modelValue) setValue(props.modelValue);
+watchEffect(() => setValue(props.modelValue ?? undefined));
 
 const currentColor = computed(() => (!!value.value ? props.activeColor : props.color));
 const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : props.bgColor));
@@ -52,15 +55,26 @@ const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : pro
       :input-class="['text-base p-0!', inputClass]"
       :autocomplete="autocomplete"
       :placeholder="placeholder"
-      :bottom-slots="false"
+      :bottom-slots="true"
       transition-all-300
     />
-    <ErrorMsg absolute bottom-1rem left-1.25rem z-1 v-if="!!errorMessage" :msg="errorMessage" />
+    <ErrorMsg
+      v-if="!!errorMessage"
+      :msg="errorMessage"
+      pointer-events-none
+      absolute
+      bottom-1rem
+      left-1.25rem
+      z-1
+      select-none
+    />
   </div>
 </template>
 
 <style scoped lang="scss">
 .s_input {
+  height: fit-content;
+
   &:deep(.q-field__label) {
     color: currentColor !important;
     top: 0;

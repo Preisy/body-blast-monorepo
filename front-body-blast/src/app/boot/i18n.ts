@@ -1,11 +1,13 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
 import { TPAdminHomeI18n } from 'pages/PAdminHome';
+import { TPAdminPromptsI18n } from 'pages/PAdminPrompt';
 import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
 import { TPDietI18n } from 'pages/PDiet';
 import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
+import { TWNewTrainingI18n } from 'widgets/WNewTraining';
 import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
 import { TWSelfControlListI18n } from 'widgets/WSelfControlList';
 import { TWStepsListI18n } from 'widgets/WStepsList';
@@ -41,6 +43,8 @@ export default boot(({ app }) => {
       TSNoResultsScreenI18n,
       TWStepsListI18n,
       TWSelfControlListI18n,
+      TWNewTrainingI18n,
+      TPAdminPromptsI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

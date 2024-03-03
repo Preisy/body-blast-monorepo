@@ -3,12 +3,17 @@ import { z } from 'zod';
 import { AppBaseEntity } from '../base';
 
 export interface User extends AppBaseEntity {
-  tokenId: number;
   firstName: string;
   lastName: string;
   role: 'client' | 'admin';
   email: string;
   password: string;
+  token: {
+    id: number;
+    hash: string;
+    refreshHash: string;
+  };
+  tokenId: number;
   age: number;
   height: number;
   weight: number;

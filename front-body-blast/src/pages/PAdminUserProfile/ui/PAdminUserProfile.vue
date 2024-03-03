@@ -81,20 +81,21 @@ const updateDate = (newValue: string) => {
 };
 
 const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
-  let from = createdAt;
-  let to = createdAt;
+  let to = moment(createdAt);
+  let from = to.clone().subtract(2, 'w');
 
   if (direction === 'back') {
-    date.value.subtract(2, 'w');
-    from = dateISOString.value;
+    to.subtract(2, 'w');
+    from.subtract(2, 'w');
   } else {
-    date.value.add(2, 'w');
-    to = dateISOString.value;
+    to.add(2, 'w');
+    from.add(2, 'w');
   }
 
-  return getAnthropometry({ from, to });
+  date.value = to;
+  return getAnthropometry({ from: from.toISOString(), to: to.toISOString() });
 };
-useLoadingAction(anthropometry, () => update('back'));
+useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toISOString()));
 </script>
 
 <template>
@@ -153,4 +154,3 @@ useLoadingAction(anthropometry, () => update('back'));
     </SWithHeaderLayout>
   </SStructure>
 </template>
-shared/api/anthropometry
