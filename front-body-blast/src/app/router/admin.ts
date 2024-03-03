@@ -1,6 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import { RouteRecordRaw } from 'vue-router';
 import { ENUMS } from 'shared/lib/enums';
+import { getUserIdFromRoute } from 'shared/lib/utils/getUserIdFromRoute';
 
 export const adminRoutes: RouteRecordRaw = {
   path: '/admin/',
@@ -33,28 +34,28 @@ export const adminRoutes: RouteRecordRaw = {
           path: '',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE,
-          props: true,
+          props: getUserIdFromRoute,
           component: () => import('pages/PAdminUserProfile/ui/PAdminUserProfile.vue'),
         },
         {
           path: 'bio',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO,
-          props: true,
+          props: getUserIdFromRoute,
           component: () => import('pages/PAdminUserProfileBio/ui/PAdminUserProfileBio.vue'),
         },
         {
           path: 'trainings',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_TRAININGS,
-          props: true,
+          props: getUserIdFromRoute,
           component: () => import('pages/PAdminUserWorkout/ui/PAdminUserWorkout.vue'),
         },
         {
           path: 'nutrition',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_NUTRITION,
-          props: true,
+          props: getUserIdFromRoute,
           component: () => import('pages/PAdminUserProfileNutrition/ui/PAdminUserProfileNutrition.vue'),
         },
       ],
