@@ -23,7 +23,7 @@ const emit = defineEmits<{
 }>();
 const forms = ref<Array<InstanceType<typeof SForm>>>();
 
-const { foods } = useAdminFoodStore();
+const { foodList } = useAdminFoodStore();
 
 const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
   props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
@@ -47,7 +47,7 @@ const onRemoveApply = async () => {
 
 const onremove = (index: number) => {
   dialog.value?.show();
-  foods.deleteState.error();
+  foodList.deleteState.error();
   removeItemIndex.value = index;
 };
 const onadd = () => {
@@ -78,7 +78,7 @@ defineExpose({
 
 watchEffect(() => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  if (foods.deleteState.isSuccess()) lines.value.splice(removeItemIndex.value, 1);
+  if (foodList.deleteState.isSuccess()) lines.value.splice(removeItemIndex.value, 1);
 });
 onMounted(() => {
   if (!lines.value.length) lines.value.push({ uniqueId: uniqueId('line-') });

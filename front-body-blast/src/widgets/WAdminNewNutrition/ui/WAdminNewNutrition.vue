@@ -14,7 +14,7 @@ export interface WAdminNewNutritionProps {
 }
 const props = defineProps<WAdminNewNutritionProps>();
 
-const { postNutrition, getNutritions, nutritions } = useAdminNutritionStore();
+const { postNutrition, getNutritions, nutritionList } = useAdminNutritionStore();
 const schema = Nutrition.validation().pick({ name: true });
 
 const forms = ref<Array<InstanceType<typeof FNutritionListForm>>>();
@@ -26,10 +26,10 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
   const categories: Array<Array<Nutrition.Item>> = [];
   for (const form of forms.value) categories.push((await form.getFormValues()) ?? []);
 
-  useLoading(nutritions.createState);
+  useLoading(nutritionList.createState);
   await postNutrition({ name: values.name, userId: props.userId, mealItems: categories.flat() });
 
-  useLoadingAction(nutritions.state, () => getNutritions({ expanded: true }));
+  useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
 };
 </script>
 
@@ -38,7 +38,7 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
     <h1>{{ $t('admin.nutrition.new_nutrition_title') }}</h1>
     <SForm
       @submit="onsubmit"
-      :loading="nutritions.createState.isLoading()"
+      :loading="nutritionList.createState.isLoading()"
       :field-schema="toTypedSchema(schema)"
       p="0!"
       mt-0.5rem

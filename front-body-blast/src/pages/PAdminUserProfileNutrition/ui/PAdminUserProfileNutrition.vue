@@ -21,13 +21,13 @@ defineProps<PAdminUserProfileNutritionProps>();
 const { t, te } = useI18n();
 
 const pageValue = ref('nutrition');
-const { getNutritions, nutritions } = useAdminNutritionStore();
-useLoadingAction(nutritions.state, () => getNutritions({ expanded: true }));
-const { getFoods, foods } = useAdminFoodStore();
-useLoadingAction(foods.state, getFoods);
+const { getNutritions, nutritionList } = useAdminNutritionStore();
+useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
+const { getFoods, foodList } = useAdminFoodStore();
+useLoadingAction(foodList.state, getFoods);
 
-const nutritionsData = computed(() => nutritions.data?.data);
-const foodsData = computed(() => foods.data?.data);
+const nutritionsData = computed(() => nutritionList.data?.data);
+const foodsData = computed(() => foodList.data?.data);
 
 type AccumulatorType = Record<string, Array<Food>>;
 const foodSlides = computed(

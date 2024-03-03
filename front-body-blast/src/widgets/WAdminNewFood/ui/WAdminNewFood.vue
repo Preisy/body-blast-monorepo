@@ -1,9 +1,7 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FFoodListForm } from 'features/FNutritionListForm';
 import { useAdminFoodStore } from 'shared/api/admin';
-import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
@@ -14,7 +12,7 @@ export interface WAdminNewFoodProps {
 }
 defineProps<WAdminNewFoodProps>();
 
-const { postFood, foods } = useAdminFoodStore();
+const { postFood, foodList } = useAdminFoodStore();
 
 const categories = [1, 2, 3] as const;
 const type = ref();
@@ -27,7 +25,8 @@ const onCreate = async () => {
     const foodValues = await form.getFormValues();
     if (!foodValues) continue;
 
-    for (const food of foodValues) useLoadingAction(foods.createState, () => postFood({ ...food, type: type.value }));
+    for (const food of foodValues)
+      useLoadingAction(foodList.createState, () => postFood({ ...food, type: type.value }));
   }
 };
 </script>
@@ -43,7 +42,7 @@ const onCreate = async () => {
       <SBtn
         @click="onCreate"
         :icon="symRoundedDone"
-        :loading="foods.updateState.isLoading() || foods.createState.isLoading()"
+        :loading="foodList.updateState.isLoading() || foodList.createState.isLoading()"
       />
     </div>
   </SComponentWrapper>

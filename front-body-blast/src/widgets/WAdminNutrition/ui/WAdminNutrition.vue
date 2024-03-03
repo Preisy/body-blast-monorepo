@@ -14,7 +14,7 @@ const props = defineProps<WAdminNutritionLongProps>();
 const mealItems = computed(() => props.nutrition.mealItems || []);
 const categories = [1, 2, 3] as const;
 
-const { nutritions, getNutritions, patchNutrition, deleteNutrition } = useAdminNutritionStore();
+const { nutritionList, getNutritions, patchNutrition, deleteNutrition } = useAdminNutritionStore();
 
 const forms = ref<Array<InstanceType<typeof FNutritionListForm>>>();
 
@@ -22,15 +22,15 @@ const onSubmit = async () => {
   if (!forms.value) return;
   const categories: Array<Array<Nutrition.Item>> = [];
   for (const form of forms.value) categories.push((await form.getFormValues()) ?? []);
-  useLoadingAction(nutritions.updateState, () =>
+  useLoadingAction(nutritionList.updateState, () =>
     patchNutrition({ id: props.nutrition.id, name: props.nutrition.name, mealItems: categories.flat() }),
   );
 };
 
 const onDelete = async () => {
-  useLoading(nutritions.deleteState);
+  useLoading(nutritionList.deleteState);
   await deleteNutrition({ id: props.nutrition.id });
-  useLoadingAction(nutritions.state, () => getNutritions({ expanded: true }));
+  useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
 };
 </script>
 
@@ -38,7 +38,7 @@ const onDelete = async () => {
   <SComponentWrapper h-full>
     <div flex flex-row justify-between>
       <h1 mb-1rem>{{ nutrition.name }}</h1>
-      <SBtn :icon="symRoundedDelete" @click="onDelete" :loading="nutritions.deleteState.isLoading()" />
+      <SBtn :icon="symRoundedDelete" @click="onDelete" :loading="nutritionList.deleteState.isLoading()" />
     </div>
 
     <FNutritionListForm
@@ -54,7 +54,7 @@ const onDelete = async () => {
       <SBtn
         :icon="symRoundedDone"
         @click="onSubmit"
-        :loading="nutritions.createState.isLoading() || nutritions.updateState.isLoading()"
+        :loading="nutritionList.createState.isLoading() || nutritionList.updateState.isLoading()"
       />
     </div>
   </SComponentWrapper>

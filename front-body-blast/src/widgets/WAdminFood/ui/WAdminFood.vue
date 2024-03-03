@@ -13,19 +13,19 @@ export interface WAdminFoodProps {
 }
 
 const props = defineProps<WAdminFoodProps>();
-const { deleteFood, postFood, patchFood, foods } = useAdminFoodStore();
+const { deleteFood, postFood, patchFood, foodList } = useAdminFoodStore();
 
 const foodItemsOrEmpty = computed(() => props.foodItems);
 const categories = [1, 2, 3] as const;
 
 const onRemove = (id: number) => {
-  useLoadingAction(foods.deleteState, () => deleteFood({ id }));
+  useLoadingAction(foodList.deleteState, () => deleteFood({ id }));
 };
 const onCreate = (food: Pick<Food, 'name' | 'category'>) => {
-  useLoadingAction(foods.createState, () => postFood({ ...food, type: props.type }));
+  useLoadingAction(foodList.createState, () => postFood({ ...food, type: props.type }));
 };
 const onEdit = (food: Pick<Food, 'id' | 'name'>) => {
-  useLoadingAction(foods.updateState, () => patchFood(food));
+  useLoadingAction(foodList.updateState, () => patchFood(food));
 };
 
 const forms = ref<Array<InstanceType<typeof FFoodListForm>>>();
@@ -42,9 +42,9 @@ const onSubmit = async () => {
     for (let i = 0; i < foodValues.length; i++) {
       const food = foodValues[i];
       const prevFood = prevFoods[i];
-      if (!prevFood) useLoadingAction(foods.createState, () => postFood({ ...food, type: props.type }));
+      if (!prevFood) useLoadingAction(foodList.createState, () => postFood({ ...food, type: props.type }));
       else if (food.name !== prevFood.name)
-        useLoadingAction(foods.updateState, () => patchFood({ id: prevFood.id, name: food.name }));
+        useLoadingAction(foodList.updateState, () => patchFood({ id: prevFood.id, name: food.name }));
     }
   }
 };
@@ -69,7 +69,7 @@ const onSubmit = async () => {
       <SBtn
         @click="onSubmit"
         :icon="symRoundedDone"
-        :loading="foods.updateState.isLoading() || foods.createState.isLoading()"
+        :loading="foodList.updateState.isLoading() || foodList.createState.isLoading()"
       />
     </div>
   </SComponentWrapper>
