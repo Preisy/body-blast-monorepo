@@ -31,13 +31,13 @@ export class MeService {
   }
 
   async getNotification(id: UserEntity['id']) {
-    const anthrp = await this.anthrpService.findLatestEmptyAnthropometrics(id);
-    const diary = await this.diaryService.findLatestEmptyDiary(id);
+    const anthrp = await this.anthrpService.getAnthropometricsNotification(id);
+    const diary = await this.diaryService.getDiaryNotification(id);
     const response: GetNotificationForClientResponse = {
       anthropometrics: anthrp,
       diary: diary,
     };
-    return new AppSingleResponse(response);
+    return response;
   }
 
   async updateUser(id: UserEntity['id'], request: UpdateUserByClientRequest) {

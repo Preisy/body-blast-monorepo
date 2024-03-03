@@ -13,7 +13,7 @@ import { BaseDiaryModule } from '../diary/base-diary.module';
     forwardRef(() => AuthModule),
     forwardRef(() => BaseDiaryTemplateModule),
     forwardRef(() => BaseDiaryModule),
-    BaseAnthropometricsModule,
+    forwardRef(() => BaseAnthropometricsModule),
   ],
   providers: [BaseUserService],
   exports: [BaseUserService],

@@ -1,34 +1,75 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { AnthropometricsEntity } from './entities/anthropometrics.entity';
 import { Repository } from 'typeorm';
-import { CreateAnthropometricsRequest } from './dto/create-anthropometrics.dto';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { UpdateAnthropometricsRequest } from './dto/update-anthropometrics';
 import { MainException } from '../../../exceptions/main.exception';
 import { filterUndefined } from '../../../utils/filter-undefined.util';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { UserEntity } from '../user/entities/user.entity';
-import { GetLatestEmptyAnthropometricsResponse } from './dto/get-latest-empty-anthropometrics';
+import { BaseUserService } from '../user/base-user.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { UserRole } from '../../../constants/constants';
+import { AppPagination } from '../../../utils/app-pagination.util';
 
 @Injectable()
 export class BaseAnthropometrcisService {
   constructor(
     @InjectRepository(AnthropometricsEntity)
     private readonly anthrpRepository: Repository<AnthropometricsEntity>,
+    @Inject(forwardRef(() => BaseUserService))
+    private readonly userService: BaseUserService,
   ) {}
 
   public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];
 
-  async create(request: CreateAnthropometricsRequest): Promise<AppSingleResponse<AnthropometricsEntity>> {
-    const newAntrp = await this.anthrpRepository.create({
-      ...request,
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async createAnthropometricsCron() {
+    const { data: users } = await this.userService.getUsers(new AppPagination.Request(), {
+      where: {
+        role: UserRole.Client,
+      },
     });
 
-    const savedAntrp = await this.anthrpRepository.save(newAntrp);
+    const data = await this.findLatestAnthropometricsForEachUser();
+    const anthrpMap = data.reduce(
+      (acc, value) => ({ ...acc, [value.userId]: value }),
+      {} as Record<number, AnthropometricsEntity>,
+    );
 
-    return new AppSingleResponse(savedAntrp);
+    users.forEach((user) => {
+      const userAnthrp = anthrpMap[user.id];
+      user.anthrpJobPeriod;
+      const anthrpCreatedAt = userAnthrp.createdAt.getTime() || 0;
+      if (Math.abs(anthrpCreatedAt - new Date().getTime()) >= user.anthrpJobPeriod! * 1000 * 60 * 60 * 24) {
+        this.anthrpRepository.save(this.anthrpRepository.create({ userId: user.id }));
+      }
+    });
+  }
+
+  async findLatestAnthropometricsForEachUser() {
+    const subQuery = await this.anthrpRepository
+      .createQueryBuilder('sub')
+      .select('MAX(sub.createdAt)', 'maxCreatedAt')
+      .where('sub.userId = main.userId')
+      .groupBy('sub.userId');
+
+    const latestAnthrp = await this.anthrpRepository
+      .createQueryBuilder('main')
+      .where(`main.createdAt = (${subQuery.getQuery()})`)
+      .getMany();
+
+    return latestAnthrp;
+  }
+
+  async createEmptyAnthrpRecordForUser(userId: UserEntity['id']) {
+    const newAnthrp = await this.anthrpRepository.create(new AnthropometricsEntity());
+
+    newAnthrp.userId = userId;
+
+    return this.anthrpRepository.save(newAnthrp);
   }
 
   async findAll(
@@ -49,7 +90,7 @@ export class BaseAnthropometrcisService {
     return new AppSingleResponse(antrp);
   }
 
-  async findLatestEmptyAnthropometrics(idUser: UserEntity['id']) {
+  async getAnthropometricsNotification(idUser: UserEntity['id']) {
     const latestAnthrp = await this.anthrpRepository.findOne({
       where: {
         userId: idUser,
@@ -66,15 +107,9 @@ export class BaseAnthropometrcisService {
       latestAnthrp.weight == null ||
       latestAnthrp.shoulder == null
     ) {
-      const emptyAnthrpResponse: GetLatestEmptyAnthropometricsResponse = {
-        id: latestAnthrp.id,
-        userId: latestAnthrp.userId,
-        createdAt: latestAnthrp.createdAt,
-      };
-
-      return emptyAnthrpResponse;
+      return true;
     }
-    return new GetLatestEmptyAnthropometricsResponse();
+    return false;
   }
 
   async update(
