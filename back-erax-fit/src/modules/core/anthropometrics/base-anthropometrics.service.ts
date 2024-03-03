@@ -9,6 +9,8 @@ import { MainException } from '../../../exceptions/main.exception';
 import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Injectable } from '@nestjs/common';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { UserEntity } from '../user/entities/user.entity';
+import { GetLatestEmptyAnthropometricsResponse } from './dto/get-latest-empty-anthropometrics';
 
 @Injectable()
 export class BaseAnthropometrcisService {
@@ -40,12 +42,40 @@ export class BaseAnthropometrcisService {
   async findOne(id: AnthropometricsEntity['id']) {
     const antrp = await this.anthrpRepository.findOne({
       where: { id },
-      relations: this.relations,
     });
 
     if (!antrp) throw MainException.entityNotFound(`Antropometrics with id ${id} not found`);
 
     return new AppSingleResponse(antrp);
+  }
+
+  async findLatestEmptyAnthropometrics(idUser: UserEntity['id']) {
+    const latestAnthrp = await this.anthrpRepository.findOne({
+      where: {
+        userId: idUser,
+      },
+      order: { createdAt: 'DESC' },
+    });
+    if (!latestAnthrp) throw MainException.entityNotFound(`Antropometrics with id ${idUser} not found`);
+
+    if (
+      latestAnthrp.abdomen == null ||
+      latestAnthrp.hip == null ||
+      latestAnthrp.hipVolume == null ||
+      latestAnthrp.waist == null ||
+      latestAnthrp.weight == null ||
+      latestAnthrp.shoulder == null
+    ) {
+      const emptyAnthrpResponse: GetLatestEmptyAnthropometricsResponse = {
+        id: latestAnthrp.id,
+        userId: latestAnthrp.userId,
+        createdAt: latestAnthrp.createdAt,
+        name: 'Anthropometrics empty record',
+      };
+
+      return emptyAnthrpResponse;
+    }
+    return new GetLatestEmptyAnthropometricsResponse();
   }
 
   async update(
