@@ -83,6 +83,7 @@ export class BaseAnthropometrcisService {
   async findOne(id: AnthropometricsEntity['id']) {
     const antrp = await this.anthrpRepository.findOne({
       where: { id },
+      relations: this.relations,
     });
 
     if (!antrp) throw MainException.entityNotFound(`Antropometrics with id ${id} not found`);
