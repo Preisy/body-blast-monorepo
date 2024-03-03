@@ -1,15 +1,11 @@
 import { defineStore } from 'pinia';
 import { AppBaseEntity } from 'shared/api/base';
 import { AppPagination } from 'shared/api/pagination';
-import { User } from 'shared/api/user';
-import { useSingleState, useSimpleStoreAction } from 'shared/lib/utils';
+import { useSingleState, useSimpleStoreAction, useStoreAction } from 'shared/lib/utils';
 import { adminProfileService } from './service';
 import { AdminUser } from './types';
 
-export const useAdminUserProfileStore = defineStore('admin-userProfile-store', () => {
-  const currentUser = ref<User>();
-  const setCurrentUser = (newVal: User) => (currentUser.value = newVal);
-
+export const useAdminUserProfileStore = defineStore('admin-user-profile-store', () => {
   const users = ref(useSingleState<AdminUser.Get.Response>());
   const getUsers = (data?: AppPagination.BaseDto) =>
     useSimpleStoreAction({
@@ -17,18 +13,18 @@ export const useAdminUserProfileStore = defineStore('admin-userProfile-store', (
       serviceAction: adminProfileService.getUsers(data),
     });
 
-  const user = ref(useSingleState<AdminUser.GetById.Response>());
+  const user = ref(useSingleState<AdminUser.GetById.Response>({ update: true }));
   const getUserById = (data: AppBaseEntity.Dto) =>
     useSimpleStoreAction({
       stateWrapper: user.value,
       serviceAction: adminProfileService.getUserById(data),
     });
 
-  const patchUserProfileResponse = ref(useSingleState<AdminUser.Patch.Response>());
   const patchUserProfile = (data: AdminUser.Patch.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: patchUserProfileResponse.value,
+    useStoreAction({
+      state: user.value.updateState,
       serviceAction: adminProfileService.patchUser(data),
+      onSuccess: (res) => (user.value.data = res),
     });
 
   const userDiaries = ref(useSingleState<AdminUser.GetDiaries.Response>());
@@ -49,11 +45,8 @@ export const useAdminUserProfileStore = defineStore('admin-userProfile-store', (
     user,
     users,
     getUserById,
-    currentUser,
-    setCurrentUser,
     getUsers,
     patchUserProfile,
-    patchUserProfileResponse,
     userDiaries,
     getUserDiaries,
     userSteps,

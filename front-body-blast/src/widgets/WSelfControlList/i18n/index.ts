@@ -1,7 +1,7 @@
 import eu from './en';
 import ru from './ru';
 
-export const TWStepsMonitoringI18n = {
+export const TWSelfControlListI18n = {
   'en-US': eu,
   'ru-RU': ru,
 };

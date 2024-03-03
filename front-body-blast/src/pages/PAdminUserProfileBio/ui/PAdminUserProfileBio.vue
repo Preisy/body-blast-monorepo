@@ -23,32 +23,34 @@ const props = defineProps<{
   id: string;
 }>();
 
-const { getUserById, user, currentUser, setCurrentUser } = useAdminUserProfileStore();
-
-if (!currentUser)
+const router = useRouter();
+const { getUserById, user } = useAdminUserProfileStore();
+const userData = computed(() => user.data?.data);
+if (!userData.value)
   useLoadingAction(user, async () => {
     await getUserById({ id: parseInt(props.id) });
-    const userData = user.data?.data;
 
-    if (!userData) return; //TODO: 404 screen
-    setCurrentUser(userData);
+    if (!userData.value) {
+      router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
+      return;
+    }
   });
 
 const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; values: Record<string, unknown> }> = [
   {
     is: EBodyParamsSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.BodyParams.validation(t)) },
-    values: pick(currentUser, ['age', 'weightInYouth', 'weight']),
+    values: pick(userData.value, ['age', 'weightInYouth', 'weight']),
   },
   {
     is: EForbiddensSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation(t)) },
-    values: pick(currentUser, ['allergy', 'nutritRestrict', 'mealIntolerance']),
+    values: pick(userData.value, ['allergy', 'nutritRestrict', 'mealIntolerance']),
   },
   {
     is: EDiseasesSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation(t)) },
-    values: pick(currentUser, [
+    values: pick(userData.value, [
       'gastroDeseases',
       'insulinResistance',
       'kidneyDesease',
@@ -59,7 +61,7 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
   {
     is: EMotivationsSignUpForm,
     form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation(t)) },
-    values: pick(currentUser, ['loadRestrictions', 'sportsExp', 'goals']),
+    values: pick(userData.value, ['loadRestrictions', 'sportsExp', 'goals']),
   },
 ];
 </script>

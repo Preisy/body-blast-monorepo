@@ -7,9 +7,9 @@ import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
 import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
 import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
 import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
-import { TWSelfControlMonitoringI18n } from 'widgets/WSelfControlMonitoring';
-import { TWStepsMonitoringI18n } from 'widgets/WStepsMonitoring';
-import { TEDiaryI18n } from 'entities/diary';
+import { TWSelfControlListI18n } from 'widgets/WSelfControlList';
+import { TWStepsListI18n } from 'widgets/WStepsList';
+import { TEDiaryI18n } from 'entities/diary/EDiaryHeader';
 import { TAuthFormsI18n } from 'entities/form/i18n';
 import { TEAthropometricsItemI18n } from 'entities/profile/EAthropometricsItem';
 import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
@@ -39,8 +39,8 @@ export default boot(({ app }) => {
       TWPromptCreationI18n,
       TEProfileCardI18n,
       TSNoResultsScreenI18n,
-      TWStepsMonitoringI18n,
-      TWSelfControlMonitoringI18n,
+      TWStepsListI18n,
+      TWSelfControlListI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

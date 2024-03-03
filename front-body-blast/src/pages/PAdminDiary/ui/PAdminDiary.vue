@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WSelfControlMonitoring } from 'widgets/WSelfControlMonitoring';
-import { WStepsMonitoring } from 'widgets/WStepsMonitoring';
+import { WSelfControlList } from 'widgets/WSelfControlList';
+import { WStepsList } from 'widgets/WStepsList';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -64,10 +64,10 @@ const diariesSlides = computed(() => {
 
     <SSplide :options="{ direction: 'ttb', height: '100vh' }">
       <SSplideSlide>
-        <WStepsMonitoring :weeks="stepsData?.weeks ?? []" />
+        <WStepsList :weeks="stepsData?.weeks ?? []" />
       </SSplideSlide>
       <SSplideSlide v-for="week in Object.keys(diariesSlides)" :key="week">
-        <WSelfControlMonitoring :slides="diariesSlides[week]" :week="week" />
+        <WSelfControlList :slides="diariesSlides[week]" :week="week" />
       </SSplideSlide>
     </SSplide>
   </SComponentWrapper>

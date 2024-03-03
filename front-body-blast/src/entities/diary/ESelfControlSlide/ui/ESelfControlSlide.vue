@@ -52,6 +52,8 @@ const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
       relative
       z--1
       mt-0.5rem
+      transition-500
+      ease-in-out
     >
       <div v-for="prop in diary.props" :key="prop.id" mt-0.5rem>
         <p>{{ prop.label }}</p>
@@ -60,13 +62,3 @@ const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
     </div>
   </div>
 </template>
-
-<style scoped lang="scss">
-.dropdown {
-  transition: 0.5s ease-in-out;
-  // margin-top: -100%;
-  &.isShown {
-    // margin-top: 0.5rem;
-  }
-}
-</style>

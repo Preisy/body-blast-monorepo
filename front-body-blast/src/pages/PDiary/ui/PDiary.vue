@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { WSelfControl } from 'widgets/diary/WSelfControl';
-import { EDiaryHeader } from 'entities/diary';
+import { EDiaryHeader } from 'entities/diary/EDiaryHeader';
 import { useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
@@ -21,3 +21,4 @@ const firstInWeek = computed(() => diaryData.value?.find((diary) => moment(diary
     <SNoResultsScreen v-else p-1.5rem />
   </div>
 </template>
+entities/diary/EDiaryHeader

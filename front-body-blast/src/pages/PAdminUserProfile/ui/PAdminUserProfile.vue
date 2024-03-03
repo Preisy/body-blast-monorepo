@@ -23,41 +23,28 @@ export interface PAdminUserProfileProps {
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
 
-const adminProfileStore = useAdminUserProfileStore();
-
-const currentUser = computed(() => adminProfileStore.currentUser);
-const setCurrentUser = adminProfileStore.setCurrentUser;
-
+const { user, getUserById, patchUserProfile } = useAdminUserProfileStore();
 const router = useRouter();
+const userData = computed(() => user.data?.data);
 
-if (!currentUser.value)
-  useLoadingAction(adminProfileStore.user, async () => {
-    await adminProfileStore.getUserById({ id: props.id });
-    const user = adminProfileStore.user.data?.data;
+if (!userData.value)
+  useLoadingAction(user, async () => {
+    await getUserById({ id: props.id });
 
-    if (!user) {
+    if (!userData.value) {
       router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
       return;
     }
-    setCurrentUser(user);
   });
 
-const currentUserName = computed(() => `${currentUser.value?.firstName} ${currentUser.value?.lastName}`);
+const userName = computed(() => `${userData.value?.firstName} ${userData.value?.lastName}`);
 
-const canWatchVideo = computed(() => currentUser.value?.canWatchVideo);
-const anthrpJobPeriod = computed(() => currentUser.value?.anthrpJobPeriod);
+const canWatchVideo = computed(() => userData.value?.canWatchVideo);
+const anthrpJobPeriod = computed(() => userData.value?.anthrpJobPeriod);
 
-useLoading(adminProfileStore.patchUserProfileResponse);
-const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) => {
-  await adminProfileStore.patchUserProfile({ id: props.id, user: { [field]: newValue } }); // TODO: 400 Bad Request - написать беку
-  const user = adminProfileStore.patchUserProfileResponse.data?.data;
-
-  if (!user) {
-    router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
-    return;
-  }
-  setCurrentUser(user);
-};
+useLoading(user.updateState);
+const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
+  patchUserProfile({ id: props.id, user: { [field]: newValue } });
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
@@ -115,7 +102,7 @@ useLoadingAction(anthropometry, () => update('back'));
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          :header="currentUserName ?? 'Loading...'"
+          :header="userName ?? 'Loading...'"
           :describe="$t('home.profile.header.student')"
           dark
           mx--0.5rem

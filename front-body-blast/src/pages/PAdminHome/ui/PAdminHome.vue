@@ -17,7 +17,7 @@ defineProps<PAdminHomeProps>();
 
 const router = useRouter();
 
-const { users, getUsers } = useAdminUserProfileStore();
+const { users, getUsers, user: storeUser } = useAdminUserProfileStore();
 useLoadingAction(users, getUsers);
 
 const nameFilter = ref<string>('');
@@ -44,7 +44,7 @@ const logout = () => {
 };
 
 const onUserProfileClick = (user: User) => {
-  useAdminUserProfileStore().setCurrentUser(user);
+  storeUser.data = { data: user };
   router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE, params: { id: user.id } });
 };
 </script>
