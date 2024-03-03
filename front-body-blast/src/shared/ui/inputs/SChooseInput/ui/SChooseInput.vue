@@ -10,7 +10,7 @@ export interface SChooseInputProps<T> {
   label: SInputProps['label'];
   name: NonNullable<SInputProps['name']>;
   display?: SInputProps['modelValue'];
-  items: Array<T>;
+  items: Array<T & { key: string }>;
   optionValue: keyof T;
 }
 type ModelValue = SChooseInputProps<T>['modelValue'];
@@ -48,20 +48,29 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
       class="popup"
       ref="float"
       :style="{ ...floatingStyles, height: contentHeight }"
+      pointer-events-revert-layer
       right-0
-      z-1
+      z-1000
       overflow-hidden
       rounded-0.75rem
       bg-primary
     >
-      <div ref="content" flex rounded-0.75rem>
-        <slot name="item" v-for="item in items" :item="item" :onclick="() => onItemClick(item)" />
+      <div ref="content" flex flex-row rounded-0.75rem>
+        <div v-for="item in items" :key="item.key" @click="() => onItemClick(item)">
+          <slot name="item" :item="item" />
+        </div>
       </div>
     </SProxyScroll>
     <div>
       <SInput
+        watch-model-value
         @focus="isOpen = true"
-        @blur="isOpen = false"
+        @blur="
+          (e) => {
+            isOpen = false;
+            console.log(e);
+          }
+        "
         :label="label"
         ref="anchor"
         :model-value="value?.[optionValue as keyof T]"

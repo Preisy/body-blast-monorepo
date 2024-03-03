@@ -68,7 +68,7 @@ const onTransition = (newVal: string) => {
       <q-tab-panel :name="routes[1].name" p="0!">
         <SProxyScroll h-full v-if="rawPrompts" overflow-hidden>
           <SComponentWrapper>
-            <WPrompt v-for="prompt in rawPrompts" :prompt="prompt" :key="prompt.id" />
+            <WPrompt v-for="prompt in rawPrompts" :prompt="prompt" :key="prompt.id" mb-1rem />
           </SComponentWrapper>
         </SProxyScroll>
         <SNoResultsScreen v-else />

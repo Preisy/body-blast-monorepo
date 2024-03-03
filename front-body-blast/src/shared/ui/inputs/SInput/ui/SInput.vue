@@ -13,6 +13,7 @@ export interface SInputProps extends Omit<QInputProps, 'modelValue' | 'name' | '
   activeColor?: string;
   bgColor?: string;
   activeBgColor?: string;
+  watchModelValue?: boolean;
 }
 
 const props = withDefaults(defineProps<SInputProps>(), {
@@ -24,11 +25,17 @@ const props = withDefaults(defineProps<SInputProps>(), {
   activeColor: 'bg',
   bgColor: 'primary opacity-50',
   activeBgColor: 'primary',
+  watchModelValue: false,
 });
 
 //TODO: find a workaround for '____'. Remove it
 const { value, errorMessage, setValue } = useField<string | number | undefined>(() => props.name ?? '____');
 if (props.modelValue) setValue(props.modelValue);
+if (props.watchModelValue) {
+  watchEffect(() => {
+    setValue(props.modelValue ?? undefined);
+  });
+}
 
 const currentColor = computed(() => (!!value.value ? props.activeColor : props.color));
 const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : props.bgColor));

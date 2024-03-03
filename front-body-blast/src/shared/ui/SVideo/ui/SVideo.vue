@@ -3,6 +3,7 @@ import { SBtn } from 'shared/ui/btns';
 
 export interface SVideoProps {
   linkUrl: string;
+  disableBtn?: boolean;
 }
 defineProps<SVideoProps>();
 
@@ -63,7 +64,7 @@ onMounted(() => {
       </video>
     </a>
     <slot name="controlBtn">
-      <SBtn :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
+      <SBtn v-if="!disableBtn" :icon="isPlaying ? 'pause' : 'play_arrow'" ml-2 mt--8 @click="togglePlay" />
     </slot>
   </div>
 </template>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { BonusVideo } from 'shared/api/bonusVideo';
-import { useAuthLink } from 'shared/lib/utils';
+import { useAuthLink } from 'shared/lib/hooks';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SVideo } from 'shared/ui/SVideo';
 
 const props = defineProps<{
   video: BonusVideo;
 }>();
-const link = useAuthLink(props.video.linkUrl);
+const { state: link } = useAuthLink(props.video.linkUrl);
 </script>
 
 <template>
