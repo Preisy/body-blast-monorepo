@@ -33,7 +33,7 @@ export class BaseDiaryService {
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-  async createDiaryCron() {
+  private async createDiaryCron() {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);
     const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
@@ -77,6 +77,19 @@ export class BaseDiaryService {
       date: newDate,
     });
 
+    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
+      where: {
+        date: newDate,
+      },
+    });
+    const workoutsToUserId = workouts.reduce(
+      (acc, it) => ({ ...acc, [it.userId]: it }),
+      {} as Record<number, WorkoutEntity>,
+    );
+
+    const workout = workoutsToUserId[template.userId!];
+    defaultDiary.cycle = workout ? workout.cycle : undefined;
+
     await this.diaryRepository.save(defaultDiary);
   }
 
@@ -89,7 +102,7 @@ export class BaseDiaryService {
     });
     if (!latestDiary) return false;
 
-    if (
+    return (
       latestDiary.activity == null ||
       latestDiary.sum == null ||
       latestDiary.steps == null ||
@@ -98,10 +111,7 @@ export class BaseDiaryService {
       latestDiary.props[1].label == null ||
       latestDiary.props[2].label == null ||
       latestDiary.props[3].label == null
-    ) {
-      return true;
-    }
-    return false;
+    );
   }
 
   async findAll(

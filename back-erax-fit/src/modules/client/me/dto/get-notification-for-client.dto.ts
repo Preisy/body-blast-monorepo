@@ -1,9 +1,9 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class GetNotificationForClientResponse {
-  @ApiPropertyOptional()
+  @ApiProperty({ description: 'Returns TRUE if empty anthropometrics record exists, otherwise returns FALSE' })
   anthropometrics: boolean;
 
-  @ApiPropertyOptional()
+  @ApiProperty({ description: 'Returns TRUE if empty diary record exists, otherwise returns FALSE' })
   diary: boolean;
 }

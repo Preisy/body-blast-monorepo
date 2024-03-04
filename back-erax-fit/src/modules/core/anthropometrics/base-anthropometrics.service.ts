@@ -26,7 +26,7 @@ export class BaseAnthropometrcisService {
   public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
-  async createAnthropometricsCron() {
+  private async createAnthropometricsCron() {
     const { data: users } = await this.userService.getUsers(new AppPagination.Request(), {
       where: {
         role: UserRole.Client,
@@ -39,17 +39,18 @@ export class BaseAnthropometrcisService {
       {} as Record<number, AnthropometricsEntity>,
     );
 
-    users.forEach((user) => {
+    const createвAnthropometrics = users.flatMap((user) => {
       const userAnthrp = anthrpMap[user.id];
-      user.anthrpJobPeriod;
       const anthrpCreatedAt = userAnthrp.createdAt.getTime() || 0;
       if (Math.abs(anthrpCreatedAt - new Date().getTime()) >= user.anthrpJobPeriod! * 1000 * 60 * 60 * 24) {
-        this.anthrpRepository.save(this.anthrpRepository.create({ userId: user.id }));
+        return this.anthrpRepository.create({ userId: user.id });
       }
+      return [];
     });
+    return this.anthrpRepository.save(createвAnthropometrics, { chunk: 10000 });
   }
 
-  async findLatestAnthropometricsForEachUser() {
+  private async findLatestAnthropometricsForEachUser() {
     const subQuery = await this.anthrpRepository
       .createQueryBuilder('sub')
       .select('MAX(sub.createdAt)', 'maxCreatedAt')
@@ -98,19 +99,16 @@ export class BaseAnthropometrcisService {
       },
       order: { createdAt: 'DESC' },
     });
-    if (!latestAnthrp) throw MainException.entityNotFound(`Antropometrics with id ${idUser} not found`);
+    if (!latestAnthrp) return false;
 
-    if (
+    return (
       latestAnthrp.abdomen == null ||
       latestAnthrp.hip == null ||
       latestAnthrp.hipVolume == null ||
       latestAnthrp.waist == null ||
       latestAnthrp.weight == null ||
       latestAnthrp.shoulder == null
-    ) {
-      return true;
-    }
-    return false;
+    );
   }
 
   async update(
