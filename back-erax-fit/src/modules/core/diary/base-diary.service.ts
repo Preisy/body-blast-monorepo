@@ -93,7 +93,11 @@ export class BaseDiaryService {
       latestDiary.activity == null ||
       latestDiary.sum == null ||
       latestDiary.steps == null ||
-      latestDiary.cycle == null
+      latestDiary.cycle == null ||
+      latestDiary.props[0].label == null ||
+      latestDiary.props[1].label == null ||
+      latestDiary.props[2].label == null ||
+      latestDiary.props[3].label == null
     ) {
       return true;
     }
