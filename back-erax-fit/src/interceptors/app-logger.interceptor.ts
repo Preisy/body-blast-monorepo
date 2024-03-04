@@ -36,7 +36,7 @@ export class AppLoggerInterceptor implements NestInterceptor {
       catchError((error) => {
         const response = context.switchToHttp().getResponse();
         const now = Date.now();
-        this.logger.log(
+        this.logger.warn(
           '\n\n====================================================\n\nTIME: ' +
             Date().toString() +
             '\nMETHOD: ' +
