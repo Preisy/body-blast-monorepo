@@ -58,6 +58,20 @@ export class BaseDiaryTemplateService {
     return new AppSingleResponse(template);
   }
 
+  async findOneByUserId(userId: UserEntity['id']) {
+    const template = await this.diaryTemlpateRepository.findOne({
+      where: {
+        userId,
+      },
+      relations: this.relations,
+    });
+
+    if (!template) {
+      throw MainException.entityNotFound(`Template with userId: ${userId} not found`);
+    }
+    return new AppSingleResponse(template);
+  }
+
   async update(id: DiaryTemplateEntity['id'], request: UpdateDiaryTemplateRequest) {
     const { data: template } = await this.findOne(id);
     if (request.props) {

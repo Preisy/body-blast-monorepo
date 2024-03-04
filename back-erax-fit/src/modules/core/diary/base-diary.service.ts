@@ -49,13 +49,12 @@ export class BaseDiaryService {
       relations: ['props'],
     });
     const promises = templates.map(async (template) => {
-      const labels: { label: string }[] = template.props.map(({ label }) => ({ label }));
+      const labels = template.props.map(({ label }) => ({ label }));
       const newDiary = this.diaryRepository.create({
         userId: template.userId,
         props: labels,
+        date: newDate,
       });
-
-      newDiary.date = newDate;
 
       const workout = workoutsToUserId[template.userId!];
       newDiary.cycle = workout ? workout.cycle : undefined;
@@ -66,22 +65,19 @@ export class BaseDiaryService {
   }
 
   async createEmptyDiaryRecord(userId: UserEntity['id']) {
-    const defaultDiary = await this.diaryRepository.create(new DiaryEntity());
+    const newDate = new Date();
+    newDate.setHours(0, 0, 0, 0);
 
-    defaultDiary.userId = userId;
-    defaultDiary.date = new Date();
+    const { data: template } = await this.diaryTemplateService.findOneByUserId(userId);
+    const labels = template.props.map(({ label }) => ({ label }));
 
-    const savedDiary = await this.diaryRepository.save(defaultDiary);
+    const defaultDiary = this.diaryRepository.create({
+      userId,
+      props: labels,
+      date: newDate,
+    });
 
-    await this.createDefaultProp(savedDiary.id);
-  }
-
-  async createDefaultProp(diaryId: DiaryEntity['id']) {
-    const defaultDiaryProp = await this.diaryPropsRepository.create(new DiaryPropsEntity());
-    defaultDiaryProp.diaryId = diaryId;
-    defaultDiaryProp.label = 'Питание';
-    const savedProp = await this.diaryPropsRepository.save(defaultDiaryProp);
-    return savedProp;
+    await this.diaryRepository.save(defaultDiary);
   }
 
   async getDiaryNotification(idUser: UserEntity['id']) {
