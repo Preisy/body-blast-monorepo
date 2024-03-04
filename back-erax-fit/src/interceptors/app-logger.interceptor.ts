@@ -11,26 +11,51 @@ export class AppLoggerInterceptor implements NestInterceptor {
 
     return next.handle().pipe(
       tap(() => {
-        const response = context.switchToHttp().getRequest();
+        const response = context.switchToHttp().getResponse();
+        const now = Date.now();
         this.logger.log(
           '\n\n====================================================\n\nTIME: ' +
             Date().toString() +
             '\nMETHOD: ' +
             JSON.stringify(request.method) +
+            '\nPATH:' +
+            JSON.stringify(request.url) +
             '\nBODY: ' +
             JSON.stringify(request.body) +
             '\nRESPONSE: ' +
+            '\n   RESPONSE TIME: ' +
+            `${Date.now() - now} ms` +
+            '\n   STATUS CODE: ' +
             JSON.stringify(response.statusCode) +
-            ' / ' +
+            '\n   STATUS: ' +
             JSON.stringify(response.status) +
-            ' / ' +
+            '\n   BODY: ' +
             JSON.stringify(response.body),
         );
       }),
       catchError((error) => {
         const response = context.switchToHttp().getResponse();
-        console.error(`${response.statusCode} | [${response.method}]`);
-        return throwError(error);
+        const now = Date.now();
+        this.logger.log(
+          '\n\n====================================================\n\nTIME: ' +
+            Date().toString() +
+            '\nMETHOD: ' +
+            JSON.stringify(request.method) +
+            '\nPATH:' +
+            JSON.stringify(request.url) +
+            '\nBODY: ' +
+            JSON.stringify(request.body) +
+            '\nRESPONSE: ' +
+            '\n   RESPONSE TIME: ' +
+            `${Date.now() - now} ms` +
+            '\n   STATUS CODE: ' +
+            JSON.stringify(response.statusCode) +
+            '\n   STATUS: ' +
+            JSON.stringify(response.status) +
+            '\n   BODY: ' +
+            JSON.stringify(response.body),
+        );
+        return throwError(() => error);
       }),
     );
   }
