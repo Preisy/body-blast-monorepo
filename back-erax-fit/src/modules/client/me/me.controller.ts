@@ -43,7 +43,7 @@ export class MeController {
   }
 
   @Get('notifications')
-  @AppResponses({ status: 200, type: AppSingleResponse.type(GetNotificationForClientResponse) })
+  @AppResponses({ status: 200, type: GetNotificationForClientResponse })
   async getNotification(@Req() req: RequestWithUser) {
     return this.meService.getNotification(req.user.id);
   }

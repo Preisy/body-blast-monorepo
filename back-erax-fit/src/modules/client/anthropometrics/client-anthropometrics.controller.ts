@@ -1,6 +1,5 @@
 import {
   Controller,
-  Post,
   Req,
   Body,
   ParseIntPipe,
@@ -20,7 +19,6 @@ import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { Throttle } from '@nestjs/throttler';
 import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
-import { CreateAnthropometricsByClientRequest } from './dto/client-create-anthropometrics.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { UpdateAnthropometricsByClientRequest } from './dto/client-update-anthropometrics.dto';
 import { AnthropometricsEntity } from '../../core/anthropometrics/entities/anthropometrics.entity';
@@ -34,13 +32,6 @@ import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 @UsePipes(ValidationPipe)
 export class ClientAnthropometricsController {
   constructor(private readonly clientService: ClientAnthropometricsService) {}
-
-  @Post()
-  @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
-  @Throttle(5, 1)
-  async create(@Req() req: RequestWithUser, @Body() body: CreateAnthropometricsByClientRequest) {
-    return this.clientService.create(req.user, body);
-  }
 
   @Get()
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(AnthropometricsEntity) })

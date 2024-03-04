@@ -6,12 +6,17 @@ import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { BaseUserService } from '../user/base-user.service';
-import { GetDiaryDTO, GetLatestEmptyDiaryResponse } from './dto/get-diary.dto';
+import { GetDiaryDTO } from './dto/get-diary.dto';
 import { GetStepsByUserIdDTO, StepsByWeek } from './dto/get-steps.dto';
 import { UpdateDiaryRequest } from './dto/update-diary.dto';
 import { DiaryPropsEntity } from './entity/diary-props.entity';
 import { DiaryEntity } from './entity/diary.entity';
 import { UserEntity } from '../user/entities/user.entity';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { BaseWorkoutService } from '../workout/base-workout.service';
+import { WorkoutEntity } from '../workout/entity/workout.entity';
+import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 
 @Injectable()
 export class BaseDiaryService {
@@ -22,10 +27,45 @@ export class BaseDiaryService {
     private readonly diaryPropsRepository: Repository<DiaryPropsEntity>,
     @Inject(forwardRef(() => BaseUserService))
     private readonly userService: BaseUserService,
+    private readonly workoutService: BaseWorkoutService,
+    private readonly diaryTemplateService: BaseDiaryTemplateService,
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
-  async createDefault(userId: UserEntity['id']) {
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  async createDiaryCron() {
+    const newDate = new Date();
+    newDate.setHours(0, 0, 0, 0);
+    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
+      where: {
+        date: newDate,
+      },
+    });
+    const workoutsToUserId = workouts.reduce(
+      (acc, it) => ({ ...acc, [it.userId]: it }),
+      {} as Record<number, WorkoutEntity>,
+    );
+    const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
+      relations: ['props'],
+    });
+    const promises = templates.map(async (template) => {
+      const labels: { label: string }[] = template.props.map(({ label }) => ({ label }));
+      const newDiary = this.diaryRepository.create({
+        userId: template.userId,
+        props: labels,
+      });
+
+      newDiary.date = newDate;
+
+      const workout = workoutsToUserId[template.userId!];
+      newDiary.cycle = workout ? workout.cycle : undefined;
+      return newDiary;
+    });
+    const diaries = await Promise.all(promises);
+    await this.diaryRepository.save(diaries, { chunk: 10000 });
+  }
+
+  async createEmptyDiaryRecord(userId: UserEntity['id']) {
     const defaultDiary = await this.diaryRepository.create(new DiaryEntity());
 
     defaultDiary.userId = userId;
@@ -44,14 +84,14 @@ export class BaseDiaryService {
     return savedProp;
   }
 
-  async findLatestEmptyDiary(idUser: UserEntity['id']) {
+  async getDiaryNotification(idUser: UserEntity['id']) {
     const latestDiary = await this.diaryRepository.findOne({
       where: {
         userId: idUser,
       },
       order: { createdAt: 'DESC' },
     });
-    if (!latestDiary) throw MainException.entityNotFound(`Diary with id ${idUser} not found`);
+    if (!latestDiary) return false;
 
     if (
       latestDiary.activity == null ||
@@ -59,15 +99,9 @@ export class BaseDiaryService {
       latestDiary.steps == null ||
       latestDiary.cycle == null
     ) {
-      const emptyAnthrpResponse: GetLatestEmptyDiaryResponse = {
-        id: latestDiary.id,
-        userId: latestDiary.userId,
-        createdAt: latestDiary.createdAt,
-      };
-
-      return emptyAnthrpResponse;
+      return true;
     }
-    return new GetLatestEmptyDiaryResponse();
+    return false;
   }
 
   async findAll(
