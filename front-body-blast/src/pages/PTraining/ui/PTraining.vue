@@ -17,7 +17,9 @@ const date = ref(moment().toISOString());
 const page = computed(() => moment(date.value).diff(today, 'days')); //distance in days
 
 //pick workout of certain date
-watchEffect(() => useLoadingAction(workouts.state, () => getWorkouts({ page: page.value, limit: 1, expanded: true })));
+watchEffect(() =>
+  useLoadingAction(workouts.state, () => getWorkouts({ page: page.value + 1, limit: 1, expanded: true })),
+);
 
 const workoutsData = computed(() => workouts.data?.data);
 const workout = computed(() => workoutsData.value?.[0]);

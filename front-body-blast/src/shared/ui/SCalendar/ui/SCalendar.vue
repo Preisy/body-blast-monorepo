@@ -2,13 +2,13 @@
 import moment from 'moment';
 import { QIcon, QDate, QDateProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
+import { isToday } from 'shared/lib/utils';
 
 export interface SCalendarProps extends QDateProps {}
 const props = defineProps<SCalendarProps>();
 
 const { t } = useI18n();
 
-const today = moment();
 const showDateModal = ref(false);
 
 const emit = defineEmits<{
@@ -30,7 +30,7 @@ const getDate = (td: string) => {
   const localTd = moment(td.split('/').join('-'));
 
   if (props.defaultView == 'Months') return new Date(td).toLocaleString('ru-RU', { month: 'long' });
-  return Math.abs(today.diff(localTd, 'days')) === 0 ? t('global.date.today') : localTd.format('DD.MM');
+  return isToday(td) ? t('global.date.today') : localTd.format('DD.MM');
 };
 </script>
 

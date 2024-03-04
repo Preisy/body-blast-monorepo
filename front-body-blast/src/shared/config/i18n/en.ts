@@ -5,5 +5,6 @@ export default {
     date: {
       today: 'Today',
     },
+    loading: 'Loading...',
   },
 };
