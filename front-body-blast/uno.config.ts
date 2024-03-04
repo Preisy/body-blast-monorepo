@@ -13,10 +13,10 @@ export default defineConfig<Theme>({
       unset: 'unset',
       bg: '#FFFFFF',
       primary: '#000000',
-      positive: '#FFFFFF',
       'primary-50-solid': '#787878',
       secondary: '#FCD844',
       accent: '#4844FC',
+      positive: '#FFFFFF',
     },
     fontSize: {
       sm: ['0.7rem', 'normal'],

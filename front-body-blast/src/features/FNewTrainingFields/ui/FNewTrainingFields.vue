@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import _ from 'lodash';
 import { EAdminPromptThumbnail } from 'entities/workout/EAdminPromptThumbnail';
 import { Prompt } from 'shared/api/admin';
 import { SChooseInput, SInput } from 'shared/ui/inputs';
@@ -10,22 +11,25 @@ const props = defineProps<ENewTrainingFieldsProps>();
 
 //TODO: Use getPrompts with filter
 const filterStr = ref('');
-const filteredPrompts = computed(() => props.prompts?.filter((prompt) => prompt.type.includes(filterStr.value)));
+const filteredPrompts = computed(
+  () =>
+    props.prompts
+      ?.filter((prompt) => prompt.type.includes(filterStr.value))
+      .map((prompt) => ({ ...prompt, key: _.uniqueId('prompt-') })),
+);
 </script>
 
 <template>
   <SChooseInput
-    v-if="prompts"
+    v-if="filteredPrompts"
     name="prompt"
     :label="$t('admin.prompt.training.type')"
-    :items="filteredPrompts ?? []"
+    :items="filteredPrompts"
     option-value="type"
     v-model:inner-input="filterStr"
   >
-    <template #item="{ item, onclick }">
-      <div @click="onclick">
-        <EAdminPromptThumbnail :photo="item.photoLink" :type="item.type" />
-      </div>
+    <template #item="{ item }">
+      <EAdminPromptThumbnail :photo="item.photoLink" :type="item.type" />
     </template>
   </SChooseInput>
 

@@ -6,6 +6,7 @@ import { UserEntity } from '../../core/user/entities/user.entity';
 import { BaseDiaryTemplateModule } from '../diary-template/base-diary-template.module';
 import { BaseAnthropometricsModule } from '../anthropometrics/base-anthropometrics.module';
 import { BaseDiaryModule } from '../diary/base-diary.module';
+import { BaseNutritionModule } from '../nutrition/base-nutrition.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { BaseDiaryModule } from '../diary/base-diary.module';
     forwardRef(() => BaseDiaryTemplateModule),
     forwardRef(() => BaseDiaryModule),
     forwardRef(() => BaseAnthropometricsModule),
+    forwardRef(() => BaseNutritionModule),
   ],
   providers: [BaseUserService],
   exports: [BaseUserService],

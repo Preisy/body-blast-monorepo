@@ -13,6 +13,7 @@ import { UserEntity } from './entities/user.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 import { BaseAnthropometrcisService } from '../anthropometrics/base-anthropometrics.service';
 import { BaseDiaryService } from '../diary/base-diary.service';
+import { BaseNutritionService } from '../nutrition/base-nutrition.service';
 
 @Injectable()
 export class BaseUserService {
@@ -23,6 +24,7 @@ export class BaseUserService {
     private readonly antrhpService: BaseAnthropometrcisService,
     @Inject(forwardRef(() => BaseDiaryService))
     private readonly diaryService: BaseDiaryService,
+    private readonly nutritionService: BaseNutritionService,
   ) {}
 
   async create(request: CreateUserRequest): Promise<AppSingleResponse<UserEntity>> {
@@ -40,6 +42,7 @@ export class BaseUserService {
     if (!savedUser) throw MainException.internalRequestError('Error upon saving user');
 
     await this.templateService.createDefault(savedUser.id);
+    await this.nutritionService.createDefault(savedUser.id);
 
     await this.antrhpService.createEmptyAnthrpRecordForUser(savedUser.id);
 

@@ -43,7 +43,7 @@ const styles = computed(() => {
 });
 
 const currentIndex = computed(() => props.options.findIndex((option) => option.value === value.value));
-const currentStyle = computed(() => styles.value?.at(currentIndex.value));
+const currentStyle = computed(() => styles.value?.[currentIndex.value]);
 </script>
 
 <template>

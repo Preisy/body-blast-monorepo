@@ -17,13 +17,13 @@ defineProps<PAdminHomeProps>();
 
 const router = useRouter();
 
-const { clientProfiles, getUserProfiles } = useAdminUserProfileStore();
-useLoadingAction(clientProfiles, getUserProfiles);
+const { users, getUsers, user: storeUser } = useAdminUserProfileStore();
+useLoadingAction(users, getUsers);
 
 const nameFilter = ref<string>('');
 const displayCards = computed(
   () =>
-    clientProfiles.data?.data.filter((card) => {
+    users.data?.data.filter((card) => {
       const fullName = `${card.firstName} ${card.lastName}`;
       const searchFilter = fullName.toLocaleLowerCase().includes(nameFilter.value.toLocaleLowerCase());
       const roleUserFilter = card.role === 'client';
@@ -45,7 +45,7 @@ const logout = () => {
 };
 
 const onUserProfileClick = (user: User) => {
-  useAdminUserProfileStore().setCurrentUser(user);
+  storeUser.data = { data: user };
   router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE, params: { id: user.id } });
 };
 </script>
@@ -71,7 +71,7 @@ const onUserProfileClick = (user: User) => {
       <template #body>
         <FSearchPanel v-model:query="nameFilter" />
 
-        <div v-if="clientProfiles.state.isSuccess() || displayCards?.length">
+        <div v-if="users.state.isSuccess() || displayCards?.length">
           <EUnitedProfileCard
             v-for="user in displayCards"
             :key="user.id"
@@ -87,7 +87,7 @@ const onUserProfileClick = (user: User) => {
           </EUnitedProfileCard>
         </div>
 
-        <SNoResultsScreen v-else-if="clientProfiles.state.isError()" />
+        <SNoResultsScreen v-else-if="users.state.isError()" />
       </template>
     </SWithHeaderLayout>
   </SStructure>

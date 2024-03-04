@@ -20,7 +20,7 @@ export class BaseDiaryTemplateService {
   ) {}
   public readonly relations: (keyof DiaryTemplateEntity)[] = ['props'];
 
-  async createDefault(userId: UserEntity['id']): Promise<AppSingleResponse<DiaryTemplateEntity>> {
+  async createDefault(userId: UserEntity['id']) {
     const labels: { label: string }[] = [
       { label: 'Сон' },
       { label: 'Работоспособность' },
@@ -32,8 +32,8 @@ export class BaseDiaryTemplateService {
       userId,
       props: labels,
     });
-    const savedTemplate = await this.diaryTemlpateRepository.save(newTemplate);
-    return new AppSingleResponse(savedTemplate);
+    await this.diaryTemlpateRepository.save(newTemplate);
+    return;
   }
 
   async findAll(

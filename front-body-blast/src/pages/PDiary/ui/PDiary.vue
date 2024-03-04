@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { WSelfControl } from 'widgets/diary/WSelfControl';
-import { EDiaryHeader } from 'entities/diary';
+import { EDiaryHeader } from 'entities/diary/EDiaryHeader';
 import { useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
