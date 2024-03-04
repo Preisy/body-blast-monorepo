@@ -9,6 +9,7 @@ import { DiaryTemplateEntity } from './entity/diary-template.entity';
 import { BaseUserService } from '../user/base-user.service';
 import { BaseAnthropometricsModule } from '../anthropometrics/base-anthropometrics.module';
 import { BaseDiaryModule } from '../diary/base-diary.module';
+import { BaseNutritionModule } from '../nutrition/base-nutrition.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([DiaryTemplateEntity, DiaryTemplatePropsEntity, UserEntity]),
@@ -16,6 +17,7 @@ import { BaseDiaryModule } from '../diary/base-diary.module';
     forwardRef(() => BaseUserModule),
     BaseAnthropometricsModule,
     forwardRef(() => BaseDiaryModule),
+    BaseNutritionModule,
   ],
   exports: [BaseDiaryTemplateService],
   providers: [BaseDiaryTemplateService, BaseUserService],
