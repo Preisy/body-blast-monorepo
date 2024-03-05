@@ -154,13 +154,19 @@ export class BaseDiaryService {
     const { data: diaries } = await this.findAllByUserId(userId, query);
     const { data: user } = await this.userService.getUserById(userId);
 
-    let firstDayOfWeek = new Date(query.from!);
+    const firstDayOfWeek = new Date(query.from!);
     const lastDayOfWeek = new Date(query.from!);
+
+    const firstDayOfMonth = new Date(query.from!);
+    const lastDayOfMonth = new Date(query.to!);
+
+    const weeks = Math.floor((lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1) / 7);
+
     lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
 
     let weeksCounter = 0;
     const result: StepsByWeek[] = [];
-    while (weeksCounter < 4) {
+    while (weeksCounter < weeks) {
       let steps = 0;
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
       newWeek.forEach((diary) => {
@@ -179,7 +185,7 @@ export class BaseDiaryService {
         }),
       );
       result.push(stepsByWeek);
-      firstDayOfWeek = lastDayOfWeek;
+      firstDayOfWeek.setDate(lastDayOfWeek.getDate() + 1);
       lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
       weeksCounter++;
     }
