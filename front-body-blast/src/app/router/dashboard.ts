@@ -22,6 +22,12 @@ export const dashboardRoutes: RouteRecordRaw = {
     },
     {
       meta: { auth: true },
+      path: 'profile-edit',
+      component: () => import('pages/PProfileEdit/ui/PProfileEdit.vue'),
+      name: ENUMS.ROUTES_NAMES.PROFILE_EDIT,
+    },
+    {
+      meta: { auth: true },
       path: 'diary',
       component: () => import('pages/PDiary/ui/PDiary.vue'),
       name: ENUMS.ROUTES_NAMES.DIARY,

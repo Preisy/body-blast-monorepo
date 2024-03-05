@@ -19,4 +19,7 @@ export const adminProfileService = {
   patchUser: useServiceAction((data: AdminUser.Patch.Dto) =>
     api.patch<AdminUser.Patch.Response>(`/admin/users/${data.id}`, data.user),
   ),
+  deleteUser: useServiceAction((data: AdminUser.Delete.Dto) =>
+    api.delete<AdminUser.Delete.Response>(`/admin/users/${data.id}`),
+  ),
 };

@@ -30,7 +30,7 @@ const props = withDefaults(defineProps<SInputProps>(), {
 
 //TODO: find a workaround for '____'. Remove it
 const { value, errorMessage, setValue } = useField<string | number | undefined>(() => props.name ?? '____');
-if (props.modelValue) setValue(props.modelValue);
+if (props.modelValue && !props.name) setValue(props.modelValue);
 if (props.watchModelValue) {
   watchEffect(() => {
     setValue(props.modelValue ?? undefined);

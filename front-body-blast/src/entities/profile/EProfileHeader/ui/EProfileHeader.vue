@@ -24,7 +24,7 @@ const logout = () => {
     <h1 mb-0>{{ userName }}</h1>
     <p>{{ $t('home.profile.header.student') }}</p>
     <div mt-4 flex justify-between>
-      <SBtn icon="edit" class="bg-bg!" />
+      <SBtn icon="edit" class="bg-bg!" :to="{ name: ENUMS.ROUTES_NAMES.PROFILE_EDIT }" />
       <SBtn icon="sym_r_move_item" @click="logout" />
     </div>
   </div>
