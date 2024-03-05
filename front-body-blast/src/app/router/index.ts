@@ -32,7 +32,8 @@ export default route(function (/* { store, ssrContext } */) {
   Router.beforeEach(async (to) => {
     // Access to login is always available
     // Also is workaround for infinite redirect issue
-    if (to.name === ENUMS.ROUTES_NAMES.LOGIN) return;
+
+    if (to.name === ENUMS.ROUTES_NAMES.LOGIN || to.name === ENUMS.ROUTES_NAMES.REGISTER) return;
 
     const { me, getMe } = useMeStore();
     if (!me.data?.data) {

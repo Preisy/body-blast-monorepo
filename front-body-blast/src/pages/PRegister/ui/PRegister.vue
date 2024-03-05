@@ -21,6 +21,11 @@ const authStore = useAuthStore();
 const { t } = useI18n();
 const router = useRouter();
 
+const splide = ref<InstanceType<typeof SSplide>>();
+const moveNext = () => {
+  splide.value?.moveNext();
+};
+
 type RegisterSlides = Array<{
   is: Component;
   formProps: Omit<SFormProps, 'loading'> & { loading?: Ref<SFormProps['loading']> } & Pick<
@@ -35,49 +40,55 @@ const slides: RegisterSlides = [
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Credentials.validation(t)),
       onSubmit: (values: z.infer<ReturnType<typeof SignUp.Credentials.validation>>) => {
-        const [firstName, lastName] = values.username.split(' ');
         authStore.applyCredentials({
           email: values.email,
-          firstName,
-          lastName,
+          firstName: values.firstname,
+          lastName: values.lastname,
           password: values.password,
         });
+        moveNext();
       },
     },
   },
   {
     is: EBodyParamsSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.BodyParams.validation(t)),
+      fieldSchema: toTypedSchema(SignUp.BodyParams.validation()),
       onSubmit: (values: z.infer<ReturnType<typeof SignUp.BodyParams.validation>>) => {
-        const [weight, height] = values.weightAndHeight.split('/');
         authStore.applyBodyParams({
           age: values.age,
           weightInYouth: values.weightInYouth,
-          height: parseFloat(height),
-          weight: parseFloat(weight),
+          height: values.height,
+          weight: values.weight,
         });
+        moveNext();
       },
     },
   },
   {
     is: EForbiddensSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.Forbiddens.validation(t)),
-      onSubmit: authStore.applyForbiddens,
+      fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()),
+      onSubmit: (values) => {
+        authStore.applyForbiddens(values);
+        moveNext();
+      },
     },
   },
   {
     is: EDiseasesSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.Diseases.validation(t)),
-      onSubmit: authStore.applyDiseases,
+      fieldSchema: toTypedSchema(SignUp.Diseases.validation()),
+      onSubmit: (values) => {
+        authStore.applyDiseases(values);
+        moveNext();
+      },
     },
   },
   {
     is: EMotivationsSignUpForm,
     formProps: {
-      fieldSchema: toTypedSchema(SignUp.Motivations.validation(t)),
+      fieldSchema: toTypedSchema(SignUp.Motivations.validation()),
       onSubmit: async (data) => {
         authStore.applyMotivations(data);
         submitBtnsExceptLast.value.forEach((btn) => btn.click());
@@ -98,7 +109,7 @@ const submitBtnsExceptLast = computed(() => submitBtns.value.slice(0, -1));
 
 <template>
   <SStructure relative>
-    <SSplide :options="{ direction: 'ttb', height: '28rem', arrows: false }">
+    <SSplide ref="splide" :options="{ direction: 'ttb', height: '28rem', arrows: false }">
       <SSplideSlide v-for="(slide, index) in slides" :key="index">
         <SForm v-bind="slide.formProps" :loading="false" ref="submitForms">
           <component :is="slide.is" />

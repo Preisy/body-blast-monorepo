@@ -8,7 +8,8 @@ export default {
         },
         fields: {
           age: 'Возраст',
-          weightAndHeight: 'Вес и рост',
+          weight: 'Вес',
+          height: 'Рост',
           teenAgeWeight: 'Вес в подростковом возрасте',
         },
       },

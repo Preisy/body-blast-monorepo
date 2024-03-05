@@ -4,9 +4,14 @@ import { SInput } from 'shared/ui/inputs';
 
 <template>
   <SInput
-    name="username"
-    autocomplete="section-signup shipping username"
-    :label="$t('auth.signUp.credentials.fields.username')"
+    name="firstname"
+    autocomplete="section-signup shipping firstname"
+    :label="$t('auth.signUp.credentials.fields.firstname')"
+  />
+  <SInput
+    name="lastname"
+    autocomplete="section-signup shipping lastname"
+    :label="$t('auth.signUp.credentials.fields.lastname')"
   />
   <SInput
     name="email"

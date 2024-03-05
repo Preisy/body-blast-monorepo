@@ -1,4 +1,3 @@
-import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
 import { AppBaseEntity } from '../base';
 
@@ -35,18 +34,11 @@ export interface User extends AppBaseEntity {
 }
 
 export namespace User {
-  export const validation = (t: ComposerTranslation) =>
+  export const validation = () =>
     z.object({
       age: z.coerce.number().min(1).max(100),
-      weightAndHeight: z.string().superRefine((val, ctx) => {
-        const [weight, height] = val.split('/');
-        const numWeight = parseFloat(weight);
-        const numHeight = parseFloat(height);
-        if (numWeight < 20 || numWeight > 600)
-          ctx.addIssue({ code: 'custom', message: t('auth.signUp.bodyParams.errors.weight') });
-        if (numHeight < 100 || numHeight > 250)
-          ctx.addIssue({ code: 'custom', message: t('auth.signUp.bodyParams.errors.height') });
-      }),
+      weight: z.coerce.number().min(20).max(600),
+      height: z.coerce.number().min(100).max(250),
       weightInYouth: z.coerce.number().min(20).max(600),
       gastroDeseases: z.string().min(1),
       insulinResistance: z.coerce.boolean(),

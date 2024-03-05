@@ -8,7 +8,8 @@ export default {
           secondName: 'Define your second name',
         },
         fields: {
-          username: 'First and last name',
+          firstname: 'Firstname',
+          lastname: 'Lastname',
           email: 'Email',
           password: 'Password',
           passwordRepeat: 'Repeat password',

@@ -8,7 +8,8 @@ export default {
           secondName: 'Введите фамилию',
         },
         fields: {
-          username: 'Имя и фамилия',
+          firstname: 'Имя',
+          lastname: 'Фамилия',
           email: 'Почта',
           password: 'Пароль',
           passwordRepeat: 'Повторите пароль',
