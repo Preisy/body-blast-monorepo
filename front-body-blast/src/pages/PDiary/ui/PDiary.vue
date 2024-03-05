@@ -3,20 +3,28 @@ import moment from 'moment';
 import { WSelfControl } from 'widgets/diary/WSelfControl';
 import { EDiaryHeader } from 'entities/diary/EDiaryHeader';
 import { useDiaryStore } from 'shared/api/diary';
+import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
-const { getDiaryResponse, getDiary } = useDiaryStore();
-useLoadingAction(getDiaryResponse, () => getDiary({ expanded: true }));
-
 const today = moment();
-const diaryData = computed(() => getDiaryResponse.data?.data);
-const firstInWeek = computed(() => diaryData.value?.find((diary) => moment(diary.date).diff(today, 'weeks') < 7));
+const { diaryList, getDiary } = useDiaryStore();
+useLoadingAction(diaryList, () =>
+  getDiary({ expanded: true, from: today.clone().subtract(2, 'w').toISOString(), to: today.toISOString() }),
+);
+
+const diaryData = computed(() => diaryList.data?.data);
+
+const { me } = useMeStore();
+const meData = computed(() => me.data?.data);
+const lastWeek = computed(() => diaryData.value?.filter((diary) => moment(diary.date).isSame(today, 'week')));
+const stepsSum = computed(() => lastWeek.value?.reduce((acc, item) => (acc += item.steps ?? 0), 0) ?? 0);
 </script>
 
 <template>
   <div h-full>
-    <EDiaryHeader v-if="firstInWeek" :diary="firstInWeek" />
+    <!-- TODO: weekNum -->
+    <EDiaryHeader v-if="meData" :steps-goal="meData.stepsGoal" :steps-sum="stepsSum" :week-num="1" />
     <WSelfControl v-if="diaryData" :slides="diaryData" />
     <SNoResultsScreen v-else p-1.5rem />
   </div>

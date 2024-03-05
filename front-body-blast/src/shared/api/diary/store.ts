@@ -1,36 +1,44 @@
+import _ from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AppBaseEntity } from '../base';
 import { DiaryService } from './service';
 import { Diary } from './types';
 
 export const useDiaryStore = defineStore('diary-store', () => {
-  const getDiaryResponse = ref(useSingleState<Diary.Get.Response>());
+  const diaryList = ref(useSingleState<Diary.Get.Response>({ update: true }));
   const getDiary = (pagination?: Diary.Get.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getDiaryResponse.value,
+      stateWrapper: diaryList.value,
       serviceAction: DiaryService.get(pagination),
     });
 
-  const getDiaryByIdResponse = ref(useSingleState<Diary.GetById.Response>());
+  const diary = ref(useSingleState<Diary.GetById.Response>());
   const getDiaryById = (id: string) =>
     useSimpleStoreAction({
-      stateWrapper: getDiaryByIdResponse.value,
+      stateWrapper: diary.value,
       serviceAction: DiaryService.getById(id),
     });
 
-  const patchDiaryResponse = ref(useSingleState<Diary.Patch.Response>());
   const patchDiary = (id: AppBaseEntity.Dto['id'], data: Diary.Patch.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: patchDiaryResponse.value,
+    useStoreAction({
+      state: diaryList.value.updateState,
       serviceAction: DiaryService.patch(id, data),
+      onSuccess: (res) => {
+        const listData = diaryList.value.data?.data;
+        if (!listData) return;
+
+        const index = listData.findIndex((diary) => diary.id === id);
+        if (index === -1) return;
+
+        _.assign(listData[index], res.data);
+      },
     });
 
   return {
-    getDiaryResponse,
-    getDiaryByIdResponse,
+    diaryList,
+    diary,
     getDiary,
-    patchDiaryResponse,
     patchDiary,
     getDiaryById,
   };

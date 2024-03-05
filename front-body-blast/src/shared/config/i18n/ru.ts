@@ -6,5 +6,6 @@ export default {
       today: 'Сегодня',
     },
     loading: 'Загрузка...',
+    error: 'Ошибка',
   },
 };

@@ -9,6 +9,7 @@ export default {
       header: {
         goalWeek: 'Цель на неделю',
         done: 'Пройдено',
+        steps: 'Шагов',
       },
     },
   },

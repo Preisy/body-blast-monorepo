@@ -29,6 +29,7 @@ export interface User extends AppBaseEntity {
   loadRestrictions: string;
   sportsExp: string;
   goals: string;
+  stepsGoal: number;
   anthrpJobPeriod: Nullable<number>;
   canWatchVideo: boolean;
 }

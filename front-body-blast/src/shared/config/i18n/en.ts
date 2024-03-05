@@ -6,5 +6,6 @@ export default {
       today: 'Today',
     },
     loading: 'Loading...',
+    error: 'Error',
   },
 };

@@ -2,7 +2,7 @@ export default {
   home: {
     diary: {
       item: {
-        selfcontrol: 'SelfControl',
+        selfcontrol: 'Self Control',
         sleep: 'Sleep',
         performance: 'Perfomance',
         nutrition: 'Nutrition',

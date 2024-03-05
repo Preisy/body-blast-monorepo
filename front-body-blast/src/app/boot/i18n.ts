@@ -16,6 +16,7 @@ import { TWSelfControlListI18n } from 'widgets/WSelfControlList';
 import { TWStepsListI18n } from 'widgets/WStepsList';
 import { TFNutritionListFormI18n } from 'features/FNutritionListForm';
 import { TEDiaryI18n } from 'entities/diary/EDiaryHeader';
+import { TEDiarySelfControlI18n } from 'entities/diary/EDiarySelfControlItem';
 import { TAuthFormsI18n } from 'entities/form/i18n';
 import { TEAthropometricsItemI18n } from 'entities/profile/EAthropometricsItem';
 import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
@@ -43,6 +44,7 @@ export default boot(({ app }) => {
       TEAthropometricsItemI18n,
       TPDietI18n,
       TEDiaryI18n,
+      TEDiarySelfControlI18n,
       TWPromptCreationI18n,
       TEProfileCardI18n,
       TSNoResultsScreenI18n,
