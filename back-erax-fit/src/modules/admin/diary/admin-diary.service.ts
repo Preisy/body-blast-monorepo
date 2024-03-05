@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { BaseDiaryService } from '../../../modules/core/diary/base-diary.service';
 import { DiaryEntity } from '../../../modules/core/diary/entity/diary.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
@@ -8,10 +7,7 @@ import { UpdateDiaryByAdminRequest } from './dto/admin-update-diary.dto';
 
 @Injectable()
 export class AdminDiaryService {
-  constructor(
-    @InjectRepository(DiaryEntity)
-    private readonly baseService: BaseDiaryService,
-  ) {}
+  constructor(private readonly baseService: BaseDiaryService) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
   async findAll(query: AppDatePagination.Request): Promise<AppDatePagination.Response<DiaryEntity>> {
