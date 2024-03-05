@@ -1,9 +1,9 @@
 import { Notify } from 'quasar';
 import { AppContext, render } from 'vue';
 import { SNotification } from 'shared/ui/SNotification';
-import { Notification } from './types';
+import { NotificationTypes } from './types';
 
-export function showNotification(appContext: AppContext, notification: Notification) {
+export function showNotification(appContext: AppContext, notificationType: NotificationTypes) {
   Notify.create({
     position: 'top',
     classes: 'q-diary-notification rounded-0.75rem flex flex-row p-0',
@@ -19,8 +19,8 @@ export function showNotification(appContext: AppContext, notification: Notificat
       return;
     }
 
-    const comp = h(SNotification, { text: notification.text });
-    comp.appContext = { ...appContext };
+    const comp = h(SNotification, { type: notificationType });
+    // comp.appContext = { ...appContext };
     render(comp, anchor);
   });
 }

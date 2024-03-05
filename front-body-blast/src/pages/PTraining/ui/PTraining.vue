@@ -24,7 +24,7 @@ const workoutsData = computed(() => workouts.data?.data);
 const workout = computed(() => workoutsData.value?.[0]);
 
 const currentInstance = getCurrentInstance();
-if (currentInstance) setTimeout(() => showNotification(currentInstance.appContext, { text: 'Заполни дневник!' }), 1000);
+if (currentInstance) setTimeout(() => showNotification(currentInstance.appContext, 'diary'), 1000);
 
 console.log();
 </script>

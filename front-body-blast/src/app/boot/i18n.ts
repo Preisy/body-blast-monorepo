@@ -24,39 +24,41 @@ import { TTrainingI18n } from 'entities/trainings/ETrainingCard';
 import { TGlobalI18n } from 'shared/config/i18n';
 import { mergeI18n } from 'shared/lib/i18utils';
 import { TSNoResultsScreenI18n } from 'shared/ui/SNoResultsScreen';
+import { TSNotificationI18n } from 'shared/ui/SNotification';
+
+export const i18n = createI18n({
+  locale: 'ru-RU',
+  legacy: false,
+  messages: mergeI18n(
+    TPAdminHomeI18n,
+    TFooterNavigationBarI18n,
+    TPAdminUserProfileI18n,
+    TWAdminFooterNavBarI18n,
+    TGlobalI18n,
+    TTrainingI18n,
+    TTrainingAdditionBlockI18n,
+    TAuthFormsI18n,
+    TEProfileHeaderI18n,
+    TEAthropometricsItemI18n,
+    TPDietI18n,
+    TEDiaryI18n,
+    TWPromptCreationI18n,
+    TEProfileCardI18n,
+    TSNoResultsScreenI18n,
+    TWStepsListI18n,
+    TWSelfControlListI18n,
+    TWNewTrainingI18n,
+    TPAdminPromptsI18n,
+    TFNutritionListFormI18n,
+    TPAdminUserProfileNutritionI18n,
+    TWAdminNewNutritionI18n,
+    TWAdminNewFoodI18n,
+    TSNotificationI18n,
+  ),
+  fallbackLocale: 'ru-RU',
+});
 
 export default boot(({ app }) => {
-  const i18n = createI18n({
-    locale: 'ru-RU',
-    legacy: false,
-    messages: mergeI18n(
-      TPAdminHomeI18n,
-      TFooterNavigationBarI18n,
-      TPAdminUserProfileI18n,
-      TWAdminFooterNavBarI18n,
-      TGlobalI18n,
-      TTrainingI18n,
-      TTrainingAdditionBlockI18n,
-      TAuthFormsI18n,
-      TEProfileHeaderI18n,
-      TEAthropometricsItemI18n,
-      TPDietI18n,
-      TEDiaryI18n,
-      TWPromptCreationI18n,
-      TEProfileCardI18n,
-      TSNoResultsScreenI18n,
-      TWStepsListI18n,
-      TWSelfControlListI18n,
-      TWNewTrainingI18n,
-      TPAdminPromptsI18n,
-      TFNutritionListFormI18n,
-      TPAdminUserProfileNutritionI18n,
-      TWAdminNewNutritionI18n,
-      TWAdminNewFoodI18n,
-    ),
-    fallbackLocale: 'ru-RU',
-  });
-
   // Set i18n instance on app
   app.use(i18n);
 });
