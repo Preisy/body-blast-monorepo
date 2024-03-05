@@ -5,3 +5,4 @@ export * from './store';
 export * from './request';
 export * from './toWeekRange';
 export * from './isToday';
+export * from './translateOrDefault';

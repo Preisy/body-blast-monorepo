@@ -27,8 +27,7 @@ const onapply = () => {
 <template>
   <QDialog ref="dialog">
     <div rounded="1rem!" bg-primary p-1rem>
-      <!-- TODO: I18n -->
-      <h2 mb-1.5rem text-bg>Хотите удалить?</h2>
+      <h2 mb-1.5rem text-bg>{{ $t('shared.remove.question') }}</h2>
       <div flex justify-between>
         <SBtn :icon="symRoundedClose" bg="bg!" @click="ondiscard" />
         <SBtn :icon="symRoundedDone" @click="onapply" />

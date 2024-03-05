@@ -26,14 +26,18 @@ defineProps<WDietNutritionProps>();
           gap: '2rem',
         }"
       >
-        <SSplideSlide v-for="(nutrition, index) in nutritions" :key="index">
-          <EDietItem
-            v-if="nutrition.mealItems"
-            :name="nutrition.name"
-            :meal-items="nutrition.mealItems"
-            class="mx-0!"
-          />
-          <SNoResultsScreen v-else p-1.5rem />
+        <template v-if="nutritions.length">
+          <SSplideSlide v-for="(nutrition, index) in nutritions" :key="index">
+            <EDietItem
+              v-if="nutrition.mealItems"
+              :name="nutrition.name"
+              :meal-items="nutrition.mealItems"
+              class="mx-0!"
+            />
+          </SSplideSlide>
+        </template>
+        <SSplideSlide v-else>
+          <SNoResultsScreen />
         </SSplideSlide>
       </SSplide>
     </SComponentWrapper>

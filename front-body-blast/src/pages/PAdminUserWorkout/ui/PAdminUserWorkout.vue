@@ -32,7 +32,12 @@ const onEdit = (id: number) => {
 
 <template>
   <SStructure h-full flex flex-col>
-    <SCalendar v-model="date" pb-1rem pt-2rem />
+    <SCalendar
+      v-model="date"
+      :options="dateSortedWorkout?.map((workout) => moment(workout.date).format('YYYY/MM/DD'))"
+      pb-1rem
+      pt-2rem
+    />
     <q-tab-panels v-model="date" swipeable h-full>
       <q-tab-panel
         v-for="workout in dateSortedWorkout"

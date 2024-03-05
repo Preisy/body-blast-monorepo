@@ -10,7 +10,7 @@ const { t } = useI18n();
 
 const { me, getMe } = useMeStore();
 const meData = computed(() => me.data?.data);
-if (!meData.value) useLoadingAction(me, getMe);
+if (!meData.value && !me.state.isLoading()) useLoadingAction(me, getMe);
 
 const userName = computed(() =>
   meData.value?.firstName && meData.value?.lastName

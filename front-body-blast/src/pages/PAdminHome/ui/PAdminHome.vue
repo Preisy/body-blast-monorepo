@@ -31,9 +31,10 @@ const displayCards = computed(
     }),
 );
 
-const { me, getMe } = useMeStore();
-useLoadingAction(me, getMe);
-const myName = computed(() => me.data?.data.firstName + ' ' + me.data?.data.lastName);
+const { me, getMe, clear } = useMeStore();
+const meData = computed(() => me.data?.data);
+if (!meData.value && !me.state.isLoading()) useLoadingAction(me, getMe);
+const myName = computed(() => meData.value?.firstName + ' ' + meData.value?.lastName);
 
 const edit = () => {
   //TODO:
@@ -42,6 +43,7 @@ const edit = () => {
 const logout = () => {
   useAuthStore().logout();
   router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
+  clear();
 };
 
 const onUserProfileClick = (user: User) => {
@@ -55,7 +57,7 @@ const onUserProfileClick = (user: User) => {
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          :header="myName ?? 'Loading...'"
+          :header="myName ?? $t('global.loading')"
           :describe="$t('home.profile.header.admin')"
           dark
           mx--0.5rem

@@ -28,6 +28,7 @@ const workout = computed(() => workoutsData.value?.[0]);
 <template>
   <SStructure>
     <SCalendar v-model="date" mask="YYYY-MM-DD" />
+
     <SSplide :options="{ direction: 'ttb', height: '35rem' }">
       <SSplideSlide v-if="!workouts.state.isSuccess() || !workout">
         <SNoResultsScreen />

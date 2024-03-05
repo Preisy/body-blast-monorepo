@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { QTabPanel } from 'quasar';
-import { useI18n } from 'vue-i18n';
 import { WDietNutrition } from 'widgets/diet/WDietNutrition';
 import { EDietItem } from 'entities/diet/EDietItem';
 import { useFoodStore } from 'shared/api/food';
 import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
+import { tod } from 'shared/lib/utils';
 import { SCenteredNav } from 'shared/ui/SCenteredNav';
 import { STabPanels } from 'shared/ui/STabPanels';
 
 const panel = ref('nutrition');
-const { t } = useI18n();
 const { getNutrition, getNutritionResponse } = useNutritionStore();
 const foodStore = useFoodStore();
 
@@ -38,7 +37,9 @@ useLoadingAction(foodStore.food, foodStore.getFood);
 useLoadingAction(getNutritionResponse, () => getNutrition({ expanded: true }));
 
 // Building upper navbar elements. See: SCenteredNav
-const pages = computed(() => foodList.value?.map((it) => ({ value: it.name, label: t(`home.diet.${it.name}`) })) || []);
+const pages = computed(
+  () => foodList.value?.map((it) => ({ value: it.name, label: tod(`home.diet.${it.name}`) })) || [],
+);
 </script>
 
 <template>

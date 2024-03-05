@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from 'shared/api/auth';
+import { useMeStore } from 'shared/api/me';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
 export interface EProfileHeaderProps {
@@ -9,9 +10,12 @@ defineProps<EProfileHeaderProps>();
 
 const router = useRouter();
 
+const { clear } = useMeStore();
+
 const logout = () => {
   useAuthStore().logout();
   router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
+  clear();
 };
 </script>
 
