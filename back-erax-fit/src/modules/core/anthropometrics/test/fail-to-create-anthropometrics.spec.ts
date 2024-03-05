@@ -77,7 +77,7 @@ describe('BaseAnthropometricsService', () => {
         hipVolume: 31,
         abdomen: 30,
       };
-      await expect(service.create(invalidAnthrpRequest)).rejects.toThrow();
+      await expect(service.createEmptyAnthrpRecordForUser(invalidAnthrpRequest)).rejects.toThrow();
     });
   });
 
@@ -115,7 +115,7 @@ describe('BaseAnthropometricsService', () => {
         hipVolume: 41,
         abdomen: 50,
       };
-      await expect(service.create(invalidAnthrpRequest)).rejects.toThrow();
+      await expect(service.createEmptyAnthrpRecordForUser(invalidAnthrpRequest)).rejects.toThrow();
     });
   });
 });

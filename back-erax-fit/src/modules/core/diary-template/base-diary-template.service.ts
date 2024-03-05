@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { MainException } from 'src/exceptions/main.exception';
-import { AppPagination } from 'src/utils/app-pagination.util';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/entities/user.entity';
 import { DiaryTemplatePropsEntity } from './entity/diary-template-props.entity';
@@ -54,6 +54,20 @@ export class BaseDiaryTemplateService {
 
     if (!template) {
       throw MainException.entityNotFound(`Template with id: ${id} not found`);
+    }
+    return new AppSingleResponse(template);
+  }
+
+  async findOneByUserId(userId: UserEntity['id']) {
+    const template = await this.diaryTemlpateRepository.findOne({
+      where: {
+        userId,
+      },
+      relations: this.relations,
+    });
+
+    if (!template) {
+      throw MainException.entityNotFound(`Template with userId: ${userId} not found`);
     }
     return new AppSingleResponse(template);
   }

@@ -83,7 +83,7 @@ describe('BaseAnthropometricsService', () => {
         hipVolume: 30,
         userId: savedUser.id,
       };
-      const savedAnthropometrics = await service.create(request);
+      const savedAnthropometrics = await service.createEmptyAnthrpRecordForUser(request);
       expect(savedAnthropometrics).toBeDefined();
       expect({ data: savedAnthropometrics.data }).toBeDefined();
     });

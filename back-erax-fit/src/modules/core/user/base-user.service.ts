@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
@@ -11,6 +11,8 @@ import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
+import { BaseAnthropometrcisService } from '../anthropometrics/base-anthropometrics.service';
+import { BaseDiaryService } from '../diary/base-diary.service';
 import { BaseNutritionService } from '../nutrition/base-nutrition.service';
 
 @Injectable()
@@ -19,6 +21,9 @@ export class BaseUserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly templateService: BaseDiaryTemplateService,
+    private readonly antrhpService: BaseAnthropometrcisService,
+    @Inject(forwardRef(() => BaseDiaryService))
+    private readonly diaryService: BaseDiaryService,
     private readonly nutritionService: BaseNutritionService,
   ) {}
 
@@ -30,6 +35,7 @@ export class BaseUserService {
         ...request,
         stepsGoal: 70000,
         canWatchVideo: false,
+        anthrpJobPeriod: 14,
         password: await bcrypt.hash(request.password, await bcrypt.genSalt(10)),
       }),
     );
@@ -37,6 +43,10 @@ export class BaseUserService {
 
     await this.templateService.createDefault(savedUser.id);
     await this.nutritionService.createDefault(savedUser.id);
+
+    await this.antrhpService.createEmptyAnthrpRecordForUser(savedUser.id);
+
+    await this.diaryService.createEmptyDiaryRecord(savedUser.id);
 
     return new AppSingleResponse(savedUser);
   }
