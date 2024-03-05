@@ -23,6 +23,7 @@ import { AdminNutritionModule } from './modules/admin/nutrition/admin-nutrition.
 import { ClientNutritionModule } from './modules/client/nutrition/client-nutrition.module';
 import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
+import { AppLoggerService } from './app-logger.service';
 
 @Module({
   imports: [
@@ -51,6 +52,12 @@ import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
     ClientDiaryModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'LOGGER',
+      useValue: AppLoggerService,
+    },
+  ],
 })
 export class AppModule {}
