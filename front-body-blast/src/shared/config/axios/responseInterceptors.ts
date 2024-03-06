@@ -3,7 +3,10 @@ import { useAuthStore, TokenService } from 'shared/api/auth';
 import { api } from '.';
 
 export const refreshInterceptor = async (error: AxiosError) => {
-  if (error.config?.url === '/auth/refresh') return error;
+  if (error.config?.url === '/auth/refresh') {
+    TokenService.clearTokens();
+    return error;
+  }
   if (error.code === '500') return error;
   // if request fails
   // Take refresh fn

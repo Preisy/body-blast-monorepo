@@ -10,7 +10,7 @@ import { SCenteredNav } from 'shared/ui/SCenteredNav';
 import { STabPanels } from 'shared/ui/STabPanels';
 
 const panel = ref('nutrition');
-const { getNutrition, getNutritionResponse } = useNutritionStore();
+const { getNutrition, nutritionList } = useNutritionStore();
 const foodStore = useFoodStore();
 
 // Construct fake "Nutrition" array from "Food" array
@@ -29,12 +29,14 @@ const foodList = computed(
     }, []),
 );
 // True nutritions, recieved from API
-const nutritions = computed(() => getNutritionResponse.data?.data);
+const nutritions = computed(() => nutritionList.data?.data);
 
-// API GET /food call
-useLoadingAction(foodStore.food, foodStore.getFood);
-// API GET /nutrition call
-useLoadingAction(getNutritionResponse, () => getNutrition({ expanded: true }));
+useLoadingAction(nutritionList, async () => {
+  // API GET /food call
+  await foodStore.getFood();
+  // API GET /nutrition call
+  await getNutrition({ expanded: true });
+});
 
 // Building upper navbar elements. See: SCenteredNav
 const pages = computed(

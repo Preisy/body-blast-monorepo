@@ -4,11 +4,11 @@ import { ProductsService } from './service';
 import { Nutrition } from './types';
 
 export const useNutritionStore = defineStore('diet-store', () => {
-  const getNutritionResponse = ref(useSingleState<Nutrition.Get.Response>());
+  const nutritionList = ref(useSingleState<Nutrition.Get.Response>());
   const getNutrition = (pagination?: Nutrition.Get.Dto) =>
     useSimpleStoreAction({
-      stateWrapper: getNutritionResponse.value,
+      stateWrapper: nutritionList.value,
       serviceAction: ProductsService.getNutrition(pagination),
     });
-  return { getNutritionResponse, getNutrition };
+  return { nutritionList, getNutrition };
 });

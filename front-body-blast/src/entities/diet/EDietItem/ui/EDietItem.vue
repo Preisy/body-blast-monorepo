@@ -29,9 +29,10 @@ const colorsText = ['positive', 'positive', 'primary'];
         readonly
         centered
         :color="colorsText[item.category - 1]"
+        :bg-color="colorsBg[item.category - 1]"
         :active-color="colorsText[item.category - 1]"
         :active-bg-color="colorsBg[item.category - 1]"
-        class="pointer-events-none select-none"
+        class="pointer-events-none select-none [&_.text-base]:font-bold!"
       />
     </div>
   </div>

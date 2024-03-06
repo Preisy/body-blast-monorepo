@@ -26,5 +26,6 @@ export const TokenService = {
   clearTokens: () => {
     Cookies.remove(Keys.access);
     Cookies.remove(Keys.refresh);
+    TokenService.setTokens({ accessToken: '', refreshToken: '' });
   },
 };

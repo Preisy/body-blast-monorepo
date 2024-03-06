@@ -23,14 +23,14 @@ const props = withDefaults(defineProps<SInputProps>(), {
   name: undefined,
   color: 'bg',
   activeColor: 'bg',
-  bgColor: 'primary opacity-50',
+  bgColor: 'primary-50-solid',
   activeBgColor: 'primary',
   watchModelValue: false,
 });
 
 //TODO: find a workaround for '____'. Remove it
 const { value, errorMessage, setValue } = useField<string | number | undefined>(() => props.name ?? '____');
-if (props.modelValue && !props.name) setValue(props.modelValue);
+if ((props.modelValue && !props.name) || (props.modelValue && props.readonly)) setValue(props.modelValue);
 if (props.watchModelValue) {
   watchEffect(() => {
     setValue(props.modelValue ?? undefined);
