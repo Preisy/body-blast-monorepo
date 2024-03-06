@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers';
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import { useMeStore } from 'shared/api/me';
+import { useNotificationStore } from 'shared/api/notification';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoading } from 'shared/lib/loading';
 import { checkAdminPermissions, checkWatchVideoPermissions } from './permissions';
@@ -34,6 +35,7 @@ export default route(function (/* { store, ssrContext } */) {
     // Also is workaround for infinite redirect issue
     if (to.name === ENUMS.ROUTES_NAMES.LOGIN) return;
     const { me, getMe } = useMeStore();
+    const { getNotifications, showAllNotifications } = useNotificationStore();
     if (!me.data?.data) {
       useLoading(me);
       await getMe();
@@ -45,6 +47,9 @@ export default route(function (/* { store, ssrContext } */) {
         path: ENUMS.ROUTES_NAMES.LOGIN,
       };
     }
+
+    await getNotifications({ id: me.data.data.id });
+    showAllNotifications();
 
     const adminCheckResult = checkAdminPermissions(to, me.data.data);
     if (adminCheckResult) return adminCheckResult;

@@ -2,7 +2,6 @@
 import moment from 'moment';
 import { WAdditionCard } from 'widgets/WAdditionCard';
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
-import { showNotification } from 'shared/api/notification';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SCalendar } from 'shared/ui/SCalendar';
@@ -22,11 +21,6 @@ watchEffect(() => useLoadingAction(workouts.state, () => getWorkouts({ page: pag
 
 const workoutsData = computed(() => workouts.data?.data);
 const workout = computed(() => workoutsData.value?.[0]);
-
-const currentInstance = getCurrentInstance();
-if (currentInstance) setTimeout(() => showNotification(currentInstance.appContext, 'diary'), 1000);
-
-console.log();
 </script>
 
 <template>
