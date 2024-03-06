@@ -49,7 +49,7 @@ export class AppLoggerService {
         JSON.stringify(req.body) +
         '\nERROR: \nSTATUS: 500' +
         '\nBODY: ' +
-        error.message,
+        error,
     );
   }
 
