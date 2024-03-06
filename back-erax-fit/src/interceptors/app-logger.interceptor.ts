@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AppLoggerService } from '../app-logger.service';
@@ -17,15 +11,16 @@ export class AppLoggerInterceptor implements NestInterceptor {
     const req = ctx.switchToHttp().getRequest();
     return next.handle().pipe(
       map((data) => {
+        this.logger.debug(ctx);
         this.logger.info(req, data);
         return data;
       }),
       catchError((error) => {
-        if (error instanceof InternalServerErrorException) {
-          console.log(error.getResponse);
-          this.logger.error(req, error);
+        this.logger.debug(ctx);
+        if (error.message == 'Entity not found') {
+          this.logger.fatal(req, error);
         } else {
-          this.logger.warn(req, error);
+          this.logger.warnOrError(req, error);
         }
         return throwError(() => error);
       }),

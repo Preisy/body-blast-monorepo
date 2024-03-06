@@ -1,16 +1,12 @@
-import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { ExecutionContext, Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class AppLoggerService {
   private logger = new Logger('AppLogger');
 
-  async trace(message: string) {
-    this.logger.verbose(message);
-  }
-
   info(req: Request, res: Response) {
     const statusCode = req.method == 'POST' ? 201 : 200;
-    this.logger.log(
+    return this.logger.log(
       '\nREQUEST:\nMETHOD: ' +
         req.method +
         '\nPATH: ' +
@@ -24,30 +20,58 @@ export class AppLoggerService {
     );
   }
 
-  async debug(message: string) {
-    this.logger.debug(message);
+  debug(ctx: ExecutionContext) {
+    return this.logger.debug(ctx.getClass());
   }
 
-  warn(req: Request, warn?: string) {
+  private warn(req: Request, warn: Error, statusCode: number) {
     this.logger.warn(
-      '\nREQUEST:\n\n  METHOD: ' +
+      '\nREQUEST:\nMETHOD: ' +
         req.method +
-        '\n\n  PATH: ' +
+        '\nPATH: ' +
         req.url +
-        '\n\n  BODY: ' +
-        req.body +
-        '\n\nWARNING: ' +
-        warn,
+        '\nBODY: ' +
+        JSON.stringify(req.body) +
+        '\nEXCEPTION: \nSTATUS: ' +
+        `${statusCode}` +
+        '\nBODY: ' +
+        warn.message,
     );
   }
 
-  error(req?: Request, err?: InternalServerErrorException) {
-    this.logger.error(
-      '\nREQUEST:\nMETHOD: ' + req?.method + '\nPATH: ' + req?.url + '\nBODY: ' + req?.body + '\nERROR: ' + err,
+  private error(req: Request, error: Error) {
+    return this.logger.error(
+      '\nREQUEST:\nMETHOD: ' +
+        req.method +
+        '\nPATH: ' +
+        req.url +
+        '\nBODY: ' +
+        JSON.stringify(req.body) +
+        '\nERROR: \nSTATUS: 500' +
+        '\nBODY: ' +
+        error.message,
     );
   }
 
-  async fatal(message: string) {
-    this.logger.fatal(message);
+  fatal(req: Request, error: Error) {
+    return this.logger.fatal(
+      '\nREQUEST:\nMETHOD: ' +
+        req.method +
+        '\nPATH: ' +
+        req.url +
+        '\nBODY: ' +
+        JSON.stringify(req.body) +
+        '\nERROR: \nSTATUS: 404' +
+        '\nBODY: ' +
+        error.message,
+    );
+  }
+
+  warnOrError(req: Request, message: Error) {
+    if (message.message == 'Provided data is not valid') {
+      this.warn(req, message, 400);
+    } else {
+      this.error(req, message);
+    }
   }
 }
