@@ -16,19 +16,14 @@ const emit = defineEmits<{
   edit: [number];
 }>();
 
-const { deleteWorkout, deleteWorkoutResponse, getWorkouts } = useAdminWorkoutStore();
-useLoading(deleteWorkoutResponse);
+const { deleteWorkout, workoutList } = useAdminWorkoutStore();
+useLoading(workoutList.deleteState);
 
 const onEdit = async () => {
   emit('edit', props.workout.id);
 };
 
-const onDelete = async () => {
-  await deleteWorkout(props.workout.id);
-  if (deleteWorkoutResponse.state.isSuccess()) {
-    getWorkouts({ expanded: true });
-  }
-};
+const onDelete = () => deleteWorkout(props.workout.id);
 </script>
 
 <template>
@@ -44,7 +39,7 @@ const onDelete = async () => {
         class="[&>.title]:text-sm [&>.value]:text-base"
       />
       <SBtn @click="onEdit" :icon="symRoundedEdit" bg="bg!" ml-auto />
-      <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="deleteWorkoutResponse.state.isLoading()" />
+      <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="workoutList.deleteState.isLoading()" />
     </div>
     <ETrainingCard v-for="exercise in workout.exercises" :key="exercise.id" :exercises="exercise" p="0!" mb-1rem />
   </SComponentWrapper>

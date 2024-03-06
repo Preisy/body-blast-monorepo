@@ -23,6 +23,8 @@ export namespace Workout {
   }
 
   export namespace Delete {
-    export interface Response extends AppBaseEntity.Response<{ status: boolean }> {}
+    export interface Response {
+      status: boolean;
+    }
   }
 }

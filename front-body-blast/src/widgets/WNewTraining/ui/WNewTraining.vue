@@ -27,10 +27,10 @@ const emit = defineEmits<{
   edit: [];
 }>();
 
-const { postWorkout, postWorkoutResponse, patchWorkout, patchWorkoutResponse } = useAdminWorkoutStore();
+const { workoutList, postWorkout, patchWorkout } = useAdminWorkoutStore();
 const { prompts, getPrompts } = useAdminPromptStore();
 
-useLoading(patchWorkoutResponse);
+useLoading(workoutList.createState);
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
@@ -112,7 +112,7 @@ getPrompts({ type: '', expanded: true });
             @add="onadd"
             @remove="() => onremove(index)"
             @submit="onsubmit"
-            :loading-submit="postWorkoutResponse.state.isLoading() || patchWorkoutResponse.state.isLoading()"
+            :loading-submit="workoutList.createState.isLoading() || workoutList.updateState.isLoading()"
             mt-0.5rem
           />
         </template>

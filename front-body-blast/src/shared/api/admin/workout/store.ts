@@ -1,60 +1,76 @@
+import _ from 'lodash';
 import { defineStore } from 'pinia';
 import { AppPagination } from 'shared/api/pagination';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AdminWorkoutService } from './service';
 import { Workout as AdminWorkout } from './types';
 
 export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
-  const postWorkoutResponse = ref(useSingleState<AdminWorkout.Post.Response>());
-  // POST /api/admin/workout
-  const postWorkout = (data: AdminWorkout.Post.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: postWorkoutResponse.value,
-      serviceAction: AdminWorkoutService.postWorkout(data),
-    });
-
-  const getWorkoutByIdResponse = ref(useSingleState<AdminWorkout.GetById.Response>());
-  // GET /api/admin/workouts/{id}
-  const getWorkoutById = (id: number) =>
-    useSimpleStoreAction({
-      stateWrapper: getWorkoutByIdResponse.value,
-      serviceAction: AdminWorkoutService.getWorkoutById(id),
-    });
-
-  const getWorkoutsResponse = ref(useSingleState<AdminWorkout.Get.Response>());
+  const workoutList = ref(useSingleState<AdminWorkout.Get.Response>({ create: true, update: true, delete: true }));
   // GET /api/admin/workouts
   const getWorkouts = (data: AppPagination.BaseDto) =>
     useSimpleStoreAction({
-      stateWrapper: getWorkoutsResponse.value,
+      stateWrapper: workoutList.value,
       serviceAction: AdminWorkoutService.getWorkout(data),
     });
 
-  const patchWorkoutResponse = ref(useSingleState<AdminWorkout.Patch.Response>());
-  // PATCH /api/admin/workouts/{id}
-  const patchWorkout = (id: number, data: AdminWorkout.Patch.Dto) =>
+  const workout = ref(useSingleState<AdminWorkout.GetById.Response>());
+  // GET /api/admin/workouts/{id}
+  const getWorkoutById = (id: number) =>
     useSimpleStoreAction({
-      stateWrapper: patchWorkoutResponse.value,
-      serviceAction: AdminWorkoutService.patchWorkout(id, data),
+      stateWrapper: workout.value,
+      serviceAction: AdminWorkoutService.getWorkoutById(id),
     });
 
-  const deleteWorkoutResponse = ref(useSingleState<AdminWorkout.Delete.Response>());
+  // POST /api/admin/workout
+  const postWorkout = (data: AdminWorkout.Post.Dto) =>
+    useStoreAction({
+      state: workoutList.value.createState,
+      serviceAction: AdminWorkoutService.postWorkout(data),
+      onSuccess: (res) => {
+        const listData = workoutList.value.data?.data;
+        if (!listData) return;
+
+        listData.push(res.data);
+      },
+    });
+
+  // PATCH /api/admin/workouts/{id}
+  const patchWorkout = (id: number, data: AdminWorkout.Patch.Dto) =>
+    useStoreAction({
+      state: workoutList.value.updateState,
+      serviceAction: AdminWorkoutService.patchWorkout(id, data),
+      onSuccess: (res) => {
+        const listData = workoutList.value.data?.data;
+        if (!listData) return;
+
+        const index = listData.findIndex((workout) => workout.id === id);
+        _.assign(listData[index], res);
+      },
+    });
+
   // DELETE /api/admin/workouts/{id}
   const deleteWorkout = (id: number) =>
-    useSimpleStoreAction({
-      stateWrapper: deleteWorkoutResponse.value,
+    useStoreAction({
+      state: workoutList.value.deleteState,
       serviceAction: AdminWorkoutService.deleteWorkout(id),
+      onSuccess: (res) => {
+        if (!res.status) return;
+        const listData = workoutList.value.data?.data;
+        if (!listData) return;
+
+        const index = listData.findIndex((workout) => workout.id === id);
+        listData.splice(index, 1);
+      },
     });
 
   return {
-    postWorkoutResponse,
     postWorkout,
-    getWorkoutByIdResponse,
+    workout,
     getWorkoutById,
-    getWorkoutsResponse,
+    workoutList,
     getWorkouts,
-    patchWorkoutResponse,
     patchWorkout,
-    deleteWorkoutResponse,
     deleteWorkout,
   };
 });
