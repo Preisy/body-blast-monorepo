@@ -9,14 +9,17 @@ export class AppLoggerService {
   }
 
   info(req: Request, res: Response) {
+    const statusCode = req.method == 'POST' ? 201 : 200;
     this.logger.log(
-      '\nREQUEST:\n\n  METHOD: ' +
+      '\nREQUEST:\nMETHOD: ' +
         req.method +
-        '\n\n  PATH: ' +
+        '\nPATH: ' +
         req.url +
-        '\n\n  BODY: ' +
+        '\nBODY: ' +
         JSON.stringify(req.body) +
-        '\n\nRESPONSE: ' +
+        '\nRESPONSE: \nSTATUS: ' +
+        `${statusCode}` +
+        '\nBODY: ' +
         JSON.stringify(res),
     );
   }
@@ -25,7 +28,7 @@ export class AppLoggerService {
     this.logger.debug(message);
   }
 
-  warn(req: Request, warn?: Response) {
+  warn(req: Request, warn?: string) {
     this.logger.warn(
       '\nREQUEST:\n\n  METHOD: ' +
         req.method +
