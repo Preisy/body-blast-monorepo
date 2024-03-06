@@ -8,14 +8,14 @@ export class AppLoggerService {
     this.logger.verbose(message);
   }
 
-  info(req: Request, res?: Response) {
+  info(req: Request, res: Response) {
     this.logger.log(
       '\nREQUEST:\n\n  METHOD: ' +
         req.method +
         '\n\n  PATH: ' +
         req.url +
         '\n\n  BODY: ' +
-        req.body +
+        JSON.stringify(req.body) +
         '\n\nRESPONSE: ' +
         JSON.stringify(res),
     );

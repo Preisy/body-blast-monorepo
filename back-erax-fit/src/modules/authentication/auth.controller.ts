@@ -1,4 +1,4 @@
-﻿import { Body, Controller, Post, Req, UseFilters, UseInterceptors, UsePipes } from '@nestjs/common';
+﻿import { Body, Controller, Post, Req, UseFilters, UsePipes } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppResponses } from '../../decorators/app-responses.decorator';
 import { AuthRequest, AuthResponse, LoginRequest } from './dto/auth.dto';
@@ -11,13 +11,11 @@ import { AppSingleResponse } from '../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../dto/app-status-response.dto';
 import { AuthService } from './auth.service';
 import { UpdateRefreshAccess } from './dto/update-token.dto';
-import { AppLoggerInterceptor } from '../../interceptors/app-logger.interceptor';
 
 @Controller('auth')
 @ApiTags('Authentication')
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
-@UseInterceptors(AppLoggerInterceptor)
 export class AuthController {
   constructor(private authService: AuthService) {}
   @Throttle(5, 1)

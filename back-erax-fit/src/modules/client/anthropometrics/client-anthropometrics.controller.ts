@@ -11,7 +11,6 @@ import {
   UsePipes,
   ValidationPipe,
   Query,
-  UseInterceptors,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppAuthGuard } from '../../authentication/guards/appAuth.guard';
@@ -25,14 +24,12 @@ import { UpdateAnthropometricsByClientRequest } from './dto/client-update-anthro
 import { AnthropometricsEntity } from '../../core/anthropometrics/entities/anthropometrics.entity';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
-import { AppLoggerInterceptor } from '../../../interceptors/app-logger.interceptor';
 
 @Controller('anthropometrics')
 @ApiTags('Anthropometrics')
 @AppAuthGuard()
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
-@UseInterceptors(AppLoggerInterceptor)
 export class ClientAnthropometricsController {
   constructor(private readonly clientService: ClientAnthropometricsService) {}
 

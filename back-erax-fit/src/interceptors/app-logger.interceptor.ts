@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-  InternalServerErrorException,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, NotFoundException } from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { AppLoggerService } from '../app-logger.service';
@@ -21,7 +15,8 @@ export class AppLoggerInterceptor implements NestInterceptor {
         return data;
       }),
       catchError((error) => {
-        if (error instanceof InternalServerErrorException) {
+        if (error instanceof NotFoundException) {
+          console.log(error.getResponse);
           this.logger.error(req, error);
         } else {
           this.logger.warn(req, error);

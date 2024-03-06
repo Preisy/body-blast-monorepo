@@ -7,7 +7,6 @@ import { BaseAnthropometricsModule } from '../../core/anthropometrics/base-anthr
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AuthModule } from '../../authentication/auth.module';
 import { MeModule } from '../me/me.module';
-import { AppLoggerInterceptor } from '../../../interceptors/app-logger.interceptor';
 import { AppLoggerService } from '../../../app-logger.service';
 
 @Module({
@@ -18,7 +17,7 @@ import { AppLoggerService } from '../../../app-logger.service';
     MeModule,
   ],
   controllers: [ClientAnthropometricsController],
-  providers: [ClientAnthropometricsService, AppLoggerInterceptor, AppLoggerService],
+  providers: [ClientAnthropometricsService, AppLoggerService],
   exports: [ClientAnthropometricsService],
 })
 export class ClientAnthropometricsModule {}
