@@ -18,46 +18,33 @@ import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
 export interface PAdminUserProfileProps {
-  id: string;
+  id: number;
 }
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
 
-const adminProfileStore = useAdminUserProfileStore();
-
-const currentUser = computed(() => adminProfileStore.currentUser);
-const setCurrentUser = adminProfileStore.setCurrentUser;
-
+const { user, getUserById, patchUserProfile } = useAdminUserProfileStore();
 const router = useRouter();
+const userData = computed(() => user.data?.data);
 
-if (!currentUser.value)
-  useLoadingAction(adminProfileStore.getUserProfileResponse, async () => {
-    await adminProfileStore.getUserProfile({ id: parseInt(props.id) });
-    const user = adminProfileStore.getUserProfileResponse.data?.data;
+if (!userData.value)
+  useLoadingAction(user, async () => {
+    await getUserById({ id: props.id });
 
-    if (!user) {
+    if (!userData.value) {
       router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
       return;
     }
-    setCurrentUser(user);
   });
 
-const currentUserName = computed(() => `${currentUser.value?.firstName} ${currentUser.value?.lastName}`);
+const userName = computed(() => `${userData.value?.firstName} ${userData.value?.lastName}`);
 
-const canWatchVideo = computed(() => currentUser.value?.canWatchVideo);
-const anthrpJobPeriod = computed(() => currentUser.value?.anthrpJobPeriod);
+const canWatchVideo = computed(() => userData.value?.canWatchVideo);
+const anthrpJobPeriod = computed(() => userData.value?.anthrpJobPeriod);
 
-useLoading(adminProfileStore.patchUserResponse);
-const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) => {
-  await adminProfileStore.patchUserProfile(props.id, { [field]: newValue });
-  const user = adminProfileStore.patchUserResponse.data?.data;
-
-  if (!user) {
-    router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
-    return;
-  }
-  setCurrentUser(user);
-};
+useLoading(user.updateState);
+const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
+  patchUserProfile({ id: props.id, user: { [field]: newValue } });
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
@@ -77,7 +64,7 @@ const lock = computed(() => anthropometry.state.isLoading());
 const slides = computed(
   () =>
     anthropometry.data?.data
-      .filter((slide) => slide.userId.toString() === props.id)
+      .filter((slide) => slide.userId === props.id)
       .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
 );
 
@@ -116,7 +103,7 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          :header="currentUserName ?? 'Loading...'"
+          :header="userName ?? 'Loading...'"
           :describe="$t('home.profile.header.student')"
           dark
           mx--0.5rem
@@ -131,7 +118,6 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
           </template>
         </EUnitedProfileCard>
       </template>
-
       <template #body>
         <SComponentWrapper py-1.5rem>
           <!-- Access to learning section -->
@@ -167,4 +153,3 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
     </SWithHeaderLayout>
   </SStructure>
 </template>
-shared/api/anthropometry

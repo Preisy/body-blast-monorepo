@@ -11,31 +11,31 @@ import { STabPanels } from 'shared/ui/STabPanels';
 
 const panel = ref('nutrition');
 const { t } = useI18n();
-const nutritionStore = useNutritionStore();
+const { getNutrition, getNutritionResponse } = useNutritionStore();
 const foodStore = useFoodStore();
 
 // Construct fake "Nutrition" array from "Food" array
 const foodList = computed(
   () =>
-    foodStore.getFoodResponse.data?.data.reduce((acc: Pick<Nutrition, 'name' | 'mealItems'>[], rec) => {
+    foodStore.food.data?.data.reduce((acc: Pick<Nutrition, 'name' | 'mealItems'>[], rec) => {
       // Tries to find Nutrition with rec.type as name
       // rec.type example: 'berries', 'cereals'
       // For each rec.type construct fake Nutrition. With rec.type as name
       const index = acc.findIndex((it) => it.name === rec.type);
       // If Nutrition.name with rec.type does not exists
-      if (index === -1) acc.push({ name: rec.type, mealItems: [] }); // Create one
-      else acc[index].mealItems.push(rec); // Otherwise - push another food to nutrition.mealItems list
+      if (index === -1) acc.push({ name: rec.type, mealItems: [rec] }); // Create one
+      else acc[index].mealItems?.push(rec); // Otherwise - push another food to nutrition.mealItems list
       // return array of fake Nutritions
       return acc;
     }, []),
 );
 // True nutritions, recieved from API
-const nutrition = computed(() => nutritionStore.nutrition.data);
+const nutritions = computed(() => getNutritionResponse.data?.data);
 
 // API GET /food call
-useLoadingAction(foodStore.getFoodResponse, foodStore.getFood);
+useLoadingAction(foodStore.food, foodStore.getFood);
 // API GET /nutrition call
-useLoadingAction(nutritionStore.nutrition, nutritionStore.getNutrition);
+useLoadingAction(getNutritionResponse, () => getNutrition({ expanded: true }));
 
 // Building upper navbar elements. See: SCenteredNav
 const pages = computed(() => foodList.value?.map((it) => ({ value: it.name, label: t(`home.diet.${it.name}`) })) || []);
@@ -47,10 +47,10 @@ const pages = computed(() => foodList.value?.map((it) => ({ value: it.name, labe
 
     <STabPanels v-model="panel" keep-alive>
       <q-tab-panel name="nutrition" overflow-hidden>
-        <WDietNutrition v-if="nutrition" v-bind="nutrition" />
+        <WDietNutrition v-if="nutritions" :nutritions="nutritions" />
       </q-tab-panel>
       <q-tab-panel v-for="product in foodList" :name="product.name" :key="product.name">
-        <EDietItem v-bind="product" />
+        <EDietItem v-if="product.mealItems" :name="product.name" :meal-items="product.mealItems" />
       </q-tab-panel>
     </STabPanels>
   </div>

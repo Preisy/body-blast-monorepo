@@ -37,7 +37,10 @@ const trainingForm = ref<InstanceType<typeof SForm>>();
 const exercises = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('workout-') }]);
 
 const onsubmit = async () => {
-  if (!exerciseForms.value) return;
+  if (!exerciseForms.value) {
+    console.error('No forms on page');
+    return;
+  }
   for (let i = 0; i < exerciseForms.value.length; i++) {
     const exerciseForm = exerciseForms.value[i];
     await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
@@ -82,7 +85,7 @@ const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
 useLoading(prompts.state);
-getPrompts({ type: '' });
+getPrompts({ type: '', expanded: true });
 </script>
 
 <template>
@@ -90,7 +93,7 @@ getPrompts({ type: '' });
     <h1>{{ $t('admin.prompt.training.training') }}</h1>
 
     <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))" p="0!">
-      <SInput name="loop" :label="$t('admin.prompt.training.cycle')" />
+      <SInput name="cycle" :label="$t('admin.prompt.training.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
       <SForm
         ref="exerciseForms"

@@ -1,7 +1,7 @@
 import { api } from 'shared/config/axios';
-import { basePaginationRequest, useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib/utils';
 import { Food } from './types';
 
-export namespace FoodService {
-  export const getFood = useServiceAction(() => api<Food.Response>(basePaginationRequest('/food')));
-}
+export const FoodService = {
+  getFood: useServiceAction((pagination?: Food.Get.Dto) => api.get<Food.Get.Response>('/food', { params: pagination })),
+};

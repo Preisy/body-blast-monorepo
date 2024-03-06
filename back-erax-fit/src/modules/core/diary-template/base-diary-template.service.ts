@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { MainException } from 'src/exceptions/main.exception';
-import { AppPagination } from 'src/utils/app-pagination.util';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../user/entities/user.entity';
 import { DiaryTemplatePropsEntity } from './entity/diary-template-props.entity';
@@ -20,7 +20,7 @@ export class BaseDiaryTemplateService {
   ) {}
   public readonly relations: (keyof DiaryTemplateEntity)[] = ['props'];
 
-  async createDefault(userId: UserEntity['id']): Promise<AppSingleResponse<DiaryTemplateEntity>> {
+  async createDefault(userId: UserEntity['id']) {
     const labels: { label: string }[] = [
       { label: 'Сон' },
       { label: 'Работоспособность' },
@@ -32,8 +32,8 @@ export class BaseDiaryTemplateService {
       userId,
       props: labels,
     });
-    const savedTemplate = await this.diaryTemlpateRepository.save(newTemplate);
-    return new AppSingleResponse(savedTemplate);
+    await this.diaryTemlpateRepository.save(newTemplate);
+    return;
   }
 
   async findAll(
@@ -54,6 +54,20 @@ export class BaseDiaryTemplateService {
 
     if (!template) {
       throw MainException.entityNotFound(`Template with id: ${id} not found`);
+    }
+    return new AppSingleResponse(template);
+  }
+
+  async findOneByUserId(userId: UserEntity['id']) {
+    const template = await this.diaryTemlpateRepository.findOne({
+      where: {
+        userId,
+      },
+      relations: this.relations,
+    });
+
+    if (!template) {
+      throw MainException.entityNotFound(`Template with userId: ${userId} not found`);
     }
     return new AppSingleResponse(template);
   }

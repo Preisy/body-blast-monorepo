@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QScrollArea } from 'quasar';
 
-const thumbStyle = {
+const thumbStyle: Partial<CSSStyleDeclaration> = {
   borderRadius: '5px',
   backgroundColor: 'var(--q-secondary)',
   right: '-2px',
@@ -9,6 +9,7 @@ const thumbStyle = {
   width: '5px',
   height: '5px',
   opacity: '0.75',
+  zIndex: '99999',
 };
 </script>
 

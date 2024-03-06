@@ -4,7 +4,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import moment from 'moment';
 import { QTabPanel } from 'quasar';
 import { z } from 'zod';
-import { EDiarySelfControlItem } from 'entities/diary';
+import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';

@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { MainException } from 'src/exceptions/main.exception';
-import { AppDatePagination } from 'src/utils/app-date-pagination.util';
-import { filterUndefined } from 'src/utils/filter-undefined.util';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { MainException } from '../../../exceptions/main.exception';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { filterUndefined } from '../../../utils/filter-undefined.util';
 import { Repository } from 'typeorm';
 import { BaseUserService } from '../user/base-user.service';
 import { GetDiaryDTO } from './dto/get-diary.dto';
@@ -11,6 +11,12 @@ import { GetStepsByUserIdDTO, StepsByWeek } from './dto/get-steps.dto';
 import { UpdateDiaryRequest } from './dto/update-diary.dto';
 import { DiaryPropsEntity } from './entity/diary-props.entity';
 import { DiaryEntity } from './entity/diary.entity';
+import { UserEntity } from '../user/entities/user.entity';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { AppPagination } from '../../../utils/app-pagination.util';
+import { BaseWorkoutService } from '../workout/base-workout.service';
+import { WorkoutEntity } from '../workout/entity/workout.entity';
+import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 
 @Injectable()
 export class BaseDiaryService {
@@ -19,9 +25,94 @@ export class BaseDiaryService {
     private readonly diaryRepository: Repository<DiaryEntity>,
     @InjectRepository(DiaryPropsEntity)
     private readonly diaryPropsRepository: Repository<DiaryPropsEntity>,
+    @Inject(forwardRef(() => BaseUserService))
     private readonly userService: BaseUserService,
+    private readonly workoutService: BaseWorkoutService,
+    private readonly diaryTemplateService: BaseDiaryTemplateService,
   ) {}
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
+
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  private async createDiaryCron() {
+    const newDate = new Date();
+    newDate.setHours(0, 0, 0, 0);
+    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
+      where: {
+        date: newDate,
+      },
+    });
+    const workoutsToUserId = workouts.reduce(
+      (acc, it) => ({ ...acc, [it.userId]: it }),
+      {} as Record<number, WorkoutEntity>,
+    );
+    const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
+      relations: ['props'],
+    });
+    const promises = templates.map(async (template) => {
+      const labels = template.props.map(({ label }) => ({ label }));
+      const newDiary = this.diaryRepository.create({
+        userId: template.userId,
+        props: labels,
+        date: newDate,
+      });
+
+      const workout = workoutsToUserId[template.userId!];
+      newDiary.cycle = workout ? workout.cycle : undefined;
+      return newDiary;
+    });
+    const diaries = await Promise.all(promises);
+    await this.diaryRepository.save(diaries, { chunk: 10000 });
+  }
+
+  async createEmptyDiaryRecord(userId: UserEntity['id']) {
+    const newDate = new Date();
+    newDate.setHours(0, 0, 0, 0);
+
+    const { data: template } = await this.diaryTemplateService.findOneByUserId(userId);
+    const labels = template.props.map(({ label }) => ({ label }));
+
+    const defaultDiary = this.diaryRepository.create({
+      userId,
+      props: labels,
+      date: newDate,
+    });
+
+    const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
+      where: {
+        date: newDate,
+      },
+    });
+    const workoutsToUserId = workouts.reduce(
+      (acc, it) => ({ ...acc, [it.userId]: it }),
+      {} as Record<number, WorkoutEntity>,
+    );
+
+    const workout = workoutsToUserId[template.userId!];
+    defaultDiary.cycle = workout ? workout.cycle : undefined;
+
+    await this.diaryRepository.save(defaultDiary);
+  }
+
+  async getDiaryNotification(idUser: UserEntity['id']) {
+    const latestDiary = await this.diaryRepository.findOne({
+      where: {
+        userId: idUser,
+      },
+      order: { createdAt: 'DESC' },
+    });
+    if (!latestDiary) return false;
+
+    return (
+      latestDiary.activity == null ||
+      latestDiary.sum == null ||
+      latestDiary.steps == null ||
+      latestDiary.cycle == null ||
+      latestDiary.props[0].label == null ||
+      latestDiary.props[1].label == null ||
+      latestDiary.props[2].label == null ||
+      latestDiary.props[3].label == null
+    );
+  }
 
   async findAll(
     query: AppDatePagination.Request,
@@ -63,13 +154,19 @@ export class BaseDiaryService {
     const { data: diaries } = await this.findAllByUserId(userId, query);
     const { data: user } = await this.userService.getUserById(userId);
 
-    let firstDayOfWeek = query.from!;
-    let lastDayOfWeek = query.from!;
-    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+    const firstDayOfWeek = new Date(query.from!);
+    const lastDayOfWeek = new Date(query.from!);
+
+    const firstDayOfMonth = new Date(query.from!);
+    const lastDayOfMonth = new Date(query.to!);
+
+    const weeks = Math.floor((lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1) / 7);
+
+    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
 
     let weeksCounter = 0;
-    let result: StepsByWeek[] = [];
-    while (weeksCounter < 4) {
+    const result: StepsByWeek[] = [];
+    while (weeksCounter < weeks) {
       let steps = 0;
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
       newWeek.forEach((diary) => {
@@ -88,8 +185,8 @@ export class BaseDiaryService {
         }),
       );
       result.push(stepsByWeek);
-      firstDayOfWeek = lastDayOfWeek;
-      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+      firstDayOfWeek.setDate(lastDayOfWeek.getDate() + 1);
+      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
       weeksCounter++;
     }
     return new GetStepsByUserIdDTO(result);

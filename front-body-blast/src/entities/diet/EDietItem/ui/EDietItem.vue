@@ -3,7 +3,11 @@ import { Food } from 'shared/api/food';
 import { Nutrition } from 'shared/api/nutrition';
 import { SInput } from 'shared/ui/inputs';
 
-const props = defineProps<Pick<Nutrition, 'name' | 'mealItems'>>();
+export interface EDietItemProps {
+  name: Nutrition['name'];
+  mealItems: NonNullable<Nutrition['mealItems']>;
+}
+const props = defineProps<EDietItemProps>();
 const categories: XOR<Nutrition.Item, Food>[][] = [[], [], []]
   .map((it, ind) => props.mealItems.filter((it) => it.category == ind + 1))
   .filter((it) => it.length);

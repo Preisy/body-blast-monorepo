@@ -21,9 +21,7 @@ const videoControl = ref<InstanceType<typeof SVideo>>();
       <template v-if="video.data && photo.data">
         <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
 
-        <SVideo ref="videoControl" :link-url="video.data.link">
-          <template #controlBtn> <div /> </template>
-        </SVideo>
+        <SVideo ref="videoControl" :link-url="video.data.link" disable-btn />
       </template>
       <template v-else>
         <q-circular-progress indeterminate rounded size="50px" color="secondary" class="q-ma-md" />
