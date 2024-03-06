@@ -48,8 +48,8 @@ export default route(function (/* { store, ssrContext } */) {
       };
     }
 
-    await getNotifications({ id: me.data.data.id });
-    showAllNotifications();
+    const notifications = await getNotifications({ id: me.data.data.id });
+    if (notifications.data) showAllNotifications();
 
     const adminCheckResult = checkAdminPermissions(to, me.data.data);
     if (adminCheckResult) return adminCheckResult;

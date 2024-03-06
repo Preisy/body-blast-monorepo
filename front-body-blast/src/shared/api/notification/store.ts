@@ -32,6 +32,8 @@ export const useNotificationStore = defineStore('notification-store', () => {
 
     // Callback
     const notificationHideCallback = () => {
+      // Pop another
+      nextNotification = notificationsQueue.value.data?.pop();
       if (!nextNotification) {
         // If nothing to show - disable listener
         notificationBus.off('notification-hide', notificationHideCallback);
@@ -39,8 +41,6 @@ export const useNotificationStore = defineStore('notification-store', () => {
       }
       // Else - show next notification
       notificationBus.emit('notify', nextNotification);
-      // Pop another
-      nextNotification = notificationsQueue.value.data?.pop();
     };
     // SNotification emits 'notification-hide' after it hides
     notificationBus.on('notification-hide', notificationHideCallback);
