@@ -52,12 +52,6 @@ import { AppLoggerService } from './app-logger.service';
     ClientDiaryModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: 'LOGGER',
-      useValue: AppLoggerService,
-    },
-  ],
+  providers: [AppService, AppLoggerService],
 })
 export class AppModule {}

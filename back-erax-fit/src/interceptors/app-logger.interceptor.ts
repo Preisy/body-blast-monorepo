@@ -1,16 +1,31 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, Inject } from '@nestjs/common';
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { AppLoggerService } from '../app-logger.service';
 
 @Injectable()
 export class AppLoggerInterceptor implements NestInterceptor {
-  constructor(@Inject('LOGGER') private logger: AppLoggerService) {}
+  constructor(private logger: AppLoggerService) {}
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+  intercept(ctx: ExecutionContext, next: CallHandler): Observable<any> {
+    const req = ctx.switchToHttp().getRequest();
     return next.handle().pipe(
-      tap(() => {}),
+      map((data) => {
+        this.logger.info(req, data);
+        return data;
+      }),
       catchError((error) => {
+        if (error instanceof InternalServerErrorException) {
+          this.logger.error(req, error);
+        } else {
+          this.logger.warn(req, error);
+        }
         return throwError(() => error);
       }),
     );

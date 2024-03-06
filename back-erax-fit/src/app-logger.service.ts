@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 
 @Injectable()
 export class AppLoggerService {
@@ -8,20 +8,40 @@ export class AppLoggerService {
     this.logger.verbose(message);
   }
 
-  async info(message: string) {
-    this.logger.log(message);
+  info(req: Request, res?: Response) {
+    this.logger.log(
+      '\nREQUEST:\n\n  METHOD: ' +
+        req.method +
+        '\n\n  PATH: ' +
+        req.url +
+        '\n\n  BODY: ' +
+        req.body +
+        '\n\nRESPONSE: ' +
+        JSON.stringify(res),
+    );
   }
 
   async debug(message: string) {
     this.logger.debug(message);
   }
 
-  async warn(message: string) {
-    this.logger.warn(message);
+  warn(req: Request, warn?: Response) {
+    this.logger.warn(
+      '\nREQUEST:\n\n  METHOD: ' +
+        req.method +
+        '\n\n  PATH: ' +
+        req.url +
+        '\n\n  BODY: ' +
+        req.body +
+        '\n\nWARNING: ' +
+        warn,
+    );
   }
 
-  async error(message: string) {
-    this.logger.error(message);
+  error(req?: Request, err?: InternalServerErrorException) {
+    this.logger.error(
+      '\nREQUEST:\nMETHOD: ' + req?.method + '\nPATH: ' + req?.url + '\nBODY: ' + req?.body + '\nERROR: ' + err,
+    );
   }
 
   async fatal(message: string) {
