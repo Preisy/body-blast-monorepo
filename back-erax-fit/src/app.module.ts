@@ -24,6 +24,7 @@ import { ClientNutritionModule } from './modules/client/nutrition/client-nutriti
 import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
 import { AppLoggerService } from './app-logger.service';
+import { LoggerModule } from 'nestjs-pino';
 
 @Module({
   imports: [
@@ -50,6 +51,13 @@ import { AppLoggerService } from './app-logger.service';
     ClientNutritionModule,
     AdminDiaryModule,
     ClientDiaryModule,
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: 'pino-pretty',
+        },
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService, AppLoggerService],
