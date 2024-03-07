@@ -18,6 +18,10 @@ const categories = [1, 2, 3] as const;
 const type = ref();
 const forms = ref<Array<InstanceType<typeof FFoodListForm>>>();
 
+const clear = () => {
+  forms.value?.forEach((form) => form.resetForms());
+  type.value = '';
+};
 const onCreate = async () => {
   if (!forms.value) return;
 
@@ -27,6 +31,8 @@ const onCreate = async () => {
 
     for (const food of foodValues)
       useLoadingAction(foodList.createState, () => postFood({ ...food, type: type.value }));
+
+    clear();
   }
 };
 </script>

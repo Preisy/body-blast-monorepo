@@ -74,6 +74,7 @@ const getFormValues = async () => {
 defineExpose({
   getFormValues,
   category: props.category,
+  resetForms: () => forms.value?.forEach((form) => form.resetForm()),
 });
 
 watchEffect(() => {

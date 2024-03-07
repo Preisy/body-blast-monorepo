@@ -15,14 +15,16 @@ const setPage = (p: string) => emit('update:modelValue', p);
 <template>
   <SCenteredByChild :gap="2" :model-value="modelValue">
     <a
-      v-for="page in pages"
-      nowrap
-      font-semibold
-      :key="page.value"
-      :data-key="page.value"
       ref="listElements"
+      v-for="page in pages"
+      :key="page.value"
       @click="setPage(page.value)"
       :class="{ 'opacity-50': modelValue !== page.value }"
+      :data-key="page.value"
+      nowrap
+      cursor-pointer
+      text-center
+      font-semibold
     >
       {{ page.label }}
     </a>
