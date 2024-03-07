@@ -24,8 +24,11 @@ const emit = defineEmits<{
 const anchor = ref();
 const float = ref();
 const content = ref<HTMLElement>();
-const contentHeight = computed(() => content.value?.getBoundingClientRect().height + 'px');
-
+const contentHeight = computed(() => {
+  const height = content.value?.getBoundingClientRect().height;
+  if (!height) return;
+  return `${height * 1.05}px`;
+});
 const { floatingStyles } = useFloating(anchor, float, {
   placement: 'top-start',
 });
