@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
 import { TokenEntity } from './entities/token.entity';
 import { AccessStrategy } from './strategies/access-strategy';
 import { RefreshStrategy } from './strategies/refresh-strategy';
-import { AppLoggerService } from '../../app-logger.service';
 
 @Module({
   imports: [
@@ -24,7 +23,7 @@ import { AppLoggerService } from '../../app-logger.service';
       signOptions: { expiresIn: process.env.JWT_EXPIRATION },
     }),
   ],
-  providers: [AuthService, AccessStrategy, RefreshStrategy, Repository, AppLoggerService],
+  providers: [AuthService, AccessStrategy, RefreshStrategy, Repository],
   controllers: [AuthController],
   exports: [AuthService],
 })

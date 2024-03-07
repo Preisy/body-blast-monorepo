@@ -23,7 +23,6 @@ import { AdminNutritionModule } from './modules/admin/nutrition/admin-nutrition.
 import { ClientNutritionModule } from './modules/client/nutrition/client-nutrition.module';
 import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
-import { AppLoggerService } from './app-logger.service';
 import { LoggerModule } from 'nestjs-pino';
 
 @Module({
@@ -60,6 +59,6 @@ import { LoggerModule } from 'nestjs-pino';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, AppLoggerService],
+  providers: [AppService],
 })
 export class AppModule {}
