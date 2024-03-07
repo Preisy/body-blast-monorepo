@@ -17,11 +17,7 @@ export class AppLoggerInterceptor implements NestInterceptor {
       }),
       catchError((error) => {
         this.logger.debug(ctx);
-        if (error.message == 'Entity not found') {
-          this.logger.fatal(req, error);
-        } else {
-          this.logger.warnOrError(req, error);
-        }
+        error.message == 'Entity not found' ? this.logger.fatal(req, error) : this.logger.warnOrError(req, error);
         return throwError(() => error);
       }),
     );

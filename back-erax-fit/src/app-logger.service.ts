@@ -25,7 +25,7 @@ export class AppLoggerService {
   }
 
   private warn(req: Request, warn: Error, statusCode: number) {
-    this.logger.warn(
+    return this.logger.warn(
       '\nREQUEST:\nMETHOD: ' +
         req.method +
         '\nPATH: ' +
@@ -35,7 +35,7 @@ export class AppLoggerService {
         '\nEXCEPTION: \nSTATUS: ' +
         `${statusCode}` +
         '\nBODY: ' +
-        warn.message,
+        warn,
     );
   }
 
@@ -68,10 +68,6 @@ export class AppLoggerService {
   }
 
   warnOrError(req: Request, message: Error) {
-    if (message.message == 'Provided data is not valid') {
-      this.warn(req, message, 400);
-    } else {
-      this.error(req, message);
-    }
+    message.message == 'Provided data is not valid' ? this.warn(req, message, 400) : this.error(req, message);
   }
 }
