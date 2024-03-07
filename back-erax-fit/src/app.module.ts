@@ -23,7 +23,7 @@ import { AdminNutritionModule } from './modules/admin/nutrition/admin-nutrition.
 import { ClientNutritionModule } from './modules/client/nutrition/client-nutrition.module';
 import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
-import { LoggerModule } from 'nestjs-pino';
+import { AppLoggerModule } from './logger/app-logger.module';
 
 @Module({
   imports: [
@@ -50,13 +50,7 @@ import { LoggerModule } from 'nestjs-pino';
     ClientNutritionModule,
     AdminDiaryModule,
     ClientDiaryModule,
-    LoggerModule.forRoot({
-      pinoHttp: {
-        transport: {
-          target: 'pino-pretty',
-        },
-      },
-    }),
+    AppLoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
