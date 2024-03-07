@@ -14,7 +14,7 @@ export namespace Workout {
 
   export namespace Patch {
     export interface Dto extends Omit<Partial<UserWorkout>, keyof AppBaseEntity | 'user'> {}
-    export interface Response extends UserWorkout {}
+    export interface Response extends AppBaseEntity.Response<UserWorkout> {}
   }
 
   export namespace Post {

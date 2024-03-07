@@ -13,14 +13,14 @@ export interface WOldWorkoutsProps {
 }
 const props = defineProps<WOldWorkoutsProps>();
 const emit = defineEmits<{
-  edit: [number];
+  edit: [Workout];
 }>();
 
 const { deleteWorkout, workoutList } = useAdminWorkoutStore();
 useLoading(workoutList.deleteState);
 
 const onEdit = async () => {
-  emit('edit', props.workout.id);
+  emit('edit', props.workout);
 };
 
 const onDelete = () => deleteWorkout(props.workout.id);

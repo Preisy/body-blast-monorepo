@@ -31,7 +31,7 @@ const { floatingStyles } = useFloating(anchor, float, {
 });
 const isOpen = ref(false);
 
-const { value, setValue } = useField<ModelValue>(props.name);
+const { value, setValue } = useField<Partial<ModelValue>>(() => props.name);
 
 const onItemClick = (val: ModelValue) => {
   isOpen.value = false;
@@ -63,18 +63,13 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
     </SProxyScroll>
     <div>
       <SInput
-        watch-model-value
-        @focus="isOpen = true"
-        @blur="
-          (e) => {
-            isOpen = false;
-            console.log(e);
-          }
-        "
-        :label="label"
         ref="anchor"
-        :model-value="value?.[optionValue as keyof T]"
+        @focus="isOpen = true"
+        @blur="isOpen = false"
         @update:model-value="onInput"
+        :label="label"
+        watch-model-value
+        :model-value="value?.[optionValue as keyof T]"
       />
     </div>
   </div>

@@ -45,7 +45,7 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
         if (!listData) return;
 
         const index = listData.findIndex((workout) => workout.id === id);
-        _.assign(listData[index], res);
+        _.assign(listData[index], res.data);
       },
     });
 

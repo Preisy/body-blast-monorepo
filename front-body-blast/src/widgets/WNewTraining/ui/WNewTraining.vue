@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { symRoundedClose } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
-import moment from 'moment';
 import { z } from 'zod';
 import { FListControls } from 'features/FListControls';
 import { FNewTrainingFields } from 'features/FNewTrainingFields';
@@ -9,6 +9,7 @@ import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
 import { useLoading } from 'shared/lib/loading';
+import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
@@ -17,14 +18,17 @@ type Exercise = NonNullable<Workout['exercises']>[number];
 const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;
 
 export interface WNewTrainingProps {
-  id: number;
-  date: string; //ISO date
+  id: number; //userId
+  date: string; //ISO date, used for
   isEdit?: boolean;
   workoutId?: number;
+  initValues?: Workout;
 }
+
 const props = defineProps<WNewTrainingProps>();
 const emit = defineEmits<{
   edit: [];
+  rejectEdit: [];
 }>();
 
 const { workoutList, postWorkout, patchWorkout } = useAdminWorkoutStore();
@@ -34,7 +38,11 @@ useLoading(workoutList.createState);
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
-const exercises = ref<Array<Partial<Exercise & { key: string }>>>([{ key: uniqueId('workout-') }]);
+const exercises = ref<Array<Partial<Exercise & { key: string }>>>(
+  props.initValues && props.initValues.exercises
+    ? props.initValues.exercises?.map((exercise) => ({ ...exercise, key: uniqueId('workout-') }))
+    : [{ key: uniqueId('workout-') }],
+);
 
 const onsubmit = async () => {
   if (!exerciseForms.value) {
@@ -67,7 +75,7 @@ const onsubmit = async () => {
     const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
       name: values.name,
       comment: values.comment,
-      date: moment().toISOString(), //today
+      date: props.date,
       exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
       cycle: parseInt(values.cycle),
       userId: props.id,
@@ -90,9 +98,17 @@ getPrompts({ type: '', expanded: true });
 
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
-    <h1>{{ $t('admin.prompt.training.training') }}</h1>
+    <div flex flex-row>
+      <h1>{{ $t('admin.prompt.training.training') }}</h1>
+      <SBtn :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
+    </div>
 
-    <SForm ref="trainingForm" :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))" p="0!">
+    <SForm
+      ref="trainingForm"
+      :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))"
+      :init-values="isEdit ? initValues : {}"
+      p="0!"
+    >
       <SInput name="cycle" :label="$t('admin.prompt.training.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.training.name')" />
       <SForm
@@ -100,6 +116,7 @@ getPrompts({ type: '', expanded: true });
         v-for="(exercise, index) in exercises"
         :key="exercise.key"
         :field-schema="toTypedSchema(ExerciseValidation)"
+        :init-values="exercise"
         p="0!"
         mt-0.5rem
       >
