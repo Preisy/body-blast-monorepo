@@ -1,11 +1,10 @@
 import { defineStore } from 'pinia';
 import { useSingleState, useStoreAction } from 'shared/lib/utils';
-import { notificationBus } from './bus';
 import { notificationService } from './service';
 import { Notification, NotificationTypes } from './types';
 
 export const useNotificationStore = defineStore('notification-store', () => {
-  const notificationsQueue = ref(useSingleState<Array<NotificationTypes>>());
+  const notificationsQueue = ref(useSingleState<Array<NotificationTypes>>({ data: ['diary', 'anthropometrics'] }));
   const getNotifications = (data: Notification.Get.Dto) =>
     useStoreAction({
       state: notificationsQueue.value.state,
@@ -20,31 +19,5 @@ export const useNotificationStore = defineStore('notification-store', () => {
       },
     });
 
-  const showNotification = (notification: NotificationTypes) => {
-    notificationBus.emit('notify', notification);
-  };
-
-  const showAllNotifications = () => {
-    let nextNotification = notificationsQueue.value.data?.pop(); // Take last
-    if (!nextNotification) return; // If nothing to show - return
-
-    notificationBus.emit('notify', nextNotification); // Show last notification
-
-    // Callback
-    const notificationHideCallback = () => {
-      // Pop another
-      nextNotification = notificationsQueue.value.data?.pop();
-      if (!nextNotification) {
-        // If nothing to show - disable listener
-        notificationBus.off('notification-hide', notificationHideCallback);
-        return; // And return
-      }
-      // Else - show next notification
-      notificationBus.emit('notify', nextNotification);
-    };
-    // SNotification emits 'notification-hide' after it hides
-    notificationBus.on('notification-hide', notificationHideCallback);
-  };
-
-  return { notificationsQueue, getNotifications, showNotification, showAllNotifications };
+  return { notificationsQueue, getNotifications };
 });
