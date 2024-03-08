@@ -24,6 +24,7 @@ import { TTrainingI18n } from 'entities/trainings/ETrainingCard';
 import { TGlobalI18n } from 'shared/config/i18n';
 import { mergeI18n } from 'shared/lib/i18utils';
 import { TSNoResultsScreenI18n } from 'shared/ui/SNoResultsScreen';
+import { TSNotificationI18n } from 'shared/ui/SNotification';
 
 export default boot(({ app }) => {
   const i18n = createI18n({
@@ -53,6 +54,7 @@ export default boot(({ app }) => {
       TPAdminUserProfileNutritionI18n,
       TWAdminNewNutritionI18n,
       TWAdminNewFoodI18n,
+      TSNotificationI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

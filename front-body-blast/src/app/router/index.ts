@@ -33,7 +33,6 @@ export default route(function (/* { store, ssrContext } */) {
     // Access to login is always available
     // Also is workaround for infinite redirect issue
     if (to.name === ENUMS.ROUTES_NAMES.LOGIN) return;
-
     const { me, getMe } = useMeStore();
     if (!me.data?.data) {
       useLoading(me);

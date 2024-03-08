@@ -5,5 +5,8 @@ export default {
     date: {
       today: 'Today',
     },
+    notification: {
+      attention: 'Attention!',
+    },
   },
 };
