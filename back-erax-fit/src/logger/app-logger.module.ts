@@ -14,6 +14,9 @@ import pino from 'pino';
         }),
         transport: {
           target: 'pino-pretty',
+          options: {
+            destination: './logs/log.txt',
+          },
         },
       },
     }),
