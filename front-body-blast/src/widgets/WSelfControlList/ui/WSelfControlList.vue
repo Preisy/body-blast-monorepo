@@ -10,7 +10,7 @@ defineProps<WSelfControlListProps>();
 </script>
 
 <template>
-  <div>
+  <div h-full>
     <h1>{{ $t('admin.diary.selfControl') }} {{ week }}</h1>
 
     <div v-for="slide in slides" :key="slide.id" mt-1rem>
