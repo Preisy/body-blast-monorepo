@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { useAuthStore, TokenService } from 'shared/api/auth';
-import { api } from '.';
+// import { api } from '.';
 
 export const refreshInterceptor = async (error: AxiosError) => {
   if (error.config?.url === '/auth/refresh') {
@@ -26,7 +26,7 @@ export const refreshInterceptor = async (error: AxiosError) => {
     }
 
     //TODO: how to return values to store?
-    if (error.config) await api.request(error.config);
+    // if (error.config) await api.request(error.config);
   }
   return error;
 };

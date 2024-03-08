@@ -3,9 +3,9 @@ import { EVideo } from 'entities/learning/EVideo';
 import { useBonusVideoStore } from 'shared/api/bonusVideo';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
-const { getVideos, getVideosResponse } = useBonusVideoStore();
-const videos = computed(() => getVideosResponse.data?.data || []);
-useLoadingAction(getVideosResponse, getVideos);
+const { getVideos, videoList } = useBonusVideoStore();
+const videos = computed(() => videoList.data?.data || []);
+useLoadingAction(videoList, getVideos);
 </script>
 
 <template>

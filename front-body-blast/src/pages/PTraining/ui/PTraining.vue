@@ -31,7 +31,7 @@ const workout = computed(() => workoutsData.value?.[0]);
 
     <SSplide :options="{ direction: 'ttb', height: '35rem' }">
       <SSplideSlide v-if="!workouts.state.isSuccess() || !workout">
-        <SNoResultsScreen />
+        <SNoResultsScreen p-1.5rem />
       </SSplideSlide>
       <template v-else>
         <SSplideSlide v-for="exercise in workout.exercises" :key="exercise.name">
