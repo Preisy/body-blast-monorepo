@@ -24,6 +24,7 @@ import { ClientNutritionModule } from './modules/client/nutrition/client-nutriti
 import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
 import { AppLoggerModule } from './logger/app-logger.module';
+import { AdminLogsModule } from './modules/admin/logging/admin-logs.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { AppLoggerModule } from './logger/app-logger.module';
     AdminDiaryModule,
     ClientDiaryModule,
     AppLoggerModule,
+    AdminLogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
