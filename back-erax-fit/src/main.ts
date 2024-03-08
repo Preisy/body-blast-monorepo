@@ -7,7 +7,7 @@ import { Logger } from 'nestjs-pino';
 // eslint-disable-next-line import/no-named-as-default
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new MainExceptionFilter());
