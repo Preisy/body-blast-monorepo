@@ -1,4 +1,4 @@
-import { Controller, Get, Header, Logger, Param, Res, StreamableFile } from '@nestjs/common';
+import { Controller, Get, Header, Param, Res, StreamableFile } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import type { Response } from 'express';
@@ -10,7 +10,6 @@ import { AdminLogsService } from './admin-logs.service';
 @ApiTags('Admin logs')
 export class AdminLogsController {
   constructor(private readonly service: AdminLogsService) {}
-  private readonly logger = new Logger(AdminLogsController.name);
 
   @Get('/l')
   @AppResponses({ status: 200, type: 'file' })
