@@ -36,7 +36,7 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 
 const activityValidation = Diary.validation().pick({ activity: true, steps: true });
 const onActivitySubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
-  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values, props: diary.props }));
+  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values }));
 };
 const onChangeSelfControl = (diary: Diary) => {
   useLoadingAction(diaryList.updateState, () =>
@@ -53,7 +53,7 @@ const onChangeSelfControl = (diary: Diary) => {
       :options="dates.map((date) => moment(date).format('YYYY/MM/DD'))"
     />
     <STabPanels v-model="modelDate">
-      <q-tab-panel v-for="slide in slides" :name="slide.date" :key="slide.id">
+      <q-tab-panel v-for="slide in slides" :name="slide.date" :key="slide.id" overflow-y-hidden>
         <SStructure px="0!" relative>
           <SSplide
             :options="{
