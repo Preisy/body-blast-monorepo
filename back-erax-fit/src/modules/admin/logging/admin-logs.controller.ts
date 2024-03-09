@@ -11,12 +11,15 @@ import * as fs from 'fs';
 export class AdminLogsController {
   @Get(':limit')
   @AppResponses({ status: 200, type: 'file' })
-  getSomeLogs(@Res() res: Response, @Param('limit', ParseIntPipe) limit: number) {
-    const fileContent = fs.readFileSync('./logs/log.txt', 'utf-8');
-    const lines = fileContent.split('\n');
-    const writableData = lines.slice(lines.length - limit, lines.length).join('\n');
-
-    return res.send(writableData);
+  async getSomeLogs(@Res() res: Response, @Param('limit', ParseIntPipe) limit: number) {
+    fs.readFile('./logs/log.txt', 'utf-8', (err, data) => {
+      if (err) {
+        return res.status(500).send('Error reading file');
+      }
+      const lines = data.split('\n');
+      const writableData = lines.slice(lines.length - limit, lines.length).join('\n');
+      return res.send(writableData);
+    });
   }
 
   @Get()
