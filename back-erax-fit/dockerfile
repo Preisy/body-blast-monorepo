@@ -1,0 +1,19 @@
+FROM node:16-alpine as installer
+WORKDIR /app
+COPY ./package.json ./package.json
+COPY ./yarn.lock ./yarn.lock
+COPY ./tsconfig.json ./tsconfig.json
+COPY ./back-erax-fit ./back-erax-fit
+
+FROM node:16-alpine as builder
+WORKDIR /app
+COPY --from=installer /app .
+RUN yarn install --frozen-lockfile
+RUN yarn workspace back-erax-fit build
+RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
+
+FROM node:16-alpine as runner
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+CMD ["node", "dist/back-erax-fit/src/main.js"]
