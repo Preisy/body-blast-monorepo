@@ -61,7 +61,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
         <SCenteredNav v-model="pageValue" :pages="pages" />
       </div>
 
-      <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" swipeable animated infinite keep-alive>
+      <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite>
         <q-tab-panel :name="pages[0].value" p="0!">
           <WAdminNutrition
             v-for="nutrition in nutritionsData"
