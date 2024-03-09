@@ -1,4 +1,4 @@
-import { Controller, Get, Header, Param, ParseIntPipe, Query, Res, StreamableFile } from '@nestjs/common';
+import { Controller, Get, Header, Param, ParseIntPipe, Res, StreamableFile } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import type { Response } from 'express';
@@ -12,15 +12,16 @@ export class AdminLogsController {
   @Get(':limit')
   @AppResponses({ status: 200, type: 'file' })
   async getSomeLogs(@Res() res: Response, @Param('limit', ParseIntPipe) limit: number, @Param('page') page: number) {
-    fs.readFile('./logs/log.txt', 'utf-8', (err, data) => {
-      if (err) {
-        return res.status(500).send('Error reading file');
-      }
-      const skip = (page - 1) * limit! || 0;
-      const lines = data.split('\n');
-      const writableData = lines.slice(lines.length - (limit - skip), lines.length - skip).join('\n');
-      return res.send(writableData);
-    });
+    const data = await new Promise<string>((res, rej) =>
+      fs.readFile('./logs/log.txt', 'utf-8', (err, data) => {
+        if (err) rej(err);
+        else res(data);
+      }),
+    );
+    const skip = (page - 1) * limit! || 0;
+    const lines = data.split('\n');
+    const writableData = lines.slice(lines.length - (limit - skip), lines.length - skip).join('\n');
+    return writableData;
   }
 
   @Get()

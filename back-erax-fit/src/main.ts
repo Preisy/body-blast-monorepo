@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { MainExceptionFilter } from './exceptions/main-exception.filter';
 import { Logger } from 'nestjs-pino';
-// eslint-disable-next-line import/no-named-as-default
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
