@@ -1,20 +1,21 @@
-import { Controller, Get, Header, Param, Res, StreamableFile } from '@nestjs/common';
+import { Controller, Get, Header, Param, ParseIntPipe, Res, StreamableFile } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import type { Response } from 'express';
 import { createReadStream } from 'fs';
 import { join } from 'path';
-import { AdminLogsService } from './admin-logs.service';
+import * as fs from 'fs';
 
 @Controller('admin/logs')
 @ApiTags('Admin logs')
 export class AdminLogsController {
-  constructor(private readonly service: AdminLogsService) {}
-
-  @Get('/l')
+  @Get(':limit')
   @AppResponses({ status: 200, type: 'file' })
-  getSomeLogs(@Res() res: Response, @Param('lines') lines: number) {
-    const writableData = this.service.getLinesFromLogs(lines);
+  getSomeLogs(@Res() res: Response, @Param('limit', ParseIntPipe) limit: number) {
+    const fileContent = fs.readFileSync('./logs/log.txt', 'utf-8');
+    const lines = fileContent.split('\n');
+    const writableData = lines.slice(lines.length - limit, lines.length).join('\n');
+
     return res.send(writableData);
   }
 
