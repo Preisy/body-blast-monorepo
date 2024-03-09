@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { AppPagination } from 'shared/api/pagination';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
@@ -45,7 +45,7 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
         if (!listData) return;
 
         const index = listData.findIndex((workout) => workout.id === id);
-        _.assign(listData[index], res.data);
+        assign(listData[index], res.data);
       },
     });
 

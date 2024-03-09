@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia';
 import { useSingleState, useStoreAction } from 'shared/lib/utils';
 import { notificationService } from './service';
-import { Notification, NotificationTypes } from './types';
+import { NotificationTypes } from './types';
 
 export const useNotificationStore = defineStore('notification-store', () => {
   const notificationsQueue = ref(useSingleState<Array<NotificationTypes>>({ data: ['diary', 'anthropometrics'] }));
-  const getNotifications = (data: Notification.Get.Dto) =>
+  const getNotifications = () =>
     useStoreAction({
       state: notificationsQueue.value.state,
-      serviceAction: notificationService.getNotifications(data),
+      serviceAction: notificationService.getNotifications(),
       onSuccess: (res) => {
         // Object.entries returns the ['diary', true] or ['anthropometrics', false]
         // We will filter out all entries with 'false' value

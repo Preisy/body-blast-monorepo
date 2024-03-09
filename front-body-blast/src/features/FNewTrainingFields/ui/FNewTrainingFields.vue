@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import _ from 'lodash';
+import { uniqueId } from 'lodash';
 import { EAdminPromptThumbnail } from 'entities/workout/EAdminPromptThumbnail';
 import { Prompt } from 'shared/api/admin';
 import { SChooseInput, SInput } from 'shared/ui/inputs';
@@ -15,7 +15,7 @@ const filteredPrompts = computed(
   () =>
     props.prompts
       ?.filter((prompt) => prompt.type.includes(filterStr.value))
-      .map((prompt) => ({ ...prompt, key: _.uniqueId('prompt-') })),
+      .map((prompt) => ({ ...prompt, key: uniqueId('prompt-') })),
 );
 </script>
 

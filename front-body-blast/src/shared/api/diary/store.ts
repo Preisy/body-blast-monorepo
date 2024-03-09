@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AppBaseEntity } from '../base';
@@ -31,7 +31,7 @@ export const useDiaryStore = defineStore('diary-store', () => {
         const index = listData.findIndex((diary) => diary.id === id);
         if (index === -1) return;
 
-        _.assign(listData[index], res.data);
+        assign(listData[index], res.data);
       },
     });
 

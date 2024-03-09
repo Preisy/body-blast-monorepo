@@ -19,7 +19,11 @@ const resetForm = () => {
 };
 
 const onsubmit = async (values: z.infer<ReturnType<typeof BonusVideo.validation>>) => {
-  postVideo(values);
+  const res = await postVideo(values);
+  if (res?.error) {
+    console.error(res.error);
+    return;
+  }
   resetForm();
 };
 </script>

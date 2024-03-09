@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { FoodService } from './service';
@@ -33,7 +33,7 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
         const foodListData = foodList.value.data?.data;
         if (!foodListData) return;
         const foodIndex = foodListData.findIndex((food) => food.id === res.data.id);
-        _.assign(foodListData[foodIndex], res.data);
+        assign(foodListData[foodIndex], res.data);
       },
     });
 

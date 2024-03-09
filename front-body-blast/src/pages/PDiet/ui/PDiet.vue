@@ -31,12 +31,7 @@ const foodList = computed(
 // True nutritions, recieved from API
 const nutritions = computed(() => nutritionList.data?.data);
 
-useLoadingAction(nutritionList, async () => {
-  // API GET /food call
-  await foodStore.getFood();
-  // API GET /nutrition call
-  await getNutrition({ expanded: true });
-});
+useLoadingAction(nutritionList, () => Promise.all([foodStore.getFood(), getNutrition({ expanded: true })]));
 
 // Building upper navbar elements. See: SCenteredNav
 const pages = computed(

@@ -15,7 +15,6 @@ const setPage = (p: string) => emit('update:modelValue', p);
 <template>
   <SCenteredByChild :gap="2" :model-value="modelValue">
     <a
-      ref="listElements"
       v-for="page in pages"
       :key="page.value"
       @click="setPage(page.value)"

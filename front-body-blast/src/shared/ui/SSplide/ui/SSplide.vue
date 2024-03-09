@@ -8,10 +8,10 @@ defineEmits(Splide.emits!);
 
 const splide = ref<InstanceType<typeof Splide>>();
 defineExpose({
-  moveNext() {
+  moveNext: () => {
     splide.value?.go('>');
   },
-  movePrev() {
+  movePrev: () => {
     splide.value?.go('<');
   },
 });
