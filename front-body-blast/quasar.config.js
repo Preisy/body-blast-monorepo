@@ -10,7 +10,7 @@
 
 const path = require('path');
 const { configure } = require('quasar/wrappers');
-require('dotenv').config()
+require('dotenv').config();
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -51,6 +51,8 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      distDir: '../dist/front-body-blast',
+
       target: {
         browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node16',
