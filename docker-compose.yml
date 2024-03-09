@@ -4,7 +4,7 @@ services:
     container_name: erax_backend
     build:
       context: .
-      dockerfile: ./back-erax-fit/dockerfile
+      dockerfile: ./back-erax-fit/Dockerfile
     env_file: .env
     working_dir: /app
     ports:
