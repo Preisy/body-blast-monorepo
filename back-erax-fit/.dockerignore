@@ -3,6 +3,7 @@
 /dist-seeder
 coverage
 migrations
+/node_modules
 # Logs
 logs
 *.log
