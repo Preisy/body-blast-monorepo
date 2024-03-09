@@ -12,8 +12,8 @@ defineExpose({
 
 <template>
   <q-btn
-    ref="btn"
     v-bind="$props"
+    ref="btn"
     ripple
     flat
     h-min

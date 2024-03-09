@@ -7,5 +7,8 @@ export default {
     },
     loading: 'Загрузка...',
     error: 'Ошибка',
+    notification: {
+      attention: 'Внимание!',
+    },
   },
 };

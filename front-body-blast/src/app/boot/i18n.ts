@@ -27,6 +27,7 @@ import { TTrainingI18n } from 'entities/trainings/ETrainingCard';
 import { TGlobalI18n } from 'shared/config/i18n';
 import { mergeI18n } from 'shared/lib/i18utils';
 import { TSNoResultsScreenI18n } from 'shared/ui/SNoResultsScreen';
+import { TSNotificationI18n } from 'shared/ui/SNotification';
 import { TSRemoveDialogI18n } from 'shared/ui/SRemoveDialog';
 
 export default boot(({ app }) => {
@@ -61,6 +62,7 @@ export default boot(({ app }) => {
       TSRemoveDialogI18n,
       TPAdminVideoI18n,
       TWVideoCreationI18n,
+      TSNotificationI18n,
     ),
     fallbackLocale: 'ru-RU',
   });
