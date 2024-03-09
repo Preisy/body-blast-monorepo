@@ -21,7 +21,7 @@ export class AdminLogsController {
     const skip = (page - 1) * limit! || 0;
     const lines = data.split('\n');
     const writableData = lines.slice(lines.length - (limit - skip), lines.length - skip).join('\n');
-    return writableData;
+    return res.send(writableData);
   }
 
   @Get()
