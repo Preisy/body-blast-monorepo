@@ -10,6 +10,7 @@ WORKDIR /app
 COPY --from=installer /app .
 RUN yarn install --frozen-lockfile
 RUN yarn workspace back-erax-fit build
+RUN yarn prune --production
 
 FROM node:16-alpine as runner
 WORKDIR /app

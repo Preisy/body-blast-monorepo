@@ -24,7 +24,6 @@
     "migration:run": "typeorm-ts-node-esm migration:run -d ./src/database/data-source.ts"
   },
   "dependencies": {
-    "@nestjs/cli": "^10.0.0",
     "@nestjs/common": "^10.2.6",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.2.6",
@@ -49,6 +48,7 @@
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
     "@types/bcrypt": "^5.0.0",

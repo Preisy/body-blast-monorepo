@@ -4,6 +4,8 @@
 coverage
 migrations
 /node_modules
+node_modules
+dist
 # Logs
 logs
 *.log
