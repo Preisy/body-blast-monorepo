@@ -5,6 +5,8 @@ export default {
     date: {
       today: 'Today',
     },
+    loading: 'Loading...',
+    error: 'Error',
     notification: {
       attention: 'Attention!',
     },

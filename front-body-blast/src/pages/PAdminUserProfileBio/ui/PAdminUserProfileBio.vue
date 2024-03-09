@@ -2,7 +2,6 @@
 import { symRoundedClose } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
 import { pick } from 'lodash';
-import { useI18n } from 'vue-i18n';
 import {
   EBodyParamsSignUpForm,
   EDiseasesSignUpForm,
@@ -18,9 +17,8 @@ import { SForm, SFormProps } from 'shared/ui/SForm';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
-const { t } = useI18n();
 const props = defineProps<{
-  id: string;
+  id: number;
 }>();
 
 const router = useRouter();
@@ -28,7 +26,7 @@ const { getUserById, user } = useAdminUserProfileStore();
 const userData = computed(() => user.data?.data);
 if (!userData.value)
   useLoadingAction(user, async () => {
-    await getUserById({ id: parseInt(props.id) });
+    await getUserById({ id: props.id });
 
     if (!userData.value) {
       router.push({ name: ENUMS.ROUTES_NAMES.NOT_FOUND });
@@ -39,17 +37,17 @@ if (!userData.value)
 const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; values: Record<string, unknown> }> = [
   {
     is: EBodyParamsSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.BodyParams.validation(t)) },
-    values: pick(userData.value, ['age', 'weightInYouth', 'weight']),
+    form: { fieldSchema: toTypedSchema(SignUp.BodyParams.validation()) },
+    values: pick(userData.value, ['age', 'weightInYouth', 'weight', 'height']),
   },
   {
     is: EForbiddensSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation(t)) },
+    form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()) },
     values: pick(userData.value, ['allergy', 'nutritRestrict', 'mealIntolerance']),
   },
   {
     is: EDiseasesSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation(t)) },
+    form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation()) },
     values: pick(userData.value, [
       'gastroDeseases',
       'insulinResistance',
@@ -60,7 +58,7 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
   },
   {
     is: EMotivationsSignUpForm,
-    form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation(t)) },
+    form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation()) },
     values: pick(userData.value, ['loadRestrictions', 'sportsExp', 'goals']),
   },
 ];

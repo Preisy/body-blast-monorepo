@@ -67,6 +67,7 @@ const validationSchema = toTypedSchema(
 
 defineExpose({
   getFormValues,
+  resetForms: () => forms.value?.forEach((form) => form.resetForm()),
 });
 
 onMounted(() => {

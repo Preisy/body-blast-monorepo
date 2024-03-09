@@ -8,8 +8,7 @@ import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SSplide } from 'shared/ui/SSplide';
-import { SSplideSlide } from 'shared/ui/SSplideSlide';
+import { SProxyScroll } from 'shared/ui/SProxyScroll';
 
 export interface PAdminDiaryProps {
   id: number;
@@ -53,7 +52,7 @@ const diariesSlides = computed(() => {
 </script>
 
 <template>
-  <SComponentWrapper>
+  <SComponentWrapper h-full>
     <SCalendar
       v-model="dateRaw"
       default-view="Months"
@@ -63,13 +62,14 @@ const diariesSlides = computed(() => {
       minimal
     />
 
-    <SSplide :options="{ direction: 'ttb', height: '100vh' }">
-      <SSplideSlide>
-        <WStepsList :weeks="stepsData?.weeks ?? []" />
-      </SSplideSlide>
-      <SSplideSlide v-for="week in Object.keys(diariesSlides)" :key="week">
-        <WSelfControlList :slides="diariesSlides[week]" :week="week" />
-      </SSplideSlide>
-    </SSplide>
+    <SProxyScroll h-full>
+      <WStepsList :weeks="stepsData?.weeks ?? []" mb-2rem />
+      <WSelfControlList
+        v-for="week in Object.keys(diariesSlides)"
+        :key="week"
+        :slides="diariesSlides[week]"
+        :week="week"
+      />
+    </SProxyScroll>
   </SComponentWrapper>
 </template>

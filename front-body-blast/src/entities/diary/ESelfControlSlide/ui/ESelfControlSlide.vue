@@ -20,7 +20,7 @@ const isDropdownShown = ref<boolean>(false);
 const dropdownStyle = computed(() => {
   if (!dropdownElement.value) return '';
   const boundingRect = dropdownElement.value?.getBoundingClientRect();
-  const deltaHeight = -boundingRect.height + 'px';
+  const deltaHeight = `${-boundingRect.height}px`;
   const result = `calc(${deltaHeight} - 0.5rem)`;
   return isDropdownShown.value ? '' : result;
 });

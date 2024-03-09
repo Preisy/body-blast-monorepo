@@ -11,5 +11,7 @@ export const useMeStore = defineStore('me-store', () => {
       serviceAction: MeService.getMe(),
     });
 
-  return { me, getMe };
+  const clear = () => (me.value = useSingleState<Me.Response>());
+
+  return { me, getMe, clear };
 });

@@ -32,7 +32,7 @@ const onClose = () => {
 
 onMounted(async () => {
   if (me.data?.data) {
-    await getNotifications({ id: me.data.data.id });
+    await getNotifications();
     if (notificationsQueue.state.isSuccess()) showAllNotifications();
   }
 });

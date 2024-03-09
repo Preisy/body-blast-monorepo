@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { QTabPanel, QTabPanels } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood } from 'widgets/WAdminFood';
 import { WAdminNewFood } from 'widgets/WAdminNewFood';
@@ -8,6 +7,7 @@ import { WAdminNutrition } from 'widgets/WAdminNutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
 import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
+import { tod } from 'shared/lib/utils';
 import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
@@ -18,7 +18,7 @@ export interface PAdminUserProfileNutritionProps {
 }
 defineProps<PAdminUserProfileNutritionProps>();
 
-const { t, te } = useI18n();
+const { t } = useI18n();
 
 const pageValue = ref('nutrition');
 const { getNutritions, nutritionList } = useAdminNutritionStore();
@@ -46,7 +46,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 
   if (!foodSlides.value) return [nutritionPage, newFoodPage];
   const foodPages = Object.keys(foodSlides.value).map((type) => ({
-    label: te(`home.diet.${type}`) ? t(`home.diet.${type}`) : type,
+    label: tod(`home.diet.${type}`),
     value: type,
   }));
 
@@ -56,13 +56,13 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 
 <template>
   <SStructure h-full>
-    <SProxyScroll h-full>
+    <SProxyScroll w-full>
       <div overflow-x-hidden>
         <SCenteredNav v-model="pageValue" :pages="pages" />
       </div>
 
-      <QTabPanels v-if="foodSlides && nutritionsData" :model-value="pageValue" swipeable infinite z-10>
-        <QTabPanel :name="pages[0].value" p="0!">
+      <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite>
+        <q-tab-panel :name="pages[0].value" p="0!">
           <WAdminNutrition
             v-for="nutrition in nutritionsData"
             :nutrition="nutrition"
@@ -70,17 +70,16 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
             :title="pages[0].label"
           />
           <WAdminNewNutrition :user-id="id" />
-        </QTabPanel>
+        </q-tab-panel>
 
-        <QTabPanel v-for="[type, foodItems] in Object.entries(foodSlides)" :key="type" :name="type" p="0!">
+        <q-tab-panel v-for="[type, foodItems] in Object.entries(foodSlides)" :key="type" :name="type" p="0!">
           <WAdminFood :type="type" :food-items="foodItems" />
-        </QTabPanel>
+        </q-tab-panel>
 
-        <QTabPanel name="new_food" p="0!">
+        <q-tab-panel name="new_food" p="0!">
           <WAdminNewFood :user-id="id" />
-        </QTabPanel>
-      </QTabPanels>
-
+        </q-tab-panel>
+      </q-tab-panels>
       <SNoResultsScreen v-else />
     </SProxyScroll>
   </SStructure>

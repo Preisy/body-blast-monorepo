@@ -41,10 +41,11 @@ export namespace SignUp {
   // Sign up (body params)
   export namespace BodyParams {
     export interface Dto extends Pick<User, 'age' | 'weight' | 'height' | 'weightInYouth'> {}
-    export const validation = (t: ComposerTranslation) =>
-      User.validation(t).pick({
+    export const validation = () =>
+      User.validation().pick({
         age: true,
-        weightAndHeight: true,
+        weight: true,
+        height: true,
         weightInYouth: true,
       });
   }
@@ -56,11 +57,8 @@ export namespace SignUp {
     export const validation = (t: ComposerTranslation) =>
       Auth.validation()
         .extend({
-          username: z
-            .string()
-            .min(3)
-            .max(50)
-            .refine((val) => !!val.split(' ')[1], t('auth.signUp.credentials.errors.secondName')),
+          firstname: z.string().min(3).max(50),
+          lastname: z.string().min(3).max(50),
           password: z
             .string()
             .min(8)
@@ -84,8 +82,8 @@ export namespace SignUp {
     export interface Dto
       extends Pick<User, 'gastroDeseases' | 'insulinResistance' | 'kidneyDesease' | 'heartDesease' | 'muscleDesease'> {}
 
-    export const validation = (t: ComposerTranslation) =>
-      User.validation(t).pick({
+    export const validation = () =>
+      User.validation().pick({
         gastroDeseases: true,
         insulinResistance: true,
         kidneyDesease: true,
@@ -97,8 +95,8 @@ export namespace SignUp {
   // Sign up (Forbiddens)
   export namespace Forbiddens {
     export interface Dto extends Pick<User, 'nutritRestrict' | 'allergy' | 'mealIntolerance'> {}
-    export const validation = (t: ComposerTranslation) =>
-      User.validation(t).pick({
+    export const validation = () =>
+      User.validation().pick({
         nutritRestrict: true,
         allergy: true,
         mealIntolerance: true,
@@ -109,8 +107,8 @@ export namespace SignUp {
   export namespace Motivations {
     export interface Dto extends Pick<User, 'loadRestrictions' | 'sportsExp' | 'goals'> {}
 
-    export const validation = (t: ComposerTranslation) =>
-      User.validation(t).pick({
+    export const validation = () =>
+      User.validation().pick({
         loadRestrictions: true,
         sportsExp: true,
         goals: true,

@@ -103,7 +103,7 @@ useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toIS
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          :header="userName ?? 'Loading...'"
+          :header="userName ?? $t('global.loading')"
           :describe="$t('home.profile.header.student')"
           dark
           mx--0.5rem

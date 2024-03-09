@@ -6,7 +6,7 @@ import { adminProfileService } from './service';
 import { AdminUser } from './types';
 
 export const useAdminUserProfileStore = defineStore('admin-user-profile-store', () => {
-  const users = ref(useSingleState<AdminUser.Get.Response>());
+  const users = ref(useSingleState<AdminUser.Get.Response>({ delete: true }));
   const getUsers = (data?: AppPagination.BaseDto) =>
     useSimpleStoreAction({
       stateWrapper: users.value,
@@ -25,6 +25,20 @@ export const useAdminUserProfileStore = defineStore('admin-user-profile-store', 
       state: user.value.updateState,
       serviceAction: adminProfileService.patchUser(data),
       onSuccess: (res) => (user.value.data = res),
+    });
+
+  const deleteUser = (data: AdminUser.Delete.Dto) =>
+    useStoreAction({
+      state: users.value.deleteState,
+      serviceAction: adminProfileService.deleteUser(data),
+      onSuccess: (res) => {
+        if (!res.status) return;
+        const listData = users.value.data?.data;
+        if (!listData) return;
+
+        const index = listData.findIndex((user) => user.id === data.id);
+        listData.splice(index, 1);
+      },
     });
 
   const userDiaries = ref(useSingleState<AdminUser.GetDiaries.Response>());
@@ -51,5 +65,6 @@ export const useAdminUserProfileStore = defineStore('admin-user-profile-store', 
     getUserDiaries,
     userSteps,
     getUserSteps,
+    deleteUser,
   };
 });

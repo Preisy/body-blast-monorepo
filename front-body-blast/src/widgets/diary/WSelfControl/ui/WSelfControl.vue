@@ -22,12 +22,13 @@ export interface WDiaryProps {
 }
 
 const props = defineProps<WDiaryProps>();
-const { patchDiary, patchDiaryResponse } = useDiaryStore();
+const { patchDiary, diaryList } = useDiaryStore();
 
 const dates = props.slides.map((it) => it.date);
 const modelDate = ref(dates[0]);
 const updateModel = (newDate: string) => {
-  modelDate.value = moment(newDate).format('YYYY-MM-DD');
+  if (!newDate) return;
+  modelDate.value = moment(newDate.split('/').join('-')).toISOString();
 };
 
 const today = moment(); // Current date
@@ -35,12 +36,11 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 
 const activityValidation = Diary.validation().pick({ activity: true, steps: true });
 const onActivitySubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
-  const id = diary.id;
-  useLoadingAction(patchDiaryResponse, () => patchDiary(id, { ...values, props: diary.props }));
+  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values }));
 };
 const onChangeSelfControl = (diary: Diary) => {
-  useLoadingAction(patchDiaryResponse, () =>
-    patchDiary(diary.id, { props: diary.props, activity: diary.activity, steps: diary.steps }),
+  useLoadingAction(diaryList.updateState, () =>
+    patchDiary(diary.id, { props: diary.props, activity: diary.activity ?? ' ', steps: diary.steps ?? 0 }),
   );
 };
 </script>
@@ -53,7 +53,7 @@ const onChangeSelfControl = (diary: Diary) => {
       :options="dates.map((date) => moment(date).format('YYYY/MM/DD'))"
     />
     <STabPanels v-model="modelDate">
-      <q-tab-panel v-for="slide in slides" :name="slide.date" :key="slide.id">
+      <q-tab-panel v-for="slide in slides" :name="slide.date" :key="slide.id" overflow-y-hidden>
         <SStructure px="0!" relative>
           <SSplide
             :options="{
@@ -72,7 +72,7 @@ const onChangeSelfControl = (diary: Diary) => {
                   :icon="symRoundedDone"
                   ml-auto
                   @click="() => onChangeSelfControl(slide)"
-                  :loading="patchDiaryResponse.state.isLoading()"
+                  :loading="diaryList.updateState.isLoading()"
                 />
               </div>
             </SSplideSlide>
@@ -84,7 +84,7 @@ const onChangeSelfControl = (diary: Diary) => {
                 :field-schema="toTypedSchema(activityValidation)"
                 :init-values="slide"
                 @submit="(values) => onActivitySubmit(slide, values)"
-                :loading="patchDiaryResponse.state.isLoading()"
+                :loading="diaryList.updateState.isLoading()"
                 p="0!"
               >
                 <SInput mb-2 name="activity" :label="$t('home.diary.activity.physical')" />

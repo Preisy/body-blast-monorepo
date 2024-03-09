@@ -31,8 +31,8 @@ const onTransition = (newVal: string) => {
   <SStructure h-full>
     <!-- Navigation -->
     <q-tabs
-      content-class="gap-x-0.5rem justify-center"
       v-model="currentRoute"
+      content-class="gap-x-0.5rem justify-center"
       active-class="opacity-100!"
       absolute
       left-0
@@ -56,7 +56,7 @@ const onTransition = (newVal: string) => {
     </q-tabs>
 
     <!-- Page body -->
-    <q-tab-panels @transition="onTransition" v-model="currentRoute" keep-alive animated swipeable h-full pt-3rem>
+    <q-tab-panels v-model="currentRoute" @transition="onTransition" animated keep-alive swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <q-tab-panel :name="routes[0].name" h-full overflow-hidden p="0!">
         <SProxyScroll h-full>

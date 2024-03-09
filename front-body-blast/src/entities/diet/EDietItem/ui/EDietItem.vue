@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Food } from 'shared/api/food';
 import { Nutrition } from 'shared/api/nutrition';
+import { tod } from 'shared/lib/utils';
 import { SInput } from 'shared/ui/inputs';
 
 export interface EDietItemProps {
@@ -17,7 +18,7 @@ const colorsText = ['positive', 'positive', 'primary'];
 
 <template>
   <div mx-6>
-    <h1 pt-3>{{ $t(`home.diet.${name}`) }}</h1>
+    <h1 pt-3>{{ tod(`home.diet.${name}`) }}</h1>
     <div grid grid-cols-2 my-4 gap-2 v-for="(category, ind) in categories" :key="ind">
       <SInput
         v-for="item in category"
@@ -28,9 +29,10 @@ const colorsText = ['positive', 'positive', 'primary'];
         readonly
         centered
         :color="colorsText[item.category - 1]"
+        :bg-color="colorsBg[item.category - 1]"
         :active-color="colorsText[item.category - 1]"
         :active-bg-color="colorsBg[item.category - 1]"
-        class="pointer-events-none select-none"
+        class="pointer-events-none select-none [&_.text-base]:font-bold!"
       />
     </div>
   </div>

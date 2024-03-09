@@ -1,3 +1,5 @@
+import { ComposerTranslation } from 'vue-i18n';
+import { z } from 'zod';
 import { AppBaseEntity } from '../base';
 import { AppPagination } from '../pagination';
 
@@ -16,4 +18,10 @@ export namespace BonusVideo {
     export interface Dto extends AppBaseEntity.Dto {}
     export interface Response extends AppBaseEntity.Response<BonusVideo> {}
   }
+
+  export const validation = (t: ComposerTranslation) =>
+    z.object({
+      name: z.string(),
+      video: z.instanceof(File, { message: t('admin.video.errors.fileInput') }),
+    });
 }

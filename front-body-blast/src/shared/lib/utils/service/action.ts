@@ -22,6 +22,7 @@ export function useServiceAction<P extends unknown[], R, T = never>(
 
       return { data };
     } catch (err) {
+      console.error(err);
       return handleAxiosError(err, middlewares?.error ?? [Notify.error]);
     }
   };

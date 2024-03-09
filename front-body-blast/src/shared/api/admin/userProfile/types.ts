@@ -44,4 +44,10 @@ export namespace AdminUser {
     }
     export interface Response extends AppBaseEntity.Response<User> {}
   }
+  export namespace Delete {
+    export interface Dto extends AppBaseEntity.Dto {}
+    export interface Response {
+      status: boolean;
+    }
+  }
 }

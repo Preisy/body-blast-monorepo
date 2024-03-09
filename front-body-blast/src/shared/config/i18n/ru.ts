@@ -5,6 +5,8 @@ export default {
     date: {
       today: 'Сегодня',
     },
+    loading: 'Загрузка...',
+    error: 'Ошибка',
     notification: {
       attention: 'Внимание!',
     },

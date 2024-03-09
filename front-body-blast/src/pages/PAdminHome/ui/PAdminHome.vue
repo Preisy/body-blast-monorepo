@@ -9,6 +9,7 @@ import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
+import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
@@ -17,7 +18,7 @@ defineProps<PAdminHomeProps>();
 
 const router = useRouter();
 
-const { users, getUsers, user: storeUser } = useAdminUserProfileStore();
+const { users, getUsers, user: storeUser, deleteUser } = useAdminUserProfileStore();
 useLoadingAction(users, getUsers);
 
 const nameFilter = ref<string>('');
@@ -31,22 +32,33 @@ const displayCards = computed(
     }),
 );
 
-const { me, getMe } = useMeStore();
-useLoadingAction(me, getMe);
-const myName = computed(() => me.data?.data.firstName + ' ' + me.data?.data.lastName);
+const { me, getMe, clear } = useMeStore();
+const meData = computed(() => me.data?.data);
+if (!meData.value && !me.state.isLoading()) useLoadingAction(me, getMe);
+const myName = computed(() => meData.value?.firstName + ' ' + meData.value?.lastName);
 
-const edit = () => {
-  //TODO:
-  console.log('onedit click');
-};
 const logout = () => {
   useAuthStore().logout();
   router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
+  clear();
 };
 
 const onUserProfileClick = (user: User) => {
   storeUser.data = { data: user };
   router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE, params: { id: user.id } });
+};
+
+const deletionDialog = ref<InstanceType<typeof SRemoveDialog>>();
+const userToDelete = ref<User>();
+const onDeletionApply = () => {
+  useLoadingAction(users.deleteState, () => {
+    if (!userToDelete.value) return;
+    deleteUser({ id: userToDelete.value.id });
+  });
+};
+const onUserDelete = (user: User) => {
+  userToDelete.value = user;
+  deletionDialog.value?.show();
 };
 </script>
 
@@ -55,7 +67,7 @@ const onUserProfileClick = (user: User) => {
     <SWithHeaderLayout>
       <template #header>
         <EUnitedProfileCard
-          :header="myName ?? 'Loading...'"
+          :header="myName ?? $t('global.loading')"
           :describe="$t('home.profile.header.admin')"
           dark
           mx--0.5rem
@@ -63,8 +75,9 @@ const onUserProfileClick = (user: User) => {
           pt-4rem
         >
           <template #action>
-            <SBtn icon="sym_r_edit" @click="edit" bg="bg!" />
-            <SBtn icon="sym_r_logout" @click="logout" float-right />
+            <div flex flex-row>
+              <SBtn icon="sym_r_logout" @click="logout" ml-auto />
+            </div>
           </template>
         </EUnitedProfileCard>
       </template>
@@ -80,8 +93,8 @@ const onUserProfileClick = (user: User) => {
           >
             <template #action>
               <div flex flex-row justify-between>
-                <SBtn icon="sym_r_help" bg="bg!" @click="() => onUserProfileClick(user)" />
-                <SBtn icon="sym_r_delete" />
+                <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(user)" />
+                <SBtn icon="sym_r_delete" @click="onUserDelete(user)" />
               </div>
             </template>
           </EUnitedProfileCard>
@@ -90,5 +103,7 @@ const onUserProfileClick = (user: User) => {
         <SNoResultsScreen v-else-if="users.state.isError()" />
       </template>
     </SWithHeaderLayout>
+
+    <SRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
   </SStructure>
 </template>

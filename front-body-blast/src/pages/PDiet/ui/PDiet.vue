@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { QTabPanel } from 'quasar';
-import { useI18n } from 'vue-i18n';
 import { WDietNutrition } from 'widgets/diet/WDietNutrition';
 import { EDietItem } from 'entities/diet/EDietItem';
 import { useFoodStore } from 'shared/api/food';
 import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
+import { tod } from 'shared/lib/utils';
 import { SCenteredNav } from 'shared/ui/SCenteredNav';
 import { STabPanels } from 'shared/ui/STabPanels';
 
 const panel = ref('nutrition');
-const { t } = useI18n();
-const { getNutrition, getNutritionResponse } = useNutritionStore();
+const { getNutrition, nutritionList } = useNutritionStore();
 const foodStore = useFoodStore();
 
 // Construct fake "Nutrition" array from "Food" array
@@ -30,15 +29,14 @@ const foodList = computed(
     }, []),
 );
 // True nutritions, recieved from API
-const nutritions = computed(() => getNutritionResponse.data?.data);
+const nutritions = computed(() => nutritionList.data?.data);
 
-// API GET /food call
-useLoadingAction(foodStore.food, foodStore.getFood);
-// API GET /nutrition call
-useLoadingAction(getNutritionResponse, () => getNutrition({ expanded: true }));
+useLoadingAction(nutritionList, () => Promise.all([foodStore.getFood(), getNutrition({ expanded: true })]));
 
 // Building upper navbar elements. See: SCenteredNav
-const pages = computed(() => foodList.value?.map((it) => ({ value: it.name, label: t(`home.diet.${it.name}`) })) || []);
+const pages = computed(
+  () => foodList.value?.map((it) => ({ value: it.name, label: tod(`home.diet.${it.name}`) })) || [],
+);
 </script>
 
 <template>

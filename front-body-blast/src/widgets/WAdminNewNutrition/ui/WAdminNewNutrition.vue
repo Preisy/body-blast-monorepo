@@ -18,8 +18,14 @@ const { postNutrition, getNutritions, nutritionList } = useAdminNutritionStore()
 const schema = Nutrition.validation().pick({ name: true });
 
 const forms = ref<Array<InstanceType<typeof FNutritionListForm>>>();
+const outerForm = ref<InstanceType<typeof SForm>>();
 const categories = [1, 2, 3] as const;
 const nutritionName = ref<string | null>();
+
+const clear = () => {
+  forms.value?.forEach((form) => form.resetForms());
+  outerForm.value?.resetForm();
+};
 const onsubmit = async (values: z.infer<typeof schema>) => {
   if (!forms.value) return;
 
@@ -30,6 +36,7 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
   await postNutrition({ name: values.name, userId: props.userId, mealItems: categories.flat() });
 
   useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
+  clear();
 };
 </script>
 
@@ -37,6 +44,7 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
   <SComponentWrapper>
     <h1>{{ $t('admin.nutrition.new_nutrition_title') }}</h1>
     <SForm
+      ref="outerForm"
       @submit="onsubmit"
       :loading="nutritionList.createState.isLoading()"
       :field-schema="toTypedSchema(schema)"

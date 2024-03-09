@@ -14,7 +14,7 @@ export namespace Workout {
 
   export namespace Patch {
     export interface Dto extends Omit<Partial<UserWorkout>, keyof AppBaseEntity | 'user'> {}
-    export interface Response extends UserWorkout {}
+    export interface Response extends AppBaseEntity.Response<UserWorkout> {}
   }
 
   export namespace Post {
@@ -23,6 +23,8 @@ export namespace Workout {
   }
 
   export namespace Delete {
-    export interface Response extends AppBaseEntity.Response<{ status: boolean }> {}
+    export interface Response {
+      status: boolean;
+    }
   }
 }
