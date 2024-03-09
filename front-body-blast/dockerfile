@@ -1,0 +1,22 @@
+FROM node:16-alpine as installer
+WORKDIR /app
+COPY ./package.json ./package.json
+COPY ./yarn.lock ./yarn.lock
+COPY ./tsconfig.json ./tsconfig.json
+COPY ./.eslintrc.json ./.eslintrc.json
+COPY ./prettierrc.json ./prettierrc.json
+COPY ./front-body-blast ./front-body-blast
+
+FROM node:16-alpine as builder
+WORKDIR /app
+COPY --from=installer /app .
+RUN yarn install --frozen-lockfile
+RUN yarn workspace front-body-blast build
+RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile
+
+FROM nginx:alpine-slim as RUNNER
+WORKDIR /app
+COPY --from=BUILDER /app/dist/front-body-blast /var/www/dist
+COPY --from=BUILDER /app/front-body-blast/.nginx /etc/nginx/
+EXPOSE 4000
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
