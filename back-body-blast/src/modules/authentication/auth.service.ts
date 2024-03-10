@@ -16,17 +16,17 @@ import { AppSingleResponse } from '../../dto/app-single-response.dto';
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly baseService: BaseUserService,
+    private readonly userService: BaseUserService,
     @InjectRepository(TokenEntity)
     private readonly tokenRepository: Repository<TokenEntity>,
   ) {}
 
   async signUp(request: AuthRequest): Promise<AppSingleResponse<UserEntity>> {
-    return this.baseService.create(request);
+    return this.userService.create(request);
   }
 
   async login(request: LoginRequest): Promise<AuthResponse> {
-    const { data: user } = await this.baseService.getUserByEmail(request.email.toLowerCase());
+    const { data: user } = await this.userService.getUserByEmail(request.email.toLowerCase());
     const passwordMatches = await bcrypt.compare(request.password, user.password);
     if (!passwordMatches) throw MainException.forbidden(`Error: no password mathces for user with id ${user.id}`);
 
@@ -49,7 +49,7 @@ export class AuthService {
     const refreshMatches = await bcrypt.compare(request.refreshToken, token!.refreshHash);
     const accessMatches = await bcrypt.compare(request.accessToken, token!.hash);
 
-    const { data: user } = await this.baseService.getUserByEmail(refreshToken.email);
+    const { data: user } = await this.userService.getUserByEmail(refreshToken.email);
 
     if (!refreshMatches || !accessMatches)
       throw MainException.forbidden(`Failed to refresh access: current tokens for user ${user.id} don't match`);
@@ -62,7 +62,7 @@ export class AuthService {
 
   async logout(email: string): Promise<AppStatusResponse> {
     const { data: token } = await this.getTokenByUserEmail(email.toLowerCase());
-    const { data: user } = await this.baseService.getUserByEmail(email);
+    const { data: user } = await this.userService.getUserByEmail(email);
     if (!token || token.refreshHash == null || token.hash == null)
       throw MainException.unauthorized(`Unauthorized user with id ${user.id}`);
     const { affected } = await this.tokenRepository.delete(token.id!);
@@ -79,7 +79,7 @@ export class AuthService {
       const decodedToken = await this.jwtService.verifyAsync(jwt, options);
       if (!decodedToken || !decodedToken?.email) throw MainException.invalidData('Invalid token provided');
 
-      return (await this.baseService.getUserByEmail(decodedToken.email)).data;
+      return (await this.userService.getUserByEmail(decodedToken.email)).data;
     } catch {
       throw MainException.unauthorized('Current token has expired, or has not been provided');
     }
@@ -101,7 +101,7 @@ export class AuthService {
   }
 
   private async getTokenByUserEmail(email: UserEntity['email']) {
-    const { data: user } = await this.baseService.getUserByEmail(email);
+    const { data: user } = await this.userService.getUserByEmail(email);
     const token = await this.tokenRepository.findOne({
       where: {
         userId: user.id,
@@ -117,7 +117,7 @@ export class AuthService {
   }
 
   private async updateRefreshHash(userId: UserEntity['id'], access: string, refresh: string) {
-    const { data: user } = await this.baseService.getUserById(userId);
+    const { data: user } = await this.userService.getUserById(userId);
     const { data: token } = await this.getTokenByUserEmail(user.email);
 
     token!.refreshHash = await bcrypt.hash(access, 10);
@@ -130,7 +130,7 @@ export class AuthService {
   }
 
   private async createTokenForUser(email: string) {
-    const { data: user } = await this.baseService.getUserByEmail(email);
+    const { data: user } = await this.userService.getUserByEmail(email);
     const newToken = this.tokenRepository.create({
       hash: 'default',
       refreshHash: 'default',
