@@ -14,8 +14,5 @@ api.interceptors.request.use((value) => {
 //refresh request if 'accessToken' is outdated/lost
 api.interceptors.response.use(
   (value) => value,
-  async (error: AxiosError) => {
-    await refreshInterceptor(error);
-    return error;
-  },
+  async (error: AxiosError) => await refreshInterceptor(error), // Return error or new request
 );

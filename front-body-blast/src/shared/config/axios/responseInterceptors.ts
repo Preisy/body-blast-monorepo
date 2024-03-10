@@ -4,7 +4,6 @@ import { api } from '.';
 // import { api } from '.';
 
 export const refreshInterceptor = async (error: AxiosError) => {
-  console.log(error);
   if (error.config?.url === '/auth/refresh') {
     TokenService.clearTokens();
     return error;
@@ -27,7 +26,7 @@ export const refreshInterceptor = async (error: AxiosError) => {
       TokenService.setTokens(newAccess.data);
     }
 
-    //TODO: how to return values to store?
+    // Request after refresh. Return result
     if (error.config) return api.request(error.config);
   }
   return error;
