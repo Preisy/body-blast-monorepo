@@ -2507,3 +2507,3067 @@
       }
     }
     responseTime: 11
+[16:30:56.058] [32mINFO[39m (12128): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[16:30:56.061] [32mINFO[39m (12128): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.061] [32mINFO[39m (12128): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[16:30:56.062] [32mINFO[39m (12128): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.062] [32mINFO[39m (12128): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.062] [32mINFO[39m (12128): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.063] [32mINFO[39m (12128): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.063] [32mINFO[39m (12128): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[16:30:56.063] [32mINFO[39m (12128): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.063] [32mINFO[39m (12128): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.064] [32mINFO[39m (12128): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.064] [32mINFO[39m (12128): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.065] [32mINFO[39m (12128): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.065] [32mINFO[39m (12128): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.065] [32mINFO[39m (12128): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.065] [32mINFO[39m (12128): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:30:56.065] [32mINFO[39m (12128): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.066] [32mINFO[39m (12128): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.066] [32mINFO[39m (12128): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[16:30:56.066] [32mINFO[39m (12128): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.066] [32mINFO[39m (12128): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.066] [32mINFO[39m (12128): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.066] [32mINFO[39m (12128): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[16:30:56.066] [32mINFO[39m (12128): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.067] [32mINFO[39m (12128): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.067] [32mINFO[39m (12128): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.067] [32mINFO[39m (12128): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.067] [32mINFO[39m (12128): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.067] [32mINFO[39m (12128): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[16:30:56.067] [32mINFO[39m (12128): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.067] [32mINFO[39m (12128): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[16:30:56.067] [32mINFO[39m (12128): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.068] [32mINFO[39m (12128): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.069] [32mINFO[39m (12128): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.069] [32mINFO[39m (12128): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:30:56.069] [32mINFO[39m (12128): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.070] [32mINFO[39m (12128): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[16:30:56.070] [32mINFO[39m (12128): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.071] [32mINFO[39m (12128): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[16:30:56.072] [32mINFO[39m (12128): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.072] [32mINFO[39m (12128): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[16:30:56.073] [32mINFO[39m (12128): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.073] [32mINFO[39m (12128): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[16:30:56.092] [32mINFO[39m (12128): [36mNest application successfully started[39m
+    context: "NestApplication"
+[16:31:34.423] [32mINFO[39m (12128): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54752
+    }
+    res: {
+      "statusCode": 404,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "144",
+        "etag": "W/\"90-nj12paV4pSLe8s9hdYbkHdtQJpM\""
+      }
+    }
+    responseTime: 259
+[16:33:51.467] [32mINFO[39m (1776): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[16:33:51.470] [32mINFO[39m (1776): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.470] [32mINFO[39m (1776): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[16:33:51.471] [32mINFO[39m (1776): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.471] [32mINFO[39m (1776): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.472] [32mINFO[39m (1776): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.472] [32mINFO[39m (1776): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.472] [32mINFO[39m (1776): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[16:33:51.472] [32mINFO[39m (1776): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.473] [32mINFO[39m (1776): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.473] [32mINFO[39m (1776): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.474] [32mINFO[39m (1776): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.474] [32mINFO[39m (1776): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.475] [32mINFO[39m (1776): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.476] [32mINFO[39m (1776): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.476] [32mINFO[39m (1776): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:33:51.476] [32mINFO[39m (1776): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.476] [32mINFO[39m (1776): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.476] [32mINFO[39m (1776): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[16:33:51.477] [32mINFO[39m (1776): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.477] [32mINFO[39m (1776): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.477] [32mINFO[39m (1776): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.477] [32mINFO[39m (1776): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[16:33:51.478] [32mINFO[39m (1776): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.478] [32mINFO[39m (1776): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.478] [32mINFO[39m (1776): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.479] [32mINFO[39m (1776): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.479] [32mINFO[39m (1776): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.479] [32mINFO[39m (1776): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[16:33:51.479] [32mINFO[39m (1776): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.479] [32mINFO[39m (1776): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[16:33:51.479] [32mINFO[39m (1776): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.480] [32mINFO[39m (1776): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.480] [32mINFO[39m (1776): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:33:51.480] [32mINFO[39m (1776): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.480] [32mINFO[39m (1776): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.480] [32mINFO[39m (1776): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[16:33:51.480] [32mINFO[39m (1776): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.481] [32mINFO[39m (1776): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.481] [32mINFO[39m (1776): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.481] [32mINFO[39m (1776): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.481] [32mINFO[39m (1776): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[16:33:51.481] [32mINFO[39m (1776): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.481] [32mINFO[39m (1776): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.482] [32mINFO[39m (1776): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.482] [32mINFO[39m (1776): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[16:33:51.482] [32mINFO[39m (1776): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.482] [32mINFO[39m (1776): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.483] [32mINFO[39m (1776): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.483] [32mINFO[39m (1776): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:33:51.483] [32mINFO[39m (1776): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.483] [32mINFO[39m (1776): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.483] [32mINFO[39m (1776): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.483] [32mINFO[39m (1776): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.483] [32mINFO[39m (1776): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[16:33:51.484] [32mINFO[39m (1776): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.484] [32mINFO[39m (1776): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.484] [32mINFO[39m (1776): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.484] [32mINFO[39m (1776): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.484] [32mINFO[39m (1776): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[16:33:51.484] [32mINFO[39m (1776): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.485] [32mINFO[39m (1776): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.485] [32mINFO[39m (1776): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:33:51.485] [32mINFO[39m (1776): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.485] [32mINFO[39m (1776): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.485] [32mINFO[39m (1776): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[16:33:51.486] [32mINFO[39m (1776): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.486] [32mINFO[39m (1776): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.487] [32mINFO[39m (1776): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[16:33:51.508] [32mINFO[39m (1776): [36mNest application successfully started[39m
+    context: "NestApplication"
+[16:33:56.608] [32mINFO[39m (1776): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54794
+    }
+    res: {
+      "statusCode": 404,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "144",
+        "etag": "W/\"90-nj12paV4pSLe8s9hdYbkHdtQJpM\""
+      }
+    }
+    responseTime: 163
+[16:34:14.675] [32mINFO[39m (1776): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54798
+    }
+    res: {
+      "statusCode": 404,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "144",
+        "etag": "W/\"90-jFHXj7I3EOH0HNCsxI2cgDshXmc\""
+      }
+    }
+    responseTime: 196
+[16:36:04.950] [32mINFO[39m (1972): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[16:36:04.953] [32mINFO[39m (1972): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.953] [32mINFO[39m (1972): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[16:36:04.954] [32mINFO[39m (1972): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.955] [32mINFO[39m (1972): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.955] [32mINFO[39m (1972): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.955] [32mINFO[39m (1972): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.955] [32mINFO[39m (1972): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[16:36:04.956] [32mINFO[39m (1972): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.956] [32mINFO[39m (1972): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.957] [32mINFO[39m (1972): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.957] [32mINFO[39m (1972): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.958] [32mINFO[39m (1972): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.958] [32mINFO[39m (1972): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.958] [32mINFO[39m (1972): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.958] [32mINFO[39m (1972): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:36:04.959] [32mINFO[39m (1972): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.959] [32mINFO[39m (1972): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.959] [32mINFO[39m (1972): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[16:36:04.959] [32mINFO[39m (1972): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.959] [32mINFO[39m (1972): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.960] [32mINFO[39m (1972): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.960] [32mINFO[39m (1972): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[16:36:04.960] [32mINFO[39m (1972): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.960] [32mINFO[39m (1972): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.960] [32mINFO[39m (1972): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.960] [32mINFO[39m (1972): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.961] [32mINFO[39m (1972): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.961] [32mINFO[39m (1972): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[16:36:04.961] [32mINFO[39m (1972): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.961] [32mINFO[39m (1972): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[16:36:04.961] [32mINFO[39m (1972): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.961] [32mINFO[39m (1972): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.961] [32mINFO[39m (1972): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:36:04.961] [32mINFO[39m (1972): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.962] [32mINFO[39m (1972): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.962] [32mINFO[39m (1972): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[16:36:04.962] [32mINFO[39m (1972): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[16:36:04.963] [32mINFO[39m (1972): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.963] [32mINFO[39m (1972): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[16:36:04.964] [32mINFO[39m (1972): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.964] [32mINFO[39m (1972): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.964] [32mINFO[39m (1972): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.964] [32mINFO[39m (1972): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:36:04.964] [32mINFO[39m (1972): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.964] [32mINFO[39m (1972): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.964] [32mINFO[39m (1972): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.965] [32mINFO[39m (1972): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:36:04.965] [32mINFO[39m (1972): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.966] [32mINFO[39m (1972): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[16:36:04.967] [32mINFO[39m (1972): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.967] [32mINFO[39m (1972): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[16:36:04.968] [32mINFO[39m (1972): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.968] [32mINFO[39m (1972): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[16:36:04.988] [32mINFO[39m (1972): [36mNest application successfully started[39m
+    context: "NestApplication"
+[16:36:13.495] [32mINFO[39m (1972): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54828
+    }
+    res: {
+      "statusCode": 404,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "144",
+        "etag": "W/\"90-jFHXj7I3EOH0HNCsxI2cgDshXmc\""
+      }
+    }
+    responseTime: 159
+[16:36:33.600] [32mINFO[39m (1972): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54843
+    }
+    res: {
+      "statusCode": 404,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "144",
+        "etag": "W/\"90-jFHXj7I3EOH0HNCsxI2cgDshXmc\""
+      }
+    }
+    responseTime: 219
+[16:37:48.155] [32mINFO[39m (8444): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[16:37:48.159] [32mINFO[39m (8444): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.160] [32mINFO[39m (8444): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[16:37:48.161] [32mINFO[39m (8444): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.161] [32mINFO[39m (8444): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.162] [32mINFO[39m (8444): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.163] [32mINFO[39m (8444): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.163] [32mINFO[39m (8444): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[16:37:48.163] [32mINFO[39m (8444): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.164] [32mINFO[39m (8444): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.164] [32mINFO[39m (8444): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.166] [32mINFO[39m (8444): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.167] [32mINFO[39m (8444): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.168] [32mINFO[39m (8444): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.169] [32mINFO[39m (8444): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.169] [32mINFO[39m (8444): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:37:48.169] [32mINFO[39m (8444): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.170] [32mINFO[39m (8444): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.170] [32mINFO[39m (8444): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[16:37:48.171] [32mINFO[39m (8444): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.171] [32mINFO[39m (8444): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.171] [32mINFO[39m (8444): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.171] [32mINFO[39m (8444): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[16:37:48.172] [32mINFO[39m (8444): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.172] [32mINFO[39m (8444): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.172] [32mINFO[39m (8444): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.173] [32mINFO[39m (8444): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.174] [32mINFO[39m (8444): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.174] [32mINFO[39m (8444): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[16:37:48.174] [32mINFO[39m (8444): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.174] [32mINFO[39m (8444): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[16:37:48.175] [32mINFO[39m (8444): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.175] [32mINFO[39m (8444): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.175] [32mINFO[39m (8444): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:37:48.175] [32mINFO[39m (8444): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.176] [32mINFO[39m (8444): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.176] [32mINFO[39m (8444): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[16:37:48.176] [32mINFO[39m (8444): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.177] [32mINFO[39m (8444): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.177] [32mINFO[39m (8444): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.177] [32mINFO[39m (8444): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.177] [32mINFO[39m (8444): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[16:37:48.178] [32mINFO[39m (8444): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.178] [32mINFO[39m (8444): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.178] [32mINFO[39m (8444): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.178] [32mINFO[39m (8444): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[16:37:48.179] [32mINFO[39m (8444): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.179] [32mINFO[39m (8444): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.180] [32mINFO[39m (8444): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.180] [32mINFO[39m (8444): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:37:48.180] [32mINFO[39m (8444): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.180] [32mINFO[39m (8444): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.181] [32mINFO[39m (8444): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.181] [32mINFO[39m (8444): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.181] [32mINFO[39m (8444): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[16:37:48.181] [32mINFO[39m (8444): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.181] [32mINFO[39m (8444): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.182] [32mINFO[39m (8444): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.182] [32mINFO[39m (8444): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.182] [32mINFO[39m (8444): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[16:37:48.183] [32mINFO[39m (8444): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.183] [32mINFO[39m (8444): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.183] [32mINFO[39m (8444): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:37:48.184] [32mINFO[39m (8444): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.184] [32mINFO[39m (8444): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.184] [32mINFO[39m (8444): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.185] [32mINFO[39m (8444): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.185] [32mINFO[39m (8444): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[16:37:48.185] [32mINFO[39m (8444): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.185] [32mINFO[39m (8444): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.185] [32mINFO[39m (8444): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.186] [32mINFO[39m (8444): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.186] [32mINFO[39m (8444): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.186] [32mINFO[39m (8444): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[16:37:48.186] [32mINFO[39m (8444): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.186] [32mINFO[39m (8444): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[16:37:48.187] [32mINFO[39m (8444): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[16:37:48.187] [32mINFO[39m (8444): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.187] [32mINFO[39m (8444): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.188] [32mINFO[39m (8444): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:37:48.188] [32mINFO[39m (8444): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:37:48.188] [32mINFO[39m (8444): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[16:37:48.188] [32mINFO[39m (8444): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.188] [32mINFO[39m (8444): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[16:37:48.189] [32mINFO[39m (8444): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.189] [32mINFO[39m (8444): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[16:37:48.228] [32mINFO[39m (8444): [36mNest application successfully started[39m
+    context: "NestApplication"
+[16:40:51.241] [32mINFO[39m (3724): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[16:40:51.244] [32mINFO[39m (3724): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.244] [32mINFO[39m (3724): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[16:40:51.245] [32mINFO[39m (3724): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.245] [32mINFO[39m (3724): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.246] [32mINFO[39m (3724): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.246] [32mINFO[39m (3724): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.246] [32mINFO[39m (3724): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[16:40:51.247] [32mINFO[39m (3724): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.247] [32mINFO[39m (3724): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.247] [32mINFO[39m (3724): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.248] [32mINFO[39m (3724): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.248] [32mINFO[39m (3724): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.249] [32mINFO[39m (3724): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.249] [32mINFO[39m (3724): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.249] [32mINFO[39m (3724): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:40:51.249] [32mINFO[39m (3724): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.250] [32mINFO[39m (3724): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.250] [32mINFO[39m (3724): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[16:40:51.250] [32mINFO[39m (3724): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.250] [32mINFO[39m (3724): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.250] [32mINFO[39m (3724): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.250] [32mINFO[39m (3724): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[16:40:51.251] [32mINFO[39m (3724): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.251] [32mINFO[39m (3724): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.251] [32mINFO[39m (3724): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.251] [32mINFO[39m (3724): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.251] [32mINFO[39m (3724): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.251] [32mINFO[39m (3724): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[16:40:51.252] [32mINFO[39m (3724): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.252] [32mINFO[39m (3724): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[16:40:51.252] [32mINFO[39m (3724): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.252] [32mINFO[39m (3724): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.252] [32mINFO[39m (3724): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:40:51.252] [32mINFO[39m (3724): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.252] [32mINFO[39m (3724): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.252] [32mINFO[39m (3724): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[16:40:51.252] [32mINFO[39m (3724): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.253] [32mINFO[39m (3724): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[16:40:51.253] [32mINFO[39m (3724): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.254] [32mINFO[39m (3724): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.255] [32mINFO[39m (3724): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.256] [32mINFO[39m (3724): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[16:40:51.257] [32mINFO[39m (3724): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[16:40:51.257] [32mINFO[39m (3724): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[16:40:51.257] [32mINFO[39m (3724): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.257] [32mINFO[39m (3724): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[16:40:51.257] [32mINFO[39m (3724): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.257] [32mINFO[39m (3724): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[16:40:51.276] [32mINFO[39m (3724): [36mNest application successfully started[39m
+    context: "NestApplication"
+[16:40:58.220] [31mERROR[39m (3724): [36mCannot save, given value must be an entity, instead "undefined" is given.[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54884
+    }
+    context: "ExceptionsHandler"
+    err: {
+      "type": "Error",
+      "message": "Cannot save, given value must be an entity, instead \"undefined\" is given.",
+      "stack":
+          MustBeEntityError: Cannot save, given value must be an entity, instead "undefined" is given.
+              at EntityPersistExecutor.execute (D:\Job\CoachProj\src\persistence\EntityPersistExecutor.ts:44:35)
+              at EntityManager.save (D:\Job\CoachProj\src\entity-manager\EntityManager.ts:439:14)
+              at Repository.save (D:\Job\CoachProj\src\repository\Repository.ts:205:29)
+              at AuthService.updateTokenHash (D:\Job\CoachProj\back-body-blast\src\modules\authentication\auth.service.ts:197:52)
+              at processTicksAndRejections (node:internal/process/task_queues:95:5)
+              at AuthService.updateRefreshHash (D:\Job\CoachProj\back-body-blast\src\modules\authentication\auth.service.ts:132:5)
+              at AuthService.login (D:\Job\CoachProj\back-body-blast\src\modules\authentication\auth.service.ts:44:5)
+              at D:\Job\CoachProj\node_modules\@nestjs\core\router\router-execution-context.js:46:28
+              at D:\Job\CoachProj\node_modules\@nestjs\core\router\router-proxy.js:9:17
+    }
+[16:40:58.221] [32mINFO[39m (3724): [36mrequest errored[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54884
+    }
+    res: {
+      "statusCode": 500,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-rlKccw1E+/fV8niQk4oFitDfPro\""
+      }
+    }
+    responseTime: 536
+    err: {
+      "type": "Error",
+      "message": "failed with status code 500",
+      "stack":
+          Error: failed with status code 500
+              at onResFinished (D:\Job\CoachProj\node_modules\pino-http\logger.js:114:39)
+              at ServerResponse.onResponseComplete (D:\Job\CoachProj\node_modules\pino-http\logger.js:177:14)
+              at ServerResponse.emit (node:events:526:35)
+              at onFinish (node:_http_outgoing:1001:10)
+              at callback (node:internal/streams/writable:555:21)
+              at afterWrite (node:internal/streams/writable:500:5)
+              at afterWriteTick (node:internal/streams/writable:487:10)
+              at processTicksAndRejections (node:internal/process/task_queues:81:21)
+    }
+[16:42:20.114] [32mINFO[39m (12596): [36mrequest errored[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54900
+    }
+    res: {
+      "statusCode": 500,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-rlKccw1E+/fV8niQk4oFitDfPro\""
+      }
+    }
+    responseTime: 439
+    err: {
+      "type": "Error",
+      "message": "failed with status code 500",
+      "stack":
+          Error: failed with status code 500
+              at onResFinished (D:\Job\CoachProj\node_modules\pino-http\logger.js:114:39)
+              at ServerResponse.onResponseComplete (D:\Job\CoachProj\node_modules\pino-http\logger.js:177:14)
+              at ServerResponse.emit (node:events:526:35)
+              at onFinish (node:_http_outgoing:1001:10)
+              at callback (node:internal/streams/writable:555:21)
+              at afterWrite (node:internal/streams/writable:500:5)
+              at afterWriteTick (node:internal/streams/writable:487:10)
+              at processTicksAndRejections (node:internal/process/task_queues:81:21)
+    }
+[16:43:58.357] [32mINFO[39m (7072): [36mrequest errored[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 54918
+    }
+    res: {
+      "statusCode": 500,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "52",
+        "etag": "W/\"34-rlKccw1E+/fV8niQk4oFitDfPro\""
+      }
+    }
+    responseTime: 439
+    err: {
+      "type": "Error",
+      "message": "failed with status code 500",
+      "stack":
+          Error: failed with status code 500
+              at onResFinished (D:\Job\CoachProj\node_modules\pino-http\logger.js:114:39)
+              at ServerResponse.onResponseComplete (D:\Job\CoachProj\node_modules\pino-http\logger.js:177:14)
+              at ServerResponse.emit (node:events:526:35)
+              at onFinish (node:_http_outgoing:1001:10)
+              at callback (node:internal/streams/writable:555:21)
+              at afterWrite (node:internal/streams/writable:500:5)
+              at afterWriteTick (node:internal/streams/writable:487:10)
+              at processTicksAndRejections (node:internal/process/task_queues:81:21)
+    }
+[18:36:42.767] [32mINFO[39m (5836): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55172
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-VRnVC8NNjdW/p1z4girHKurC5bk\""
+      }
+    }
+    responseTime: 494
+[18:39:15.758] [32mINFO[39m (5836): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTZlMTQyZS1hYTg2LTQzNGUtYmYxZi02ZjAyYmZmNDE2YjciLCJlbWFpbCI6ImMxQG1haWwucnUiLCJpYXQiOjE3MTAwODUwMDIsImV4cCI6MTcxMDA4NTkwMn0.KVCfxHvsLnbqq18YbjfaIckOoIz-drcThh8yfcPAbYs",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55215
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "655",
+        "etag": "W/\"28f-8LbsRgxNpvNu6n61O8kI+wSLx0A\""
+      }
+    }
+    responseTime: 79
+[18:39:50.406] [32mINFO[39m (5836): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZTZlMTQyZS1hYTg2LTQzNGUtYmYxZi02ZjAyYmZmNDE2YjciLCJlbWFpbCI6ImMxQG1haWwucnUiLCJpYXQiOjE3MTAwODUwMDIsImV4cCI6MTcxMDA4NTkwMn0.KVCfxHvsLnbqq18YbjfaIckOoIz-drcThh8yfcPAbYs",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55219
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 116
+[18:45:24.626] [32mINFO[39m (5836): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55276
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-Wdp4oPgLcP6f4Ntn6rNbD6aXwGY\""
+      }
+    }
+    responseTime: 472
+[18:46:35.529] [32mINFO[39m (5836): [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "POST",
+      "url": "/api/auth/refresh",
+      "query": {},
+      "params": {
+        "0": "auth/refresh"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "477",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55288
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-SxNMd/LNRljYAU0wS3ubN+O/tpM\""
+      }
+    }
+    responseTime: 548
+[18:54:40.428] [32mINFO[39m (7992): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[18:54:40.431] [32mINFO[39m (7992): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.432] [32mINFO[39m (7992): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[18:54:40.432] [32mINFO[39m (7992): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.433] [32mINFO[39m (7992): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.434] [32mINFO[39m (7992): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.434] [32mINFO[39m (7992): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.434] [32mINFO[39m (7992): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[18:54:40.435] [32mINFO[39m (7992): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.435] [32mINFO[39m (7992): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.436] [32mINFO[39m (7992): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.436] [32mINFO[39m (7992): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.437] [32mINFO[39m (7992): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.438] [32mINFO[39m (7992): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.438] [32mINFO[39m (7992): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.438] [32mINFO[39m (7992): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[18:54:40.439] [32mINFO[39m (7992): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.439] [32mINFO[39m (7992): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.439] [32mINFO[39m (7992): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[18:54:40.439] [32mINFO[39m (7992): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.440] [32mINFO[39m (7992): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.440] [32mINFO[39m (7992): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.440] [32mINFO[39m (7992): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[18:54:40.440] [32mINFO[39m (7992): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.440] [32mINFO[39m (7992): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.441] [32mINFO[39m (7992): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.441] [32mINFO[39m (7992): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.441] [32mINFO[39m (7992): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.441] [32mINFO[39m (7992): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[18:54:40.442] [32mINFO[39m (7992): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.442] [32mINFO[39m (7992): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[18:54:40.442] [32mINFO[39m (7992): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.442] [32mINFO[39m (7992): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.442] [32mINFO[39m (7992): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[18:54:40.442] [32mINFO[39m (7992): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.442] [32mINFO[39m (7992): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.443] [32mINFO[39m (7992): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[18:54:40.443] [32mINFO[39m (7992): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.443] [32mINFO[39m (7992): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.443] [32mINFO[39m (7992): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.443] [32mINFO[39m (7992): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.443] [32mINFO[39m (7992): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[18:54:40.444] [32mINFO[39m (7992): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.444] [32mINFO[39m (7992): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.444] [32mINFO[39m (7992): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.444] [32mINFO[39m (7992): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[18:54:40.444] [32mINFO[39m (7992): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.445] [32mINFO[39m (7992): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.445] [32mINFO[39m (7992): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.445] [32mINFO[39m (7992): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[18:54:40.445] [32mINFO[39m (7992): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.445] [32mINFO[39m (7992): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.445] [32mINFO[39m (7992): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.445] [32mINFO[39m (7992): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.446] [32mINFO[39m (7992): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[18:54:40.446] [32mINFO[39m (7992): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.446] [32mINFO[39m (7992): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.446] [32mINFO[39m (7992): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.446] [32mINFO[39m (7992): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.446] [32mINFO[39m (7992): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[18:54:40.447] [32mINFO[39m (7992): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.447] [32mINFO[39m (7992): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.447] [32mINFO[39m (7992): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[18:54:40.447] [32mINFO[39m (7992): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.447] [32mINFO[39m (7992): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.447] [32mINFO[39m (7992): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.447] [32mINFO[39m (7992): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.447] [32mINFO[39m (7992): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[18:54:40.448] [32mINFO[39m (7992): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.448] [32mINFO[39m (7992): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.448] [32mINFO[39m (7992): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.448] [32mINFO[39m (7992): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.448] [32mINFO[39m (7992): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.448] [32mINFO[39m (7992): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[18:54:40.448] [32mINFO[39m (7992): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.448] [32mINFO[39m (7992): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:54:40.449] [32mINFO[39m (7992): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.449] [32mINFO[39m (7992): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[18:54:40.449] [32mINFO[39m (7992): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.450] [32mINFO[39m (7992): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[18:54:40.478] [32mINFO[39m (7992): [36mNest application successfully started[39m
+    context: "NestApplication"
+[18:56:06.439] [32mINFO[39m (7592): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[18:56:06.443] [32mINFO[39m (7592): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.443] [32mINFO[39m (7592): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[18:56:06.444] [32mINFO[39m (7592): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.445] [32mINFO[39m (7592): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.447] [32mINFO[39m (7592): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.447] [32mINFO[39m (7592): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.447] [32mINFO[39m (7592): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[18:56:06.448] [32mINFO[39m (7592): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.449] [32mINFO[39m (7592): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.450] [32mINFO[39m (7592): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.451] [32mINFO[39m (7592): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.451] [32mINFO[39m (7592): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.452] [32mINFO[39m (7592): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.453] [32mINFO[39m (7592): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.453] [32mINFO[39m (7592): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[18:56:06.453] [32mINFO[39m (7592): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.453] [32mINFO[39m (7592): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.453] [32mINFO[39m (7592): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[18:56:06.454] [32mINFO[39m (7592): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.454] [32mINFO[39m (7592): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.455] [32mINFO[39m (7592): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.455] [32mINFO[39m (7592): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[18:56:06.455] [32mINFO[39m (7592): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.455] [32mINFO[39m (7592): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.455] [32mINFO[39m (7592): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.456] [32mINFO[39m (7592): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.456] [32mINFO[39m (7592): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.456] [32mINFO[39m (7592): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[18:56:06.456] [32mINFO[39m (7592): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.456] [32mINFO[39m (7592): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[18:56:06.457] [32mINFO[39m (7592): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.457] [32mINFO[39m (7592): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.457] [32mINFO[39m (7592): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[18:56:06.457] [32mINFO[39m (7592): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.457] [32mINFO[39m (7592): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.458] [32mINFO[39m (7592): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[18:56:06.458] [32mINFO[39m (7592): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.458] [32mINFO[39m (7592): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.458] [32mINFO[39m (7592): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.458] [32mINFO[39m (7592): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.458] [32mINFO[39m (7592): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[18:56:06.459] [32mINFO[39m (7592): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.459] [32mINFO[39m (7592): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.459] [32mINFO[39m (7592): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.459] [32mINFO[39m (7592): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[18:56:06.460] [32mINFO[39m (7592): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.460] [32mINFO[39m (7592): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.460] [32mINFO[39m (7592): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.460] [32mINFO[39m (7592): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[18:56:06.460] [32mINFO[39m (7592): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.461] [32mINFO[39m (7592): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.461] [32mINFO[39m (7592): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.461] [32mINFO[39m (7592): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.461] [32mINFO[39m (7592): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[18:56:06.461] [32mINFO[39m (7592): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.461] [32mINFO[39m (7592): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.461] [32mINFO[39m (7592): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.462] [32mINFO[39m (7592): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.462] [32mINFO[39m (7592): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[18:56:06.462] [32mINFO[39m (7592): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.462] [32mINFO[39m (7592): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.462] [32mINFO[39m (7592): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[18:56:06.462] [32mINFO[39m (7592): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.462] [32mINFO[39m (7592): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.462] [32mINFO[39m (7592): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[18:56:06.463] [32mINFO[39m (7592): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.463] [32mINFO[39m (7592): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[18:56:06.464] [32mINFO[39m (7592): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.464] [32mINFO[39m (7592): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[18:56:06.464] [32mINFO[39m (7592): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[18:56:06.464] [32mINFO[39m (7592): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.464] [32mINFO[39m (7592): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.464] [32mINFO[39m (7592): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[18:56:06.465] [32mINFO[39m (7592): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[18:56:06.465] [32mINFO[39m (7592): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[18:56:06.465] [32mINFO[39m (7592): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.465] [32mINFO[39m (7592): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[18:56:06.465] [32mINFO[39m (7592): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.465] [32mINFO[39m (7592): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[18:56:06.487] [32mINFO[39m (7592): [36mNest application successfully started[39m
+    context: "NestApplication"
+[18:56:37.890] [32mINFO[39m (7592): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "55",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55461
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "466",
+        "etag": "W/\"1d2-e+JDRBOl7+j7azQzUTQnO+kxvsM\""
+      }
+    }
+    responseTime: 636
+[18:56:56.047] [32mINFO[39m (7592): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjE5NywiZXhwIjoxNzEwMDg3MDk3fQ.HQ7-xhnhuiL8x2UNblgdmycPG8hyoIsnyrXoSQU-hUM",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55464
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 110
+[18:56:57.864] [32mINFO[39m (7592): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjE5NywiZXhwIjoxNzEwMDg3MDk3fQ.HQ7-xhnhuiL8x2UNblgdmycPG8hyoIsnyrXoSQU-hUM",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55464
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 54
+[18:56:59.477] [32mINFO[39m (7592): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjE5NywiZXhwIjoxNzEwMDg3MDk3fQ.HQ7-xhnhuiL8x2UNblgdmycPG8hyoIsnyrXoSQU-hUM",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55464
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 40
+[18:57:05.901] [32mINFO[39m (7592): [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjE5NywiZXhwIjoxNzEwMDg3MDk3fQ.HQ7-xhnhuiL8x2UNblgdmycPG8hyoIsnyrXoSQU-hUM",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55466
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 43
+[19:03:23.650] [32mINFO[39m (4032): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[19:03:23.653] [32mINFO[39m (4032): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.654] [32mINFO[39m (4032): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[19:03:23.655] [32mINFO[39m (4032): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.655] [32mINFO[39m (4032): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.656] [32mINFO[39m (4032): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.656] [32mINFO[39m (4032): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.656] [32mINFO[39m (4032): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[19:03:23.657] [32mINFO[39m (4032): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.657] [32mINFO[39m (4032): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.658] [32mINFO[39m (4032): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.659] [32mINFO[39m (4032): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.659] [32mINFO[39m (4032): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.660] [32mINFO[39m (4032): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.660] [32mINFO[39m (4032): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.660] [32mINFO[39m (4032): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[19:03:23.660] [32mINFO[39m (4032): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.661] [32mINFO[39m (4032): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.661] [32mINFO[39m (4032): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[19:03:23.661] [32mINFO[39m (4032): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.661] [32mINFO[39m (4032): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.662] [32mINFO[39m (4032): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.662] [32mINFO[39m (4032): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[19:03:23.662] [32mINFO[39m (4032): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.662] [32mINFO[39m (4032): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.662] [32mINFO[39m (4032): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.663] [32mINFO[39m (4032): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.663] [32mINFO[39m (4032): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.663] [32mINFO[39m (4032): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[19:03:23.664] [32mINFO[39m (4032): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.664] [32mINFO[39m (4032): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[19:03:23.664] [32mINFO[39m (4032): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.664] [32mINFO[39m (4032): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.664] [32mINFO[39m (4032): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[19:03:23.664] [32mINFO[39m (4032): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.664] [32mINFO[39m (4032): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.665] [32mINFO[39m (4032): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[19:03:23.665] [32mINFO[39m (4032): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.665] [32mINFO[39m (4032): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.665] [32mINFO[39m (4032): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.665] [32mINFO[39m (4032): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.665] [32mINFO[39m (4032): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[19:03:23.665] [32mINFO[39m (4032): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.666] [32mINFO[39m (4032): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.666] [32mINFO[39m (4032): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.666] [32mINFO[39m (4032): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[19:03:23.666] [32mINFO[39m (4032): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[19:03:23.667] [32mINFO[39m (4032): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.667] [32mINFO[39m (4032): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[19:03:23.668] [32mINFO[39m (4032): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.668] [32mINFO[39m (4032): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.668] [32mINFO[39m (4032): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.668] [32mINFO[39m (4032): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.668] [32mINFO[39m (4032): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[19:03:23.668] [32mINFO[39m (4032): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.668] [32mINFO[39m (4032): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.668] [32mINFO[39m (4032): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.669] [32mINFO[39m (4032): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.669] [32mINFO[39m (4032): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.670] [32mINFO[39m (4032): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.670] [32mINFO[39m (4032): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.670] [32mINFO[39m (4032): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[19:03:23.670] [32mINFO[39m (4032): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.670] [32mINFO[39m (4032): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[19:03:23.670] [32mINFO[39m (4032): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[19:03:23.670] [32mINFO[39m (4032): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.671] [32mINFO[39m (4032): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.671] [32mINFO[39m (4032): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:03:23.671] [32mINFO[39m (4032): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:03:23.671] [32mINFO[39m (4032): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[19:03:23.671] [32mINFO[39m (4032): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.671] [32mINFO[39m (4032): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[19:03:23.672] [32mINFO[39m (4032): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.672] [32mINFO[39m (4032): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[19:03:23.701] [32mINFO[39m (4032): [36mNest application successfully started[39m
+    context: "NestApplication"
+[19:03:57.402] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "55",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55646
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "466",
+        "etag": "W/\"1d2-4nR+jnQBoghxnRBG9B1UTIaR0Gw\""
+      }
+    }
+    responseTime: 1010
+[19:05:10.641] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"28f-8LbsRgxNpvNu6n61O8kI+wSLx0A\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55663
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "651",
+        "etag": "W/\"28b-QanmCS6yQBPc+1FnKONQHTBqm1A\""
+      }
+    }
+    responseTime: 94
+[19:05:24.166] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55667
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 116
+[19:05:26.261] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55667
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 59
+[19:05:27.446] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55667
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 31
+[19:05:28.188] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 6,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55667
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 39
+[19:05:28.731] [32mINFO[39m (4032): [36mrequest completed[39m
+    req: {
+      "id": 7,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55667
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 44
+[19:06:50.511] [32mINFO[39m (7448): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[19:06:50.514] [32mINFO[39m (7448): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.514] [32mINFO[39m (7448): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[19:06:50.515] [32mINFO[39m (7448): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.515] [32mINFO[39m (7448): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.516] [32mINFO[39m (7448): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.516] [32mINFO[39m (7448): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.516] [32mINFO[39m (7448): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[19:06:50.517] [32mINFO[39m (7448): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.517] [32mINFO[39m (7448): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.517] [32mINFO[39m (7448): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.518] [32mINFO[39m (7448): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.518] [32mINFO[39m (7448): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.519] [32mINFO[39m (7448): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.519] [32mINFO[39m (7448): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.519] [32mINFO[39m (7448): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[19:06:50.519] [32mINFO[39m (7448): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.520] [32mINFO[39m (7448): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.520] [32mINFO[39m (7448): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[19:06:50.520] [32mINFO[39m (7448): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.520] [32mINFO[39m (7448): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.520] [32mINFO[39m (7448): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.520] [32mINFO[39m (7448): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[19:06:50.520] [32mINFO[39m (7448): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.521] [32mINFO[39m (7448): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.521] [32mINFO[39m (7448): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.521] [32mINFO[39m (7448): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.521] [32mINFO[39m (7448): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.521] [32mINFO[39m (7448): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[19:06:50.521] [32mINFO[39m (7448): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.521] [32mINFO[39m (7448): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.522] [32mINFO[39m (7448): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.522] [32mINFO[39m (7448): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.522] [32mINFO[39m (7448): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.523] [32mINFO[39m (7448): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.524] [32mINFO[39m (7448): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[19:06:50.524] [32mINFO[39m (7448): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.524] [32mINFO[39m (7448): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.524] [32mINFO[39m (7448): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.524] [32mINFO[39m (7448): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.524] [32mINFO[39m (7448): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[19:06:50.524] [32mINFO[39m (7448): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.524] [32mINFO[39m (7448): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.525] [32mINFO[39m (7448): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[19:06:50.525] [32mINFO[39m (7448): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.526] [32mINFO[39m (7448): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:06:50.527] [32mINFO[39m (7448): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:06:50.527] [32mINFO[39m (7448): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[19:06:50.527] [32mINFO[39m (7448): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.527] [32mINFO[39m (7448): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[19:06:50.527] [32mINFO[39m (7448): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.527] [32mINFO[39m (7448): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[19:06:50.549] [32mINFO[39m (7448): [36mNest application successfully started[39m
+    context: "NestApplication"
+[19:06:53.705] [32mINFO[39m (7448): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55702
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 145
+[19:06:55.930] [32mINFO[39m (7448): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyM2FkMDNkMy1mNTY5LTRmMDItODU0ZC05NWQ2NzY5YzRmYzciLCJlbWFpbCI6ImFAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjYzNywiZXhwIjoxNzEwMDg3NTM3fQ.1sIlL99vHjTKJ9K5tUXa3UslNc5pqpJ-Wrf8RVsCyho",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55702
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 48
+[19:07:53.936] [32mINFO[39m (2004): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[19:07:53.940] [32mINFO[39m (2004): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.940] [32mINFO[39m (2004): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[19:07:53.941] [32mINFO[39m (2004): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.941] [32mINFO[39m (2004): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.942] [32mINFO[39m (2004): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.942] [32mINFO[39m (2004): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.942] [32mINFO[39m (2004): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[19:07:53.942] [32mINFO[39m (2004): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.943] [32mINFO[39m (2004): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.943] [32mINFO[39m (2004): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.944] [32mINFO[39m (2004): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.944] [32mINFO[39m (2004): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.944] [32mINFO[39m (2004): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.945] [32mINFO[39m (2004): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.945] [32mINFO[39m (2004): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[19:07:53.945] [32mINFO[39m (2004): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.946] [32mINFO[39m (2004): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.946] [32mINFO[39m (2004): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[19:07:53.946] [32mINFO[39m (2004): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.946] [32mINFO[39m (2004): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.946] [32mINFO[39m (2004): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.946] [32mINFO[39m (2004): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[19:07:53.946] [32mINFO[39m (2004): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.947] [32mINFO[39m (2004): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.947] [32mINFO[39m (2004): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.947] [32mINFO[39m (2004): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.947] [32mINFO[39m (2004): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.947] [32mINFO[39m (2004): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[19:07:53.947] [32mINFO[39m (2004): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.947] [32mINFO[39m (2004): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[19:07:53.948] [32mINFO[39m (2004): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.948] [32mINFO[39m (2004): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.948] [32mINFO[39m (2004): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[19:07:53.948] [32mINFO[39m (2004): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.948] [32mINFO[39m (2004): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.948] [32mINFO[39m (2004): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[19:07:53.948] [32mINFO[39m (2004): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.949] [32mINFO[39m (2004): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[19:07:53.949] [32mINFO[39m (2004): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.950] [32mINFO[39m (2004): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[19:07:53.950] [32mINFO[39m (2004): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.951] [32mINFO[39m (2004): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[19:07:53.952] [32mINFO[39m (2004): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.952] [32mINFO[39m (2004): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[19:07:53.953] [32mINFO[39m (2004): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.953] [32mINFO[39m (2004): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[19:07:53.953] [32mINFO[39m (2004): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[19:07:53.953] [32mINFO[39m (2004): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.954] [32mINFO[39m (2004): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.954] [32mINFO[39m (2004): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[19:07:53.954] [32mINFO[39m (2004): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[19:07:53.954] [32mINFO[39m (2004): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[19:07:53.954] [32mINFO[39m (2004): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.954] [32mINFO[39m (2004): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[19:07:53.955] [32mINFO[39m (2004): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.955] [32mINFO[39m (2004): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[19:07:53.974] [32mINFO[39m (2004): [36mNest application successfully started[39m
+    context: "NestApplication"
+[19:08:31.570] [32mINFO[39m (2004): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/signup",
+      "query": {},
+      "params": {
+        "0": "auth/signup"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "480",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55724
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "677",
+        "etag": "W/\"2a5-uJxYwCdFHWotvoko8khB6ix/Fsw\""
+      }
+    }
+    responseTime: 524
+[19:08:53.134] [32mINFO[39m (2004): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "55",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55739
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "466",
+        "etag": "W/\"1d2-CAqGJ+IDrDi+SxGJmdkcnItkJOQ\""
+      }
+    }
+    responseTime: 497
+[19:09:27.689] [32mINFO[39m (2004): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNGZjMWJiZC1hMzBkLTQ3Y2YtOTZmMy05NjUzNTYwZmZiYzgiLCJlbWFpbCI6ImZAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjkzMiwiZXhwIjoxNzEwMDg3ODMyfQ.bTTpQ27gi0uoI18U7KJpHPYs7P0LWgwgpTvOKsWYKvI",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"28b-QanmCS6yQBPc+1FnKONQHTBqm1A\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55743
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "677",
+        "etag": "W/\"2a5-jX+AVGesGemjNFox94AsCkorbzw\""
+      }
+    }
+    responseTime: 118
+[19:09:36.514] [32mINFO[39m (2004): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIzNGZjMWJiZC1hMzBkLTQ3Y2YtOTZmMy05NjUzNTYwZmZiYzgiLCJlbWFpbCI6ImZAbWFpbC5ydSIsImlhdCI6MTcxMDA4NjkzMiwiZXhwIjoxNzEwMDg3ODMyfQ.bTTpQ27gi0uoI18U7KJpHPYs7P0LWgwgpTvOKsWYKvI",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 55747
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 35

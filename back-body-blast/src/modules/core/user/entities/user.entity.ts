@@ -1,21 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { Constants, UserRole } from '../../../../constants/constants';
 import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
-import { TokenEntity } from '../../../authentication/entities/token.entity';
 
 @Entity('users')
 export class UserEntity extends AppBaseEntity {
-  @ApiProperty({ type: () => TokenEntity })
-  @OneToOne(() => TokenEntity)
-  @JoinColumn({ name: 'tokenId' })
-  public token?: TokenEntity;
-
-  @ApiProperty()
-  @Column({ name: 'tokenId', nullable: true })
-  public tokenId?: string;
-
   @ApiProperty()
   @Column({ name: 'first_name', type: 'varchar' })
   public firstName!: string;
