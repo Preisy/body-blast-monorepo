@@ -22,7 +22,7 @@ export class AuthController {
   @Post('signup')
   @AppResponses({ status: 201, type: AppSingleResponse.type(AuthResponse) })
   async auth(@Body() req: AuthRequest) {
-    return this.authService.auth(req);
+    return this.authService.signUp(req);
   }
 
   @Throttle(5, 1)
@@ -44,6 +44,6 @@ export class AuthController {
   @Post('refresh')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AuthResponse) })
   async refreshTokens(@Body() body: UpdateRefreshAccess) {
-    return this.authService.refreshTokens(body.accessToken, body.refreshToken);
+    return this.authService.refreshTokens(body);
   }
 }
