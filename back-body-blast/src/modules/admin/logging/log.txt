@@ -962,3 +962,1548 @@
       }
     }
     responseTime: 160
+[14:21:06.169] [32mINFO[39m (16444): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[14:21:06.172] [32mINFO[39m (16444): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.172] [32mINFO[39m (16444): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[14:21:06.172] [32mINFO[39m (16444): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.173] [32mINFO[39m (16444): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.173] [32mINFO[39m (16444): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.173] [32mINFO[39m (16444): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.173] [32mINFO[39m (16444): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[14:21:06.174] [32mINFO[39m (16444): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.174] [32mINFO[39m (16444): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.174] [32mINFO[39m (16444): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.175] [32mINFO[39m (16444): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.175] [32mINFO[39m (16444): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.175] [32mINFO[39m (16444): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.176] [32mINFO[39m (16444): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.176] [32mINFO[39m (16444): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[14:21:06.176] [32mINFO[39m (16444): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.176] [32mINFO[39m (16444): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.176] [32mINFO[39m (16444): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[14:21:06.176] [32mINFO[39m (16444): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.177] [32mINFO[39m (16444): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.178] [32mINFO[39m (16444): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.178] [32mINFO[39m (16444): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.178] [32mINFO[39m (16444): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.178] [32mINFO[39m (16444): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.179] [32mINFO[39m (16444): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.180] [32mINFO[39m (16444): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.181] [32mINFO[39m (16444): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.182] [32mINFO[39m (16444): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[14:21:06.182] [32mINFO[39m (16444): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.183] [32mINFO[39m (16444): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[14:21:06.201] [32mINFO[39m (16444): [36mNest application successfully started[39m
+    context: "NestApplication"
+[14:21:45.367] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/signup",
+      "query": {},
+      "params": {
+        "0": "auth/signup"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "482",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53338
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-Fu3CIwEXRd13bcrwH+0ANEfcpB8\""
+      }
+    }
+    responseTime: 492
+[14:22:02.110] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk3MDUsImV4cCI6MTcxMDA3MDYwNX0.O3M1PBjPpKICky2DbI3zdmRJN56dCTtzyXBUT_PJEVg",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"2b5-gY9/r119Gt86xnY4lsINXMwHtxE\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53342
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "728",
+        "etag": "W/\"2d8-eMrYtGywmdDfB1jJk04HL5uphA4\""
+      }
+    }
+    responseTime: 60
+[14:22:57.173] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/auth/refresh",
+      "query": {},
+      "params": {
+        "0": "auth/refresh"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "477",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53347
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-hnJsZmir6cCGTnkOu4PHuQEpvlk\""
+      }
+    }
+    responseTime: 311
+[14:23:17.599] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk3NzcsImV4cCI6MTcxMDA3MDY3N30.6yGJvTJ8JxZ6WU0FxbB0xL2mHtP8jww8mQn94Eb03II",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53352
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 67
+[14:23:39.520] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53356
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-ksvRyv+XbaP/rse/zdB20mnWPB4\""
+      }
+    }
+    responseTime: 371
+[14:24:04.573] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 6,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"2d8-eMrYtGywmdDfB1jJk04HL5uphA4\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53358
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "728",
+        "etag": "W/\"2d8-qFGn/WzyhFSNsmVEUWb41hmX0ng\""
+      }
+    }
+    responseTime: 63
+[14:24:47.457] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 7,
+      "method": "PATCH",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "47",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53360
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "724",
+        "etag": "W/\"2d4-zwnDga4nEHf358AGSdq5jmEpxPM\""
+      }
+    }
+    responseTime: 57
+[14:25:05.484] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 8,
+      "method": "GET",
+      "url": "/api/me/steps?from=2020-11-11&to=2024-11-11",
+      "query": {
+        "from": "2020-11-11",
+        "to": "2024-11-11"
+      },
+      "params": {
+        "0": "me/steps"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53362
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "12",
+        "etag": "W/\"c-JtkP6BwKv5itDCzYmvKxNzgusw8\""
+      }
+    }
+    responseTime: 68
+[14:25:15.006] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 9,
+      "method": "GET",
+      "url": "/api/me/notifications",
+      "query": {},
+      "params": {
+        "0": "me/notifications"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"25-SxDXklYiPGptI7q7mUt92aurM2Y\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53364
+    }
+    res: {
+      "statusCode": 304,
+      "headers": {
+        "x-powered-by": "Express",
+        "etag": "W/\"25-SxDXklYiPGptI7q7mUt92aurM2Y\""
+      }
+    }
+    responseTime: 14
+[14:25:30.083] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 10,
+      "method": "GET",
+      "url": "/api/anthropometrics?from=2020-11-11&to=2024-11-11",
+      "query": {
+        "from": "2020-11-11",
+        "to": "2024-11-11"
+      },
+      "params": {
+        "0": "anthropometrics"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"127-VK/KAvybuWtAEXUE6/YGNTFI1F0\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53365
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "295",
+        "etag": "W/\"127-o+SFRc68B+T0dun1aj83vM10T5g\""
+      }
+    }
+    responseTime: 59
+[14:25:42.195] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 11,
+      "method": "GET",
+      "url": "/api/anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576",
+      "query": {},
+      "params": {
+        "0": "anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53367
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "1006",
+        "etag": "W/\"3ee-g6SkHrNPdbhmbZIJfc5F2afiuLU\""
+      }
+    }
+    responseTime: 73
+[14:26:12.897] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 12,
+      "method": "PATCH",
+      "url": "/api/anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576",
+      "query": {},
+      "params": {
+        "0": "anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "50",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53372
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "1000",
+        "etag": "W/\"3e8-jwOqLijAVRoUyoM52S/FNzQQCmc\""
+      }
+    }
+    responseTime: 74
+[14:26:26.052] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 13,
+      "method": "GET",
+      "url": "/api/me/notifications",
+      "query": {},
+      "params": {
+        "0": "me/notifications"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"25-SxDXklYiPGptI7q7mUt92aurM2Y\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53374
+    }
+    res: {
+      "statusCode": 304,
+      "headers": {
+        "x-powered-by": "Express",
+        "etag": "W/\"25-SxDXklYiPGptI7q7mUt92aurM2Y\""
+      }
+    }
+    responseTime: 56
+[14:27:14.924] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 14,
+      "method": "PATCH",
+      "url": "/api/anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576",
+      "query": {},
+      "params": {
+        "0": "anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "100",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53378
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "994",
+        "etag": "W/\"3e2-m6/gNAdQ3YeKFYCwPRFU78yDYjg\""
+      }
+    }
+    responseTime: 70
+[14:27:25.666] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 15,
+      "method": "GET",
+      "url": "/api/me/notifications",
+      "query": {},
+      "params": {
+        "0": "me/notifications"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"25-SxDXklYiPGptI7q7mUt92aurM2Y\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53380
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "38",
+        "etag": "W/\"26-N/GVWI6orUU5o9gUSIICYAvkp/4\""
+      }
+    }
+    responseTime: 68
+[14:27:35.444] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 16,
+      "method": "GET",
+      "url": "/api/diary?from=2020-11-11&to=2024-11-11",
+      "query": {
+        "from": "2020-11-11",
+        "to": "2024-11-11"
+      },
+      "params": {
+        "0": "diary"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53383
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "296",
+        "etag": "W/\"128-dcb+mlw4aeX5RMzGaLN4uUaxh80\""
+      }
+    }
+    responseTime: 8
+[14:27:49.384] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 17,
+      "method": "GET",
+      "url": "/api/diary/5157533b-ce5f-4dd6-92f8-08db3ec412b2",
+      "query": {},
+      "params": {
+        "0": "diary/5157533b-ce5f-4dd6-92f8-08db3ec412b2"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53384
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "1982",
+        "etag": "W/\"7be-Z7jzR3S5+te+NWRS3oH+b9j+hDQ\""
+      }
+    }
+    responseTime: 63
+[14:28:23.530] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 18,
+      "method": "PATCH",
+      "url": "/api/diary/5157533b-ce5f-4dd6-92f8-08db3ec412b2",
+      "query": {},
+      "params": {
+        "0": "diary/5157533b-ce5f-4dd6-92f8-08db3ec412b2"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "115",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53388
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "1256",
+        "etag": "W/\"4e8-G7NbvPXiIlBZkT6nt9Rq0yxZhjw\""
+      }
+    }
+    responseTime: 82
+[14:28:42.452] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 19,
+      "method": "GET",
+      "url": "/api/me/notifications",
+      "query": {},
+      "params": {
+        "0": "me/notifications"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"26-N/GVWI6orUU5o9gUSIICYAvkp/4\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53391
+    }
+    res: {
+      "statusCode": 304,
+      "headers": {
+        "x-powered-by": "Express",
+        "etag": "W/\"26-N/GVWI6orUU5o9gUSIICYAvkp/4\""
+      }
+    }
+    responseTime: 69
+[14:29:31.570] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 20,
+      "method": "GET",
+      "url": "/api/workouts?page=10&limit=1",
+      "query": {
+        "page": "10",
+        "limit": "1"
+      },
+      "params": {
+        "0": "workouts"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53395
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "21",
+        "etag": "W/\"15-OROs7OrrFasfn9uBcIaD2hUmAok\""
+      }
+    }
+    responseTime: 66
+[14:29:56.488] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 21,
+      "method": "DELETE",
+      "url": "/api/anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576",
+      "query": {},
+      "params": {
+        "0": "anthropometrics/116e68b7-738c-4989-b1b1-224f25e01576"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53397
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 68
+[14:30:33.588] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 22,
+      "method": "GET",
+      "url": "/api/food?page=10&limit=1",
+      "query": {
+        "page": "10",
+        "limit": "1"
+      },
+      "params": {
+        "0": "food"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53404
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "21",
+        "etag": "W/\"15-OROs7OrrFasfn9uBcIaD2hUmAok\""
+      }
+    }
+    responseTime: 71
+[14:30:54.499] [32mINFO[39m (16444): [36mrequest completed[39m
+    req: {
+      "id": 23,
+      "method": "GET",
+      "url": "/api/nutrition?page=10&limit=1",
+      "query": {
+        "page": "10",
+        "limit": "1"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53406
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "21",
+        "etag": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      }
+    }
+    responseTime: 63
+[14:32:47.829] [32mINFO[39m (19028): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[14:32:47.831] [32mINFO[39m (19028): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.831] [32mINFO[39m (19028): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[14:32:47.832] [32mINFO[39m (19028): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.832] [32mINFO[39m (19028): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.833] [32mINFO[39m (19028): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.833] [32mINFO[39m (19028): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.833] [32mINFO[39m (19028): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[14:32:47.833] [32mINFO[39m (19028): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.833] [32mINFO[39m (19028): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.834] [32mINFO[39m (19028): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.834] [32mINFO[39m (19028): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.835] [32mINFO[39m (19028): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.835] [32mINFO[39m (19028): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.835] [32mINFO[39m (19028): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.835] [32mINFO[39m (19028): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[14:32:47.836] [32mINFO[39m (19028): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.836] [32mINFO[39m (19028): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.836] [32mINFO[39m (19028): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[14:32:47.836] [32mINFO[39m (19028): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.836] [32mINFO[39m (19028): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.836] [32mINFO[39m (19028): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.837] [32mINFO[39m (19028): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[14:32:47.837] [32mINFO[39m (19028): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.837] [32mINFO[39m (19028): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.837] [32mINFO[39m (19028): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.837] [32mINFO[39m (19028): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.837] [32mINFO[39m (19028): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.837] [32mINFO[39m (19028): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.838] [32mINFO[39m (19028): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.839] [32mINFO[39m (19028): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.840] [32mINFO[39m (19028): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.841] [32mINFO[39m (19028): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[14:32:47.842] [32mINFO[39m (19028): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[14:32:47.843] [32mINFO[39m (19028): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.843] [32mINFO[39m (19028): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[14:32:47.843] [32mINFO[39m (19028): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.843] [32mINFO[39m (19028): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[14:32:47.860] [32mINFO[39m (19028): [36mNest application successfully started[39m
+    context: "NestApplication"
+[14:32:52.247] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "GET",
+      "url": "/api/nutrition?page=10&limit=1",
+      "query": {
+        "page": "10",
+        "limit": "1"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53416
+    }
+    res: {
+      "statusCode": 304,
+      "headers": {
+        "x-powered-by": "Express",
+        "etag": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      }
+    }
+    responseTime: 42
+[14:32:54.621] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "GET",
+      "url": "/api/nutrition?page=10&limit=1",
+      "query": {
+        "page": "10",
+        "limit": "1"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjk4MTksImV4cCI6MTcxMDA3MDcxOX0.HJX0-vFUNtEA2z3T0QuXcsclgpxM74RGaflEhQ_8sqU",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53416
+    }
+    res: {
+      "statusCode": 304,
+      "headers": {
+        "x-powered-by": "Express",
+        "etag": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      }
+    }
+    responseTime: 13
+[14:33:13.095] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53425
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-+DFV2oSB42EhNuHDqoCl/llYNV8\""
+      }
+    }
+    responseTime: 280
+[14:33:33.720] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "GET",
+      "url": "/api/nutrition?page=10&limit=1",
+      "query": {
+        "page": "10",
+        "limit": "1"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNzAzOTIsImV4cCI6MTcxMDA3MTI5Mn0.0sBMxafdTFoVxBw9dk2w_nRscXVAYFkuU2sRC890VS4",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53428
+    }
+    res: {
+      "statusCode": 304,
+      "headers": {
+        "x-powered-by": "Express",
+        "etag": "W/\"15-0E0W8vCs4qdmsLIqTozOOV4L1sg\""
+      }
+    }
+    responseTime: 65
+[14:33:39.767] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "GET",
+      "url": "/api/nutrition?page=5&limit=1",
+      "query": {
+        "page": "5",
+        "limit": "1"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNzAzOTIsImV4cCI6MTcxMDA3MTI5Mn0.0sBMxafdTFoVxBw9dk2w_nRscXVAYFkuU2sRC890VS4",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53430
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "227",
+        "etag": "W/\"e3-eT7PKJUdqZggMW30jUTSWLvAM40\""
+      }
+    }
+    responseTime: 10
+[14:33:46.096] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 6,
+      "method": "GET",
+      "url": "/api/nutrition?page=1&limit=1",
+      "query": {
+        "page": "1",
+        "limit": "1"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNzAzOTIsImV4cCI6MTcxMDA3MTI5Mn0.0sBMxafdTFoVxBw9dk2w_nRscXVAYFkuU2sRC890VS4",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53431
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "233",
+        "etag": "W/\"e9-DEfkAhXSyZbkwLw6503F1+2uJaA\""
+      }
+    }
+    responseTime: 10
+[14:33:55.376] [32mINFO[39m (19028): [36mrequest completed[39m
+    req: {
+      "id": 7,
+      "method": "GET",
+      "url": "/api/nutrition?page=1&limit=10",
+      "query": {
+        "page": "1",
+        "limit": "10"
+      },
+      "params": {
+        "0": "nutrition"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNDM1NDhiMS1kYjg3LTQyMWQtOTZhYS02NGFmMTA0ZWQwMDIiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNzAzOTIsImV4cCI6MTcxMDA3MTI5Mn0.0sBMxafdTFoVxBw9dk2w_nRscXVAYFkuU2sRC890VS4",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 53432
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "1073",
+        "etag": "W/\"431-KNIt9AsdlbKHkQ7xX5bA+FjNzeI\""
+      }
+    }
+    responseTime: 11
