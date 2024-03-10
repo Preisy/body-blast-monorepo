@@ -2507,3 +2507,177 @@
       }
     }
     responseTime: 11
+[22:58:29.529] [32mINFO[39m (1596): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[22:58:29.532] [32mINFO[39m (1596): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.532] [32mINFO[39m (1596): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[22:58:29.532] [32mINFO[39m (1596): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.533] [32mINFO[39m (1596): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.533] [32mINFO[39m (1596): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.533] [32mINFO[39m (1596): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.533] [32mINFO[39m (1596): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[22:58:29.534] [32mINFO[39m (1596): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.534] [32mINFO[39m (1596): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.534] [32mINFO[39m (1596): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.535] [32mINFO[39m (1596): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.535] [32mINFO[39m (1596): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.535] [32mINFO[39m (1596): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.536] [32mINFO[39m (1596): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.536] [32mINFO[39m (1596): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[22:58:29.536] [32mINFO[39m (1596): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.536] [32mINFO[39m (1596): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.536] [32mINFO[39m (1596): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[22:58:29.536] [32mINFO[39m (1596): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.537] [32mINFO[39m (1596): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.537] [32mINFO[39m (1596): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.537] [32mINFO[39m (1596): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[22:58:29.537] [32mINFO[39m (1596): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.537] [32mINFO[39m (1596): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.537] [32mINFO[39m (1596): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.537] [32mINFO[39m (1596): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[22:58:29.538] [32mINFO[39m (1596): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[22:58:29.538] [32mINFO[39m (1596): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[22:58:29.538] [32mINFO[39m (1596): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.538] [32mINFO[39m (1596): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.539] [32mINFO[39m (1596): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.540] [32mINFO[39m (1596): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.541] [32mINFO[39m (1596): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[22:58:29.542] [32mINFO[39m (1596): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[22:58:29.543] [32mINFO[39m (1596): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.543] [32mINFO[39m (1596): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[22:58:29.543] [32mINFO[39m (1596): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.543] [32mINFO[39m (1596): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[22:58:29.564] [32mINFO[39m (1596): [36mNest application successfully started[39m
+    context: "NestApplication"
