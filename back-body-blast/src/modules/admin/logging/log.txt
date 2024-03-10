@@ -549,3 +549,416 @@
       }
     }
     responseTime: 11
+[13:35:39.202] [32mINFO[39m (13860): [36mAppController {/api}:[39m
+    context: "RoutesResolver"
+[13:35:39.205] [32mINFO[39m (13860): [36mMapped {/api, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.205] [32mINFO[39m (13860): [36mAuthController {/api/auth}:[39m
+    context: "RoutesResolver"
+[13:35:39.206] [32mINFO[39m (13860): [36mMapped {/api/auth/signup, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.206] [32mINFO[39m (13860): [36mMapped {/api/auth/login, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.207] [32mINFO[39m (13860): [36mMapped {/api/auth/logout, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.207] [32mINFO[39m (13860): [36mMapped {/api/auth/refresh, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.207] [32mINFO[39m (13860): [36mAdminUserController {/api/admin/users}:[39m
+    context: "RoutesResolver"
+[13:35:39.207] [32mINFO[39m (13860): [36mMapped {/api/admin/users, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.208] [32mINFO[39m (13860): [36mMapped {/api/admin/users, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.208] [32mINFO[39m (13860): [36mMapped {/api/admin/users/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.209] [32mINFO[39m (13860): [36mMapped {/api/admin/users/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.209] [32mINFO[39m (13860): [36mMapped {/api/admin/users/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.209] [32mINFO[39m (13860): [36mMapped {/api/admin/users/:id/diaries, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.210] [32mINFO[39m (13860): [36mMapped {/api/admin/users/:id/steps, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.210] [32mINFO[39m (13860): [36mAdminAnthropometricsController {/api/admin/anthropometrics}:[39m
+    context: "RoutesResolver"
+[13:35:39.210] [32mINFO[39m (13860): [36mMapped {/api/admin/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.210] [32mINFO[39m (13860): [36mMapped {/api/admin/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.210] [32mINFO[39m (13860): [36mAdminDiaryController {/api/admin/diary}:[39m
+    context: "RoutesResolver"
+[13:35:39.211] [32mINFO[39m (13860): [36mMapped {/api/admin/diary, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.211] [32mINFO[39m (13860): [36mMapped {/api/admin/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.211] [32mINFO[39m (13860): [36mMapped {/api/admin/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.211] [32mINFO[39m (13860): [36mAdminWorkoutController {/api/admin/workouts}:[39m
+    context: "RoutesResolver"
+[13:35:39.211] [32mINFO[39m (13860): [36mMapped {/api/admin/workouts, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.211] [32mINFO[39m (13860): [36mMapped {/api/admin/workouts, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.211] [32mINFO[39m (13860): [36mMapped {/api/admin/workouts/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.212] [32mINFO[39m (13860): [36mMapped {/api/admin/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.212] [32mINFO[39m (13860): [36mMapped {/api/admin/workouts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.212] [32mINFO[39m (13860): [36mClientFileController {/api/files}:[39m
+    context: "RoutesResolver"
+[13:35:39.212] [32mINFO[39m (13860): [36mMapped {/api/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.212] [32mINFO[39m (13860): [36mClientWorkoutController {/api/workouts}:[39m
+    context: "RoutesResolver"
+[13:35:39.212] [32mINFO[39m (13860): [36mMapped {/api/workouts, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.212] [32mINFO[39m (13860): [36mMapped {/api/workouts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.212] [32mINFO[39m (13860): [36mClientBonusVideoController {/api/bonus-video}:[39m
+    context: "RoutesResolver"
+[13:35:39.212] [32mINFO[39m (13860): [36mMapped {/api/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mMeController {/api/me}:[39m
+    context: "RoutesResolver"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/me, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/me, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/me/steps, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/me/notifications, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mClientDiaryController {/api/diary}:[39m
+    context: "RoutesResolver"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/diary, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.213] [32mINFO[39m (13860): [36mMapped {/api/diary/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.214] [32mINFO[39m (13860): [36mMapped {/api/diary/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.214] [32mINFO[39m (13860): [36mAdminFileController {/api/admin/files}:[39m
+    context: "RoutesResolver"
+[13:35:39.214] [32mINFO[39m (13860): [36mMapped {/api/admin/files, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.214] [32mINFO[39m (13860): [36mMapped {/api/admin/files/:filename, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.214] [32mINFO[39m (13860): [36mMapped {/api/admin/files, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.214] [32mINFO[39m (13860): [36mClientAnthropometricsController {/api/anthropometrics}:[39m
+    context: "RoutesResolver"
+[13:35:39.214] [32mINFO[39m (13860): [36mMapped {/api/anthropometrics, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.214] [32mINFO[39m (13860): [36mMapped {/api/anthropometrics/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/anthropometrics/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/anthropometrics/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mAdminPromptController {/api/admin/prompts}:[39m
+    context: "RoutesResolver"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/admin/prompts, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/admin/prompts, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/admin/prompts/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/admin/prompts/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.215] [32mINFO[39m (13860): [36mAdminDiaryTemplateController {/api/admin/diary-templates}:[39m
+    context: "RoutesResolver"
+[13:35:39.215] [32mINFO[39m (13860): [36mMapped {/api/admin/diary-templates/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/diary-templates/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mAdminBonusVideoController {/api/admin/bonus-video}:[39m
+    context: "RoutesResolver"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/bonus-video, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/bonus-video, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/bonus-video/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/bonus-video/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mAdminFoodController {/api/admin/food}:[39m
+    context: "RoutesResolver"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/food, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/food, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/food/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.216] [32mINFO[39m (13860): [36mMapped {/api/admin/food/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/admin/food/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mClientFoodController {/api/food}:[39m
+    context: "RoutesResolver"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/food, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mAdminNutritionController {/api/admin/nutrition}:[39m
+    context: "RoutesResolver"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/admin/nutrition, POST} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/admin/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/admin/nutrition/:id, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/admin/nutrition/:id, PATCH} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/admin/nutrition/:id, DELETE} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mClientNutritionController {/api}:[39m
+    context: "RoutesResolver"
+[13:35:39.217] [32mINFO[39m (13860): [36mMapped {/api/nutrition, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.217] [32mINFO[39m (13860): [36mAdminLogsController {/api/admin/logs}:[39m
+    context: "RoutesResolver"
+[13:35:39.218] [32mINFO[39m (13860): [36mMapped {/api/admin/logs, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.218] [32mINFO[39m (13860): [36mMapped {/api/admin/logs/file, GET} route[39m
+    context: "RouterExplorer"
+[13:35:39.242] [32mINFO[39m (13860): [36mNest application successfully started[39m
+    context: "NestApplication"
+[13:36:11.135] [32mINFO[39m (13860): [36mrequest completed[39m
+    req: {
+      "id": 1,
+      "method": "POST",
+      "url": "/api/auth/login",
+      "query": {},
+      "params": {
+        "0": "auth/login"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "56",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 52593
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-xXNukAewOjZJfeBB7lHMN5dIvVY\""
+      }
+    }
+    responseTime: 559
+[13:36:29.136] [32mINFO[39m (13860): [36mrequest completed[39m
+    req: {
+      "id": 2,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMWY5ZDk3OS03ZmMzLTQ3ZWYtOGRiMS1lOGY2ZjJkNTAxMjciLCJlbWFpbCI6ImMxQG1haWwucnUiLCJpYXQiOjE3MTAwNjY5NzAsImV4cCI6MTcxMDA2Nzg3MH0.qSMdZPP5GunElVzyNgZbfCrWhBR4Y7HJ6AQ0dnyRaFM",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"275-hXcx35aOfyza/IhVLje0kRGiD54\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 52599
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "669",
+        "etag": "W/\"29d-66Xgcu1k53EKSDk6Kansz2B4SVM\""
+      }
+    }
+    responseTime: 107
+[13:37:38.111] [32mINFO[39m (13860): [36mrequest completed[39m
+    req: {
+      "id": 3,
+      "method": "POST",
+      "url": "/api/auth/logout",
+      "query": {},
+      "params": {
+        "0": "auth/logout"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "0",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMWY5ZDk3OS03ZmMzLTQ3ZWYtOGRiMS1lOGY2ZjJkNTAxMjciLCJlbWFpbCI6ImMxQG1haWwucnUiLCJpYXQiOjE3MTAwNjY5NzAsImV4cCI6MTcxMDA2Nzg3MH0.qSMdZPP5GunElVzyNgZbfCrWhBR4Y7HJ6AQ0dnyRaFM",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 52626
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "15",
+        "etag": "W/\"f-NQVRlQfKHCoInEbhALgECMonhCE\""
+      }
+    }
+    responseTime: 185
+[13:38:39.559] [32mINFO[39m (13860): [36mrequest completed[39m
+    req: {
+      "id": 4,
+      "method": "POST",
+      "url": "/api/auth/signup",
+      "query": {},
+      "params": {
+        "0": "auth/signup"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "content-length": "482",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "content-type": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "origin": "http://localhost:3000",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 52648
+    }
+    res: {
+      "statusCode": 201,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "468",
+        "etag": "W/\"1d4-ebl4U5ZrcogBeyOs10qeGUHujZE\""
+      }
+    }
+    responseTime: 708
+[13:39:48.149] [32mINFO[39m (13860): [36mrequest completed[39m
+    req: {
+      "id": 5,
+      "method": "GET",
+      "url": "/api/me",
+      "query": {},
+      "params": {
+        "0": "me"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNmNjMjlkYS04NTkwLTQ0OTAtOGExYi1mOGQxN2FhZWQyZDkiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjcxMTksImV4cCI6MTcxMDA2ODAxOX0.uCub7isUzWwcEn5xGn-18rgslkRd0xQMzdbqyPBwGtY",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "if-none-match": "W/\"29d-66Xgcu1k53EKSDk6Kansz2B4SVM\""
+      },
+      "remoteAddress": "::1",
+      "remotePort": 52657
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "693",
+        "etag": "W/\"2b5-gY9/r119Gt86xnY4lsINXMwHtxE\""
+      }
+    }
+    responseTime: 120
+[13:40:06.136] [32mINFO[39m (13860): [36mrequest completed[39m
+    req: {
+      "id": 6,
+      "method": "GET",
+      "url": "/api/anthropometrics?from=2020-11-11&to=2024-11-11",
+      "query": {
+        "from": "2020-11-11",
+        "to": "2024-11-11"
+      },
+      "params": {
+        "0": "anthropometrics"
+      },
+      "headers": {
+        "host": "localhost:3000",
+        "connection": "keep-alive",
+        "sec-ch-ua": "\"Not A(Brand\";v=\"99\", \"Opera GX\";v=\"107\", \"Chromium\";v=\"121\"",
+        "accept": "application/json",
+        "sec-ch-ua-mobile": "?0",
+        "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjNmNjMjlkYS04NTkwLTQ0OTAtOGExYi1mOGQxN2FhZWQyZDkiLCJlbWFpbCI6ImMyQG1haWwucnUiLCJpYXQiOjE3MTAwNjcxMTksImV4cCI6MTcxMDA2ODAxOX0.uCub7isUzWwcEn5xGn-18rgslkRd0xQMzdbqyPBwGtY",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 OPR/107.0.0.0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "referer": "http://localhost:3000/docs",
+        "accept-encoding": "gzip, deflate, br",
+        "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+      },
+      "remoteAddress": "::1",
+      "remotePort": 52662
+    }
+    res: {
+      "statusCode": 200,
+      "headers": {
+        "x-powered-by": "Express",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "295",
+        "etag": "W/\"127-VK/KAvybuWtAEXUE6/YGNTFI1F0\""
+      }
+    }
+    responseTime: 160

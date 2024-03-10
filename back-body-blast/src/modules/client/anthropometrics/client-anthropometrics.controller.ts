@@ -2,7 +2,6 @@ import {
   Controller,
   Req,
   Body,
-  ParseIntPipe,
   Param,
   Patch,
   Get,
@@ -11,6 +10,7 @@ import {
   UsePipes,
   ValidationPipe,
   Query,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppAuthGuard } from '../../authentication/guards/appAuth.guard';
@@ -41,20 +41,20 @@ export class ClientAnthropometricsController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
-  async getOne(@Param('id', ParseIntPipe) id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.clientService.findOne(id);
   }
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
-  async update(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateAnthropometricsByClientRequest) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateAnthropometricsByClientRequest) {
     return this.clientService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   @Throttle(5, 1)
-  async delete(@Param('id', ParseIntPipe) id: number) {
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
     return this.clientService.delete(id);
   }
 }

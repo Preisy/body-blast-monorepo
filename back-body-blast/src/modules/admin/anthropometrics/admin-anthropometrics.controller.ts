@@ -1,4 +1,4 @@
-import { Controller, UseFilters, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import { Controller, UseFilters, UsePipes, ValidationPipe, ParseUUIDPipe } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserRole } from '../../../constants/constants';
 import { RoleGuard } from '../../authentication/guards/role.guard';
@@ -27,7 +27,7 @@ export class AdminAnthropometricsController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
-  async getOne(@Param('id', ParseIntPipe) id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.findOne(id);
   }
 }

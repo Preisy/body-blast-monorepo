@@ -40,9 +40,9 @@ export class CreateWorkoutRequest {
 
   @IsDefined()
   @ApiProperty()
-  @IsNumber()
+  @IsString()
   @Min(1)
-  public userId: number;
+  public userId: string;
 
   @IsDefined()
   @ArrayNotEmpty()

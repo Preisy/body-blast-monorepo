@@ -16,6 +16,6 @@ export class DiaryTemplateEntity extends AppBaseEntity {
   public user?: UserEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'userId', nullable: false })
-  public userId?: number;
+  @Column({ name: 'userId', nullable: false })
+  public userId?: string;
 }

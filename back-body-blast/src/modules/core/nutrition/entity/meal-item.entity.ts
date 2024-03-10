@@ -23,6 +23,6 @@ export class MealItemEntity extends AppBaseEntity {
   public nutrition!: NutritionEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'nutritionId' })
-  public nutritionId!: number;
+  @Column({ name: 'nutritionId' })
+  public nutritionId!: string;
 }

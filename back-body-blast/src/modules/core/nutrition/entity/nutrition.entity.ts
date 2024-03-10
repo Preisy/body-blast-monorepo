@@ -16,8 +16,8 @@ export class NutritionEntity extends AppBaseEntity {
   public user!: UserEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'userId' })
-  public userId!: number;
+  @Column({ name: 'userId' })
+  public userId!: string;
 
   @OneToMany(() => MealItemEntity, (mealItem) => mealItem.nutrition, { cascade: true })
   public mealItems: MealItemEntity[];
