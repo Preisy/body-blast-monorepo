@@ -4,6 +4,22 @@ export class IdToUuid1710068913927 implements MigrationInterface {
   name = 'IdToUuid1710068913927';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query('delete * from tokens');
+    await queryRunner.query('delete * from anthropometrics');
+    await queryRunner.query('delete * from diaries');
+    await queryRunner.query('delete * from files');
+    await queryRunner.query('delete * from food');
+    await queryRunner.query('delete * from workouts');
+    await queryRunner.query('delete * from video');
+    await queryRunner.query('delete * from nutrition');
+    await queryRunner.query('delete * from video');
+    await queryRunner.query('delete * from exercises');
+    await queryRunner.query('delete * from "diary-props"');
+    await queryRunner.query('delete * from "diary-template-props"');
+    await queryRunner.query('delete * from "diary-templates"');
+    await queryRunner.query('delete * from "meal-items"');
+    await queryRunner.query("delete from users where role = 'client'");
+    await queryRunner.query('DELETE * FROM "TOKENS"');
     await queryRunner.query('ALTER TABLE "users" DROP CONSTRAINT "FK_d98a275f8bc6cd986fcbe2eab01"');
     await queryRunner.query('ALTER TABLE "diary-template-props" DROP CONSTRAINT "FK_dce5716790cc5c863b160f0bd52"');
     await queryRunner.query('ALTER TABLE "diary-templates" DROP CONSTRAINT "FK_5f67fdf2ae7685f78b8733f5058"');
