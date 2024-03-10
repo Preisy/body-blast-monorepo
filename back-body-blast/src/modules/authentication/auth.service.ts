@@ -81,7 +81,7 @@ export class AuthService {
 
       return (await this.baseService.getUserByEmail(decodedToken.email)).data;
     } catch {
-      throw MainException.forbidden('Access denied: no jwt found');
+      throw MainException.unauthorized('Current token has expired, or has not been provided');
     }
   }
 
