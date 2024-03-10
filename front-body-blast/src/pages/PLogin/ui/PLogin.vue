@@ -23,7 +23,7 @@ const login = async (values: Auth.Dto) => {
     <SForm :field-schema="schema" @submit="login" w-full>
       <ELoginForm />
       <template #submit-btn>
-        <div fixed bottom-1rem left-2rem right-2rem flex justify-between>
+        <div mt-0.5rem flex justify-between>
           <SBtn bg="bg!" boxshadow-btn>
             <p fw-800 normal-case>{{ $t('auth.login.controls.forget') }}</p>
           </SBtn>
