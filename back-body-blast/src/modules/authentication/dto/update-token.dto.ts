@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { TokenEntity } from '../entities/token.entity';
-import { IsNumber, IsOptional, IsString, IsEmail } from 'class-validator';
+import { IsOptional, IsString, IsEmail } from 'class-validator';
 
 export class UpdateTokenRequest {
-  @IsNumber()
-  public id: number;
+  @IsString()
+  public id: string;
 
   @IsOptional()
   @IsString()
@@ -15,7 +15,7 @@ export class UpdateTokenRequest {
   @ApiProperty()
   public token?: TokenEntity;
 
-  constructor(id: number, email: string, token: TokenEntity) {
+  constructor(id: string, email: string, token: TokenEntity) {
     this.id = id;
     this.email = email;
     this.token = token;

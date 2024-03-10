@@ -4,8 +4,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @Entity('tokens')
 export class TokenEntity {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
-  public readonly id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  public readonly id!: string;
 
   @ApiProperty()
   @Column({ type: 'varchar', length: 256 })

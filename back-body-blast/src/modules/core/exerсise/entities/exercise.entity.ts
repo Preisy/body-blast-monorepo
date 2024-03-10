@@ -47,6 +47,6 @@ export class ExerciseEntity extends AppBaseEntity {
   public workout!: WorkoutEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'workoutId' })
-  public workoutId!: number;
+  @Column({ name: 'workoutId' })
+  public workoutId!: string;
 }

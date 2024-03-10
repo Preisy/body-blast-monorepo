@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -25,7 +26,7 @@ import { AdminWorkoutService } from './admin-workout.service';
 import { CreateWorkoutByAdminRequest } from './dto/admin-create-wrokout.dto';
 import { GetWorkoutByAdminDTO } from './dto/admin-get-workout.dto';
 import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
-import { WorkoutEntity } from 'src/modules/core/workout/entity/workout.entity';
+import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 
 @Controller('admin/workouts')
 @ApiTags('Admin workouts')
@@ -50,19 +51,19 @@ export class AdminWorkoutController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetWorkoutByAdminDTO) })
-  async getOne(@Param('id') id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.findOne(id);
   }
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async update(@Param('id') id: number, @Body() body: UpdateWorkoutByAdminRequest) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateWorkoutByAdminRequest) {
     return await this.adminService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
-  async deleteOne(@Param('id') id: number) {
+  async deleteOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.deleteOne(id);
   }
 }

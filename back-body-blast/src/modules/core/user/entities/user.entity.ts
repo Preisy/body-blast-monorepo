@@ -13,8 +13,8 @@ export class UserEntity extends AppBaseEntity {
   public token?: TokenEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'tokenId', nullable: true })
-  public tokenId?: number;
+  @Column({ name: 'tokenId', nullable: true })
+  public tokenId?: string;
 
   @ApiProperty()
   @Column({ name: 'first_name', type: 'varchar' })

@@ -36,7 +36,7 @@ export class BaseAnthropometrcisService {
     const data = await this.findLatestAnthropometricsForEachUser();
     const anthrpMap = data.reduce(
       (acc, value) => ({ ...acc, [value.userId]: value }),
-      {} as Record<number, AnthropometricsEntity>,
+      {} as Record<string, AnthropometricsEntity>,
     );
 
     const createвAnthropometrics = users.flatMap((user) => {

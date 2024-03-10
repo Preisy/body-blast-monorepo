@@ -1,8 +1,18 @@
-import { Body, Controller, Get, Param, Patch, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  UseFilters,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AppResponses } from 'src/decorators/app-responses.decorator';
-import { AppSingleResponse } from 'src/dto/app-single-response.dto';
-import { BaseAuthGuard } from 'src/modules/authentication/guards/baseAuth.guard';
+import { AppResponses } from '../../../decorators/app-responses.decorator';
+import { AppSingleResponse } from '../../../dto/app-single-response.dto';
+import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
@@ -19,13 +29,13 @@ export class AdminDiaryTemplateController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async getOne(@Param('id') id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.findOne(id);
   }
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async update(@Param('id') id: number, @Body() body: UpdateDiaryTemplateByAdminRequest) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateDiaryTemplateByAdminRequest) {
     return await this.adminService.update(id, body);
   }
 }
