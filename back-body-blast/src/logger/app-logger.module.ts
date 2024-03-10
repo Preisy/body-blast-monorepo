@@ -9,13 +9,13 @@ import pino from 'pino';
       pinoHttp: {
         // eslint-disable-next-line import/no-named-as-default-member
         stream: pino.destination({
-          dest: './src/modules/admin/logging/log.txt',
+          dest: './log.txt',
           sync: false,
         }),
         transport: {
           target: 'pino-pretty',
           options: {
-            destination: './src/modules/admin/logging/log.txt',
+            destination: './log.txt',
           },
         },
       },
