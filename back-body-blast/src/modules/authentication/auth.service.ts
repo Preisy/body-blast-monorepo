@@ -112,10 +112,6 @@ export class AuthService {
     return new AppSingleResponse(token);
   }
 
-  private async hashData(data: string) {
-    return bcrypt.hash(data, 10);
-  }
-
   private async updateRefreshHash(userId: UserEntity['id'], access: string, refresh: string) {
     const { data: user } = await this.userService.getUserById(userId);
     const { data: token } = await this.getTokenByUserEmail(user.email);
