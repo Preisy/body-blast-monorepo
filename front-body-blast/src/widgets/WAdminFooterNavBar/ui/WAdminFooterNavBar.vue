@@ -22,7 +22,6 @@ const links = computed<SFooterNavLinkProps[]>(() => {
     { imgSrc: symRoundedPlayArrow, title: t('admin.footer.links.learning'), name: ENUMS.ROUTES_NAMES.ADMIN.LEARNING },
   ];
 
-  //TODO: better
   if (route.matched.find((route) => route.path.includes('detailed')))
     result = [
       {

@@ -1,8 +1,10 @@
 import { AxiosError } from 'axios';
 import { useAuthStore, TokenService } from 'shared/api/auth';
+import { api } from '.';
 // import { api } from '.';
 
 export const refreshInterceptor = async (error: AxiosError) => {
+  console.log(error);
   if (error.config?.url === '/auth/refresh') {
     TokenService.clearTokens();
     return error;
@@ -26,7 +28,7 @@ export const refreshInterceptor = async (error: AxiosError) => {
     }
 
     //TODO: how to return values to store?
-    // if (error.config) await api.request(error.config);
+    if (error.config) return api.request(error.config);
   }
   return error;
 };

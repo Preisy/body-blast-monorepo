@@ -76,7 +76,7 @@ const onsubmit = async () => {
       name: values.name,
       comment: values.comment,
       date: props.date,
-      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
+      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
       cycle: parseInt(values.cycle),
       userId: props.id,
     };
