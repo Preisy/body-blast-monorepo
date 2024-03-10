@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "incremental": true,
-    "outDir": "./dist/back-erax-fit",
+    "outDir": "./dist/back-body-blast",
     "baseUrl": ".",
     "moduleResolution": "Node",
     "module": "CommonJS",
@@ -20,7 +20,7 @@
   },
   "references": [
     {
-      "path": "back-erax-fit"
+      "path": "back-body-blast"
     },
     {
       "path": "front-body-blast"

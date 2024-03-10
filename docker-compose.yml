@@ -1,22 +1,22 @@
 version: "3.7"
 services:
-  erax_backend:
-    container_name: erax_backend
+  blast_backend:
+    container_name: blast_backend
     build:
       context: .
-      dockerfile: ./back-erax-fit/Dockerfile
+      dockerfile: ./back-body-blast/Dockerfile
     env_file: .env
     working_dir: /app
     ports:
       - "${NODEJS_PUBLIC_PORT}:3000"
     depends_on:
-      - erax_database
+      - blast_database
     networks:
-      - erax_network
+      - blast_network
 
-  erax_database:
+  blast_database:
     image: postgres:15.3-alpine
-    container_name: erax_database
+    container_name: blast_database
     restart: always
     env_file: .env
     environment:
@@ -26,13 +26,13 @@ services:
     ports:
       - "${DATABASE_PUBLIC_PORT}:5432"
     volumes:
-      - erax_db_data:/var/lib/postgresql/data
+      - blast_db_data:/var/lib/postgresql/data
     networks:
-      - erax_network
+      - blast_network
 
 volumes:
-  erax_db_data:
-    name: erax_db_data
+  blast_db_data:
+    name: blast_db_data
 networks:
-  erax_network:
+  blast_network:
     driver: bridge

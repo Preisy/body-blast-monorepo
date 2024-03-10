@@ -14,8 +14,8 @@ async function bootstrap() {
   app.useLogger(app.get(Logger));
 
   const config = new DocumentBuilder()
-    .setTitle('Erax')
-    .setDescription('Erax API')
+    .setTitle('Body_blast')
+    .setDescription('Body_blast API')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
