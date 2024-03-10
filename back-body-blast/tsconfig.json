@@ -8,7 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
-    "outDir": "../dist/back-erax-fit",
+    "outDir": "../dist/back-body-blast",
     "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,

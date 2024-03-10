@@ -1,17 +1,17 @@
 {
-  "name": "erax-fit-monorepo",
+  "name": "body-blast-monorepo",
   "version": "0.0.1",
   "main": "dist/src/index.js",
-  "repository": "https://github.com/Preisy/erax-fit-monorepo.git",
+  "repository": "https://github.com/Preisy/body-blast-monorepo.git",
   "author": "preisy <preus_3@mail.ru>",
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "back-erax-fit",
+    "back-body-blast",
     "front-body-blast"
   ],
   "scripts": {
-    "lint-all": "yarn workspace back-erax-fit run lint && yarn workspace front-body-blast run lint && yarn workspace front-body-blast run type-check"
+    "lint-all": "yarn workspace back-body-blast run lint && yarn workspace front-body-blast run lint && yarn workspace front-body-blast run type-check"
   },
   "pre-push": [
     "lint-all"

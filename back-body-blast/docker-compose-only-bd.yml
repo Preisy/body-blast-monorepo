@@ -1,9 +1,9 @@
 version: '3.7'
 
 services:
-  erax_database:
+  blast_database:
     image: postgres:15.3-alpine
-    container_name: erax_database
+    container_name: blast_database
     restart: always
     env_file: .env
     environment:
@@ -13,12 +13,12 @@ services:
     ports:
       - '${DATABASE_PUBLIC_PORT}:5432'
     volumes:
-      - erax_db_data:/var/lib/postgresql/data
+      - blast_db_data:/var/lib/postgresql/data
     networks:
-      - erax_network
+      - blast_network
 volumes:
-  erax_db_data:
-    name: erax_db_data
+  blast_db_data:
+    name: blast_db_data
 networks:
-  erax_network:
+  blast_network:
     driver: bridge
