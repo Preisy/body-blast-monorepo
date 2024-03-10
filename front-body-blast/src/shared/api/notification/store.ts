@@ -4,7 +4,7 @@ import { notificationService } from './service';
 import { NotificationTypes } from './types';
 
 export const useNotificationStore = defineStore('notification-store', () => {
-  const notificationsQueue = ref(useSingleState<Array<NotificationTypes>>({ data: ['diary', 'anthropometrics'] }));
+  const notificationsQueue = ref(useSingleState<Array<NotificationTypes>>());
   const getNotifications = () =>
     useStoreAction({
       state: notificationsQueue.value.state,
@@ -12,10 +12,12 @@ export const useNotificationStore = defineStore('notification-store', () => {
       onSuccess: (res) => {
         // Object.entries returns the ['diary', true] or ['anthropometrics', false]
         // We will filter out all entries with 'false' value
-        const notifications = Object.entries(res.data).filter((entry) => entry[1]) as Array<
-          [NotificationTypes, boolean]
-        >;
-        notificationsQueue.value.data?.push(...notifications.map((notification) => notification[0]));
+        const notifications = Object.entries(res)
+          .filter((entry) => entry[1])
+          .map((entry) => entry[0]) as Array<NotificationTypes>;
+
+        if (!notificationsQueue.value.data) notificationsQueue.value.data = [];
+        notificationsQueue.value.data.push(...notifications);
       },
     });
 

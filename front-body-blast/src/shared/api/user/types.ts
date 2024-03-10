@@ -48,8 +48,8 @@ export namespace User {
       nutritRestrict: z.string().min(1),
       allergy: z.string().min(1),
       mealIntolerance: z.string().min(1),
-      loadRestrictions: z.string().min(3).max(50),
-      sportsExp: z.string().min(3).max(50),
-      goals: z.string().min(3).max(50),
+      loadRestrictions: z.string().min(1).max(50),
+      sportsExp: z.string().min(1).max(50),
+      goals: z.string().min(1).max(50),
     });
 }
