@@ -24,11 +24,8 @@ export class AdminAnthropometricsService {
     const query = request;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id } = query;
-    const { data: anthrpRecords, count: count } = await getPaginatedData(query, {
-      where: {
-        userId: request.id,
-      },
-    });
+    const { data: anthrpRecords, count: count } = await getPaginatedData(query, { where: { userId: request.id } });
+
     return new AppDatePagination.Response(anthrpRecords, count);
   }
 
