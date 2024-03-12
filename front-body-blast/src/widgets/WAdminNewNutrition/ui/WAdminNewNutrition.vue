@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { FNutritionListForm } from 'features/FNutritionListForm';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
-import { useLoading, useLoadingAction } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SForm } from 'shared/ui/SForm';
@@ -32,11 +32,11 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
   const categories: Array<Array<Nutrition.Item>> = [];
   for (const form of forms.value) categories.push((await form.getFormValues()) ?? []);
 
-  useLoading(nutritionList.createState);
-  await postNutrition({ name: values.name, userId: props.userId, mealItems: categories.flat() });
-
-  useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
-  clear();
+  useLoadingAction(nutritionList.createState, async () => {
+    await postNutrition({ name: values.name, userId: props.userId, mealItems: categories.flat() });
+    useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
+    clear();
+  });
 };
 </script>
 

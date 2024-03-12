@@ -3,7 +3,7 @@ import moment, { Moment } from 'moment';
 import { z } from 'zod';
 import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/profile/EAthropometricsItem';
 import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
-import { useLoading } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { isToday } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
@@ -19,13 +19,15 @@ const calendarDate = computed(() => date.value.format('YYYY/MM/DD'));
 
 const { anthropometry, getAnthropometry, patchAnthropometry } = useProfileStore();
 const anthropometryData = computed(() => anthropometry.data?.data);
-useLoading(anthropometry);
+
 if (!anthropometryData.value)
-  getAnthropometry({
-    expanded: true,
-    to: date.value.toISOString(),
-    from: date.value.clone().subtract(2, 'weeks').toISOString(),
-  });
+  useLoadingAction(anthropometry, () =>
+    getAnthropometry({
+      expanded: true,
+      to: date.value.toISOString(),
+      from: date.value.clone().subtract(2, 'weeks').toISOString(),
+    }),
+  );
 
 const anthropometrySlides = computed(
   () =>

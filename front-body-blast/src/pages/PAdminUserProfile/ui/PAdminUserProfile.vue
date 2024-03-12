@@ -8,7 +8,7 @@ import { useAdminUserProfileStore } from 'shared/api/admin';
 import { useProfileStore } from 'shared/api/anthropometry';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
-import { useLoading, useLoadingAction } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -42,9 +42,8 @@ const userName = computed(() => `${userData.value?.firstName} ${userData.value?.
 const canWatchVideo = computed(() => userData.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => userData.value?.anthrpJobPeriod);
 
-useLoading(user.updateState);
 const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
-  patchUserProfile({ id: props.id, user: { [field]: newValue } });
+  useLoadingAction(user.updateState, () => patchUserProfile({ id: props.id, user: { [field]: newValue } }));
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },

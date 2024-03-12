@@ -5,7 +5,7 @@ import { QDialogProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
-import { useLoading } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SInput, SFilePicker } from 'shared/ui/inputs';
 import { SForm } from 'shared/ui/SForm';
@@ -21,15 +21,15 @@ const emit = defineEmits<{
 
 const { t } = useI18n();
 const schema = toTypedSchema(Prompt.validation(t));
-const { patchPrompt, prompts, getPrompts } = useAdminPromptStore();
-useLoading(prompts.updateState);
+const { patchPrompt, prompts } = useAdminPromptStore();
 
 const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>>) => {
-  await patchPrompt(props.promptData.id, values);
-  if (prompts.updateState.isSuccess()) {
-    emit('update:model-value', false); //close dialog after success
-    getPrompts({ type: '' });
-  }
+  useLoadingAction(prompts.updateState, async () => {
+    await patchPrompt(props.promptData.id, values);
+    if (prompts.updateState.isSuccess()) {
+      emit('update:model-value', false); //close dialog after success
+    }
+  });
 };
 </script>
 

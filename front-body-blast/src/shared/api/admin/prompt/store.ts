@@ -1,3 +1,4 @@
+import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { useAdminFileStore } from '../file';
@@ -60,6 +61,12 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     await useStoreAction({
       state: prompts.value.updateState,
       serviceAction: adminPromptsService.patchPrompt(id, promptDto),
+      onSuccess: (res) => {
+        const listData = prompts.value.data?.data;
+        if (!listData) return;
+        const index = listData.findIndex((prompt) => prompt.id === res.data.id);
+        assign(listData[index], res.data);
+      },
     });
   };
 

@@ -25,7 +25,7 @@ const date = computed<string>(() =>
 // 2024-03-01T00:00:00.000 <- Difference with 'date' only in MM field
 const dateMonthPlusOne = computed(() => moment(date.value).add(1, 'M').toISOString());
 
-watchEffect(() => {
+watch(dateMonthPlusOne, () => {
   useLoadingAction(userSteps, async () => {
     //get all diaries in month range
     await getUserDiaries({
