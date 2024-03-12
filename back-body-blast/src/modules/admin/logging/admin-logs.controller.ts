@@ -21,7 +21,7 @@ export class AdminLogsController {
     @Query('page', ParseIntPipe) page: number,
   ) {
     const data = await new Promise<string>((res, rej) =>
-      fs.readFile('./logs/log.txt', 'utf-8', (err, data) => {
+      fs.readFile('./log.txt', 'utf-8', (err, data) => {
         if (err) rej(err);
         else res(data);
       }),
@@ -36,7 +36,7 @@ export class AdminLogsController {
   @AppResponses({ status: 200 })
   @Header('Content-Disposition', 'attachment; filename="log.txt"')
   getLogFile(): StreamableFile {
-    const file = createReadStream(join(process.cwd(), './logs/log.txt'));
+    const file = createReadStream(join(process.cwd(), './log.txt'));
     return new StreamableFile(file);
   }
 }

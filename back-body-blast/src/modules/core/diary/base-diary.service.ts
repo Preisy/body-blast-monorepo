@@ -43,7 +43,7 @@ export class BaseDiaryService {
     });
     const workoutsToUserId = workouts.reduce(
       (acc, it) => ({ ...acc, [it.userId]: it }),
-      {} as Record<number, WorkoutEntity>,
+      {} as Record<string, WorkoutEntity>,
     );
     const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
       relations: ['props'],
@@ -84,7 +84,7 @@ export class BaseDiaryService {
     });
     const workoutsToUserId = workouts.reduce(
       (acc, it) => ({ ...acc, [it.userId]: it }),
-      {} as Record<number, WorkoutEntity>,
+      {} as Record<string, WorkoutEntity>,
     );
 
     const workout = workoutsToUserId[template.userId!];

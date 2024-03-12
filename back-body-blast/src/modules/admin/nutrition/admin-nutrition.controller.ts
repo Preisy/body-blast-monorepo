@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -49,19 +50,19 @@ export class AdminNutritionController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async getOne(@Param('id') id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.findOne(id);
   }
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async update(@Param('id') id: number, @Body() body: UpdateNutritionByAdminRequest) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateNutritionByAdminRequest) {
     return await this.adminService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
-  async deleteOne(@Param('id') id: number) {
+  async deleteOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.deleteOne(id);
   }
 }

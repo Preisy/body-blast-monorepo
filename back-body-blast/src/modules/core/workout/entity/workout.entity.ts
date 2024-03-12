@@ -28,8 +28,8 @@ export class WorkoutEntity extends AppBaseEntity {
   public user!: UserEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'userId' })
-  public userId!: number;
+  @Column({ name: 'userId' })
+  public userId!: string;
 
   @OneToMany(() => ExerciseEntity, (exercise) => exercise.workout, { cascade: true })
   public exercises: ExerciseEntity[];

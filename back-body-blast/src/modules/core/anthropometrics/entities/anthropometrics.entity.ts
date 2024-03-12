@@ -11,8 +11,8 @@ export class AnthropometricsEntity extends AppBaseEntity {
   public user!: UserEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'userId' })
-  public userId!: number;
+  @Column({ name: 'userId' })
+  public userId!: string;
 
   @ApiProperty()
   @Column({ type: 'float', nullable: true })

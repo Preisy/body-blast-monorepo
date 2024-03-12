@@ -1,4 +1,16 @@
-import { Body, Controller, Get, Param, Patch, Query, Req, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Query,
+  Req,
+  UseFilters,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
@@ -7,7 +19,7 @@ import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
 import { ClientDiaryService } from './client-diary.service';
-import { DiaryEntity } from 'src/modules/core/diary/entity/diary.entity';
+import { DiaryEntity } from '../../../modules/core/diary/entity/diary.entity';
 import { GetDiaryByClientDTO } from './dto/client-get-diary.dto';
 import { UpdateDiaryByClientRequest } from './dto/client-update-diary.dto';
 
@@ -27,13 +39,13 @@ export class ClientDiaryController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetDiaryByClientDTO) })
-  async getOne(@Param('id') id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.clientService.findOne(id);
   }
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async update(@Param('id') id: number, @Body() body: UpdateDiaryByClientRequest) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateDiaryByClientRequest) {
     return await this.clientService.update(id, body);
   }
 }

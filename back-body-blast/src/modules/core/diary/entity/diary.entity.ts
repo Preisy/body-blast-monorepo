@@ -32,8 +32,8 @@ export class DiaryEntity extends AppBaseEntity {
   public user!: UserEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'userId' })
-  public userId!: number;
+  @Column({ name: 'userId' })
+  public userId!: string;
 
   @ApiProperty({ type: () => DiaryPropsEntity })
   @OneToMany(() => DiaryPropsEntity, (props) => props.diary, { cascade: true })

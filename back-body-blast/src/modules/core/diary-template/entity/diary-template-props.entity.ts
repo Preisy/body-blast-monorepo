@@ -15,6 +15,6 @@ export class DiaryTemplatePropsEntity extends AppBaseEntity {
   public template!: DiaryTemplateEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'templateId' })
-  public templateId!: number;
+  @Column({ name: 'templateId' })
+  public templateId!: string;
 }

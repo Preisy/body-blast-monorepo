@@ -1,4 +1,14 @@
-import { Controller, UseFilters, UsePipes, ValidationPipe, Get, Req, Param, Query, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  UseFilters,
+  UsePipes,
+  ValidationPipe,
+  Get,
+  Req,
+  Param,
+  Query,
+  ParseUUIDPipe,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { AppAuthGuard } from '../../../modules/authentication/guards/appAuth.guard';
@@ -27,7 +37,7 @@ export class ClientBonusVideoController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(BonusVideoEntity) })
-  async getOne(@Req() req: RequestWithUser, @Param('id', ParseIntPipe) id: number) {
+  async getOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
     if (!req.user.canWatchVideo) throw MainException.forbidden(`Access denied for user with id ${req.user.id}`);
     return await this.clientService.findOne(id);
   }
