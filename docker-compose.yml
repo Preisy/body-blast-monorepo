@@ -32,8 +32,8 @@ services:
 
   blast_frontend:
     build:
-      context: ./frontend
-      dockerfile: dockerfile
+      context: .
+      dockerfile: ./front-body-blast/Dockerfile
     ports:
       - 80:4000
     networks:
