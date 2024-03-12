@@ -24,12 +24,7 @@ export class AdminAnthropometricsService {
     const query = request;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { id } = query;
-    const { data: anthrpRecords, count: count } = await getPaginatedData(query);
-
-    if (request.id) {
-      const anthrpUserRecords: AnthropometricsEntity[] = anthrpRecords.filter((data) => data.userId === request.id);
-      return new AppDatePagination.Response(anthrpUserRecords, anthrpUserRecords.length);
-    }
+    const { data: anthrpRecords, count: count } = await getPaginatedData(query, { where: { userId: request.id } });
 
     return new AppDatePagination.Response(anthrpRecords, count);
   }

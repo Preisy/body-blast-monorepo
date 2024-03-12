@@ -76,9 +76,12 @@ export namespace AppDatePagination {
         const to = new Date(`${request.to!}, 23:59:59`) || new Date();
 
         const [sellers, count] = await repository.findAndCount({
-          where: { createdAt: And(MoreThanOrEqual(from), LessThanOrEqual(to)) } as FindOptionsWhere<Entity>,
           relations: request.expanded ? relations : undefined,
           ...options,
+          where: {
+            createdAt: And(MoreThanOrEqual(from), LessThanOrEqual(to)),
+            ...options.where,
+          } as FindOptionsWhere<Entity>,
         });
 
         return new AppDatePagination.Response<Entity>(sellers, count);
