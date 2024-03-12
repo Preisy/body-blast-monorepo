@@ -4,16 +4,30 @@ import { UpdateAnthropometricsByClientRequest } from './dto/client-update-anthro
 import { BaseAnthropometrcisService } from '../../core/anthropometrics/base-anthropometrics.service';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ClientAnthropometricsService {
-  constructor(private readonly baseService: BaseAnthropometrcisService) {}
+  constructor(
+    private readonly baseService: BaseAnthropometrcisService,
+    @InjectRepository(AnthropometricsEntity)
+    private readonly anthrpRepository: Repository<AnthropometricsEntity>,
+  ) {}
+
+  public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];
 
   async findAll(
     user: UserEntity,
-    query: AppDatePagination.Request,
+    request: AppDatePagination.Request,
   ): Promise<AppDatePagination.Response<AnthropometricsEntity>> {
-    return this.baseService.findAll(query, { where: { userId: user.id } });
+    const { getPaginatedData } = AppDatePagination.getExecutor(this.anthrpRepository, this.relations);
+
+    const { data: anthrpRecords } = await getPaginatedData(request);
+
+    const anthrpUserRecords: AnthropometricsEntity[] = anthrpRecords.filter((data) => data.userId === user.id);
+
+    return new AppDatePagination.Response(anthrpUserRecords, anthrpUserRecords.length);
   }
 
   async findOne(id: AnthropometricsEntity['id']) {

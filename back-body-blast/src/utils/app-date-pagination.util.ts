@@ -1,7 +1,16 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsDateString, IsOptional } from 'class-validator';
 import { AppBaseEntity } from '../models/app-base-entity.entity';
-import { Between, FindManyOptions, FindOneOptions, ObjectLiteral, Repository } from 'typeorm';
+import {
+  And,
+  FindManyOptions,
+  FindOneOptions,
+  FindOptionsWhere,
+  LessThanOrEqual,
+  MoreThanOrEqual,
+  ObjectLiteral,
+  Repository,
+} from 'typeorm';
 import { ToBoolean } from '../decorators/to-boolean.decorator';
 import { createDerivedClass } from './create-derived-class.util';
 
@@ -63,14 +72,14 @@ export namespace AppDatePagination {
         options: Omit<FindManyOptions<Entity>, 'skip' | 'take' | 'relations'> = {},
       ) => {
         const request = new AppDatePagination.Request(query.expanded, query.from, query.to);
-        const from = request.from || new Date('2020-01-01');
-        const to = request.to || new Date();
+        const from = new Date(`${request.from!}, 00:00:00`) || new Date('2020-01-01');
+        const to = new Date(`${request.to!}, 23:59:59`) || new Date();
 
-        const queryBuilder = repository.createQueryBuilder('entity');
-        const whereCondition = {
-          createdAt: Between(from, to),
-        };
-        const [sellers, count] = await queryBuilder.where(whereCondition).getManyAndCount();
+        const [sellers, count] = await repository.findAndCount({
+          where: { createdAt: And(MoreThanOrEqual(from), LessThanOrEqual(to)) } as FindOptionsWhere<Entity>,
+          relations: request.expanded ? relations : undefined,
+          ...options,
+        });
 
         return new AppDatePagination.Response<Entity>(sellers, count);
       },
