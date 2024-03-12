@@ -32,7 +32,7 @@ const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
     <div flex flex-row gap-0.5rem rounded-1rem bg-bg>
       <SReadonlyField
         :title="$t('admin.diary.mode') + ' ' + ISODateToDDMM(diary.date)"
-        :value="$t('admin.diary.cycle') + ' ' + (diary.cycle ?? '?')"
+        :value="$t('admin.diary.cycle') + ' ' + (diary.cycle ?? $t('admin.diary.rest'))"
         class="cycles"
         w="100%"
         bg-accent
