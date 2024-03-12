@@ -2,13 +2,14 @@
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FFoodListForm } from 'features/FNutritionListForm';
 import { useAdminFoodStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
 export interface WAdminNewFoodProps {
-  userId: number;
+  userId: AppBaseEntity['id'];
 }
 defineProps<WAdminNewFoodProps>();
 

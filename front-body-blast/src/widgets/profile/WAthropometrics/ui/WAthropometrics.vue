@@ -3,6 +3,7 @@ import moment, { Moment } from 'moment';
 import { z } from 'zod';
 import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/profile/EAthropometricsItem';
 import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
+import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';
 import { isToday } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
@@ -58,7 +59,7 @@ const update = (direction: 'back' | 'front', createdAt: string = date.value.toIS
   return getAnthropometry({ from: from.toISOString(), to: to.toISOString() });
 };
 const lock = computed(() => anthropometry.state.isLoading());
-const onSubmit = (id: number, values: z.infer<ReturnType<typeof Anthropometry.validation>>) =>
+const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Anthropometry.validation>>) =>
   patchAnthropometry({ ...values, id });
 </script>
 

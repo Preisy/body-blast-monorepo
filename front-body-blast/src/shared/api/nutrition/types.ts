@@ -7,7 +7,7 @@ export interface Nutrition extends AppBaseEntity {
   name: string;
   mealItems?: Array<Nutrition.Item>;
   user?: User;
-  userId: number;
+  userId: AppBaseEntity['id'];
 }
 
 export namespace Nutrition {

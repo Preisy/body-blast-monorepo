@@ -3,6 +3,7 @@ import moment from 'moment';
 import { WNewTraining } from 'widgets/WNewTraining';
 import { WOldTraining } from 'widgets/WOldTraining';
 import { useAdminWorkoutStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
 import { isToday } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
@@ -10,7 +11,7 @@ import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
 export interface PAdminUserWorkoutProps {
-  id: number;
+  id: AppBaseEntity['id'];
 }
 defineProps<PAdminUserWorkoutProps>();
 

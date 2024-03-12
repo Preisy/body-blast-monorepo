@@ -3,6 +3,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
 import { useAdminFoodStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
 import { SListControls } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
@@ -19,7 +20,7 @@ const props = defineProps<FFoodListFormProps>();
 const emit = defineEmits<{
   create: [Pick<Food, 'name' | 'category'>]; //Emit only name and category. 'type' will be added in WAdminFood
   edit: [Pick<Food, 'id' | 'name'>]; //Id is mandatory. 'name' field is only field in form
-  remove: [number];
+  remove: [AppBaseEntity['id']];
 }>();
 const forms = ref<Array<InstanceType<typeof SForm>>>();
 

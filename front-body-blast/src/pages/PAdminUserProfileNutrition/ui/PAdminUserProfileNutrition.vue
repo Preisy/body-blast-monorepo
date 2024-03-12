@@ -5,6 +5,7 @@ import { WAdminNewFood } from 'widgets/WAdminNewFood';
 import { WAdminNewNutrition } from 'widgets/WAdminNewNutrition';
 import { WAdminNutrition } from 'widgets/WAdminNutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
@@ -14,7 +15,7 @@ import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
 export interface PAdminUserProfileNutritionProps {
-  id: number;
+  id: AppBaseEntity['id'];
 }
 defineProps<PAdminUserProfileNutritionProps>();
 

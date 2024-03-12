@@ -8,7 +8,7 @@ export interface Workout extends AppBaseEntity {
   date: string; //ISO string date type: 2023-12-31
   comment: Optional<string>;
   cycle: number;
-  userId: number;
+  userId: AppBaseEntity['id'];
   exercises: Optional<
     Array<
       AppBaseEntity & {

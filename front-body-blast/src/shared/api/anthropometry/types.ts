@@ -9,7 +9,7 @@ export interface Anthropometry extends AppBaseEntity {
   shoulder: number;
   hip: number;
   hipVolume: number;
-  userId: number;
+  userId: AppBaseEntity['id'];
 }
 
 export namespace Anthropometry {

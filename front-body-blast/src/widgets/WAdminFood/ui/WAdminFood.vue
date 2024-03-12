@@ -2,6 +2,7 @@
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FFoodListForm } from 'features/FNutritionListForm';
 import { useAdminFoodStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
@@ -18,7 +19,7 @@ const { deleteFood, postFood, patchFood, foodList } = useAdminFoodStore();
 const foodItemsOrEmpty = computed(() => props.foodItems);
 const categories = [1, 2, 3] as const;
 
-const onRemove = (id: number) => {
+const onRemove = (id: AppBaseEntity['id']) => {
   useLoadingAction(foodList.deleteState, () => deleteFood({ id }));
 };
 const onCreate = (food: Pick<Food, 'name' | 'category'>) => {

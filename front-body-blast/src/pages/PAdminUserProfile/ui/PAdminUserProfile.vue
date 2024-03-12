@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
 import { useAdminUserProfileStore, useAdminAnthropometryStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -17,7 +18,7 @@ import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
 export interface PAdminUserProfileProps {
-  id: number;
+  id: AppBaseEntity['id'];
 }
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();

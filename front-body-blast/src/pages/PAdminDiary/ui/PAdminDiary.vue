@@ -3,6 +3,7 @@ import moment from 'moment';
 import { WSelfControlList } from 'widgets/WSelfControlList';
 import { WStepsList } from 'widgets/WStepsList';
 import { useAdminUserProfileStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
@@ -11,7 +12,7 @@ import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 
 export interface PAdminDiaryProps {
-  id: number;
+  id: AppBaseEntity['id'];
 }
 const props = defineProps<PAdminDiaryProps>();
 const { getUserSteps, getUserDiaries, userDiaries, userSteps } = useAdminUserProfileStore();

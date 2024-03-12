@@ -13,9 +13,6 @@ import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
-export interface PAdminHomeProps {}
-defineProps<PAdminHomeProps>();
-
 const router = useRouter();
 
 const { users, getUsers, user: storeUser, deleteUser } = useAdminUserProfileStore();

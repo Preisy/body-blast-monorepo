@@ -3,7 +3,6 @@ import { Loading } from 'quasar';
 import { RouteRecordRaw } from 'vue-router';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingImport } from 'shared/lib/loading';
-import { getUserIdFromRoute } from 'shared/lib/utils/getUserIdFromRoute';
 
 export const adminRoutes: RouteRecordRaw = {
   path: '/admin/',
@@ -36,21 +35,21 @@ export const adminRoutes: RouteRecordRaw = {
           path: '',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE,
-          props: getUserIdFromRoute,
+          props: true,
           component: useLoadingImport(() => import('pages/PAdminUserProfile/ui/PAdminUserProfile.vue')),
         },
         {
           path: 'bio',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO,
-          props: getUserIdFromRoute,
+          props: true,
           component: useLoadingImport(() => import('pages/PAdminUserProfileBio/ui/PAdminUserProfileBio.vue')),
         },
         {
           path: 'trainings',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_TRAININGS,
-          props: getUserIdFromRoute,
+          props: true,
           component: useLoadingImport(() => {
             Loading.show();
             return import('pages/PAdminUserWorkout/ui/PAdminUserWorkout.vue');
@@ -60,7 +59,7 @@ export const adminRoutes: RouteRecordRaw = {
           path: 'nutrition',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_NUTRITION,
-          props: getUserIdFromRoute,
+          props: true,
           component: useLoadingImport(
             () => import('pages/PAdminUserProfileNutrition/ui/PAdminUserProfileNutrition.vue'),
           ),
@@ -69,7 +68,7 @@ export const adminRoutes: RouteRecordRaw = {
           path: 'diary',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY,
-          props: getUserIdFromRoute,
+          props: true,
           component: useLoadingImport(() => import('pages/PAdminDiary/ui/PAdminDiary.vue')),
         },
       ],

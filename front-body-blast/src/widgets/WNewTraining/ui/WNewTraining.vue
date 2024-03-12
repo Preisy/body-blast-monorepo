@@ -18,10 +18,10 @@ type Exercise = NonNullable<Workout['exercises']>[number];
 const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;
 
 export interface WNewTrainingProps {
-  id: number; //userId
+  id: AppBaseEntity['id'];
   date: string; //ISO date, used for
   isEdit?: boolean;
-  workoutId?: number;
+  workoutId?: AppBaseEntity['id'];
   initValues?: Workout;
 }
 
