@@ -11,7 +11,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new MainExceptionFilter());
   app.setGlobalPrefix('api');
-  //app.useLogger(app.get(Logger));
+  app.useLogger(app.get(Logger));
 
   const config = new DocumentBuilder()
     .setTitle('Body_blast')
