@@ -43,8 +43,8 @@ export namespace Workout {
   }
   export const validation = () =>
     z.object({
-      name: z.coerce.string().min(1),
-      cycle: z.coerce.string().min(1),
+      name: z.coerce.string().min(1).default(''),
+      cycle: z.coerce.string().min(1).default(''),
       comment: z.coerce.string().min(1).optional(),
       exercises: z.array(
         z.object({

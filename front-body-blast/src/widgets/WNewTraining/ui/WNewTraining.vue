@@ -99,7 +99,7 @@ useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <div flex flex-row>
       <h1>{{ $t('admin.prompt.training.training') }}</h1>
-      <SBtn :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
+      <SBtn v-if="isEdit" :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
     </div>
 
     <SForm

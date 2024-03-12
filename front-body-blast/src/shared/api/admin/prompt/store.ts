@@ -33,6 +33,12 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
       await useStoreAction({
         state: prompts.value.createState,
         serviceAction: adminPromptsService.postPrompt(promptDto),
+        onSuccess: (res) => {
+          const listData = prompts.value.data?.data;
+          if (!listData) return;
+
+          listData.push(res.data);
+        },
       });
     }
   };

@@ -4,8 +4,7 @@ import moment, { Moment } from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
-import { useAdminUserProfileStore } from 'shared/api/admin';
-import { useProfileStore } from 'shared/api/anthropometry';
+import { useAdminUserProfileStore, useAdminAnthropometryStore } from 'shared/api/admin';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -56,13 +55,13 @@ const anthrpJobPeriodOptions = [
   { value: 14, label: '14' },
 ];
 
-const { anthropometry, getAnthropometry } = useProfileStore();
+const { anthropometryList, getAnthropometry } = useAdminAnthropometryStore();
 
 const index = ref(0);
-const lock = computed(() => anthropometry.state.isLoading());
+const lock = computed(() => anthropometryList.state.isLoading());
 const slides = computed(
   () =>
-    anthropometry.data?.data
+    anthropometryList.data?.data
       .filter((slide) => slide.userId === props.id)
       .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
 );
@@ -76,7 +75,7 @@ const updateDate = (newValue: string) => {
   const from = date.value.clone().subtract(2, 'w').toISOString();
   const to = dateISOString.value;
 
-  getAnthropometry({ from, to });
+  getAnthropometry({ from, to, id: props.id });
 };
 
 const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
@@ -92,9 +91,9 @@ const update = (direction: 'back' | 'front', createdAt: string = date.value.toIS
   }
 
   date.value = to;
-  return getAnthropometry({ from: from.toISOString(), to: to.toISOString() });
+  return getAnthropometry({ from: from.toISOString(), to: to.toISOString(), id: props.id });
 };
-useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toISOString()));
+useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').toISOString()));
 </script>
 
 <template>

@@ -45,15 +45,22 @@ const clearEditing = () => {
   <SStructure h-full flex flex-col>
     <SCalendar
       v-model="date"
-      :options="dateSortedWorkoutsWithoutToday?.map((workout) => moment(workout.date).format('YYYY/MM/DD'))"
+      :options="workoutListData?.map((workout) => moment(workout.date).format('YYYY/MM/DD'))"
       pb-1rem
       pt-2rem
     />
-    <q-tab-panels v-model="date" swipeable animated h-full>
+    <q-tab-panels
+      v-model="date"
+      keep-alive
+      :keep-alive-include="[today.format('YYYY/MM/DD')]"
+      swipeable
+      animated
+      h-full
+    >
       <q-tab-panel
         v-for="workout in dateSortedWorkoutsWithoutToday"
         :key="workout.id"
-        :name="workout.date"
+        :name="moment(workout.date).format('YYYY/MM/DD')"
         class="overflow-hidden! p-0!"
         h-full
       >
@@ -61,7 +68,7 @@ const clearEditing = () => {
           <WOldTraining v-if="!editingWorkout" :workout="workout" @edit="onEdit" />
           <WNewTraining
             v-else
-            :date="date"
+            :date="date.split('/').join('-')"
             :id="id"
             :init-values="editingWorkout ?? undefined"
             :workout-id="editingWorkout?.id"
@@ -76,7 +83,7 @@ const clearEditing = () => {
           <WOldTraining v-if="todayWorkout && !editingWorkout" :workout="todayWorkout" @edit="onEdit" />
           <WNewTraining
             v-else
-            :date="date"
+            :date="date.split('/').join('-')"
             :id="id"
             :init-values="editingWorkout ?? undefined"
             :workout-id="editingWorkout?.id"

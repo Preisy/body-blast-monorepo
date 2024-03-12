@@ -6,3 +6,4 @@ export * from './workout';
 export * from './userProfile';
 export * from './diary';
 export * from './bonusVideo';
+export * from './anthropometry';

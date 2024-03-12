@@ -12,19 +12,14 @@ import { SStructure } from 'shared/ui/SStructure';
 
 const { t } = useI18n();
 const routes: QTabProps[] = [
-  { name: 'new', label: t('admin.prompt.nav.new') },
-  { name: 'all', label: t('admin.prompt.nav.all') },
+  { name: 'new', label: t('admin.video.nav.new') },
+  { name: 'all', label: t('admin.video.nav.all') },
 ];
 const currentRoute = ref(routes[0].name);
 const { videoList, getVideos } = useAdminBonusVideoStore();
 const videoData = computed(() => videoList.data?.data);
 
-useLoadingAction(videoList.state, () => getVideos());
-
-// const onTransition = (newVal: string) => {
-//   if (newVal != routes[1].name) return;
-//   getPrompts({ type: '' });
-// };
+useLoadingAction(videoList.state, getVideos);
 </script>
 
 <template>

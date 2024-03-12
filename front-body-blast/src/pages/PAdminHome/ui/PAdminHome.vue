@@ -85,19 +85,19 @@ const onUserDelete = (user: User) => {
         <FSearchPanel v-model:query="nameFilter" />
 
         <div v-if="users.state.isSuccess() || displayCards?.length">
-          <EUnitedProfileCard
-            v-for="user in displayCards"
-            :key="user.id"
-            :header="user.firstName + ' ' + user.lastName"
-            :describe="$t('home.profile.header.student')"
-          >
-            <template #action>
-              <div flex flex-row justify-between>
-                <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(user)" />
-                <SBtn icon="sym_r_delete" @click="onUserDelete(user)" />
-              </div>
-            </template>
-          </EUnitedProfileCard>
+          <div v-for="user in displayCards" :key="user.id" @click="onUserProfileClick(user)" cursor-pointer>
+            <EUnitedProfileCard
+              :header="user.firstName + ' ' + user.lastName"
+              :describe="$t('home.profile.header.student')"
+            >
+              <template #action>
+                <div flex flex-row justify-between>
+                  <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(user)" />
+                  <SBtn icon="sym_r_delete" @click="onUserDelete(user)" />
+                </div>
+              </template>
+            </EUnitedProfileCard>
+          </div>
         </div>
 
         <SNoResultsScreen v-else-if="users.state.isError()" />

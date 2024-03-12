@@ -20,11 +20,6 @@ const { prompts, getPrompts } = useAdminPromptStore();
 const rawPrompts = computed(() => prompts.data?.data);
 
 useLoadingAction(prompts.state, () => getPrompts({ type: '' }));
-
-const onTransition = (newVal: string) => {
-  if (newVal != routes[1].name) return;
-  getPrompts({ type: '' });
-};
 </script>
 
 <template>
@@ -56,7 +51,7 @@ const onTransition = (newVal: string) => {
     </q-tabs>
 
     <!-- Page body -->
-    <q-tab-panels v-model="currentRoute" @transition="onTransition" animated keep-alive swipeable h-full pt-3rem>
+    <q-tab-panels v-model="currentRoute" animated keep-alive swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <q-tab-panel :name="routes[0].name" h-full overflow-hidden p="0!">
         <SProxyScroll h-full>
