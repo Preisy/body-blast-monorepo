@@ -61,7 +61,7 @@ useLoadingAction(prompts.state, () => getPrompts({ type: '' }));
 
       <!-- All prompts -->
       <q-tab-panel :name="routes[1].name" p="0!">
-        <SProxyScroll h-full v-if="rawPrompts" overflow-hidden>
+        <SProxyScroll h-full v-if="rawPrompts?.length" overflow-hidden>
           <SComponentWrapper>
             <WPrompt v-for="prompt in rawPrompts" :prompt="prompt" :key="prompt.id" mb-1rem />
           </SComponentWrapper>

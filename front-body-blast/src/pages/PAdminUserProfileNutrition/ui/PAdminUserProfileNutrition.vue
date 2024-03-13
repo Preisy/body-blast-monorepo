@@ -56,12 +56,12 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 </script>
 
 <template>
-  <SStructure h-full>
-    <SProxyScroll w-full>
-      <div overflow-x-hidden>
-        <SCenteredNav v-model="pageValue" :pages="pages" />
-      </div>
+  <SStructure h-full flex flex-col>
+    <div>
+      <SCenteredNav v-model="pageValue" :pages="pages" />
+    </div>
 
+    <SProxyScroll :content-style="{ width: '100%' }">
       <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite>
         <q-tab-panel :name="pages[0].value" p="0!">
           <WAdminNutrition

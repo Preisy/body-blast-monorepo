@@ -30,11 +30,11 @@ const onCreate = async () => {
     const foodValues = await form.getFormValues();
     if (!foodValues) continue;
 
-    for (const food of foodValues)
-      useLoadingAction(foodList.createState, () => postFood({ ...food, type: type.value }));
-
-    clear();
+    useLoadingAction(foodList.createState, () =>
+      Promise.all(foodValues.map((food) => postFood({ ...food, type: type.value }))),
+    );
   }
+  clear();
 };
 </script>
 

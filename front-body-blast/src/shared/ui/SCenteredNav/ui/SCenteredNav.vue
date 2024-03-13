@@ -1,3 +1,6 @@
+<!--
+  Forbidden to place inside SProxyScroll/QScrollArea
+-->
 <script lang="ts" setup>
 import { SCenteredByChild } from 'shared/ui/SCenteredByChild';
 
