@@ -25,6 +25,7 @@ defineProps<WDietNutritionProps>();
           omitEnd: true,
           gap: '2rem',
         }"
+        class="[&_.splide\_\_pagination]:right--1.25rem"
       >
         <template v-if="nutritions.length">
           <SSplideSlide v-for="(nutrition, index) in nutritions" :key="index">
