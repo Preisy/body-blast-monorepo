@@ -19,6 +19,8 @@ const props = defineProps<SChooseInputProps<T>>();
 const emit = defineEmits<{
   'update:modelValue': [ModelValue];
   'update:innerInput': [string];
+  open: [];
+  close: [];
 }>();
 
 const anchor = ref();
@@ -37,11 +39,20 @@ const isOpen = ref(false);
 const { value, setValue } = useField<Partial<ModelValue>>(() => props.name);
 
 const onItemClick = (val: ModelValue) => {
-  isOpen.value = false;
+  close();
   setValue(val);
   emit('update:modelValue', val);
 };
 const onInput = debounce((val) => emit('update:innerInput', val), 300);
+
+const open = () => {
+  isOpen.value = true;
+  emit('open');
+};
+const close = () => {
+  isOpen.value = false;
+  emit('close');
+};
 </script>
 
 <template>
@@ -66,7 +77,7 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
     <div>
       <SInput
         ref="anchor"
-        @focus="isOpen = true"
+        @focus="open"
         @update:model-value="onInput"
         :label="label"
         watch-model-value

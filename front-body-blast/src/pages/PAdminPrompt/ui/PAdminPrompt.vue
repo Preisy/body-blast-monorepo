@@ -54,7 +54,7 @@ useLoadingAction(prompts.state, () => getPrompts({ type: '' }));
     <q-tab-panels v-model="currentRoute" animated keep-alive swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <q-tab-panel :name="routes[0].name" h-full overflow-hidden p="0!">
-        <SProxyScroll :content-style="{ width: '100%' }" h-full>
+        <SProxyScroll h-full type="vertical">
           <WPromptCreation />
         </SProxyScroll>
       </q-tab-panel>

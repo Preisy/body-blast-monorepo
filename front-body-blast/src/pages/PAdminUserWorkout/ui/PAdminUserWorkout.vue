@@ -17,10 +17,10 @@ defineProps<PAdminUserWorkoutProps>();
 
 const today = moment();
 const date = ref(today.format('YYYY/MM/DD'));
-
-const { getWorkouts, workoutList } = useAdminWorkoutStore();
+const workoutStore = useAdminWorkoutStore();
+const { getWorkouts, workoutList } = workoutStore;
 const pageNumber = ref(1);
-watchEffect(() => getWorkouts({ expanded: true, limit: 20, page: pageNumber.value }));
+watch(pageNumber, () => getWorkouts({ expanded: true, limit: 20, page: pageNumber.value }), { immediate: true });
 
 const workoutListData = computed(() => workoutList.data?.data);
 const todayWorkout = computed(() => workoutListData.value?.find((workout) => isToday(workout.date)));
@@ -38,6 +38,9 @@ const onEdit = (id: Workout) => {
 const clearEditing = () => {
   editingWorkout.value = null;
 };
+const aboba = ref(false);
+
+setInterval(() => (aboba.value = !aboba.value), 1000);
 </script>
 
 <template>
@@ -54,9 +57,10 @@ const clearEditing = () => {
       v-model="date"
       :keep-alive-include="[today.format('YYYY/MM/DD')]"
       keep-alive
-      swipeable
+      :swipeable="workoutStore.isPopupVisible"
       animated
       h-full
+      v-once
     >
       <q-tab-panel
         v-for="workout in dateSortedWorkoutsWithoutToday"

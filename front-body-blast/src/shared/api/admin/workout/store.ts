@@ -7,6 +7,8 @@ import { AdminWorkoutService } from './service';
 import { Workout as AdminWorkout } from './types';
 
 export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
+  const isPopupVisible = ref<boolean>(false);
+
   const workoutList = ref(useSingleState<AdminWorkout.Get.Response>({ create: true, update: true, delete: true }));
   // GET /api/admin/workouts
   const getWorkouts = (data: AppPagination.BaseDto) =>
@@ -73,5 +75,6 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
     getWorkouts,
     patchWorkout,
     deleteWorkout,
+    isPopupVisible,
   };
 });

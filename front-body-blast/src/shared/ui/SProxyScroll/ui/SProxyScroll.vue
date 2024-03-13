@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { QScrollArea, QScrollAreaProps } from 'quasar';
-
-export interface SProxyScroll extends QScrollAreaProps {}
+export interface SProxyScroll {
+  type?: 'vertical' | 'horizontal';
+}
 defineProps<SProxyScroll>();
 
 const thumbStyle: Partial<CSSStyleDeclaration> = {
@@ -23,6 +23,8 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
     :horizontal-thumb-style="thumbStyle"
     :style="{ contain: 'unset' }"
     h-full
+    :content-style="{ width: type === 'vertical' ? '100%' : '' }"
+    :content-active-style="{ width: type === 'vertical' ? '100%' : '' }"
   >
     <slot />
   </q-scroll-area>
