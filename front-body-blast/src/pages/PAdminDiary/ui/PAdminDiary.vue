@@ -21,10 +21,10 @@ const { getUserSteps, getUserDiaries, userDiaries, userSteps } = useAdminUserPro
 const dateRaw = ref<string>(moment().toISOString());
 // 2024-02-01T00:00:00.000Z
 const date = computed<string>(() =>
-  moment(dateRaw.value).utcOffset(0).date(1).hour(0).minute(0).seconds(0).milliseconds(0).toISOString(),
+  moment(dateRaw.value).utcOffset(0).date(1).hour(0).minute(0).seconds(0).milliseconds(0).format('YYYY-MM-DD'),
 );
 // 2024-03-01T00:00:00.000 <- Difference with 'date' only in MM field
-const dateMonthPlusOne = computed(() => moment(date.value).add(1, 'M').toISOString());
+const dateMonthPlusOne = computed(() => moment(date.value).add(1, 'M').format('YYYY-MM-DD'));
 
 watch(
   dateMonthPlusOne,

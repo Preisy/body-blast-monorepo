@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
+import { QExpansionItem } from 'quasar';
 import { Diary } from 'shared/api/diary';
 import { SBtnToggle } from 'shared/ui/btns';
 import { SReadonlyField } from 'shared/ui/inputs';
@@ -15,50 +16,34 @@ const toggleOpts = [1, 2, 3, 4, 5].map((value) => ({
   label: value.toString(),
 }));
 
-const dropdownElement = ref<HTMLDivElement>();
-const isDropdownShown = ref<boolean>(false);
-const dropdownStyle = computed(() => {
-  if (!dropdownElement.value) return '';
-  const boundingRect = dropdownElement.value?.getBoundingClientRect();
-  const deltaHeight = `${-boundingRect.height}px`;
-  const result = `calc(${deltaHeight} - 0.5rem)`;
-  return isDropdownShown.value ? '' : result;
-});
 const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
 </script>
 
 <template>
-  <div @click="isDropdownShown = !isDropdownShown" overflow-hidden rounded-1rem>
-    <div flex flex-row gap-0.5rem rounded-1rem bg-bg>
-      <SReadonlyField
-        :title="$t('admin.diary.mode') + ' ' + ISODateToDDMM(diary.date)"
-        :value="$t('admin.diary.cycle') + ' ' + (diary.cycle ?? $t('admin.diary.rest'))"
-        class="cycles"
-        w="100%"
-        bg-accent
-      />
-      <SReadonlyField
-        :title="$t('admin.diary.total') + ' ' + ISODateToDDMM(diary.date)"
-        :value="propsTotal(diary) ?? 0"
-        class="total"
-        w="100%"
-      />
-    </div>
-    <div
-      ref="dropdownElement"
-      class="dropdown"
-      :class="{ isShown: isDropdownShown }"
-      :style="{ marginTop: dropdownStyle }"
-      relative
-      z--1
-      mt-0.5rem
-      transition-500
-      ease-in-out
+  <div overflow-hidden rounded-1rem>
+    <q-expansion-item
+      hide-expand-icon
+      header-class="p-0 flex flex-row gap-0.5rem rounded-1rem bg-bg [&_.q-focus-helper]:hidden"
     >
+      <template #header>
+        <SReadonlyField
+          :title="$t('admin.diary.mode') + ' ' + ISODateToDDMM(diary.date)"
+          :value="diary.cycle ? $t('admin.diary.cycle') + ' ' + diary.cycle : $t('admin.diary.rest')"
+          class="cycles"
+          w="100%"
+          bg-accent
+        />
+        <SReadonlyField
+          :title="$t('admin.diary.total') + ' ' + ISODateToDDMM(diary.date)"
+          :value="propsTotal(diary) ?? 0"
+          class="total"
+          w="100%"
+        />
+      </template>
       <div v-for="prop in diary.props" :key="prop.id" mt-0.5rem>
         <p>{{ prop.label }}</p>
         <SBtnToggle :model-value="prop.value" :options="toggleOpts" />
       </div>
-    </div>
+    </q-expansion-item>
   </div>
 </template>
