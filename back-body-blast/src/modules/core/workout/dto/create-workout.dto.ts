@@ -41,7 +41,6 @@ export class CreateWorkoutRequest {
   @IsDefined()
   @ApiProperty()
   @IsString()
-  @Min(1)
   public userId: string;
 
   @IsDefined()
