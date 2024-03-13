@@ -10,6 +10,7 @@ COPY ./front-body-blast ./front-body-blast
 FROM node:16-alpine as builder
 WORKDIR /app
 COPY --from=installer /app .
+RUN yarn global add @quasar/cli
 RUN yarn install --frozen-lockfile
 RUN yarn workspace front-body-blast build
 RUN yarn install --production --ignore-scripts --prefer-offline --frozen-lockfile

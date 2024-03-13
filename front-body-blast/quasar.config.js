@@ -87,7 +87,7 @@ module.exports = configure(function (/* ctx */) {
             imports: ['vue', 'vue-router', 'quasar'],
             dts: './src/auto-imports.d.ts',
             eslintrc: {
-              enabled: true, // <-- this
+              enabled: false, // <-- this
             },
           },
         ],
