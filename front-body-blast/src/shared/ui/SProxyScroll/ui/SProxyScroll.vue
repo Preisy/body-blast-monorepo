@@ -6,7 +6,7 @@ defineProps<SProxyScroll>();
 
 const thumbStyle: Partial<CSSStyleDeclaration> = {
   borderRadius: '5px',
-  backgroundColor: 'var(--q-secondary)',
+  backgroundColor: 'var(--q-primary-50-solid)',
   right: '-2px',
   bottom: '-2px',
   width: '5px',
