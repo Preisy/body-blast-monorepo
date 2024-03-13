@@ -4,6 +4,7 @@ import { useField } from 'vee-validate';
 
 export interface SFilePickerProps extends Omit<QFileProps, 'modelValue'> {
   name: string;
+  labelNoWrap?: boolean;
 }
 const props = defineProps<SFilePickerProps>();
 defineEmits<{
@@ -27,6 +28,7 @@ const { value, errorMessage } = useField<File>(() => props.name);
       :error="!!errorMessage"
       bottom-slots
       class="h-min overflow-hidden! [&]:rounded-1rem [&_.q-field\_\_label]:text-bg [&_.q-field\_\_native]:text-bg"
+      :class="{ 'whitespace-nowrap': labelNoWrap }"
     >
       <template #error>
         <div absolute bottom-0.25rem text-secondary>

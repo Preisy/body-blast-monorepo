@@ -15,7 +15,7 @@ const routes: QTabProps[] = [
   { name: 'new', label: t('admin.video.nav.new') },
   { name: 'all', label: t('admin.video.nav.all') },
 ];
-const currentRoute = ref(routes[0].name);
+const currentRoute = ref(routes[1].name);
 const { videoList, getVideos } = useAdminBonusVideoStore();
 const videoData = computed(() => videoList.data?.data);
 
@@ -60,7 +60,7 @@ useLoadingAction(videoList.state, getVideos);
 
       <!-- All prompts -->
       <q-tab-panel :name="routes[1].name" p="0!">
-        <SProxyScroll h-full v-if="videoData" overflow-hidden>
+        <SProxyScroll h-full v-if="videoData?.length" overflow-hidden>
           <SComponentWrapper>
             <WAdminVideo v-for="video in videoData" :video="video" :key="video.id" mb-1rem />
           </SComponentWrapper>

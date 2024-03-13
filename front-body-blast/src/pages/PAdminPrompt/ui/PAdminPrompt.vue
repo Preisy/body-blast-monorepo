@@ -15,7 +15,7 @@ const routes: QTabProps[] = [
   { name: 'new', label: t('admin.prompt.nav.new') },
   { name: 'all', label: t('admin.prompt.nav.all') },
 ];
-const currentRoute = ref(routes[0].name);
+const currentRoute = ref(routes[1].name);
 const { prompts, getPrompts } = useAdminPromptStore();
 const rawPrompts = computed(() => prompts.data?.data);
 
@@ -54,7 +54,7 @@ useLoadingAction(prompts.state, () => getPrompts({ type: '' }));
     <q-tab-panels v-model="currentRoute" animated keep-alive swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <q-tab-panel :name="routes[0].name" h-full overflow-hidden p="0!">
-        <SProxyScroll h-full>
+        <SProxyScroll :content-style="{ width: '100%' }" h-full>
           <WPromptCreation />
         </SProxyScroll>
       </q-tab-panel>

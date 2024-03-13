@@ -52,8 +52,8 @@ const clearEditing = () => {
     />
     <q-tab-panels
       v-model="date"
-      keep-alive
       :keep-alive-include="[today.format('YYYY/MM/DD')]"
+      keep-alive
       swipeable
       animated
       h-full

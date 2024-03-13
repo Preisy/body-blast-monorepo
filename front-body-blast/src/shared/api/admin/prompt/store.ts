@@ -18,13 +18,11 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   const postPrompts = async (data: Array<Prompt.Post.Dto>) => {
     prompts.value.createState.loading();
     for (const prompt of data) {
-      const photoLink = await fileStore.postFile({ file: prompt.photo });
-      if (!photoLink.data) {
-        prompts.value.createState.error();
-        return;
-      }
-      const videoLink = await fileStore.postFile({ file: prompt.video });
-      if (!videoLink.data) {
+      const [photoLink, videoLink] = await Promise.all([
+        fileStore.postFile({ file: prompt.photo }),
+        fileStore.postFile({ file: prompt.video }),
+      ]);
+      if (!photoLink.data || !videoLink.data) {
         prompts.value.createState.error();
         return;
       }

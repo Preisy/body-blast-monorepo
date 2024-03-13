@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { WSelfControlList } from 'widgets/WSelfControlList';
 import { WStepsList } from 'widgets/WStepsList';
 import { useAdminUserProfileStore } from 'shared/api/admin';
@@ -18,13 +18,14 @@ const props = defineProps<PAdminDiaryProps>();
 const { getUserSteps, getUserDiaries, userDiaries, userSteps } = useAdminUserProfileStore();
 
 // 2024-02-01T23:59:59.000Z
-const dateRaw = ref<string>(moment().toISOString());
+const dateRaw = ref<Moment>(moment());
+const calendarDate = computed(() => dateRaw.value.format('YYYY/MM/DD'));
 // 2024-02-01T00:00:00.000Z
 const date = computed<string>(() =>
-  moment(dateRaw.value).utcOffset(0).date(1).hour(0).minute(0).seconds(0).milliseconds(0).format('YYYY-MM-DD'),
+  dateRaw.value.clone().utcOffset(0).date(1).hour(0).minute(0).seconds(0).milliseconds(0).toISOString(),
 );
 // 2024-03-01T00:00:00.000 <- Difference with 'date' only in MM field
-const dateMonthPlusOne = computed(() => moment(date.value).add(1, 'M').format('YYYY-MM-DD'));
+const dateMonthPlusOne = computed(() => dateRaw.value.clone().add(1, 'M').toISOString());
 
 watch(
   dateMonthPlusOne,
@@ -62,12 +63,9 @@ const diariesSlides = computed(() => {
 <template>
   <SComponentWrapper h-full>
     <SCalendar
-      v-model="dateRaw"
-      default-view="Months"
-      mask="YYYY-MM-01T23:59:59.000"
-      emit-immediately
+      :model-value="calendarDate"
+      @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
       today-btn
-      minimal
     />
 
     <SProxyScroll h-full>

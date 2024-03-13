@@ -44,6 +44,7 @@ const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>
             name="photo"
             :label="$t('admin.prompt.list.photo')"
             w="1/2"
+            label-no-wrap
             flex-1
           />
           <SFilePicker
@@ -51,6 +52,7 @@ const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>
             name="video"
             :label="$t('admin.prompt.list.video')"
             w="1/2"
+            label-no-wrap
             flex-1
           />
         </div>

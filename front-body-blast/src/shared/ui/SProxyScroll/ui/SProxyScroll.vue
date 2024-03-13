@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { QScrollArea } from 'quasar';
+import { QScrollArea, QScrollAreaProps } from 'quasar';
+
+export interface SProxyScroll extends QScrollAreaProps {}
+defineProps<SProxyScroll>();
 
 const thumbStyle: Partial<CSSStyleDeclaration> = {
   borderRadius: '5px',
@@ -14,7 +17,13 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
 </script>
 
 <template>
-  <q-scroll-area :thumb-style="thumbStyle" :horizontal-thumb-style="thumbStyle" :style="{ contain: 'unset' }" h-full>
+  <q-scroll-area
+    v-bind="$props"
+    :thumb-style="thumbStyle"
+    :horizontal-thumb-style="thumbStyle"
+    :style="{ contain: 'unset' }"
+    h-full
+  >
     <slot />
   </q-scroll-area>
 </template>

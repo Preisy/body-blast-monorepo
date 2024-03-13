@@ -51,7 +51,6 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
       class="popup"
       ref="float"
       :style="{ ...floatingStyles, height: contentHeight }"
-      pointer-events-revert-layer
       right-0
       z-1000
       overflow-hidden
@@ -59,7 +58,7 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
       bg-primary
     >
       <div ref="content" flex flex-row rounded-0.75rem>
-        <div v-for="item in items" :key="item.key" @click="() => onItemClick(item)">
+        <div v-for="item in items" :key="item.key" @click="onItemClick(item)">
           <slot name="item" :item="item" />
         </div>
       </div>
@@ -68,7 +67,6 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
       <SInput
         ref="anchor"
         @focus="isOpen = true"
-        @blur="isOpen = false"
         @update:model-value="onInput"
         :label="label"
         watch-model-value
