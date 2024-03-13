@@ -38,9 +38,6 @@ const onEdit = (id: Workout) => {
 const clearEditing = () => {
   editingWorkout.value = null;
 };
-const aboba = ref(false);
-
-setInterval(() => (aboba.value = !aboba.value), 1000);
 </script>
 
 <template>
