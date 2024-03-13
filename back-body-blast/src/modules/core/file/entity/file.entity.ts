@@ -5,7 +5,7 @@ import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
 @Entity('files')
 export class FileEntity extends AppBaseEntity {
   @ApiProperty()
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 500 })
   public fileName: string;
 
   @ApiProperty()
