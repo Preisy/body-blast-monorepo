@@ -26,15 +26,14 @@ export namespace AdminUser {
       id: AppBaseEntity.Dto['id'];
       pagination?: AppPagination.DateDto;
     }
-    export interface Response
-      extends AppBaseEntity.Response<{
-        weeks: Array<{
-          steps: number;
-          stepsGoal: number;
-          startDate: string;
-          endDate: string;
-        }>;
-      }> {}
+    export interface Response {
+      weeks: Array<{
+        steps: number;
+        stepsGoal: number;
+        startDate: string;
+        endDate: string;
+      }>;
+    }
   }
 
   export namespace Patch {

@@ -47,7 +47,7 @@ watch(
 );
 
 const diariesData = computed(() => userDiaries.data?.data);
-const stepsData = computed(() => userSteps.data?.data);
+const stepsData = computed(() => userSteps.data);
 
 const diariesSlides = computed(() => {
   const diariesSlides: Record<string, Array<Diary>> = {};
