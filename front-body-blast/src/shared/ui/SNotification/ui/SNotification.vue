@@ -2,9 +2,18 @@
 import { symRoundedClose, symRoundedError } from '@quasar/extras/material-symbols-rounded';
 import { useMeStore } from 'shared/api/me';
 import { NotificationTypes, notificationBus, useNotificationStore } from 'shared/api/notification';
+import { ENUMS } from 'shared/lib/enums';
 
 const currentNotificationType = ref<NotificationTypes | null>(null);
 const classList = computed(() => (currentNotificationType.value === null ? 'translate-y--150%' : 'translate-y-0'));
+const page = computed(() => {
+  if (!currentNotificationType.value) return undefined;
+  const map: Record<NotificationTypes, string> = {
+    diary: ENUMS.ROUTES_NAMES.DIARY,
+    anthropometrics: ENUMS.ROUTES_NAMES.PROFILE,
+  };
+  return map[currentNotificationType.value];
+});
 
 const { me } = useMeStore();
 const { getNotifications, notificationsQueue } = useNotificationStore();
@@ -42,10 +51,10 @@ onMounted(async () => {
   <div
     left="50%"
     translate-x="-50%"
-    min-w="70%"
     fixed
     top-0.5rem
     z-9999
+    class="w-[calc(100%-2rem)]"
     flex
     flex-row
     rounded-0.75rem
@@ -56,15 +65,15 @@ onMounted(async () => {
     ease-in-out
     :class="classList"
   >
-    <div>
-      <p text-bg>{{ $t('global.notification.attention') }}</p>
-      <div flex flex-row items-center text-1.25rem text-secondary>
+    <router-link :to="{ name: page }">
+      <p text-0.85rem tracking-tighter text-bg>{{ $t('global.notification.attention') }}</p>
+      <div flex flex-row items-center text-1rem text-secondary>
         <q-icon :name="symRoundedError" mr-0.25rem />
 
         <!-- See SNotification/i18n -->
         <div v-if="currentNotificationType" font-bold>{{ $t(`notification.${currentNotificationType}`) }}</div>
       </div>
-    </div>
+    </router-link>
     <q-btn :icon="symRoundedClose" text-color="bg" @click="onClose" ml-auto w-2rem />
   </div>
 </template>
