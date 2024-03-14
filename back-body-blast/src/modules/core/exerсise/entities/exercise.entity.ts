@@ -41,6 +41,10 @@ export class ExerciseEntity extends AppBaseEntity {
   @Column({ type: 'varchar', length: 250 })
   public videoLink: string;
 
+  @ApiProperty()
+  @Column({ type: 'varchar', length: 10 })
+  public promptType: string;
+
   @ApiProperty({ type: () => WorkoutEntity })
   @ManyToOne(() => WorkoutEntity, (workout) => workout.exercises, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'workoutId' })
