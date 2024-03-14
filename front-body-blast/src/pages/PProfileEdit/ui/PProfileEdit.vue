@@ -52,7 +52,6 @@ const patchUser = async () => {
   for (const form of formsRef.value) {
     await form.handleSubmit((formValues) => assign(updatedUserData.value, formValues))();
   }
-  console.log(updatedUserData.value);
   patchMe(updatedUserData.value);
 };
 </script>

@@ -16,10 +16,7 @@ export const useFileStore = defineStore('file-store', () => {
       serviceAction: adminFileService.getFileByName(data),
       onSuccess: (file) => {
         const link = URL.createObjectURL(file);
-        const destructor = () => {
-          console.log('destruct');
-          URL.revokeObjectURL(link);
-        };
+        const destructor = () => URL.revokeObjectURL(link);
         const data: URLHandler = { link, destructor };
         if (stateWrapper) stateWrapper.data = data;
         else getFileResponse.value.data = data;

@@ -18,7 +18,7 @@ export interface WPromptsProps {
 }
 const props = defineProps<WPromptsProps>();
 
-const { deletePrompt, prompts } = useAdminPromptStore();
+const { deletePrompt } = useAdminPromptStore();
 
 const { state: video } = useAuthLink(props.prompt.videoLink);
 const { state: photo } = useAuthLink(props.prompt.photoLink);
@@ -34,12 +34,7 @@ const openDialog = (data: Prompt) => {
 };
 
 const onDeleteClick = async (id: AppBaseEntity['id']) => {
-  await deletePrompt({ id });
-
-  if (prompts.deleteState.isSuccess()) {
-    const index = prompts.data?.data.findIndex((prompt) => props.prompt.id === prompt.id);
-    if (index) prompts.data?.data.splice(index, 1);
-  }
+  deletePrompt({ id });
 };
 </script>
 

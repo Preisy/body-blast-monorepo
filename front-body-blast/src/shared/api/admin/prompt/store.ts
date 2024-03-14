@@ -45,6 +45,14 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     useStoreAction({
       state: prompts.value.deleteState,
       serviceAction: adminPromptsService.deletePrompt(data),
+      onSuccess: (res) => {
+        if (!res.status) return;
+        const listData = prompts.value.data?.data;
+        if (!listData) return;
+
+        const index = listData.findIndex((prompt) => prompt.id === data.id);
+        listData.splice(index, 1);
+      },
     });
 
   const patchPrompt = async (id: string | number, data: Prompt.Patch.Dto) => {

@@ -10,18 +10,7 @@ export const useAuthLink = (link: MaybeRefOrGetter<string> | ComputedRef<string>
     const videoFileName = computed(() => toValue(link).split('/').pop() || '');
     fileStore.getFileByName({ filename: videoFileName.value }, state.value);
   });
-  // watch(
-  //   toRef(link),
-  //   () => {
-  //     console.log(link);
-  //     const videoFileName = computed(() => toValue(link).split('/').pop() || '');
-  //     fileStore.getFileByName({ filename: videoFileName.value }, state.value);
-  //   },
-  //   { immediate: true },
-  // );
-
   onUnmounted(() => {
-    console.log('aboba');
     state.value.data?.destructor();
   });
 

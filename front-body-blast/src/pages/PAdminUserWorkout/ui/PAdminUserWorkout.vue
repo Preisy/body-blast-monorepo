@@ -50,8 +50,8 @@ const clearEditing = () => {
         moment().format('YYYY/MM/DD'),
         ...(workoutListData?.map((workout) => moment(workout.date).format('YYYY/MM/DD')) ?? []),
       ]"
-      pb-1rem
-      pt-2rem
+      mb-1rem
+      mt-1rem
     />
     <q-tab-panels
       v-model="date"

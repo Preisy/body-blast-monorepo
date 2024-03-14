@@ -49,45 +49,58 @@ const onsubmit = async () => {
   }
   for (let i = 0; i < exerciseForms.value.length; i++) {
     const exerciseForm = exerciseForms.value[i];
-    await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
-      //find prompt with id. use prompt to pick photoLink and videoLink
-      const { prompt } = values;
+    await exerciseForm.handleSubmit(
+      (values: z.infer<typeof ExerciseValidation>) => {
+        //find prompt with id. use prompt to pick photoLink and videoLink
+        const { prompt } = values;
 
-      const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
-        name: values.name,
-        pace: values.pace,
-        photoLink: prompt.photoLink,
-        videoLink: prompt.videoLink,
-        repetitions: values.repetitions,
-        restTime: values.restTime,
-        trainerComment: values.trainerComment,
-        sets: values.sets,
-        weight: values.weight,
-      };
+        const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
+          name: values.name,
+          pace: values.pace,
+          photoLink: prompt.photoLink,
+          promptType: prompt.type,
+          videoLink: prompt.videoLink,
+          repetitions: values.repetitions,
+          restTime: values.restTime,
+          trainerComment: values.trainerComment,
+          sets: values.sets,
+          weight: values.weight,
+        };
 
-      assign(exercises.value[i], exercise);
-    })();
+        assign(exercises.value[i], exercise);
+      },
+      (err) => {
+        console.error(err);
+        return;
+      },
+    )();
   }
 
-  await trainingForm.value?.handleSubmit((values: z.infer<ReturnType<typeof Workout.validation>>) => {
-    const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
-      name: values.name,
-      comment: values.comment,
-      date: props.date,
-      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
-      cycle: values.cycle,
-      userId: props.id,
-    };
+  await trainingForm.value?.handleSubmit(
+    (values: z.infer<ReturnType<typeof Workout.validation>>) => {
+      const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
+        name: values.name,
+        comment: values.comment,
+        date: props.date,
+        exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
+        cycle: values.cycle,
+        userId: props.id,
+      };
 
-    if (props.isEdit && props.workoutId) {
-      useLoadingAction(workoutList.updateState, () => {
-        if (props.workoutId) patchWorkout(props.workoutId, workout);
-      });
-      emit('edit');
-    } else {
-      useLoadingAction(workoutList.createState, () => postWorkout(workout));
-    }
-  })();
+      if (props.isEdit && props.workoutId) {
+        useLoadingAction(workoutList.updateState, () => {
+          if (props.workoutId) patchWorkout(props.workoutId, workout);
+        });
+        emit('edit');
+      } else {
+        useLoadingAction(workoutList.createState, () => postWorkout(workout));
+      }
+    },
+    (err) => {
+      console.error(err);
+      return;
+    },
+  )();
 };
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
@@ -115,7 +128,10 @@ useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
         v-for="(exercise, index) in exercises"
         :key="exercise.key"
         :field-schema="toTypedSchema(ExerciseValidation)"
-        :init-values="exercise"
+        :init-values="{
+          ...exercise,
+          prompt: { type: exercise.promptType },
+        }"
         p="0!"
         mt-0.5rem
       >
