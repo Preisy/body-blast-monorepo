@@ -11,6 +11,7 @@ import { CreateWorkoutRequest } from './dto/create-workout.dto';
 import { GetWorkoutDTO } from './dto/get-workout.dto';
 import { UpdateWorkoutRequest } from './dto/update-workout.dto';
 import { WorkoutEntity } from './entity/workout.entity';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 
 @Injectable()
 export class BaseWorkoutService {
@@ -41,6 +42,16 @@ export class BaseWorkoutService {
     const { data, count } = await getPaginatedData(query, options);
     const newData = data.map((it) => this.getWorkoutDTO(it));
     return new AppPagination.Response(newData, count);
+  }
+
+  async findAllByDate(
+    query: AppDatePagination.Request,
+    options?: AppDatePagination.GetExecutorOptions<WorkoutEntity>,
+  ): Promise<AppDatePagination.Response<WorkoutEntity>> {
+    const { getPaginatedData } = AppDatePagination.getExecutor(this.workoutRepository, this.relations);
+    const { data, count } = await getPaginatedData(query, options);
+    const newData = data.map((it) => this.getWorkoutDTO(it));
+    return new AppDatePagination.Response(newData, count);
   }
 
   async findOne(id: WorkoutEntity['id']) {
