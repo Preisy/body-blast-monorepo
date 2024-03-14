@@ -2,6 +2,7 @@
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
+import { SLoading } from 'shared/ui/SLoading';
 import { SVideo } from 'shared/ui/SVideo';
 
 const props = defineProps<{
@@ -24,7 +25,7 @@ const videoControl = ref<InstanceType<typeof SVideo>>();
         <SVideo ref="videoControl" :link-url="video.data.link" disable-btn />
       </template>
       <template v-else>
-        <q-circular-progress indeterminate rounded size="50px" color="secondary" class="q-ma-md" />
+        <SLoading />
       </template>
     </div>
 
