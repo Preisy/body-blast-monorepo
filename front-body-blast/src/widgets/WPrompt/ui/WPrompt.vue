@@ -7,6 +7,7 @@ import {
 } from '@quasar/extras/material-symbols-rounded';
 import { FPromptEditDialog } from 'features/FPromptEditDialog';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
 import { SVideo } from 'shared/ui/SVideo';
@@ -31,7 +32,7 @@ const openDialog = (data: Prompt) => {
   isEditDialogOpen.value = true;
 };
 
-const onDeleteClick = async (id: number) => {
+const onDeleteClick = async (id: AppBaseEntity['id']) => {
   await deletePrompt({ id });
 
   if (prompts.deleteState.isSuccess()) {

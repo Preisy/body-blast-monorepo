@@ -92,7 +92,17 @@ const slides: RegisterSlides = [
       onSubmit: async (data) => {
         authStore.applyMotivations(data);
         submitBtnsExceptLast.value.forEach((btn) => btn.click());
-        const tokenResponse = await authStore.signUp();
+        if (!authStore.signUpRequest.email || !authStore.signUpRequest.password) return;
+
+        const signUpResult = await authStore.signUp();
+        if (!signUpResult.data) {
+          console.error(signUpResult.error);
+          return;
+        }
+        const tokenResponse = await authStore.login({
+          email: authStore.signUpRequest.email,
+          password: authStore.signUpRequest.password,
+        });
         if (authStore.signUpState.state.isSuccess() && tokenResponse.data) {
           TokenService.setTokens(tokenResponse.data);
           router.push({ name: ENUMS.ROUTES_NAMES.HOME });

@@ -3,7 +3,7 @@ import { symRoundedDelete, symRoundedDone } from '@quasar/extras/material-symbol
 import { FNutritionListForm } from 'features/FNutritionListForm';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
-import { useLoading, useLoadingAction } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
@@ -14,7 +14,7 @@ const props = defineProps<WAdminNutritionLongProps>();
 const mealItems = computed(() => props.nutrition.mealItems || []);
 const categories = [1, 2, 3] as const;
 
-const { nutritionList, getNutritions, patchNutrition, deleteNutrition } = useAdminNutritionStore();
+const { nutritionList, patchNutrition, deleteNutrition } = useAdminNutritionStore();
 
 const forms = ref<Array<InstanceType<typeof FNutritionListForm>>>();
 
@@ -28,9 +28,7 @@ const onSubmit = async () => {
 };
 
 const onDelete = async () => {
-  useLoading(nutritionList.deleteState);
-  await deleteNutrition({ id: props.nutrition.id });
-  useLoadingAction(nutritionList.state, () => getNutritions({ expanded: true }));
+  useLoadingAction(nutritionList.deleteState, () => deleteNutrition({ id: props.nutrition.id }));
 };
 </script>
 

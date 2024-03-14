@@ -35,7 +35,6 @@ const week = computed(() => {
 
 <template>
   <div h-full>
-    <!-- TODO: weekNum -->
     <EDiaryHeader
       v-if="meData"
       :steps-goal="meData.stepsGoal"

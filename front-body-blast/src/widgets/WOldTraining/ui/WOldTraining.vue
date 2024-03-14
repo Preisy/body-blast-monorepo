@@ -3,7 +3,7 @@ import { symRoundedDelete, symRoundedEdit } from '@quasar/extras/material-symbol
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
 import { useAdminWorkoutStore } from 'shared/api/admin';
 import { Workout } from 'shared/api/workout';
-import { useLoading } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SReadonlyField } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -17,13 +17,11 @@ const emit = defineEmits<{
 }>();
 
 const { deleteWorkout, workoutList } = useAdminWorkoutStore();
-useLoading(workoutList.deleteState);
 
 const onEdit = async () => {
   emit('edit', props.workout);
 };
-
-const onDelete = () => deleteWorkout(props.workout.id);
+const onDelete = () => useLoadingAction(workoutList.deleteState, () => deleteWorkout(props.workout.id));
 </script>
 
 <template>

@@ -4,11 +4,11 @@ import moment, { Moment } from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
-import { useAdminUserProfileStore } from 'shared/api/admin';
-import { useProfileStore } from 'shared/api/anthropometry';
+import { useAdminUserProfileStore, useAdminAnthropometryStore } from 'shared/api/admin';
+import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
-import { useLoading, useLoadingAction } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -18,7 +18,7 @@ import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
 export interface PAdminUserProfileProps {
-  id: number;
+  id: AppBaseEntity['id'];
 }
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
@@ -42,9 +42,8 @@ const userName = computed(() => `${userData.value?.firstName} ${userData.value?.
 const canWatchVideo = computed(() => userData.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => userData.value?.anthrpJobPeriod);
 
-useLoading(user.updateState);
 const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
-  patchUserProfile({ id: props.id, user: { [field]: newValue } });
+  useLoadingAction(user.updateState, () => patchUserProfile({ id: props.id, user: { [field]: newValue } }));
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
@@ -57,13 +56,13 @@ const anthrpJobPeriodOptions = [
   { value: 14, label: '14' },
 ];
 
-const { anthropometry, getAnthropometry } = useProfileStore();
+const { anthropometryList, getAnthropometry } = useAdminAnthropometryStore();
 
 const index = ref(0);
-const lock = computed(() => anthropometry.state.isLoading());
+const lock = computed(() => anthropometryList.state.isLoading());
 const slides = computed(
   () =>
-    anthropometry.data?.data
+    anthropometryList.data?.data
       .filter((slide) => slide.userId === props.id)
       .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
 );
@@ -77,7 +76,7 @@ const updateDate = (newValue: string) => {
   const from = date.value.clone().subtract(2, 'w').toISOString();
   const to = dateISOString.value;
 
-  getAnthropometry({ from, to });
+  getAnthropometry({ from, to, id: props.id });
 };
 
 const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
@@ -93,9 +92,9 @@ const update = (direction: 'back' | 'front', createdAt: string = date.value.toIS
   }
 
   date.value = to;
-  return getAnthropometry({ from: from.toISOString(), to: to.toISOString() });
+  return getAnthropometry({ from: from.toISOString(), to: to.toISOString(), id: props.id });
 };
-useLoadingAction(anthropometry, () => update('back', date.value.add(2, 'w').toISOString()));
+useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').toISOString()));
 </script>
 
 <template>

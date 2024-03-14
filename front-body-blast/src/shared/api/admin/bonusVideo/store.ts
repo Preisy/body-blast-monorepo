@@ -1,4 +1,3 @@
-import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { BonusVideo } from 'shared/api/bonusVideo';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
@@ -50,8 +49,7 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
         const listData = videoList.value.data?.data;
         if (!listData) return;
 
-        const index = listData.findIndex((video) => video.id === res.data.id);
-        assign(listData[index], res.data);
+        listData.push(res.data);
       },
     });
   };

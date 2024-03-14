@@ -5,6 +5,7 @@ export default {
       total: 'Сумма за',
       mode: 'Режим',
       cycle: 'Цикл',
+      rest: 'Отдых',
     },
   },
 };
