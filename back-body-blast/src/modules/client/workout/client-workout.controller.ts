@@ -21,6 +21,7 @@ import { RequestWithUser } from '../../authentication/types/requestWithUser.type
 import { ClientWorkoutService } from './client-workout.service';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 
 @ApiTags('Workouts')
 @Controller('workouts')
@@ -34,6 +35,13 @@ export class ClientWorkoutController {
   @AppAuthGuard()
   async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
     return await this.clientService.findAll(req.user.id, query);
+  }
+
+  @Get('date')
+  @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
+  @AppAuthGuard()
+  async getAllByDate(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
+    return await this.clientService.findAllByDate(req.user.id, query);
   }
 
   @Patch(':id')
