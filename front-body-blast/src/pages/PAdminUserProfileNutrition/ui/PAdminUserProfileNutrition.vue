@@ -69,7 +69,6 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
             :nutrition="nutrition"
             :key="nutrition.id"
             :title="pages[0].label"
-            v-memo="nutritionsData"
           />
           <WAdminNewNutrition :user-id="id" />
         </q-tab-panel>
