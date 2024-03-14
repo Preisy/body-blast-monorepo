@@ -78,6 +78,7 @@ const close = () => {
       <SInput
         ref="anchor"
         @focus="open"
+        @blur="close"
         @update:model-value="onInput"
         :label="label"
         watch-model-value

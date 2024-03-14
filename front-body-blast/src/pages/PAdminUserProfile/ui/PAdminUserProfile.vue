@@ -9,6 +9,7 @@ import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
+import { fromCreatedToToday } from 'shared/lib/utils';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -135,18 +136,28 @@ useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').
         </SComponentWrapper>
 
         <div>
-          <SCalendar :model-value="dateISOString" @update:model-value="updateDate" />
+          <SCalendar
+            :model-value="dateISOString"
+            @update:model-value="updateDate"
+            :options="(date) => fromCreatedToToday(date)"
+          />
           <SPaginationSlider
-            v-if="slides && slides.length"
-            :slides="slides"
+            :slides="slides?.length ? slides : [{ name: 'no-result' }]"
             :lock="lock"
             v-model="index"
             @first-element="() => update('back')"
             @last-element="() => update('front')"
           >
-            <EAthropometricsItem :profile="slides[index]" p="0!" readonly pointer-events-none select-none />
+            <EAthropometricsItem
+              v-if="slides && slides.length"
+              :profile="slides[index]"
+              p="0!"
+              readonly
+              pointer-events-none
+              select-none
+            />
+            <SNoResultsScreen v-else p-1.5rem />
           </SPaginationSlider>
-          <SNoResultsScreen v-else p-1.5rem />
         </div>
       </template>
     </SWithHeaderLayout>

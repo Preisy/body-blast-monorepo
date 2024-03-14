@@ -46,7 +46,10 @@ const clearEditing = () => {
   <SStructure h-full flex flex-col>
     <SCalendar
       v-model="date"
-      :options="workoutListData?.map((workout) => moment(workout.date).format('YYYY/MM/DD'))"
+      :options="[
+        moment().format('YYYY/MM/DD'),
+        ...(workoutListData?.map((workout) => moment(workout.date).format('YYYY/MM/DD')) ?? []),
+      ]"
       pb-1rem
       pt-2rem
     />
@@ -66,7 +69,7 @@ const clearEditing = () => {
         class="overflow-hidden! p-0!"
         h-full
       >
-        <SProxyScroll h-full>
+        <SProxyScroll h-full type="vertical">
           <WOldTraining v-if="!editingWorkout" :workout="workout" @edit="onEdit" />
           <WNewTraining
             v-else
@@ -81,7 +84,7 @@ const clearEditing = () => {
         </SProxyScroll>
       </q-tab-panel>
       <q-tab-panel :name="today.format('YYYY/MM/DD')" class="overflow-hidden! p-0!" h-full>
-        <SProxyScroll h-full>
+        <SProxyScroll h-full type="vertical">
           <WOldTraining v-if="todayWorkout && !editingWorkout" :workout="todayWorkout" @edit="onEdit" />
           <WNewTraining
             v-else

@@ -27,7 +27,7 @@ const onDelete = () => {
 
 <template>
   <div w-full>
-    <h2 mb-4>{{ video.name }}</h2>
+    <h2 mb-1rem>{{ video.name }}</h2>
     <div>
       <template v-if="link.data">
         <SVideo ref="videoRef" :link-url="link.data.link" disable-btn />

@@ -44,7 +44,7 @@ export namespace Workout {
   export const validation = () =>
     z.object({
       name: z.coerce.string().min(1).default(''),
-      cycle: z.coerce.string().min(1).default(''),
+      cycle: z.coerce.number().min(1),
       comment: z.coerce.string().min(1).optional(),
       exercises: z.array(
         z.object({
@@ -52,7 +52,7 @@ export namespace Workout {
           weight: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           sets: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           repetitions: z.string().min(1),
-          trainerComment: z.string().min(1).optional(),
+          trainerComment: z.string().or(z.undefined()),
           restTime: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           pace: z.coerce.string().min(1),
           prompt: z.object({
