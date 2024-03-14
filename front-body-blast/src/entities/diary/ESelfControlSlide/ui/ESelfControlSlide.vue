@@ -24,6 +24,7 @@ const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
     <q-expansion-item
       hide-expand-icon
       header-class="p-0 flex flex-row gap-0.5rem rounded-1rem bg-bg [&_.q-focus-helper]:hidden"
+      :duration="100"
     >
       <template #header>
         <SReadonlyField
@@ -42,7 +43,8 @@ const ISODateToDDMM = (ISOString: string) => moment(ISOString).format('DD.MM');
       </template>
       <div v-for="prop in diary.props" :key="prop.id" mt-0.5rem>
         <p>{{ prop.label }}</p>
-        <SBtnToggle :model-value="prop.value" :options="toggleOpts" />
+        <p>{{ prop.value }}</p>
+        <SBtnToggle :model-value="prop.value" :options="toggleOpts" readonly />
       </div>
     </q-expansion-item>
   </div>
