@@ -10,7 +10,7 @@ import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
 import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
+import { SLoading } from 'shared/ui/SLoading';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
@@ -61,7 +61,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
       <SCenteredNav v-model="pageValue" :pages="pages" />
     </div>
 
-    <SProxyScroll :content-style="{ width: '100%' }">
+    <SProxyScroll type="vertical">
       <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite>
         <q-tab-panel :name="pages[0].value" p="0!">
           <WAdminNutrition
@@ -69,6 +69,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
             :nutrition="nutrition"
             :key="nutrition.id"
             :title="pages[0].label"
+            v-memo="nutritionsData"
           />
           <WAdminNewNutrition :user-id="id" />
         </q-tab-panel>
@@ -81,7 +82,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
           <WAdminNewFood :user-id="id" />
         </q-tab-panel>
       </q-tab-panels>
-      <SNoResultsScreen v-else />
+      <SLoading v-else />
     </SProxyScroll>
   </SStructure>
 </template>
