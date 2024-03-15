@@ -78,7 +78,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
         </q-tab-panel>
 
         <q-tab-panel name="new_food" p="0!">
-          <WAdminNewFood :user-id="id" />
+          <WAdminNewFood :user-id="id" @created="(type) => (pageValue = type)" />
         </q-tab-panel>
       </q-tab-panels>
       <SLoading v-else />
