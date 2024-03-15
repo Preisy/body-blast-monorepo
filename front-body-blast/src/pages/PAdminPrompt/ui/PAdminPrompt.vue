@@ -15,16 +15,11 @@ const routes: QTabProps[] = [
   { name: 'new', label: t('admin.prompt.nav.new') },
   { name: 'all', label: t('admin.prompt.nav.all') },
 ];
-const currentRoute = ref(routes[0].name);
+const currentRoute = ref(routes[1].name);
 const { prompts, getPrompts } = useAdminPromptStore();
 const rawPrompts = computed(() => prompts.data?.data);
 
 useLoadingAction(prompts.state, () => getPrompts({ type: '' }));
-
-const onTransition = (newVal: string) => {
-  if (newVal != routes[1].name) return;
-  getPrompts({ type: '' });
-};
 </script>
 
 <template>
@@ -56,17 +51,17 @@ const onTransition = (newVal: string) => {
     </q-tabs>
 
     <!-- Page body -->
-    <q-tab-panels v-model="currentRoute" @transition="onTransition" animated keep-alive swipeable h-full pt-3rem>
+    <q-tab-panels v-model="currentRoute" animated keep-alive swipeable h-full pt-3rem>
       <!-- Add prompt -->
       <q-tab-panel :name="routes[0].name" h-full overflow-hidden p="0!">
-        <SProxyScroll h-full>
+        <SProxyScroll h-full type="vertical">
           <WPromptCreation />
         </SProxyScroll>
       </q-tab-panel>
 
       <!-- All prompts -->
       <q-tab-panel :name="routes[1].name" p="0!">
-        <SProxyScroll h-full v-if="rawPrompts" overflow-hidden>
+        <SProxyScroll h-full v-if="rawPrompts?.length" overflow-hidden>
           <SComponentWrapper>
             <WPrompt v-for="prompt in rawPrompts" :prompt="prompt" :key="prompt.id" mb-1rem />
           </SComponentWrapper>

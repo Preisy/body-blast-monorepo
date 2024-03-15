@@ -1,8 +1,9 @@
 import { route } from 'quasar/wrappers';
+import { WatchStopHandle } from 'vue';
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import { useMeStore } from 'shared/api/me';
 import { ENUMS } from 'shared/lib/enums';
-import { useLoading } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { checkAdminPermissions, checkWatchVideoPermissions } from './permissions';
 import routes from './routes';
 
@@ -37,8 +38,16 @@ export default route(function (/* { store, ssrContext } */) {
 
     const { me, getMe } = useMeStore();
     if (!me.data?.data) {
-      useLoading(me);
-      await getMe();
+      let unwatch: WatchStopHandle;
+      const promise = new Promise<void>((resolve) => {
+        useLoadingAction(me, getMe);
+        unwatch = watchEffect(() => {
+          if (!me.state.isLoading() && me.state.value !== 'UNSET') {
+            resolve();
+          }
+        });
+      });
+      await promise.then(() => unwatch());
     }
 
     if (me.state.isError() || !me.data) {

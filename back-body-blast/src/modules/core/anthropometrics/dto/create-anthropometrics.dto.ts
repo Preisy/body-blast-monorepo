@@ -44,5 +44,5 @@ export class CreateAnthropometricsRequest {
   @Max(150)
   public hipVolume: number;
 
-  public userId: number;
+  public userId: string;
 }

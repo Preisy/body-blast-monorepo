@@ -95,7 +95,7 @@ export class BaseUserService {
     return new AppSingleResponse(savedUser);
   }
 
-  async deleteUserById(id: number): Promise<AppStatusResponse> {
+  async deleteUserById(id: string): Promise<AppStatusResponse> {
     const { affected } = await this.userRepository.softDelete(id);
     return new AppStatusResponse(!!affected);
   }

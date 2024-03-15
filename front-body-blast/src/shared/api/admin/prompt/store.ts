@@ -1,3 +1,4 @@
+import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { useAdminFileStore } from '../file';
@@ -17,13 +18,11 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   const postPrompts = async (data: Array<Prompt.Post.Dto>) => {
     prompts.value.createState.loading();
     for (const prompt of data) {
-      const photoLink = await fileStore.postFile({ file: prompt.photo });
-      if (!photoLink.data) {
-        prompts.value.createState.error();
-        return;
-      }
-      const videoLink = await fileStore.postFile({ file: prompt.video });
-      if (!videoLink.data) {
+      const [photoLink, videoLink] = await Promise.all([
+        fileStore.postFile({ file: prompt.photo }),
+        fileStore.postFile({ file: prompt.video }),
+      ]);
+      if (!photoLink.data || !videoLink.data) {
         prompts.value.createState.error();
         return;
       }
@@ -32,6 +31,12 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
       await useStoreAction({
         state: prompts.value.createState,
         serviceAction: adminPromptsService.postPrompt(promptDto),
+        onSuccess: (res) => {
+          const listData = prompts.value.data?.data;
+          if (!listData) return;
+
+          listData.push(res.data);
+        },
       });
     }
   };
@@ -60,6 +65,12 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     await useStoreAction({
       state: prompts.value.updateState,
       serviceAction: adminPromptsService.patchPrompt(id, promptDto),
+      onSuccess: (res) => {
+        const listData = prompts.value.data?.data;
+        if (!listData) return;
+        const index = listData.findIndex((prompt) => prompt.id === res.data.id);
+        assign(listData[index], res.data);
+      },
     });
   };
 

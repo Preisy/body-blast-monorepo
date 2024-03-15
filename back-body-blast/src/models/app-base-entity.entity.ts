@@ -3,8 +3,8 @@ import { CreateDateColumn, DeleteDateColumn, PrimaryGeneratedColumn, UpdateDateC
 
 export abstract class AppBaseEntity {
   @ApiProperty()
-  @PrimaryGeneratedColumn()
-  public readonly id!: number;
+  @PrimaryGeneratedColumn('uuid')
+  public readonly id!: string;
 
   @ApiProperty()
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })

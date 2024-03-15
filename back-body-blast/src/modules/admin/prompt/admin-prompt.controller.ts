@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -50,13 +51,13 @@ export class AdminPromptController {
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async update(@Param('id') id: number, @Body() body: UpdatePromptRequest) {
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdatePromptRequest) {
     return await this.adminService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
-  async deleteOne(@Param('id') id: number) {
+  async deleteOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.deleteOne(id);
   }
 }

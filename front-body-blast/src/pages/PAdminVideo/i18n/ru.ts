@@ -1,6 +1,6 @@
 export default {
   admin: {
-    prompt: {
+    video: {
       nav: {
         new: 'Добавить',
         all: 'Все видео',

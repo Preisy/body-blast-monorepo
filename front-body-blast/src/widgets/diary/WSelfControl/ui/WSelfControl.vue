@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
 import moment from 'moment';
 import { QTabPanel } from 'quasar';
@@ -7,7 +6,6 @@ import { z } from 'zod';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
-import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -35,13 +33,8 @@ const today = moment(); // Current date
 const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 
 const activityValidation = Diary.validation().pick({ activity: true, steps: true });
-const onActivitySubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
-  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values }));
-};
-const onChangeSelfControl = (diary: Diary) => {
-  useLoadingAction(diaryList.updateState, () =>
-    patchDiary(diary.id, { props: diary.props, activity: diary.activity ?? ' ', steps: diary.steps ?? 0 }),
-  );
+const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
+  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values, props: diary.props }));
 };
 </script>
 
@@ -67,14 +60,6 @@ const onChangeSelfControl = (diary: Diary) => {
           >
             <SSplideSlide>
               <EDiarySelfControlItem :diary="slide" :readonly="isReadonly(slide.date)" />
-              <div mt-1.5rem flex v-if="!isReadonly(slide.date)">
-                <SBtn
-                  :icon="symRoundedDone"
-                  ml-auto
-                  @click="() => onChangeSelfControl(slide)"
-                  :loading="diaryList.updateState.isLoading()"
-                />
-              </div>
             </SSplideSlide>
 
             <SSplideSlide>
@@ -83,7 +68,7 @@ const onChangeSelfControl = (diary: Diary) => {
                 :readonly="isReadonly(slide.date)"
                 :field-schema="toTypedSchema(activityValidation)"
                 :init-values="slide"
-                @submit="(values) => onActivitySubmit(slide, values)"
+                @submit="(values) => onSubmit(slide, values)"
                 :loading="diaryList.updateState.isLoading()"
                 p="0!"
               >

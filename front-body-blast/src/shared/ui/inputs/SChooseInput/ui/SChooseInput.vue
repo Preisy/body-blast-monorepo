@@ -19,6 +19,8 @@ const props = defineProps<SChooseInputProps<T>>();
 const emit = defineEmits<{
   'update:modelValue': [ModelValue];
   'update:innerInput': [string];
+  open: [];
+  close: [];
 }>();
 
 const anchor = ref();
@@ -37,11 +39,20 @@ const isOpen = ref(false);
 const { value, setValue } = useField<Partial<ModelValue>>(() => props.name);
 
 const onItemClick = (val: ModelValue) => {
-  isOpen.value = false;
+  close();
   setValue(val);
   emit('update:modelValue', val);
 };
 const onInput = debounce((val) => emit('update:innerInput', val), 300);
+
+const open = () => {
+  isOpen.value = true;
+  emit('open');
+};
+const close = () => {
+  isOpen.value = false;
+  emit('close');
+};
 </script>
 
 <template>
@@ -51,7 +62,6 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
       class="popup"
       ref="float"
       :style="{ ...floatingStyles, height: contentHeight }"
-      pointer-events-revert-layer
       right-0
       z-1000
       overflow-hidden
@@ -59,7 +69,7 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
       bg-primary
     >
       <div ref="content" flex flex-row rounded-0.75rem>
-        <div v-for="item in items" :key="item.key" @click="() => onItemClick(item)">
+        <div v-for="item in items" :key="item.key" @click="onItemClick(item)">
           <slot name="item" :item="item" />
         </div>
       </div>
@@ -67,8 +77,7 @@ const onInput = debounce((val) => emit('update:innerInput', val), 300);
     <div>
       <SInput
         ref="anchor"
-        @focus="isOpen = true"
-        @blur="isOpen = false"
+        @focus="open"
         @update:model-value="onInput"
         :label="label"
         watch-model-value

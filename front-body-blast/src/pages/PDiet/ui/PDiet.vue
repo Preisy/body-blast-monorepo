@@ -7,6 +7,7 @@ import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
 import { SCenteredNav } from 'shared/ui/SCenteredNav';
+import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { STabPanels } from 'shared/ui/STabPanels';
 
 const panel = ref('nutrition');
@@ -40,7 +41,7 @@ const pages = computed(
 </script>
 
 <template>
-  <div class="h-full">
+  <div h-full flex flex-col>
     <SCenteredNav v-model="panel" :pages="[{ value: 'nutrition', label: $t(`home.diet.nutrition`) }, ...pages]" pt-4 />
 
     <STabPanels v-model="panel" keep-alive>
@@ -48,7 +49,9 @@ const pages = computed(
         <WDietNutrition v-if="nutritions" :nutritions="nutritions" />
       </q-tab-panel>
       <q-tab-panel v-for="product in foodList" :name="product.name" :key="product.name">
-        <EDietItem v-if="product.mealItems" :name="product.name" :meal-items="product.mealItems" />
+        <SProxyScroll>
+          <EDietItem v-if="product.mealItems" :name="product.name" :meal-items="product.mealItems" />
+        </SProxyScroll>
       </q-tab-panel>
     </STabPanels>
   </div>

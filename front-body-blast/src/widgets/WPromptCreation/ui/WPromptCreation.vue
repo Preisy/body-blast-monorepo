@@ -58,8 +58,15 @@ const onremove = (index: number) => promptsList.value.splice(index, 1);
       <SForm ref="forms" :field-schema="schema" p="0!" mb-0.5rem>
         <SInput name="type" :label="$t('admin.prompt.list.type')" />
         <div flex flex-row gap-x-0.5rem>
-          <SFilePicker name="photo" :label="$t('admin.prompt.list.photo')" accept=".jpg, .jpeg, .png" w="1/2" flex-1 />
-          <SFilePicker name="video" :label="$t('admin.prompt.list.video')" accept=".mp4" w="1/2" flex-1 />
+          <SFilePicker
+            name="photo"
+            :label="$t('admin.prompt.list.photo')"
+            accept=".jpg, .jpeg, .png"
+            w="1/2"
+            label-no-wrap
+            flex-1
+          />
+          <SFilePicker name="video" :label="$t('admin.prompt.list.video')" accept=".mp4" w="1/2" label-no-wrap flex-1 />
         </div>
 
         <template #submit-btn>

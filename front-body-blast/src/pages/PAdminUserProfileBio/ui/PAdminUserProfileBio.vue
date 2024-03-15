@@ -10,6 +10,7 @@ import {
 } from 'entities/form';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { SignUp } from 'shared/api/auth';
+import { AppBaseEntity } from 'shared/api/base';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
@@ -18,7 +19,7 @@ import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
 const props = defineProps<{
-  id: number;
+  id: AppBaseEntity['id'];
 }>();
 
 const router = useRouter();

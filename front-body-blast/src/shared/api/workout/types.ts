@@ -8,7 +8,7 @@ export interface Workout extends AppBaseEntity {
   date: string; //ISO string date type: 2023-12-31
   comment: Optional<string>;
   cycle: number;
-  userId: number;
+  userId: AppBaseEntity['id'];
   exercises: Optional<
     Array<
       AppBaseEntity & {
@@ -20,7 +20,7 @@ export interface Workout extends AppBaseEntity {
         pace: string;
         photoLink: string;
         videoLink: string;
-        workoutId: number;
+        workoutId: AppBaseEntity['id'];
         trainerComment: Optional<string>;
       }
     >
@@ -43,8 +43,8 @@ export namespace Workout {
   }
   export const validation = () =>
     z.object({
-      name: z.coerce.string().min(1),
-      cycle: z.coerce.string().min(1),
+      name: z.coerce.string().min(1).default(''),
+      cycle: z.coerce.string().min(1).default(''),
       comment: z.coerce.string().min(1).optional(),
       exercises: z.array(
         z.object({
@@ -56,7 +56,7 @@ export namespace Workout {
           restTime: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           pace: z.coerce.string().min(1),
           prompt: z.object({
-            id: z.coerce.number(),
+            id: z.string(),
             type: z.string(),
             photoLink: z.string(),
             videoLink: z.string(),

@@ -43,7 +43,7 @@ export class BaseDiaryService {
     });
     const workoutsToUserId = workouts.reduce(
       (acc, it) => ({ ...acc, [it.userId]: it }),
-      {} as Record<number, WorkoutEntity>,
+      {} as Record<string, WorkoutEntity>,
     );
     const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
       relations: ['props'],
@@ -84,7 +84,7 @@ export class BaseDiaryService {
     });
     const workoutsToUserId = workouts.reduce(
       (acc, it) => ({ ...acc, [it.userId]: it }),
-      {} as Record<number, WorkoutEntity>,
+      {} as Record<string, WorkoutEntity>,
     );
 
     const workout = workoutsToUserId[template.userId!];
@@ -160,14 +160,16 @@ export class BaseDiaryService {
     const firstDayOfMonth = new Date(query.from!);
     const lastDayOfMonth = new Date(query.to!);
 
-    const weeks = Math.floor((lastDayOfMonth.getDate() - firstDayOfMonth.getDate() + 1) / 7);
-
-    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+    const weeks = Math.ceil(
+      Math.abs(firstDayOfMonth.getTime() - lastDayOfMonth.getTime() /*- 1000 * 60 * 60 * 24*/) /
+        (1000 * 60 * 60 * 24 * 7),
+    );
 
     let weeksCounter = 0;
     const result: StepsByWeek[] = [];
     while (weeksCounter < weeks) {
       let steps = 0;
+      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
       newWeek.forEach((diary) => {
         if (diary.steps) steps += diary.steps;
@@ -186,7 +188,6 @@ export class BaseDiaryService {
       );
       result.push(stepsByWeek);
       firstDayOfWeek.setDate(lastDayOfWeek.getDate() + 1);
-      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
       weeksCounter++;
     }
     return new GetStepsByUserIdDTO(result);

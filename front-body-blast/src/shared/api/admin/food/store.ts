@@ -23,6 +23,13 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
     useStoreAction({
       state: foodList.value.createState,
       serviceAction: FoodService.postFood(data),
+      onSuccess: (res) => {
+        const listData = foodList.value.data;
+        if (!listData) return;
+
+        listData.data.push(res.data);
+        listData.count++;
+      },
     });
 
   const patchFood = (data: AdminFood.Patch.Dto) =>

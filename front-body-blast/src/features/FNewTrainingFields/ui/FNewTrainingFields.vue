@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { uniqueId } from 'lodash';
 import { EAdminPromptThumbnail } from 'entities/workout/EAdminPromptThumbnail';
-import { Prompt } from 'shared/api/admin';
+import { Prompt, useAdminWorkoutStore } from 'shared/api/admin';
 import { SChooseInput, SInput } from 'shared/ui/inputs';
 
 export interface ENewTrainingFieldsProps {
@@ -17,6 +17,7 @@ const filteredPrompts = computed(
       ?.filter((prompt) => prompt.type.includes(filterStr.value))
       .map((prompt) => ({ ...prompt, key: uniqueId('prompt-') })),
 );
+const store = useAdminWorkoutStore();
 </script>
 
 <template>
@@ -27,13 +28,15 @@ const filteredPrompts = computed(
     :items="filteredPrompts"
     option-value="type"
     v-model:inner-input="filterStr"
+    @open="store.isPopupVisible = true"
+    @close="store.isPopupVisible = false"
   >
     <template #item="{ item }">
       <EAdminPromptThumbnail :photo="item.photoLink" :type="item.type" />
     </template>
   </SChooseInput>
 
-  <div grid grid-cols-2 grid-rows-3 gap-0.5rem>
+  <div class="grid-rows-[repeat(3,_auto)]" grid grid-cols-2 items-center gap-0.5rem>
     <SInput name="name" :label="$t('admin.prompt.training.name')" />
     <SInput name="weight" :label="$t('admin.prompt.training.weight')" />
     <SInput name="sets" :label="$t('admin.prompt.training.sets')" />

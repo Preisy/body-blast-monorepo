@@ -1,6 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsBoolean, IsDateString, IsOptional } from 'class-validator';
-import { AppBaseEntity } from 'src/models/app-base-entity.entity';
+import { AppBaseEntity } from '../models/app-base-entity.entity';
 import {
   And,
   FindManyOptions,
@@ -17,12 +17,12 @@ import { createDerivedClass } from './create-derived-class.util';
 export namespace AppDatePagination {
   export class Request {
     @IsOptional()
-    @ApiPropertyOptional({ example: '2020-11-11' })
+    @ApiPropertyOptional({ example: '2020-11-01' })
     @IsDateString()
     public from?: Date;
 
     @IsOptional()
-    @ApiPropertyOptional({ example: '2020-11-11' })
+    @ApiPropertyOptional({ example: '2020-11-31' })
     @IsDateString()
     public to?: Date;
 
@@ -74,11 +74,16 @@ export namespace AppDatePagination {
         const request = new AppDatePagination.Request(query.expanded, query.from, query.to);
         const from = request.from || new Date('2020-01-01');
         const to = request.to || new Date();
+
         const [sellers, count] = await repository.findAndCount({
-          where: { createdAt: And(MoreThanOrEqual(from), LessThanOrEqual(to)) } as FindOptionsWhere<Entity>,
           relations: request.expanded ? relations : undefined,
           ...options,
+          where: {
+            createdAt: And(MoreThanOrEqual(from), LessThanOrEqual(to)),
+            ...options.where,
+          } as FindOptionsWhere<Entity>,
         });
+
         return new AppDatePagination.Response<Entity>(sellers, count);
       },
     };

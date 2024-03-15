@@ -8,7 +8,7 @@ import { FNewTrainingFields } from 'features/FNewTrainingFields';
 import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
-import { useLoading } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -18,10 +18,10 @@ type Exercise = NonNullable<Workout['exercises']>[number];
 const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;
 
 export interface WNewTrainingProps {
-  id: number; //userId
+  id: AppBaseEntity['id'];
   date: string; //ISO date, used for
   isEdit?: boolean;
-  workoutId?: number;
+  workoutId?: AppBaseEntity['id'];
   initValues?: Workout;
 }
 
@@ -33,8 +33,6 @@ const emit = defineEmits<{
 
 const { workoutList, postWorkout, patchWorkout } = useAdminWorkoutStore();
 const { prompts, getPrompts } = useAdminPromptStore();
-
-useLoading(workoutList.createState);
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const trainingForm = ref<InstanceType<typeof SForm>>();
@@ -76,31 +74,32 @@ const onsubmit = async () => {
       name: values.name,
       comment: values.comment,
       date: props.date,
-      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[], //TODO: fix
+      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
       cycle: parseInt(values.cycle),
       userId: props.id,
     };
 
     if (props.isEdit && props.workoutId) {
-      patchWorkout(props.workoutId, workout);
+      useLoadingAction(workoutList.updateState, () => {
+        if (props.workoutId) patchWorkout(props.workoutId, workout);
+      });
       emit('edit');
     } else {
-      postWorkout(workout);
+      useLoadingAction(workoutList.createState, () => postWorkout(workout));
     }
   })();
 };
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
-useLoading(prompts.state);
-getPrompts({ type: '', expanded: true });
+useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
 </script>
 
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <div flex flex-row>
       <h1>{{ $t('admin.prompt.training.training') }}</h1>
-      <SBtn :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
+      <SBtn v-if="isEdit" :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
     </div>
 
     <SForm

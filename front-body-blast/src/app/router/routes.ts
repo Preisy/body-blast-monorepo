@@ -1,24 +1,25 @@
 /* eslint-disable import/no-internal-modules */
 import { RouteRecordRaw } from 'vue-router';
 import { ENUMS } from 'shared/lib/enums';
+import { useLoadingImport } from 'shared/lib/loading';
 import { adminRoutes } from './admin';
 import { dashboardRoutes } from './dashboard';
 
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('processes/layouts/LAuth.vue'),
+    component: useLoadingImport(() => import('processes/layouts/LAuth.vue')),
     name: ENUMS.ROUTES_NAMES.AUTH,
     children: [
       {
         path: 'register',
-        component: () => import('pages/PRegister/ui/PRegister.vue'),
+        component: useLoadingImport(() => import('pages/PRegister/ui/PRegister.vue')),
         name: ENUMS.ROUTES_NAMES.REGISTER,
         meta: { transition: 'slide-left' },
       },
       {
         path: 'login',
-        component: () => import('pages/PLogin/ui/PLogin.vue'),
+        component: useLoadingImport(() => import('pages/PLogin/ui/PLogin.vue')),
         name: ENUMS.ROUTES_NAMES.LOGIN,
         meta: { transition: 'slide-right' },
       },
@@ -28,7 +29,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: '/404',
-    component: () => import('pages/PNotFound/ui/PNotFound.vue'),
+    component: useLoadingImport(() => import('pages/PNotFound/ui/PNotFound.vue')),
     name: ENUMS.ROUTES_NAMES.NOT_FOUND,
   },
 

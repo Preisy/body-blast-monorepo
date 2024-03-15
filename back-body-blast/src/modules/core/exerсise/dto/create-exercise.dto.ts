@@ -50,6 +50,12 @@ export class CreateExerciseRequest {
   @Length(1, 255)
   public videoLink: string;
 
+  @IsDefined()
+  @ApiProperty()
+  @IsString()
+  @Length(1, 5)
+  public promptType: string;
+
   @IsOptional()
   @IsString()
   @ApiPropertyOptional()

@@ -19,6 +19,6 @@ export class DiaryPropsEntity extends AppBaseEntity {
   public diary!: DiaryEntity;
 
   @ApiProperty()
-  @Column('integer', { name: 'diaryId' })
-  public diaryId!: number;
+  @Column({ name: 'diaryId' })
+  public diaryId!: string;
 }

@@ -5,6 +5,7 @@ export default {
       total: 'Total of',
       mode: 'Mode',
       cycle: 'Cycle',
+      rest: 'Rest',
     },
   },
 };

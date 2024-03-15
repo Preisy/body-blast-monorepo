@@ -7,9 +7,9 @@ import {
   ValidationPipe,
   Param,
   Query,
-  ParseIntPipe,
   Delete,
   Body,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
@@ -46,13 +46,13 @@ export class AdminBonusVideoController {
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(BonusVideoEntity) })
-  async getOne(@Param('id', ParseIntPipe) id: number) {
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.findOne(id);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppStatusResponse })
-  async delete(@Param('id', ParseIntPipe) id: number) {
+  async delete(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.delete(id);
   }
 }
