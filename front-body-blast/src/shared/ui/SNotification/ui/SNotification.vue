@@ -51,19 +51,20 @@ onMounted(async () => {
   <div
     left="50%"
     translate-x="-50%"
+    class="w-[calc(100%-2rem)]"
+    :class="classList"
     fixed
     top-0.5rem
     z-9999
-    class="w-[calc(100%-2rem)]"
     flex
     flex-row
+    select-none
     rounded-0.75rem
     bg-primary
     px-1rem
     py-0.75rem
     transition-transform-300
     ease-in-out
-    :class="classList"
   >
     <router-link :to="{ name: page }">
       <p text-0.85rem tracking-tighter text-bg>{{ $t('global.notification.attention') }}</p>
