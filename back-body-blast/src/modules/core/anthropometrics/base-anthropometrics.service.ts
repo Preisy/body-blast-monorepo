@@ -6,22 +6,58 @@ import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { UpdateAnthropometricsRequest } from './dto/update-anthropometrics';
 import { MainException } from '../../../exceptions/main.exception';
 import { filterUndefined } from '../../../utils/filter-undefined.util';
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit, forwardRef } from '@nestjs/common';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { UserEntity } from '../user/entities/user.entity';
 import { BaseUserService } from '../user/base-user.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { UserRole } from '../../../constants/constants';
+import { UserRole, PeriodTime } from '../../../constants/constants';
 import { AppPagination } from '../../../utils/app-pagination.util';
 
 @Injectable()
-export class BaseAnthropometrcisService {
+export class BaseAnthropometrcisService implements OnModuleInit {
   constructor(
     @InjectRepository(AnthropometricsEntity)
     private readonly anthrpRepository: Repository<AnthropometricsEntity>,
     @Inject(forwardRef(() => BaseUserService))
     private readonly userService: BaseUserService,
   ) {}
+  async onModuleInit() {
+    const { data: users } = await this.userService.getUsers(new AppPagination.Request(), {
+      where: {
+        role: UserRole.Client,
+      },
+    });
+
+    let data = await this.findLatestAnthropometricsForEachUser();
+
+    if (users.length > 0 && data.length > 0) {
+      const greatestAnthrp = data.reduce((prev, next) => (prev.createdAt > next.createdAt ? prev : next));
+
+      const diff = Math.ceil(Math.abs(new Date().getTime() - greatestAnthrp.createdAt.getTime()) / PeriodTime.dayTime);
+      const createdDate = greatestAnthrp.createdAt;
+
+      for (let i = 0; i < diff; ++i) {
+        data = await this.findLatestAnthropometricsForEachUser();
+        const anthrpMap = data.reduce(
+          (acc, value) => ({ ...acc, [value.userId]: value }),
+          {} as Record<string, AnthropometricsEntity>,
+        );
+        createdDate.setDate(createdDate.getDate() + 1);
+        const createdAnthropometrics = users.flatMap((user) => {
+          const userAnthrp = anthrpMap[user.id];
+          const anthrpCreatedAt = userAnthrp.createdAt.getTime() || 0;
+
+          if (Math.ceil(Math.abs(anthrpCreatedAt - createdDate.getTime()) / PeriodTime.dayTime) >= 1) {
+            console.log('yes, created');
+            return this.anthrpRepository.create({ userId: user.id, createdAt: createdDate });
+          }
+          return [];
+        });
+        await this.anthrpRepository.save(createdAnthropometrics, { chunk: 10000 });
+      }
+    }
+  }
 
   public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];
 
@@ -39,15 +75,15 @@ export class BaseAnthropometrcisService {
       {} as Record<string, AnthropometricsEntity>,
     );
 
-    const createвAnthropometrics = users.flatMap((user) => {
+    const createdAnthropometrics = users.flatMap((user) => {
       const userAnthrp = anthrpMap[user.id];
       const anthrpCreatedAt = userAnthrp.createdAt.getTime() || 0;
-      if (Math.abs(anthrpCreatedAt - new Date().getTime()) >= user.anthrpJobPeriod! * 1000 * 60 * 60 * 24) {
+      if (Math.ceil(Math.abs(anthrpCreatedAt - new Date().getTime()) / PeriodTime.dayTime) >= user.anthrpJobPeriod!) {
         return this.anthrpRepository.create({ userId: user.id });
       }
       return [];
     });
-    return this.anthrpRepository.save(createвAnthropometrics, { chunk: 10000 });
+    return this.anthrpRepository.save(createdAnthropometrics, { chunk: 10000 });
   }
 
   private async findLatestAnthropometricsForEachUser() {
