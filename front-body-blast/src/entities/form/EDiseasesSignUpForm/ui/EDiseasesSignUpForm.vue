@@ -1,11 +1,20 @@
 <script setup lang="ts">
 import { SInput } from 'shared/ui/inputs';
 import { SSelect } from 'shared/ui/SSelect';
+
+defineProps<{
+  readonly?: boolean;
+}>();
 </script>
 
 <template>
-  <SInput name="gastroDeseases" :label="$t('auth.signUp.diseases.fields.gastrointestinalDiseases')" />
+  <SInput
+    :readonly="readonly"
+    name="gastroDeseases"
+    :label="$t('auth.signUp.diseases.fields.gastrointestinalDiseases')"
+  />
   <SSelect
+    :readonly="readonly"
     name="insulinResistance"
     :options="[
       { label: $t('global.yes'), value: true },
@@ -13,7 +22,7 @@ import { SSelect } from 'shared/ui/SSelect';
     ]"
     :label="$t('auth.signUp.diseases.fields.insulinResistance')"
   />
-  <SInput name="kidneyDesease" :label="$t('auth.signUp.diseases.fields.kidneyDisease')" />
-  <SInput name="heartDesease" :label="$t('auth.signUp.diseases.fields.diseasesCVD')" />
-  <SInput name="muscleDesease" :label="$t('auth.signUp.diseases.fields.diseasesODA')" />
+  <SInput :readonly="readonly" name="kidneyDesease" :label="$t('auth.signUp.diseases.fields.kidneyDisease')" />
+  <SInput :readonly="readonly" name="heartDesease" :label="$t('auth.signUp.diseases.fields.diseasesCVD')" />
+  <SInput :readonly="readonly" name="muscleDesease" :label="$t('auth.signUp.diseases.fields.diseasesODA')" />
 </template>
