@@ -45,7 +45,7 @@ const onDeleteClick = async (id: AppBaseEntity['id']) => {
       <template v-if="video.data && photo.data">
         <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
 
-        <SVideo ref="videoControl" :link-url="video.data.link" disable-btn />
+        <SVideo ref="videoControl" :link-url="video.data.link" disable-btn h-auto w-full />
       </template>
       <template v-else>
         <SLoading />

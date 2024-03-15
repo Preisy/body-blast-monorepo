@@ -20,7 +20,7 @@ const videoControl = ref<InstanceType<typeof SVideo>>();
   <div relative w-full>
     <div relative>
       <template v-if="video.data && photo.data">
-        <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
+        <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-auto w-full rounded-1rem />
 
         <SVideo ref="videoControl" :link-url="video.data.link" disable-btn />
       </template>

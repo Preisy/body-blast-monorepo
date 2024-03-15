@@ -58,7 +58,7 @@ onMounted(() => {
 <template>
   <div>
     <a @click="toggleFullscreenAndControls">
-      <video width="480" w-full border-rounded-4 ref="video" @play="isPlaying = true" @pause="isPlaying = false">
+      <video ref="video" @play="isPlaying = true" @pause="isPlaying = false" h-auto w-full border-rounded-4>
         <source :src="linkUrl" type="video/mp4" />
         Your browser doesn't support HTML5 video tag.
       </video>
