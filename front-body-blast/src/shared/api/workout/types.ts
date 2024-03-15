@@ -31,7 +31,7 @@ export interface Workout extends AppBaseEntity {
 
 export namespace Workout {
   export namespace Get {
-    export interface Dto extends AppPagination.BaseDto {}
+    export interface Dto extends AppPagination.DateDto {}
     export interface Response extends AppPagination.Response<Workout> {}
   }
 
