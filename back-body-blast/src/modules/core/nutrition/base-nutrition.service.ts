@@ -123,7 +123,10 @@ export class BaseNutritionService {
     return new AppSingleResponse(nutrition);
   }
 
-  async update(id: NutritionEntity['id'], request: UpdateNutritionRequest) {
+  async update(
+    id: NutritionEntity['id'],
+    request: UpdateNutritionRequest,
+  ): Promise<AppSingleResponse<NutritionEntity>> {
     const { data: nutrition } = await this.findOne(id);
     if (request.mealItems) {
       await this.mealItemRepository.delete({
@@ -131,11 +134,11 @@ export class BaseNutritionService {
       });
       nutrition.mealItems = [];
     }
-    await this.nutritionRepository.save({
+    const savedNutrition = await this.nutritionRepository.save({
       ...nutrition,
       ...filterUndefined(request),
     });
-    return;
+    return new AppSingleResponse(savedNutrition);
   }
 
   async deleteOne(id: NutritionEntity['id']): Promise<AppStatusResponse> {
