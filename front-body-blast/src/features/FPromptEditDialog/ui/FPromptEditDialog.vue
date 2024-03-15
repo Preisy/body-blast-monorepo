@@ -20,37 +20,52 @@ const emit = defineEmits<{
 }>();
 
 const { t } = useI18n();
-const schema = toTypedSchema(Prompt.validation(t));
+const rawSchema = Prompt.validation(t).partial();
+const schema = toTypedSchema(rawSchema);
 const { patchPrompt, prompts } = useAdminPromptStore();
 
-const updatePrompt = async (values: z.infer<ReturnType<typeof Prompt.validation>>) => {
+const updatePrompt = async (values: z.infer<typeof rawSchema>) => {
+  const dto: Prompt.Patch.Dto = {
+    type: values.type ?? props.promptData.type,
+  };
+  if (values.photo) dto.photo = values.photo;
+  else dto.photoLink = props.promptData.photoLink;
+
+  if (values.video) dto.video = values.video;
+  else dto.videoLink = props.promptData.videoLink;
+
   useLoadingAction(prompts.updateState, async () => {
-    await patchPrompt(props.promptData.id, values);
+    await patchPrompt(props.promptData.id, dto);
     if (prompts.updateState.isSuccess()) {
       emit('update:model-value', false); //close dialog after success
     }
   });
 };
+
+const photoFilename = computed(() => props.promptData.photoLink.split('/').at(-1));
+const videoFilename = computed(() => props.promptData.videoLink.split('/').at(-1));
 </script>
 
 <template>
   <q-dialog :model-value="modelValue" @update:model-value="(val) => $emit('update:model-value', val)">
     <div rounded="1rem!" bg-bg p-1rem>
-      <SForm :field-schema="schema" p="0!" mb-0.5rem @submit="updatePrompt">
+      <SForm :field-schema="schema" p="0!" mb-0.5rem @submit="updatePrompt" :init-values="promptData">
         <SInput :model-value="promptData.type" name="type" :label="$t('admin.prompt.list.type')" />
         <div flex flex-row gap-x-0.5rem>
           <SFilePicker
-            :display-value="promptData.photoLink"
             name="photo"
+            :display-value="photoFilename"
             :label="$t('admin.prompt.list.photo')"
+            accept=".jpg, .jpeg, .png"
             w="1/2"
             label-no-wrap
             flex-1
           />
           <SFilePicker
-            :display-value="promptData.videoLink"
             name="video"
+            :display-value="videoFilename"
             :label="$t('admin.prompt.list.video')"
+            accept=".mp4"
             w="1/2"
             label-no-wrap
             flex-1

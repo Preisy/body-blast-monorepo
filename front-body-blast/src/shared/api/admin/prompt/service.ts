@@ -11,7 +11,7 @@ export const adminPromptsService = {
     api.delete<Prompt.Delete.Response>(`/admin/prompts/${data.id}`),
   ),
 
-  patchPrompt: useServiceAction((id, data: Pick<Prompt, 'type' | 'photoLink' | 'videoLink'>) =>
+  patchPrompt: useServiceAction((id, data: Pick<Prompt.Patch.Dto, 'type' | 'photoLink' | 'videoLink'>) =>
     api.patch<Prompt.Patch.Response>(`/admin/prompts/${id}`, data),
   ),
 

@@ -20,7 +20,7 @@ const { value, errorMessage } = useField<File>(() => props.name);
       v-bind="$props"
       v-model="value"
       :display-value="value ? value.name : displayValue"
-      :bg-color="value === undefined ? 'primary-50-solid' : 'primary'"
+      :bg-color="value === undefined && displayValue === undefined ? 'primary-50-solid' : 'primary'"
       label-color="bg"
       standout
       :ripple="{ color: 'red' }"

@@ -20,8 +20,8 @@ const props = defineProps<WPromptsProps>();
 
 const { deletePrompt } = useAdminPromptStore();
 
-const { state: video } = useAuthLink(props.prompt.videoLink);
-const { state: photo } = useAuthLink(props.prompt.photoLink);
+const { state: video } = useAuthLink(() => props.prompt.videoLink);
+const { state: photo } = useAuthLink(() => props.prompt.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
 
