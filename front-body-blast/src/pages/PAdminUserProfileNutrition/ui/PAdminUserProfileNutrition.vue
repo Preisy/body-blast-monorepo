@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood } from 'widgets/WAdminFood';
 import { WAdminNewFood } from 'widgets/WAdminNewFood';
@@ -7,11 +8,12 @@ import { WAdminNutrition } from 'widgets/WAdminNutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
+import { Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
 import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
 import { SLoading } from 'shared/ui/SLoading';
-import { SProxyScroll } from 'shared/ui/SProxyScroll';
+// import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
 export interface PAdminUserProfileNutritionProps {
@@ -53,6 +55,10 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 
   return [nutritionPage, ...foodPages, newFoodPage];
 });
+
+const calcHeight = (nutr: Nutrition): StyleValue => ({
+  height: nutr.mealItems ? `${nutr.mealItems.length * 115 + 400}px` : '500px',
+});
 </script>
 
 <template>
@@ -61,27 +67,22 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
       <SCenteredNav v-model="pageValue" :pages="pages" />
     </div>
 
-    <SProxyScroll type="vertical">
-      <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite>
-        <q-tab-panel :name="pages[0].value" p="0!">
-          <WAdminNutrition
-            v-for="nutrition in nutritionsData"
-            :nutrition="nutrition"
-            :key="nutrition.id"
-            :title="pages[0].label"
-          />
-          <WAdminNewNutrition :user-id="id" />
-        </q-tab-panel>
+    <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite>
+      <q-tab-panel :name="pages[0].value" p="0!">
+        <q-intersection v-for="nutrition in nutritionsData" :key="nutrition.id" :style="calcHeight(nutrition)">
+          <WAdminNutrition :nutrition="nutrition" :title="pages[0].label" />
+        </q-intersection>
+        <WAdminNewNutrition :user-id="id" />
+      </q-tab-panel>
 
-        <q-tab-panel v-for="[type, foodItems] in Object.entries(foodSlides)" :key="type" :name="type" p="0!">
-          <WAdminFood :type="type" :food-items="foodItems" />
-        </q-tab-panel>
+      <q-tab-panel v-for="[type, foodItems] in Object.entries(foodSlides)" :key="type" :name="type" p="0!">
+        <WAdminFood :type="type" :food-items="foodItems" />
+      </q-tab-panel>
 
-        <q-tab-panel name="new_food" p="0!">
-          <WAdminNewFood :user-id="id" @created="(type) => (pageValue = type)" />
-        </q-tab-panel>
-      </q-tab-panels>
-      <SLoading v-else />
-    </SProxyScroll>
+      <q-tab-panel name="new_food" p="0!">
+        <WAdminNewFood :user-id="id" @created="(type) => (pageValue = type)" />
+      </q-tab-panel>
+    </q-tab-panels>
+    <SLoading v-else />
   </SStructure>
 </template>

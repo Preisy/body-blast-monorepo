@@ -79,32 +79,32 @@ onMounted(() => {
   <div flex flex-col gap-y-0.5rem>
     <NutritionListHeader :category="category" :title="title" />
 
-    <SForm
-      ref="forms"
+    <q-intersection
       v-for="(line, index) of lines"
       :key="line.uniqueId"
-      @submit="onsubmit"
-      :field-schema="validationSchema"
-      :init-values="line"
-      p="0!"
+      transition="scale"
+      margin="50px 0px 100px 0px"
+      min-h-7rem
     >
-      <div flex gap-x-0.5rem>
-        <SInput name="type" :label="$t('admin.nutrition.type')" />
-        <SInput name="quantity" :label="$t('admin.nutrition.quantity')" />
-      </div>
+      <SForm ref="forms" @submit="onsubmit" :field-schema="validationSchema" :init-values="line" p="0!">
+        <div flex gap-x-0.5rem>
+          <SInput name="type" :label="$t('admin.nutrition.type')" />
+          <SInput name="quantity" :label="$t('admin.nutrition.quantity')" />
+        </div>
 
-      <template #submit-btn>
-        <SListControls
-          disabled-submit
-          :disabled-add="index !== lines.length - 1"
-          :disabled-remove="!(lines.length - 1)"
-          :loading-submit="nutritionList.updateState.isLoading()"
-          @remove="() => onremove(index)"
-          @add="onadd"
-          mt-0.5rem
-        />
-      </template>
-    </SForm>
+        <template #submit-btn>
+          <SListControls
+            disabled-submit
+            :disabled-add="index !== lines.length - 1"
+            :disabled-remove="!(lines.length - 1)"
+            :loading-submit="nutritionList.updateState.isLoading()"
+            @remove="() => onremove(index)"
+            @add="onadd"
+            mt-0.5rem
+          />
+        </template>
+      </SForm>
+    </q-intersection>
 
     <SRemoveDialog ref="dialog" @apply="onRemoveApply" />
   </div>
