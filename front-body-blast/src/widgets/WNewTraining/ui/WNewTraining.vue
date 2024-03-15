@@ -50,9 +50,20 @@ const onsubmit = async () => {
   for (let i = 0; i < exerciseForms.value.length; i++) {
     const exerciseForm = exerciseForms.value[i];
     await exerciseForm.handleSubmit(
-      (values: z.infer<typeof ExerciseValidation>) => {
+      async (values: z.infer<typeof ExerciseValidation>) => {
         //find prompt with id. use prompt to pick photoLink and videoLink
         const { prompt } = values;
+        if (!prompt.type) throw 'No prompt!';
+        if (!prompt.photoLink || !prompt.videoLink) {
+          const response = await getPrompts({ type: prompt.type });
+          if (!response.data) {
+            throw response.error;
+          }
+          const newPrompt = response.data.data[0];
+          if (!newPrompt) throw 'No prompt!';
+          prompt.photoLink = newPrompt.photoLink;
+          prompt.videoLink = newPrompt.videoLink;
+        }
 
         const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
           name: values.name,
@@ -70,8 +81,7 @@ const onsubmit = async () => {
         assign(exercises.value[i], exercise);
       },
       (err) => {
-        console.error(err);
-        return;
+        throw err;
       },
     )();
   }
@@ -97,8 +107,7 @@ const onsubmit = async () => {
       }
     },
     (err) => {
-      console.error(err);
-      return;
+      throw err;
     },
   )();
 };

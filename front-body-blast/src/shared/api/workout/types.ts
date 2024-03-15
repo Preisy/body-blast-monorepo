@@ -59,8 +59,8 @@ export namespace Workout {
           prompt: z.object({
             id: z.string().optional(),
             type: z.string(),
-            photoLink: z.string(),
-            videoLink: z.string(),
+            photoLink: z.string().optional(),
+            videoLink: z.string().optional(),
           }), //prompt Id will be converted to photoLink and videoLink
         }),
       ),
