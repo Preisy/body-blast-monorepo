@@ -15,6 +15,7 @@ import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 import { SPaginationSlider } from 'shared/ui/SPaginationSlider';
+import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
@@ -96,6 +97,21 @@ const update = (direction: 'back' | 'front', createdAt: string = date.value.toIS
   return getAnthropometry({ from: from.toISOString(), to: to.toISOString(), id: props.id });
 };
 useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').toISOString()));
+
+const { deleteUser, users } = useAdminUserProfileStore();
+const deletionDialog = ref<InstanceType<typeof SRemoveDialog>>();
+const userIdToDelete = ref<User['id']>();
+const onDeletionApply = () => {
+  useLoadingAction(users.deleteState, () => {
+    if (!userIdToDelete.value) return;
+    deleteUser({ id: userIdToDelete.value });
+  });
+  router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.HOME });
+};
+const onUserDelete = (userId: User['id']) => {
+  userIdToDelete.value = userId;
+  deletionDialog.value?.show();
+};
 </script>
 
 <template>
@@ -113,7 +129,7 @@ useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').
           <template #action>
             <div flex flex-row justify-between>
               <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO }" />
-              <SBtn icon="sym_r_delete" />
+              <SBtn icon="sym_r_delete" @click="onUserDelete(id)" />
             </div>
           </template>
         </EUnitedProfileCard>
@@ -161,5 +177,7 @@ useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').
         </div>
       </template>
     </SWithHeaderLayout>
+
+    <SRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
   </SStructure>
 </template>
