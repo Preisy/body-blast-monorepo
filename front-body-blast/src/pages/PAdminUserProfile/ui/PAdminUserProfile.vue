@@ -44,7 +44,7 @@ const canWatchVideo = computed(() => userData.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => userData.value?.anthrpJobPeriod);
 
 const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
-  useLoadingAction(user.updateState, () => patchUserProfile({ id: props.id, user: { [field]: newValue } }));
+  patchUserProfile({ id: props.id, user: { [field]: newValue } });
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
