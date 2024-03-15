@@ -14,14 +14,14 @@ require('dotenv').config();
 
 module.exports = configure(function (/* ctx */) {
   return {
-    eslint: {
-      // fix: true,
-      // include: [],
-      // exclude: [],
-      // rawOptions: {},
-      warnings: true,
-      errors: true,
-    },
+    // eslint: {
+    //   // fix: true,
+    //   // include: [],
+    //   // exclude: [],
+    //   // rawOptions: {},
+    //   warnings: true,
+    //   errors: true,
+    // },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,

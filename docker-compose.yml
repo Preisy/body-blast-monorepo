@@ -35,7 +35,7 @@ services:
       context: .
       dockerfile: ./front-body-blast/Dockerfile
     ports:
-      - 80:4000
+      - 4000:4000
     networks:
       - blast_network
 
