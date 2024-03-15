@@ -49,7 +49,6 @@ export class BaseAnthropometrcisService implements OnModuleInit {
           const anthrpCreatedAt = userAnthrp.createdAt.getTime() || 0;
 
           if (Math.ceil(Math.abs(anthrpCreatedAt - createdDate.getTime()) / PeriodTime.dayTime) >= 1) {
-            console.log('yes, created');
             return this.anthrpRepository.create({ userId: user.id, createdAt: createdDate });
           }
           return [];

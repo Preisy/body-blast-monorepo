@@ -1,4 +1,4 @@
-import { Inject, Injectable, forwardRef } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { MainException } from '../../../exceptions/main.exception';
@@ -17,9 +17,10 @@ import { AppPagination } from '../../../utils/app-pagination.util';
 import { BaseWorkoutService } from '../workout/base-workout.service';
 import { WorkoutEntity } from '../workout/entity/workout.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
+import { PeriodTime } from '../../../constants/constants';
 
 @Injectable()
-export class BaseDiaryService {
+export class BaseDiaryService implements OnModuleInit {
   constructor(
     @InjectRepository(DiaryEntity)
     private readonly diaryRepository: Repository<DiaryEntity>,
@@ -30,6 +31,49 @@ export class BaseDiaryService {
     private readonly workoutService: BaseWorkoutService,
     private readonly diaryTemplateService: BaseDiaryTemplateService,
   ) {}
+  async onModuleInit() {
+    const data = await this.findLatestDiaryForEachUser();
+
+    if (data.length > 0) {
+      const greatestDiary = data.reduce((prev, next) => (next.createdAt > prev.createdAt ? next : prev));
+
+      const diff = Math.ceil(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime);
+      const createdDate = greatestDiary.createdAt;
+
+      for (let i = 0; i < diff; ++i) {
+        createdDate.setDate(createdDate.getDate() + 1);
+        const newDate = new Date();
+        newDate.setHours(0, 0, 0, 0);
+        const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
+          where: {
+            date: newDate,
+          },
+        });
+        const workoutsToUserId = workouts.reduce(
+          (acc, it) => ({ ...acc, [it.userId]: it }),
+          {} as Record<string, WorkoutEntity>,
+        );
+        const { data: templates } = await this.diaryTemplateService.findAll(new AppPagination.Request(), {
+          relations: ['props'],
+        });
+        const promises = templates.map(async (template) => {
+          const labels = template.props.map(({ label }) => ({ label }));
+          const newDiary = this.diaryRepository.create({
+            userId: template.userId,
+            props: labels,
+            date: newDate,
+            createdAt: createdDate,
+          });
+
+          const workout = workoutsToUserId[template.userId!];
+          newDiary.cycle = workout ? workout.cycle : undefined;
+          return newDiary;
+        });
+        const diaries = await Promise.all(promises);
+        await this.diaryRepository.save(diaries, { chunk: 10000 });
+      }
+    }
+  }
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
   @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
@@ -160,10 +204,7 @@ export class BaseDiaryService {
     const firstDayOfMonth = new Date(query.from!);
     const lastDayOfMonth = new Date(query.to!);
 
-    const weeks = Math.ceil(
-      Math.abs(firstDayOfMonth.getTime() - lastDayOfMonth.getTime() /*- 1000 * 60 * 60 * 24*/) /
-        (1000 * 60 * 60 * 24 * 7),
-    );
+    const weeks = Math.ceil(Math.abs(firstDayOfMonth.getTime() - lastDayOfMonth.getTime()) / PeriodTime.weekTime);
 
     let weeksCounter = 0;
     const result: StepsByWeek[] = [];
@@ -218,5 +259,20 @@ export class BaseDiaryService {
         month: 'numeric',
       }),
     };
+  }
+
+  private async findLatestDiaryForEachUser() {
+    const subQuery = await this.diaryRepository
+      .createQueryBuilder('sub')
+      .select('MAX(sub.createdAt)', 'maxCreatedAt')
+      .where('sub.userId = main.userId')
+      .groupBy('sub.userId');
+
+    const latestAnthrp = await this.diaryRepository
+      .createQueryBuilder('main')
+      .where(`main.createdAt = (${subQuery.getQuery()})`)
+      .getMany();
+
+    return latestAnthrp;
   }
 }
