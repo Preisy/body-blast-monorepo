@@ -14,8 +14,8 @@ defineExpose({
   <q-btn
     v-bind="$props"
     ref="btn"
-    ripple
-    flat
+    :ripple="true"
+    :flat="true"
     h-min
     rounded-0.75rem
     bg-secondary
