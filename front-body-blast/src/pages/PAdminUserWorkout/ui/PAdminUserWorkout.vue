@@ -57,10 +57,9 @@ const clearEditing = () => {
       v-model="date"
       :keep-alive-include="[today.format('YYYY/MM/DD')]"
       keep-alive
-      :swipeable="workoutStore.isPopupVisible"
+      :swipeable="true"
       animated
       h-full
-      v-once
     >
       <q-tab-panel
         v-for="workout in dateSortedWorkoutsWithoutToday"
