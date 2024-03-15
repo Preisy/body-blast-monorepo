@@ -6,6 +6,7 @@ import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { CreateWorkoutByAdminRequest } from './dto/admin-create-wrokout.dto';
 import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 
 @Injectable()
 export class AdminWorkoutService {
@@ -17,6 +18,10 @@ export class AdminWorkoutService {
 
   async findAll(query: AppPagination.Request): Promise<AppPagination.Response<WorkoutEntity>> {
     return this.baseService.findAll(query);
+  }
+
+  async findAllByDate(query: AppDatePagination.Request): Promise<AppDatePagination.Response<WorkoutEntity>> {
+    return this.baseService.findAllByDate(query);
   }
 
   async findOne(id: WorkoutEntity['id']) {
