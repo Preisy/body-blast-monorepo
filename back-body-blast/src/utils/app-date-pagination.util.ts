@@ -22,7 +22,7 @@ export namespace AppDatePagination {
     public from?: Date;
 
     @IsOptional()
-    @ApiPropertyOptional({ example: '2020-11-31' })
+    @ApiPropertyOptional({ example: '2020-11-21' })
     @IsDateString()
     public to?: Date;
 
