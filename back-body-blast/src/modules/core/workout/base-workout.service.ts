@@ -27,6 +27,7 @@ export class BaseWorkoutService {
     const newWorkout = this.workoutRepository.create({
       ...request,
       date: new Date(request.date),
+      createdAt: new Date(request.date),
     });
 
     const savedWorkout = await this.workoutRepository.save(newWorkout);
