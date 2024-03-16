@@ -65,7 +65,11 @@ const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Ant
 
 <template>
   <div h-full>
-    <SCalendar v-model="calendarDate" :options="dates" />
+    <SCalendar
+      :model-value="calendarDate"
+      @update:model-value="(newDate) => (date = moment(newDate.split('/').join('-')))"
+      :options="[...(dates || []), moment().format('YYYY/MM/DD')]"
+    />
 
     <SPaginationSlider
       :slides="anthropometrySlides?.length ? anthropometrySlides : [{ name: 'no-results' }]"

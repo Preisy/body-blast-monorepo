@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
+import { TouchSwipeValue } from 'quasar';
 import { WNewTraining } from 'widgets/WNewTraining';
 import { WOldTraining } from 'widgets/WOldTraining';
 import { useAdminWorkoutStore } from 'shared/api/admin';
@@ -42,13 +43,25 @@ const onEdit = (id: Workout) => {
 const clearEditing = () => {
   editingWorkout.value = null;
 };
+
+const onSwipe = (event: Parameters<Exclude<TouchSwipeValue, undefined>>['0']) => {
+  if (event.direction === 'left') {
+    date.value = momentDate.value.add(1, 'day').format('YYYY/MM/DD');
+  }
+  if (event.direction === 'right') {
+    const newVal = momentDate.value.clone().subtract(1, 'day').format('YYYY/MM/DD');
+    const isLegal = gtCreation(newVal);
+    if (!isLegal) return;
+    date.value = newVal;
+  }
+};
 </script>
 
 <template>
   <SStructure h-full flex flex-col>
     <SCalendar v-model="date" :options="(date) => gtCreation(date)" mb-1rem mt-1rem />
 
-    <SProxyScroll h-full type="vertical">
+    <SProxyScroll h-full type="vertical" v-touch-swipe.horizontal="onSwipe">
       <WOldTraining v-if="!editingWorkout && workout" :workout="workout" @edit="onEdit" />
       <WNewTraining
         v-else

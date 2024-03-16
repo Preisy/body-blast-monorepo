@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
+import { TouchSwipeValue } from 'quasar';
 import { WAdditionCard } from 'widgets/WAdditionCard';
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
 import { useWorkoutStore } from 'shared/api/workout';
@@ -32,6 +33,18 @@ watch(
 
 const workoutsData = computed(() => workouts.data?.data);
 const workout = computed(() => workoutsData.value?.[0]);
+
+const onSwipe = (event: Parameters<Exclude<TouchSwipeValue, undefined>>['0']) => {
+  if (event.direction === 'left') {
+    date.value = moment(date.value).add(1, 'day');
+  }
+  if (event.direction === 'right') {
+    const newVal = date.value.clone().subtract(1, 'day');
+    const isLegal = gtCreation(newVal.format('YYYY/MM/DD'));
+    if (!isLegal) return;
+    date.value = newVal;
+  }
+};
 </script>
 
 <template>
@@ -41,10 +54,10 @@ const workout = computed(() => workoutsData.value?.[0]);
       @update:model-value="(val) => (date = moment(val))"
       mask="YYYY-MM-DD"
       :options="(date) => gtCreation(date)"
-      my-1rem
+      py-1rem
     />
 
-    <SSplide :options="{ direction: 'ttb', height: '35rem' }">
+    <SSplide :options="{ direction: 'ttb', height: '35rem' }" v-touch-swipe.horizontal="onSwipe">
       <SSplideSlide v-if="!workouts.state.isSuccess() || !workout">
         <SNoResultsScreen p-1.5rem />
       </SSplideSlide>
