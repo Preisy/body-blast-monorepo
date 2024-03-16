@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsDefined, IsNumber, IsOptional, IsString, Length, Min } from 'class-validator';
+import { IsDefined, IsNumber, IsOptional, IsString, Length, Max, Min } from 'class-validator';
 
 export class CreateExerciseRequest {
   @IsDefined()
@@ -12,12 +12,14 @@ export class CreateExerciseRequest {
   @IsNumber()
   @ApiProperty()
   @Min(0.125)
+  @Max(8000)
   public weight: number;
 
   @IsDefined()
   @IsNumber()
   @ApiProperty()
   @Min(1)
+  @Max(8000)
   public sets: number;
 
   @IsDefined()
@@ -53,7 +55,7 @@ export class CreateExerciseRequest {
   @IsDefined()
   @ApiProperty()
   @IsString()
-  @Length(1, 5)
+  @Length(1, 255)
   public promptType: string;
 
   @IsOptional()

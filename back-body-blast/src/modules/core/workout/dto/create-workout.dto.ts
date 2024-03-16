@@ -8,6 +8,7 @@ import {
   IsOptional,
   IsString,
   Length,
+  Max,
   Min,
   ValidateNested,
 } from 'class-validator';
@@ -36,6 +37,7 @@ export class CreateWorkoutRequest {
   @IsNumber()
   @ApiPropertyOptional()
   @Min(1)
+  @Max(8000)
   public cycle?: number;
 
   @IsDefined()

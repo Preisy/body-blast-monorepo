@@ -72,8 +72,12 @@ export namespace AppDatePagination {
         options: Omit<FindManyOptions<Entity>, 'skip' | 'take' | 'relations'> = {},
       ) => {
         const request = new AppDatePagination.Request(query.expanded, query.from, query.to);
-        const from = request.from || new Date('2020-01-01');
-        const to = request.to || new Date();
+        let from = request.from || new Date('2020-01-01');
+        let to = request.to || new Date();
+
+        from = !isNaN(new Date(from).getTime()) ? new Date('2020-01-01') : from;
+        to = !isNaN(new Date(to).getTime()) ? new Date() : to;
+        console.log(to);
 
         const [sellers, count] = await repository.findAndCount({
           relations: request.expanded ? relations : undefined,
