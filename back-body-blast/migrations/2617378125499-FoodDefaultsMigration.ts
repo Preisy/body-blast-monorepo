@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class FoodDefaultsMigration1709491516496 implements MigrationInterface {
-  name = 'FoodDefaultsMigration1709491516496';
+export class FoodDefaultsMigration2617378125499 implements MigrationInterface {
+  name = 'FoodDefaultsMigration2617378125499';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query("INSERT INTO food (category, type, name) VALUES (1, 'Крупы', 'Овсянка')");
