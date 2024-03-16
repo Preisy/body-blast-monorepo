@@ -30,6 +30,15 @@ services:
     networks:
       - blast_network
 
+  blast_frontend:
+    build:
+      context: .
+      dockerfile: ./front-body-blast/Dockerfile
+    ports:
+      - 4000:4000
+    networks:
+      - blast_network
+
 volumes:
   blast_db_data:
     name: blast_db_data
