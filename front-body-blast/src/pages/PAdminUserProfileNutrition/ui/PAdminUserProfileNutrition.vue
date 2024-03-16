@@ -57,7 +57,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 });
 
 const calcHeight = (nutr: Nutrition): StyleValue => ({
-  height: nutr.mealItems ? `${nutr.mealItems.length * 115 + 400}px` : '500px',
+  minHeight: nutr.mealItems ? `${nutr.mealItems.length * 115 + 400}px` : '500px',
 });
 </script>
 
