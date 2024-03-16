@@ -11,7 +11,11 @@ import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 const today = moment();
 const { diaryList, getDiary } = useDiaryStore();
 useLoadingAction(diaryList, () =>
-  getDiary({ expanded: true, from: today.clone().subtract(2, 'w').toISOString(), to: today.toISOString() }),
+  getDiary({
+    expanded: true,
+    from: today.clone().subtract(1, 'w').toISOString(),
+    to: today.clone().add(1, 'w').toISOString(),
+  }),
 );
 
 const diaryData = computed(() => diaryList.data?.data);
