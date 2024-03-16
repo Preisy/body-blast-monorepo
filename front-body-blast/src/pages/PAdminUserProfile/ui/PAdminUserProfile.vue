@@ -82,15 +82,17 @@ const updateDate = (newValue: string) => {
 };
 
 const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
+  const delta = anthrpJobPeriod.value ?? 3;
+
   let to = moment(createdAt);
-  let from = to.clone().subtract(2, 'w');
+  let from = to.clone().subtract(delta, 'day');
 
   if (direction === 'back') {
-    to.subtract(2, 'w');
-    from.subtract(2, 'w');
+    to.subtract(delta, 'day');
+    from.subtract(delta, 'day');
   } else {
-    to.add(2, 'w');
-    from.add(2, 'w');
+    to.add(delta, 'day');
+    from.add(delta, 'day');
   }
 
   date.value = to;

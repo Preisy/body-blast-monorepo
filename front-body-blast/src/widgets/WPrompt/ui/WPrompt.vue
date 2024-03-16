@@ -42,11 +42,11 @@ const onDeleteClick = async (id: AppBaseEntity['id']) => {
   <div>
     <h2 mb-0.75rem>{{ prompt.type }}</h2>
     <div relative>
-      <template v-if="video.data && photo.data">
+      <div v-if="video.data && photo.data" max-h-20rem>
         <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
 
         <SVideo ref="videoControl" :link-url="video.data.link" disable-btn h-auto w-full />
-      </template>
+      </div>
       <template v-else>
         <SLoading />
       </template>

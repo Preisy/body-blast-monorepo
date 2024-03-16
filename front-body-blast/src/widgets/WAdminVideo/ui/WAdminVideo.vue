@@ -31,12 +31,12 @@ const onDelete = () => {
     <div>
       <template v-if="link.data">
         <SVideo ref="videoRef" :link-url="link.data.link" disable-btn />
-        <div translate-y="-50%" w="90%" mx-auto flex flex-row>
-          <SBtn @click="onPlay" :icon="videoRef?.isPlaying ? symRoundedPause : symRoundedPlayArrow" bg="bg!" />
-          <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="videoList.deleteState.isLoading()" ml-auto />
-        </div>
       </template>
       <SLoading v-else />
+      <div translate-y="-50%" w="90%" mx-auto flex flex-row>
+        <SBtn @click="onPlay" :icon="videoRef?.isPlaying ? symRoundedPause : symRoundedPlayArrow" bg="bg!" />
+        <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="videoList.deleteState.isLoading()" ml-auto />
+      </div>
     </div>
   </div>
 </template>

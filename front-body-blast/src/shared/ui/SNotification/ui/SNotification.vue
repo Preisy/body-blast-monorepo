@@ -4,6 +4,7 @@ import { useMeStore } from 'shared/api/me';
 import { NotificationTypes, notificationBus, useNotificationStore } from 'shared/api/notification';
 import { ENUMS } from 'shared/lib/enums';
 
+const router = useRouter();
 const currentNotificationType = ref<NotificationTypes | null>(null);
 const classList = computed(() => (currentNotificationType.value === null ? 'translate-y--150%' : 'translate-y-0'));
 const page = computed(() => {
@@ -39,6 +40,11 @@ const onClose = () => {
   setTimeout(() => notificationBus.emit('notification-hide'), 500);
 };
 
+const redirect = () => {
+  router.push({ name: page.value });
+  onClose();
+};
+
 onMounted(async () => {
   if (me.data?.data) {
     await getNotifications();
@@ -66,7 +72,7 @@ onMounted(async () => {
     transition-transform-300
     ease-in-out
   >
-    <router-link :to="{ name: page }">
+    <div @click="redirect" w-full>
       <p text-0.85rem tracking-tighter text-bg>{{ $t('global.notification.attention') }}</p>
       <div flex flex-row items-center text-1rem text-secondary>
         <q-icon :name="symRoundedError" mr-0.25rem />
@@ -74,7 +80,7 @@ onMounted(async () => {
         <!-- See SNotification/i18n -->
         <div v-if="currentNotificationType" font-bold>{{ $t(`notification.${currentNotificationType}`) }}</div>
       </div>
-    </router-link>
+    </div>
     <q-btn :icon="symRoundedClose" text-color="bg" @click="onClose" ml-auto w-2rem />
   </div>
 </template>

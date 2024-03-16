@@ -7,7 +7,7 @@ export interface EDiarySelfControlItem {
   readonly: boolean;
 }
 const props = defineProps<EDiarySelfControlItem>();
-const diaryProps = props.diary.props;
+const diaryProps = ref(props.diary.props);
 
 const options = [
   { value: 1, label: '1' },

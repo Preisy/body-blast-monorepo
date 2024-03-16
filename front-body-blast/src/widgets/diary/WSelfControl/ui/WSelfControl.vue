@@ -34,7 +34,9 @@ const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 
 const activityValidation = Diary.validation().pick({ activity: true, steps: true });
 const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
-  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values, props: diary.props }));
+  useLoadingAction(diaryList.updateState, () =>
+    patchDiary(diary.id, { ...values, props: diary.props?.filter((prop) => prop.value) }),
+  );
 };
 </script>
 

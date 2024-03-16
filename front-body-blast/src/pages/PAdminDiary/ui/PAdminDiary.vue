@@ -6,7 +6,7 @@ import { useAdminUserProfileStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
-import { fromCreatedToToday, toWeekRange } from 'shared/lib/utils';
+import { toWeekRange } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
@@ -63,7 +63,8 @@ const diariesSlides = computed(() => {
     <SCalendar
       :model-value="calendarDate"
       @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
-      :options="(date) => fromCreatedToToday(date)"
+      default-view="Months"
+      :emit-immediately="true"
       today-btn
     />
 

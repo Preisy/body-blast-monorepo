@@ -105,7 +105,7 @@ const slides: RegisterSlides = [
         });
         if (authStore.signUpState.state.isSuccess() && tokenResponse.data) {
           TokenService.setTokens(tokenResponse.data);
-          router.push({ name: ENUMS.ROUTES_NAMES.HOME });
+          router.replace({ name: ENUMS.ROUTES_NAMES.HOME });
         }
       },
     },
