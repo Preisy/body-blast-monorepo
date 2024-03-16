@@ -27,19 +27,18 @@ import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 @Controller('workouts')
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
+@AppAuthGuard()
 export class ClientWorkoutController {
   constructor(private readonly clientService: ClientWorkoutService) {}
 
   @Get()
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
-  @AppAuthGuard()
   async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
     return await this.clientService.findAll(req.user.id, query);
   }
 
   @Get('date')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
-  @AppAuthGuard()
   async getAllByDate(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
     return await this.clientService.findAllByDate(req.user.id, query);
   }
