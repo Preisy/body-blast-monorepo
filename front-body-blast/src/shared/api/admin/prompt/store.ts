@@ -45,24 +45,44 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     useStoreAction({
       state: prompts.value.deleteState,
       serviceAction: adminPromptsService.deletePrompt(data),
+      onSuccess: (res) => {
+        if (!res.status) return;
+        const listData = prompts.value.data?.data;
+        if (!listData) return;
+
+        const index = listData.findIndex((prompt) => prompt.id === data.id);
+        listData.splice(index, 1);
+      },
     });
 
   const patchPrompt = async (id: string | number, data: Prompt.Patch.Dto) => {
     prompts.value.updateState.loading();
-    const photoLink = await fileStore.postFile({ file: data.photo });
-    if (!photoLink.data) {
-      prompts.value.updateState.error();
-      return;
+
+    const promptDto: Pick<Prompt.Patch.Dto, 'photoLink' | 'videoLink' | 'type'> = {
+      type: data.type,
+    };
+
+    if (data.photoLink && !data.photo) promptDto.photoLink = data.photoLink;
+    else {
+      const photoLink = await fileStore.postFile({ file: data.photo! });
+      if (!photoLink.data) {
+        prompts.value.updateState.error();
+        return;
+      }
+      promptDto.photoLink = photoLink.data.link;
     }
 
-    const videoLink = await fileStore.postFile({ file: data.video });
-    if (!videoLink.data) {
-      prompts.value.updateState.error();
-      return;
+    if (data.videoLink && !data.video) promptDto.videoLink = data.videoLink;
+    else {
+      const videoLink = await fileStore.postFile({ file: data.video! });
+      if (!videoLink.data) {
+        prompts.value.updateState.error();
+        return;
+      }
+      promptDto.videoLink = videoLink.data.link;
     }
 
-    const promptDto = { type: data.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link };
-    await useStoreAction({
+    return useStoreAction({
       state: prompts.value.updateState,
       serviceAction: adminPromptsService.patchPrompt(id, promptDto),
       onSuccess: (res) => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QBtnToggle, QBtnToggleProps, Screen } from 'quasar';
+import { QBtnToggle, QBtnToggleProps } from 'quasar';
 import { HTMLAttributes } from 'vue';
 
 export interface SBtnToggleProps extends QBtnToggleProps {}
@@ -27,9 +27,10 @@ const elemsAsArray = computed(() => {
   return Array.from(elements);
 }); //styles for moving black elemnt
 
+const isParentHidden = ref<boolean>();
 const styles = computed(() => {
+  if (isParentHidden.value) return;
   if (!toggle.value || !elemsAsArray.value) return;
-  Screen.width;
   const parentBox = toggle.value.$el.getBoundingClientRect();
   const boundingRects = elemsAsArray.value.map((elem) => elem.getBoundingClientRect());
 
@@ -44,11 +45,13 @@ const styles = computed(() => {
 
 const currentIndex = computed(() => props.options.findIndex((option) => option.value === value.value));
 const currentStyle = computed(() => styles.value?.[currentIndex.value]);
+const onResize = (size: { height: number; width: number }) => (isParentHidden.value = !size.height && !size.width);
 </script>
 
 <template>
   <div relative>
-    <QBtnToggle
+    <q-resize-observer @resize="onResize" />
+    <q-btn-toggle
       ref="toggle"
       class="toggle [&_.q-btn]:(relative z-1 rounded-1rem!) [&_span]:(text-base capitalize)"
       v-bind="$props"
@@ -63,6 +66,7 @@ const currentStyle = computed(() => styles.value?.[currentIndex.value]);
       text-color="bg"
       toggle-text-color="bg"
       size="1rem"
+      v-model="value"
     />
 
     <div

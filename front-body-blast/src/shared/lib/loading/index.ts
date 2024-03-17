@@ -1,10 +1,10 @@
 import { ISingleState, IState } from '../utils';
 import { useLoadingStore } from './store';
 
-function useLoading(state: IState): { state: IState };
-function useLoading(state: ISingleState): { state: ISingleState };
+export function useLoading(state: IState): { state: IState };
+export function useLoading(state: ISingleState): { state: ISingleState };
 
-function useLoading(state: XOR<IState, ISingleState>) {
+export function useLoading(state: XOR<IState, ISingleState>) {
   const { push } = useLoadingStore();
   push(state.state ?? state);
   return { state };

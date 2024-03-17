@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { merge } from 'lodash';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
@@ -9,17 +8,21 @@ import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
+import { fromCreatedToToday, isEqualDates } from 'shared/lib/utils';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
-import { SPaginationSlider } from 'shared/ui/SPaginationSlider';
+import { SDatePagination } from 'shared/ui/SDatePagination';
+import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 
 export interface PAdminUserProfileProps {
   id: AppBaseEntity['id'];
 }
+
+const today = moment();
+
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
 
@@ -43,7 +46,7 @@ const canWatchVideo = computed(() => userData.value?.canWatchVideo);
 const anthrpJobPeriod = computed(() => userData.value?.anthrpJobPeriod);
 
 const updateUserField = async (field: keyof Pick<User, 'canWatchVideo' | 'anthrpJobPeriod'>, newValue: boolean) =>
-  useLoadingAction(user.updateState, () => patchUserProfile({ id: props.id, user: { [field]: newValue } }));
+  patchUserProfile({ id: props.id, user: { [field]: newValue } });
 
 const canWatchVideoOptions = [
   { value: false, label: t('admin.detailed.accessToggle.disable') },
@@ -56,45 +59,33 @@ const anthrpJobPeriodOptions = [
   { value: 14, label: '14' },
 ];
 
+const date = ref(today.format('YYYY-MM-DD'));
+const halfRange = ref(3);
+const offset = ref(0);
 const { anthropometryList, getAnthropometry } = useAdminAnthropometryStore();
-
-const index = ref(0);
-const lock = computed(() => anthropometryList.state.isLoading());
-const slides = computed(
-  () =>
-    anthropometryList.data?.data
-      .filter((slide) => slide.userId === props.id)
-      .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
+useLoadingAction(anthropometryList, () =>
+  getAnthropometry({
+    id: props.id,
+    from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
+    to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
+  }),
 );
+const slides = computed(() => anthropometryList.data?.data);
 
-const date = ref<Moment>(moment());
-const dateISOString = computed(() => date.value.toISOString());
-const updateDate = (newValue: string) => {
-  const val = newValue.split('/').join('-');
-  date.value = moment(val);
-
-  const from = date.value.clone().subtract(2, 'w').toISOString();
-  const to = dateISOString.value;
-
-  getAnthropometry({ from, to, id: props.id });
+const { deleteUser, users } = useAdminUserProfileStore();
+const deletionDialog = ref<InstanceType<typeof SRemoveDialog>>();
+const userIdToDelete = ref<User['id']>();
+const onDeletionApply = () => {
+  useLoadingAction(users.deleteState, () => {
+    if (!userIdToDelete.value) return;
+    deleteUser({ id: userIdToDelete.value });
+  });
+  router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.HOME });
 };
-
-const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
-  let to = moment(createdAt);
-  let from = to.clone().subtract(2, 'w');
-
-  if (direction === 'back') {
-    to.subtract(2, 'w');
-    from.subtract(2, 'w');
-  } else {
-    to.add(2, 'w');
-    from.add(2, 'w');
-  }
-
-  date.value = to;
-  return getAnthropometry({ from: from.toISOString(), to: to.toISOString(), id: props.id });
+const onUserDelete = (userId: User['id']) => {
+  userIdToDelete.value = userId;
+  deletionDialog.value?.show();
 };
-useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').toISOString()));
 </script>
 
 <template>
@@ -112,7 +103,7 @@ useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').
           <template #action>
             <div flex flex-row justify-between>
               <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO }" />
-              <SBtn icon="sym_r_delete" />
+              <SBtn icon="sym_r_delete" @click="onUserDelete(id)" />
             </div>
           </template>
         </EUnitedProfileCard>
@@ -135,20 +126,33 @@ useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').
         </SComponentWrapper>
 
         <div>
-          <SCalendar :model-value="dateISOString" @update:model-value="updateDate" />
-          <SPaginationSlider
-            v-if="slides && slides.length"
-            :slides="slides"
-            :lock="lock"
-            v-model="index"
-            @first-element="() => update('back')"
-            @last-element="() => update('front')"
+          <SCalendar
+            :model-value="date"
+            @update:model-value="(newDate) => (date = newDate.split('/').join('-'))"
+            :options="(date) => fromCreatedToToday(date)"
+          />
+          <SDatePagination
+            v-model="date"
+            :half-range="halfRange"
+            :offset="offset"
+            @need-fetch="(from, to) => getAnthropometry({ id, from, to, expanded: true })"
+            h="16rem!"
           >
-            <EAthropometricsItem :profile="slides[index]" p="0!" readonly pointer-events-none select-none />
-          </SPaginationSlider>
-          <SNoResultsScreen v-else p-1.5rem />
+            <template #item="{ date: dd }">
+              <EAthropometricsItem
+                v-if="slides && slides.find((slide) => isEqualDates(slide.createdAt, dd))"
+                :profile="slides.find((slide) => isEqualDates(slide.createdAt, dd))!"
+                p="0!"
+                readonly
+                pointer-events-none
+                select-none
+              />
+            </template>
+          </SDatePagination>
         </div>
       </template>
     </SWithHeaderLayout>
+
+    <SRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
   </SStructure>
 </template>

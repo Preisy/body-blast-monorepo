@@ -3,9 +3,9 @@ import { AdminUser } from 'shared/api/admin';
 import { SReadonlyField } from 'shared/ui/inputs';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
-type Week = AdminUser.GetSteps.Response['data']['weeks'][number];
+type Week = AdminUser.GetSteps.Response['weeks'][number];
 export interface WStepsMonitoringProps {
-  weeks: AdminUser.GetSteps.Response['data']['weeks'];
+  weeks: AdminUser.GetSteps.Response['weeks'];
 }
 defineProps<WStepsMonitoringProps>();
 
@@ -18,7 +18,7 @@ const weekSlideColor = (week: Week) => {
   };
   return colors[status];
 };
-const weekRange = (week: Week) => `${week.startDate}-${week.endDate}`;
+const weekRange = (week: Week) => `${week.startDate.split('.')[0]}-${week.endDate.split('.')[0]}`;
 </script>
 
 <template>

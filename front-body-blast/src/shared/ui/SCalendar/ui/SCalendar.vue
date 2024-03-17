@@ -35,8 +35,8 @@ const getDate = (td: string) => {
 </script>
 
 <template>
-  <div>
-    <div flex items-center justify-center gap-2 @click="showDateModal = true">
+  <div flex justify-center>
+    <div w-min flex items-center justify-center gap-2 @click="showDateModal = true">
       <p text-center font-800>{{ getDate(dateValue) }}</p>
       <q-icon name="calendar_month" text-black />
     </div>

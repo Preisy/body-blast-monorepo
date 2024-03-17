@@ -10,6 +10,7 @@ import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
+import { SLoading } from 'shared/ui/SLoading';
 import { SVideo } from 'shared/ui/SVideo';
 
 export interface WPromptsProps {
@@ -17,10 +18,10 @@ export interface WPromptsProps {
 }
 const props = defineProps<WPromptsProps>();
 
-const { deletePrompt, prompts } = useAdminPromptStore();
+const { deletePrompt } = useAdminPromptStore();
 
-const { state: video } = useAuthLink(props.prompt.videoLink);
-const { state: photo } = useAuthLink(props.prompt.photoLink);
+const { state: video } = useAuthLink(() => props.prompt.videoLink);
+const { state: photo } = useAuthLink(() => props.prompt.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
 
@@ -33,25 +34,21 @@ const openDialog = (data: Prompt) => {
 };
 
 const onDeleteClick = async (id: AppBaseEntity['id']) => {
-  await deletePrompt({ id });
-
-  if (prompts.deleteState.isSuccess()) {
-    const index = prompts.data?.data.findIndex((prompt) => props.prompt.id === prompt.id);
-    if (index) prompts.data?.data.splice(index, 1);
-  }
+  deletePrompt({ id });
 };
 </script>
 
 <template>
   <div>
+    <h2 mb-0.75rem>{{ prompt.type }}</h2>
     <div relative>
-      <template v-if="video.data && photo.data">
+      <div v-if="video.data && photo.data" max-h-20rem>
         <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
 
-        <SVideo ref="videoControl" :link-url="video.data.link" disable-btn />
-      </template>
+        <SVideo ref="videoControl" :link-url="video.data.link" disable-btn h-auto w-full />
+      </div>
       <template v-else>
-        <q-circular-progress indeterminate rounded size="50px" color="secondary" class="q-ma-md" />
+        <SLoading />
       </template>
     </div>
 

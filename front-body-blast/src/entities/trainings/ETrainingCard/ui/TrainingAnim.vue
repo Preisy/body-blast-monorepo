@@ -2,6 +2,7 @@
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
+import { SLoading } from 'shared/ui/SLoading';
 import { SVideo } from 'shared/ui/SVideo';
 
 const props = defineProps<{
@@ -9,8 +10,8 @@ const props = defineProps<{
   videoLink: string;
 }>();
 
-const { state: video } = useAuthLink(props.videoLink);
-const { state: photo } = useAuthLink(props.photoLink);
+const { state: video } = useAuthLink(() => props.videoLink);
+const { state: photo } = useAuthLink(() => props.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
 </script>
@@ -18,13 +19,13 @@ const videoControl = ref<InstanceType<typeof SVideo>>();
 <template>
   <div relative w-full>
     <div relative>
-      <template v-if="video.data && photo.data">
+      <div v-if="video.data && photo.data" max-h-20rem>
         <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
 
         <SVideo ref="videoControl" :link-url="video.data.link" disable-btn />
-      </template>
+      </div>
       <template v-else>
-        <q-circular-progress indeterminate rounded size="50px" color="secondary" class="q-ma-md" />
+        <SLoading />
       </template>
     </div>
 

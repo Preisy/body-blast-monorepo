@@ -43,7 +43,10 @@ const onItemClick = (val: ModelValue) => {
   setValue(val);
   emit('update:modelValue', val);
 };
-const onInput = debounce((val) => emit('update:innerInput', val), 300);
+const onInput = debounce((val) => {
+  emit('update:innerInput', val);
+  if (value.value) value.value[props.optionValue] = val;
+}, 300);
 
 const open = () => {
   isOpen.value = true;
@@ -56,7 +59,7 @@ const close = () => {
 </script>
 
 <template>
-  <div class="s-choose-input" relative w-full>
+  <div class="s-choose-input" relative w-full @touchstart.stop="">
     <SProxyScroll
       v-if="isOpen"
       class="popup"
@@ -78,6 +81,7 @@ const close = () => {
       <SInput
         ref="anchor"
         @focus="open"
+        @blur="close"
         @update:model-value="onInput"
         :label="label"
         watch-model-value

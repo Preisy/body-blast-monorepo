@@ -15,6 +15,7 @@ const props = defineProps<WAdditionCardProps>();
 const validationSchema = Workout.validation().pick({ comment: true });
 const { workouts, patchWorkout } = useWorkoutStore();
 const onsubmit = (values: z.infer<typeof validationSchema>) => {
+  console.log(values);
   useLoadingAction(workouts.updateState, () => patchWorkout({ id: props.id, data: { comment: values.comment } }));
 };
 </script>
@@ -28,7 +29,7 @@ const onsubmit = (values: z.infer<typeof validationSchema>) => {
       :field-schema="toTypedSchema(validationSchema)"
       :loading="workouts.updateState.isLoading()"
     >
-      <SInput name="message" :placeholder="$t('dashboard.trainings.addition.input')" />
+      <SInput name="comment" :placeholder="$t('dashboard.trainings.addition.input')" />
     </SForm>
   </SComponentWrapper>
 </template>

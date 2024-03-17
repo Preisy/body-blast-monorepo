@@ -8,8 +8,8 @@ export const AdminWorkoutService = {
   postWorkout: useServiceAction((data: AdminTraining.Post.Dto) =>
     api.post<AdminTraining.Post.Response>('/admin/workouts', data),
   ),
-  getWorkout: useServiceAction((pagination: AppPagination.BaseDto) =>
-    api.get<AdminTraining.Get.Response>(`/admin/workouts`, { params: pagination }),
+  getWorkout: useServiceAction((pagination: AppPagination.DateDto) =>
+    api.get<AdminTraining.Get.Response>(`/admin/workouts/date`, { params: pagination }),
   ),
   getWorkoutById: useServiceAction((id: AppBaseEntity['id']) =>
     api.get<AdminTraining.GetById.Response>(`/admin/workouts/${id}`),

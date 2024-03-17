@@ -21,11 +21,9 @@ const { getUserSteps, getUserDiaries, userDiaries, userSteps } = useAdminUserPro
 const dateRaw = ref<Moment>(moment());
 const calendarDate = computed(() => dateRaw.value.format('YYYY/MM/DD'));
 // 2024-02-01T00:00:00.000Z
-const date = computed<string>(() =>
-  dateRaw.value.clone().utcOffset(0).date(1).hour(0).minute(0).seconds(0).milliseconds(0).toISOString(),
-);
+const date = computed(() => dateRaw.value.clone().utcOffset(0).date(1).hour(0).minute(0).seconds(0).milliseconds(0));
 // 2024-03-01T00:00:00.000 <- Difference with 'date' only in MM field
-const dateMonthPlusOne = computed(() => dateRaw.value.clone().add(1, 'M').toISOString());
+const dateMonthPlusOne = computed(() => date.value.clone().add(1, 'M'));
 
 watch(
   dateMonthPlusOne,
@@ -34,12 +32,12 @@ watch(
       //get all diaries in month range
       await getUserDiaries({
         id: props.id,
-        pagination: { expanded: true, from: date.value, to: dateMonthPlusOne.value },
+        pagination: { expanded: true, from: date.value.toISOString(), to: dateMonthPlusOne.value.toISOString() },
       });
       //get all steps in month range
       return getUserSteps({
         id: props.id,
-        pagination: { expanded: true, from: date.value, to: dateMonthPlusOne.value },
+        pagination: { expanded: true, from: date.value.toISOString(), to: dateMonthPlusOne.value.toISOString() },
       });
     });
   },
@@ -47,7 +45,7 @@ watch(
 );
 
 const diariesData = computed(() => userDiaries.data?.data);
-const stepsData = computed(() => userSteps.data?.data);
+const stepsData = computed(() => userSteps.data);
 
 const diariesSlides = computed(() => {
   const diariesSlides: Record<string, Array<Diary>> = {};
@@ -65,6 +63,8 @@ const diariesSlides = computed(() => {
     <SCalendar
       :model-value="calendarDate"
       @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
+      default-view="Months"
+      :emit-immediately="true"
       today-btn
     />
 

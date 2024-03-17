@@ -90,7 +90,7 @@ const onUserDelete = (user: User) => {
               <template #action>
                 <div flex flex-row justify-between>
                   <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(user)" />
-                  <SBtn icon="sym_r_delete" @click="onUserDelete(user)" />
+                  <SBtn icon="sym_r_delete" @click.stop="onUserDelete(user)" />
                 </div>
               </template>
             </EUnitedProfileCard>

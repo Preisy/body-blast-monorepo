@@ -71,7 +71,7 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
       <SBtn :icon="symRoundedClose" ml-0.5rem :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE }" />
       <div v-for="form in forms" :key="form.is.name" mt-1rem>
         <SForm :readonly="true" :field-schema="form.form.fieldSchema" :init-values="form.values">
-          <component :is="form.is" />
+          <component :is="form.is" :readonly="true" />
         </SForm>
       </div>
     </SProxyScroll>

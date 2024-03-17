@@ -20,6 +20,7 @@ import { SStructure } from 'shared/ui/SStructure';
 const { me, getMe, patchMe } = useMeStore();
 const data = computed(() => me.data?.data);
 if (!data.value) useLoadingAction(me, () => getMe());
+const router = useRouter();
 
 const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; values: Record<string, unknown> }> = [
   {
@@ -52,8 +53,8 @@ const patchUser = async () => {
   for (const form of formsRef.value) {
     await form.handleSubmit((formValues) => assign(updatedUserData.value, formValues))();
   }
-  console.log(updatedUserData.value);
-  patchMe(updatedUserData.value);
+  await patchMe(updatedUserData.value);
+  router.push({ name: ENUMS.ROUTES_NAMES.PROFILE });
 };
 </script>
 

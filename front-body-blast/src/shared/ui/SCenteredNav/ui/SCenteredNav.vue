@@ -23,8 +23,9 @@ const setPage = (p: string) => emit('update:modelValue', p);
       @click="setPage(page.value)"
       :class="{ 'opacity-50': modelValue !== page.value }"
       :data-key="page.value"
-      nowrap
       cursor-pointer
+      whitespace-nowrap
+      py-0.75rem
       text-center
       font-semibold
     >

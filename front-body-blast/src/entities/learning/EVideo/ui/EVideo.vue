@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { BonusVideo } from 'shared/api/bonusVideo';
 import { useAuthLink } from 'shared/lib/hooks';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
+import { SLoading } from 'shared/ui/SLoading';
 import { SVideo } from 'shared/ui/SVideo';
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const { state: link } = useAuthLink(props.video.linkUrl);
     <h2 mb-4>{{ video.name }}</h2>
     <div>
       <SVideo v-if="link.data" :link-url="link.data.link" />
-      <SNoResultsScreen v-else />
+      <SLoading v-else />
     </div>
   </div>
 </template>

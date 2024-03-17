@@ -11,7 +11,7 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
 
   const workoutList = ref(useSingleState<AdminWorkout.Get.Response>({ create: true, update: true, delete: true }));
   // GET /api/admin/workouts
-  const getWorkouts = (data: AppPagination.BaseDto) =>
+  const getWorkouts = (data: AppPagination.DateDto) =>
     useSimpleStoreAction({
       stateWrapper: workoutList.value,
       serviceAction: AdminWorkoutService.getWorkout(data),

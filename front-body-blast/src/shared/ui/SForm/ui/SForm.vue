@@ -30,7 +30,7 @@ const onsubmit = handleSubmit((...data) => emits('submit', ...data));
 </script>
 
 <template>
-  <form @submit.prevent="" @submit="onsubmit" flex flex-col p-1.5rem>
+  <form @submit.prevent="onsubmit" flex flex-col p-1.5rem>
     <div flex flex-col gap-y-0.5rem class="s-form-inputs">
       <slot />
     </div>

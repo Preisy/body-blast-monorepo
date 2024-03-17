@@ -5,8 +5,10 @@ import { WOldTraining } from 'widgets/WOldTraining';
 import { useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
-import { isToday } from 'shared/lib/utils';
+import { useLoadingAction } from 'shared/lib/loading';
+import { gtCreation, isEqualDates } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
+import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 
@@ -16,20 +18,21 @@ export interface PAdminUserWorkoutProps {
 defineProps<PAdminUserWorkoutProps>();
 
 const today = moment();
-const date = ref(today.format('YYYY/MM/DD'));
-const workoutStore = useAdminWorkoutStore();
-const { getWorkouts, workoutList } = workoutStore;
-const pageNumber = ref(1);
-watch(pageNumber, () => getWorkouts({ expanded: true, limit: 20, page: pageNumber.value }), { immediate: true });
+const date = ref(today.format('YYYY-MM-DD'));
+const halfRange = ref(7); //2weeks
+const offset = ref(0);
+
+const { getWorkouts, workoutList } = useAdminWorkoutStore();
+
+useLoadingAction(workoutList, () =>
+  getWorkouts({
+    expanded: true,
+    from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
+    to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
+  }),
+);
 
 const workoutListData = computed(() => workoutList.data?.data);
-const todayWorkout = computed(() => workoutListData.value?.find((workout) => isToday(workout.date)));
-const dateSortedWorkoutsWithoutToday = computed(
-  () =>
-    workoutListData.value
-      ?.sort((left, right) => (left.date > right.date ? 1 : -1))
-      .filter((workout) => workout.id !== todayWorkout.value?.id),
-);
 
 const editingWorkout = ref<Workout | null>();
 const onEdit = (id: Workout) => {
@@ -41,33 +44,25 @@ const clearEditing = () => {
 </script>
 
 <template>
-  <!-- TODO: Refactor. Today slide and past slides are much the same. -->
-  <!-- WOldTraining & WNewTraning - bad names -->
   <SStructure h-full flex flex-col>
-    <SCalendar
+    <SCalendar v-model="date" :options="(date) => gtCreation(date)" mb-1rem mt-1rem />
+
+    <SDatePagination
       v-model="date"
-      :options="workoutListData?.map((workout) => moment(workout.date).format('YYYY/MM/DD'))"
-      pb-1rem
-      pt-2rem
-    />
-    <q-tab-panels
-      v-model="date"
-      :keep-alive-include="[today.format('YYYY/MM/DD')]"
-      keep-alive
-      :swipeable="workoutStore.isPopupVisible"
-      animated
-      h-full
-      v-once
+      :offset="offset"
+      :half-range="halfRange"
+      @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true })"
+      p="0!"
     >
-      <q-tab-panel
-        v-for="workout in dateSortedWorkoutsWithoutToday"
-        :key="workout.id"
-        :name="moment(workout.date).format('YYYY/MM/DD')"
-        class="overflow-hidden! p-0!"
-        h-full
-      >
-        <SProxyScroll h-full>
-          <WOldTraining v-if="!editingWorkout" :workout="workout" @edit="onEdit" />
+      <template #item="{ date: dd }">
+        <SProxyScroll h-full type="vertical">
+          <WOldTraining
+            v-if="
+              !editingWorkout && workoutListData && workoutListData.find((workout) => isEqualDates(workout.date, dd))
+            "
+            :workout="workoutListData.find((workout) => isEqualDates(workout.date, dd))!"
+            @edit="onEdit"
+          />
           <WNewTraining
             v-else
             :date="date.split('/').join('-')"
@@ -79,22 +74,7 @@ const clearEditing = () => {
             @edit="clearEditing"
           />
         </SProxyScroll>
-      </q-tab-panel>
-      <q-tab-panel :name="today.format('YYYY/MM/DD')" class="overflow-hidden! p-0!" h-full>
-        <SProxyScroll h-full>
-          <WOldTraining v-if="todayWorkout && !editingWorkout" :workout="todayWorkout" @edit="onEdit" />
-          <WNewTraining
-            v-else
-            :date="date.split('/').join('-')"
-            :id="id"
-            :init-values="editingWorkout ?? undefined"
-            :workout-id="editingWorkout?.id"
-            :is-edit="!!editingWorkout"
-            @reject-edit="clearEditing"
-            @edit="clearEditing"
-          />
-        </SProxyScroll>
-      </q-tab-panel>
-    </q-tab-panels>
+      </template>
+    </SDatePagination>
   </SStructure>
 </template>

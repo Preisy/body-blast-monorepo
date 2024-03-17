@@ -49,50 +49,72 @@ const onsubmit = async () => {
   }
   for (let i = 0; i < exerciseForms.value.length; i++) {
     const exerciseForm = exerciseForms.value[i];
-    await exerciseForm.handleSubmit((values: z.infer<typeof ExerciseValidation>) => {
-      //find prompt with id. use prompt to pick photoLink and videoLink
-      const { prompt } = values;
+    await exerciseForm.handleSubmit(
+      async (values: z.infer<typeof ExerciseValidation>) => {
+        //find prompt with id. use prompt to pick photoLink and videoLink
+        const { prompt } = values;
+        if (!prompt.type) throw 'No prompt!';
+        if (!prompt.photoLink || !prompt.videoLink) {
+          const response = await getPrompts({ type: prompt.type });
+          if (!response.data) {
+            throw response.error;
+          }
+          const newPrompt = response.data.data[0];
+          if (!newPrompt) throw 'No prompt!';
+          prompt.photoLink = newPrompt.photoLink;
+          prompt.videoLink = newPrompt.videoLink;
+        }
 
-      const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
-        name: values.name,
-        pace: values.pace,
-        photoLink: prompt.photoLink,
-        videoLink: prompt.videoLink,
-        repetitions: values.repetitions,
-        restTime: values.restTime,
-        trainerComment: values.trainerComment,
-        sets: values.sets,
-        weight: values.weight,
-      };
+        const exercise: Omit<Exercise, keyof AppBaseEntity | 'workoutId'> = {
+          name: values.name,
+          pace: values.pace,
+          photoLink: prompt.photoLink,
+          promptType: prompt.type,
+          videoLink: prompt.videoLink,
+          repetitions: values.repetitions,
+          restTime: values.restTime,
+          trainerComment: values.trainerComment,
+          sets: values.sets,
+          weight: values.weight,
+        };
 
-      assign(exercises.value[i], exercise);
-    })();
+        assign(exercises.value[i], exercise);
+      },
+      (err) => {
+        throw err;
+      },
+    )();
   }
 
-  await trainingForm.value?.handleSubmit((values: z.infer<ReturnType<typeof Workout.validation>>) => {
-    const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
-      name: values.name,
-      comment: values.comment,
-      date: props.date,
-      exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
-      cycle: parseInt(values.cycle),
-      userId: props.id,
-    };
+  await trainingForm.value?.handleSubmit(
+    (values: z.infer<ReturnType<typeof Workout.validation>>) => {
+      const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
+        name: values.name,
+        comment: values.comment,
+        date: props.date,
+        exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
+        cycle: values.cycle,
+        userId: props.id,
+      };
 
-    if (props.isEdit && props.workoutId) {
-      useLoadingAction(workoutList.updateState, () => {
-        if (props.workoutId) patchWorkout(props.workoutId, workout);
-      });
-      emit('edit');
-    } else {
-      useLoadingAction(workoutList.createState, () => postWorkout(workout));
-    }
-  })();
+      if (props.isEdit && props.workoutId) {
+        useLoadingAction(workoutList.updateState, () => {
+          if (props.workoutId) patchWorkout(props.workoutId, workout);
+        });
+        emit('edit');
+      } else {
+        useLoadingAction(workoutList.createState, () => postWorkout(workout));
+      }
+    },
+    (err) => {
+      throw err;
+    },
+  )();
 };
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
-useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
+if (!prompts.data?.data) useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
 </script>
 
 <template>
@@ -115,7 +137,10 @@ useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
         v-for="(exercise, index) in exercises"
         :key="exercise.key"
         :field-schema="toTypedSchema(ExerciseValidation)"
-        :init-values="exercise"
+        :init-values="{
+          ...exercise,
+          prompt: { type: exercise.promptType },
+        }"
         p="0!"
         mt-0.5rem
       >
