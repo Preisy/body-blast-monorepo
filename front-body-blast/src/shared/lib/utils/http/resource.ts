@@ -21,10 +21,10 @@ export namespace IResource {
   }
 
   export namespace Error {
-    export function build(err: AxiosError<Error.Axios>): Error {
+    export function build(err: AxiosError<Error.Axios>) {
       return {
         statusCode: err.response?.status,
-        message: (err.response?.data as Api.Error)?.message || 'Неизвестная ошибка!',
+        message: (err.response?.data as Api.Error)?.message || err.message,
         original: err,
       };
     }
