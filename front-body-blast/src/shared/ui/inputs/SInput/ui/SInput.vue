@@ -85,11 +85,13 @@ const currentBgColor = computed(() => (!!value.value ? props.activeBgColor : pro
 
   &:deep(.q-field__label) {
     color: currentColor !important;
+    user-select: none;
     top: 0;
   }
 
   &:deep(.q-field__native) {
     color: currentColor !important;
+    user-select: none;
   }
 
   &:deep(.q-field__bottom) {
