@@ -51,7 +51,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
 </script>
 
 <template>
-  <q-footer rounded-t-2rem bg-bg boxshadow-footer class="w-footer">
+  <q-footer class="w-footer" rounded-t-2rem bg-bg boxshadow-footer>
     <q-tabs flex flex-row class="justify-between!">
       <SFooterNavLink v-for="navlink of links" :key="navlink.imgSrc" v-bind="navlink" />
     </q-tabs>

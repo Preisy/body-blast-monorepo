@@ -62,6 +62,7 @@ onMounted(async () => {
     fixed
     top-0.5rem
     z-9999
+    max-w-450px
     flex
     flex-row
     select-none
