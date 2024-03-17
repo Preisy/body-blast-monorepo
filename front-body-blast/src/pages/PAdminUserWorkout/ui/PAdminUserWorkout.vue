@@ -45,7 +45,13 @@ const clearEditing = () => {
 
 <template>
   <SStructure h-full flex flex-col>
-    <SCalendar v-model="date" :options="(date) => gtCreation(date)" mb-1rem mt-1rem />
+    <SCalendar
+      :model-value="date"
+      @update:model-value="(newDate) => (date = newDate.split('/').join('-'))"
+      :options="(date) => gtCreation(date)"
+      mb-1rem
+      mt-1rem
+    />
 
     <SDatePagination
       v-model="date"
