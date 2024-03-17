@@ -19,3 +19,15 @@ export function isToday(date: string | Moment) {
     moment().isSame(dateMoment, 'days') && moment().isSame(dateMoment, 'months') && moment().isSame(dateMoment, 'years')
   );
 }
+
+export function isEqualDates(date1: string | Moment, date2: string | Moment) {
+  const isoString1 = typeof date1 === 'string' ? date1.split('/').join('-') : undefined;
+  const dateMoment1 = typeof date1 === 'string' ? moment(isoString1) : date1;
+  const isoString2 = typeof date2 === 'string' ? date2.split('/').join('-') : undefined;
+  const dateMoment2 = typeof date2 === 'string' ? moment(isoString2) : date2;
+  return (
+    dateMoment1.isSame(dateMoment2, 'days') &&
+    moment().isSame(dateMoment2, 'months') &&
+    moment().isSame(dateMoment2, 'years')
+  );
+}
