@@ -1,35 +1,38 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import moment from 'moment';
-import { QTabPanel } from 'quasar';
 import { z } from 'zod';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
+import { isEqualDates } from 'shared/lib/utils';
 import { SInput } from 'shared/ui/inputs';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
+import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SForm } from 'shared/ui/SForm';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
-import { STabPanels } from 'shared/ui/STabPanels';
-
-export interface WDiaryProps {
-  slides: Array<Diary>;
-}
-
-const props = defineProps<WDiaryProps>();
-const { patchDiary, diaryList } = useDiaryStore();
-
-const dates = props.slides.map((it) => it.date);
-const modelDate = ref(dates[0]);
-const updateModel = (newDate: string) => {
-  if (!newDate) return;
-  modelDate.value = moment(newDate.split('/').join('-')).toISOString();
-};
 
 const today = moment(); // Current date
+
+const emit = defineEmits<{
+  'update:date': [date: string];
+}>();
+
+const { patchDiary, diaryList, getDiary } = useDiaryStore();
+const diaryData = computed(() => diaryList.data?.data);
+
+const dates = diaryData.value?.map((it) => it.date);
+const modelDate = ref(today.format('YYYY-MM-DD'));
+const updateModel = (newDate: string) => {
+  if (!newDate) return;
+  modelDate.value = moment(newDate.split('/').join('-')).format('YYYY-MM-DD');
+
+  emit('update:date', modelDate.value);
+};
+
 const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 
 const activityValidation = Diary.validation().pick({ activity: true, steps: true });
@@ -38,6 +41,9 @@ const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
     patchDiary(diary.id, { ...values, props: diary.props?.filter((prop) => prop.value) }),
   );
 };
+
+const offset = ref(0);
+const halfRange = ref(7);
 </script>
 
 <template>
@@ -45,11 +51,23 @@ const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
     <SCalendar
       :model-value="moment(modelDate).format('YYYY/MM/DD')"
       @update:model-value="updateModel"
-      :options="dates.map((date) => moment(date).format('YYYY/MM/DD'))"
+      :options="dates?.map((date) => moment(date).format('YYYY/MM/DD'))"
     />
-    <STabPanels v-model="modelDate">
-      <q-tab-panel v-for="slide in slides" :name="slide.date" :key="slide.id" overflow-y-hidden>
-        <SStructure px="0!" relative>
+    <SDatePagination
+      :model-value="modelDate"
+      @update:model-value="
+        (newDate) => {
+          modelDate = newDate;
+          emit('update:date', newDate);
+        }
+      "
+      :offset="offset"
+      :half-range="halfRange"
+      @need-fetch="(from, to) => getDiary({ from, to, expanded: true })"
+      p="0!"
+    >
+      <template #item="{ date: dd }">
+        <SStructure v-if="diaryData && diaryData.find((item) => isEqualDates(item.date, dd))" px="0!" relative>
           <SSplide
             :options="{
               direction: 'ttb',
@@ -61,16 +79,19 @@ const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
             }"
           >
             <SSplideSlide>
-              <EDiarySelfControlItem :diary="slide" :readonly="isReadonly(slide.date)" />
+              <EDiarySelfControlItem
+                :diary="diaryData.find((item) => isEqualDates(item.date, dd))!"
+                :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
+              />
             </SSplideSlide>
 
             <SSplideSlide>
               <h1 mb-4>{{ $t('home.diary.activity.activity') }}</h1>
               <SForm
-                :readonly="isReadonly(slide.date)"
+                :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
                 :field-schema="toTypedSchema(activityValidation)"
-                :init-values="slide"
-                @submit="(values) => onSubmit(slide, values)"
+                :init-values="diaryData.find((item) => isEqualDates(item.date, dd))!"
+                @submit="(values) => onSubmit(diaryData!.find((item) => isEqualDates(item.date, dd))!, values)"
                 :loading="diaryList.updateState.isLoading()"
                 p="0!"
               >
@@ -80,7 +101,7 @@ const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
             </SSplideSlide>
           </SSplide>
         </SStructure>
-      </q-tab-panel>
-    </STabPanels>
+      </template>
+    </SDatePagination>
   </SComponentWrapper>
 </template>

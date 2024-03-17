@@ -6,10 +6,11 @@ import { useDiaryStore } from 'shared/api/diary';
 import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
 const today = moment();
 const { diaryList, getDiary } = useDiaryStore();
+
+const diaryData = computed(() => diaryList.data?.data);
 useLoadingAction(diaryList, () =>
   getDiary({
     expanded: true,
@@ -18,11 +19,17 @@ useLoadingAction(diaryList, () =>
   }),
 );
 
-const diaryData = computed(() => diaryList.data?.data);
-
 const { me } = useMeStore();
 const meData = computed(() => me.data?.data);
-const lastWeek = computed(() => diaryData.value?.filter((diary) => moment(diary.date).isSame(today, 'week')));
+const date = ref(moment().format('YYYY-MM-DD'));
+
+const lastWeek = computed(
+  () =>
+    diaryData.value?.filter((diary) => {
+      const [left, right] = toWeekRange(date.value).split('-').map(Number);
+      return moment(diary.date).date() >= left && moment(diary.date).date() <= right;
+    }),
+);
 const stepsSum = computed(
   () =>
     lastWeek.value?.reduce(
@@ -31,9 +38,8 @@ const stepsSum = computed(
     ) ?? 0, // if no lastWeek.value, then 0
 );
 const week = computed(() => {
-  const date = lastWeek.value?.[0]?.date;
-  if (!date) return;
-  return toWeekRange(date);
+  if (!date.value) return;
+  return toWeekRange(date.value);
 });
 </script>
 
@@ -45,7 +51,6 @@ const week = computed(() => {
       :steps-sum="stepsSum"
       :week="week ?? $t('global.error')"
     />
-    <WSelfControl v-if="diaryData && diaryData.length" :slides="diaryData" />
-    <SNoResultsScreen v-else p-1.5rem />
+    <WSelfControl @update:date="(newDate) => (date = newDate)" />
   </div>
 </template>

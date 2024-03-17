@@ -1,32 +1,34 @@
 <script setup lang="ts">
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { z } from 'zod';
 import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/profile/EAthropometricsItem';
 import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
 import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';
-import { isToday } from 'shared/lib/utils';
+import { gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
-import { SPaginationSlider, SPaginationSliderProps } from 'shared/ui/SPaginationSlider';
+import { SDatePagination } from 'shared/ui/SDatePagination';
+import { SPaginationSliderProps } from 'shared/ui/SPaginationSlider';
 
 interface AthropometricsSlide extends EAthropometricsItemProps {
   dateValue: string;
 }
 
-const slideIndex = ref(0);
-const date = ref<Moment>(moment());
-const calendarDate = computed(() => date.value.format('YYYY/MM/DD'));
+const date = ref(moment().format('YYYY-MM-DD'));
+const options = ref([moment().format('YYYY/MM/DD')]);
 
 const { anthropometry, getAnthropometry, patchAnthropometry } = useProfileStore();
 const anthropometryData = computed(() => anthropometry.data?.data);
+
+const halfRange = ref(3);
+const offset = ref(0);
 
 if (!anthropometryData.value)
   useLoadingAction(anthropometry, () =>
     getAnthropometry({
       expanded: true,
-      to: date.value.toISOString(),
-      from: date.value.clone().subtract(2, 'weeks').toISOString(),
+      from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
+      to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
     }),
   );
 
@@ -42,23 +44,8 @@ const anthropometrySlides = computed(
     ),
 );
 const dates = computed(() => anthropometrySlides.value?.map((it) => moment(it.dateValue).format('YYYY/MM/DD')));
+watch(dates, (newDates) => options.value.push(...(newDates ?? [])), { immediate: true });
 
-const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
-  let to = moment(createdAt);
-  let from = to.clone().subtract(2, 'w');
-
-  if (direction === 'back') {
-    to.subtract(2, 'w');
-    from.subtract(2, 'w');
-  } else {
-    to.add(2, 'w');
-    from.add(2, 'w');
-  }
-
-  date.value = to;
-  return getAnthropometry({ from: from.toISOString(), to: to.toISOString() });
-};
-const lock = computed(() => anthropometry.state.isLoading());
 const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Anthropometry.validation>>) =>
   patchAnthropometry({ ...values, id });
 </script>
@@ -66,26 +53,34 @@ const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Ant
 <template>
   <div h-full>
     <SCalendar
-      :model-value="calendarDate"
-      @update:model-value="(newDate) => (date = moment(newDate.split('/').join('-')))"
+      :model-value="date"
+      @update:model-value="(newDate) => (date = newDate.split('/').join('-'))"
       :options="[...(dates || []), moment().format('YYYY/MM/DD')]"
     />
 
-    <SPaginationSlider
-      :slides="anthropometrySlides?.length ? anthropometrySlides : [{ name: 'no-results' }]"
-      :lock="lock"
-      v-model="slideIndex"
-      @first-element="update('back')"
-      @last-element="update('front')"
+    <SDatePagination
+      v-model="date"
+      :half-range="halfRange"
+      :offset="offset"
+      @need-fetch="
+        (from, to) =>
+          getAnthropometry({
+            expanded: true,
+            from,
+            to,
+          })
+      "
+      :options="(date) => gtCreation(date)"
     >
-      <EAthropometricsItem
-        v-if="anthropometrySlides && anthropometrySlides[slideIndex]"
-        :profile="anthropometrySlides[slideIndex].profile"
-        p="0!"
-        :readonly="!moment().isSame(date, 'week')"
-        @submit="onSubmit"
-      />
-      <SNoResultsScreen v-else p-1.5rem />
-    </SPaginationSlider>
+      <template #item="{ date: dd }">
+        <EAthropometricsItem
+          v-if="anthropometrySlides && anthropometrySlides.find((slide) => isEqualDates(slide.dateValue, dd))"
+          :profile="anthropometrySlides.find((slide) => isEqualDates(slide.dateValue, dd))!.profile"
+          p="0!"
+          :readonly="moment().diff(dd, 'd') > 3"
+          @submit="onSubmit"
+        />
+      </template>
+    </SDatePagination>
   </div>
 </template>
