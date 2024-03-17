@@ -210,7 +210,8 @@ export class BaseDiaryService implements OnModuleInit {
     const result: StepsByWeek[] = [];
     while (weeksCounter < weeks) {
       let steps = 0;
-      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+      const diff = 7 - firstDayOfWeek.getDay();
+      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + diff);
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
       newWeek.forEach((diary) => {
         if (diary.steps) steps += diary.steps;
