@@ -26,11 +26,11 @@ export namespace Anthropometry {
 
   export const validation = () =>
     z.object({
-      weight: z.coerce.number().min(20).max(600),
-      waist: z.coerce.number().min(30).max(300),
-      abdomen: z.coerce.number().min(30).max(500),
-      shoulder: z.coerce.number().min(30).max(150),
-      hip: z.coerce.number().min(30).max(150),
-      hipVolume: z.coerce.number().min(30).max(150),
+      weight: z.coerce.number().max(10000),
+      waist: z.coerce.number().max(10000),
+      abdomen: z.coerce.number().max(10000),
+      shoulder: z.coerce.number().max(10000),
+      hip: z.coerce.number().max(10000),
+      hipVolume: z.coerce.number().max(10000),
     });
 }
