@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { merge } from 'lodash';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
 import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
@@ -9,12 +8,11 @@ import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
-import { fromCreatedToToday } from 'shared/lib/utils';
+import { fromCreatedToToday, isEqualDates } from 'shared/lib/utils';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
-import { SPaginationSlider } from 'shared/ui/SPaginationSlider';
+import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import { SStructure } from 'shared/ui/SStructure';
 import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
@@ -22,6 +20,9 @@ import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
 export interface PAdminUserProfileProps {
   id: AppBaseEntity['id'];
 }
+
+const today = moment();
+
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
 
@@ -58,47 +59,18 @@ const anthrpJobPeriodOptions = [
   { value: 14, label: '14' },
 ];
 
+const date = ref(today.format('YYYY-MM-DD'));
+const halfRange = ref(3);
+const offset = ref(0);
 const { anthropometryList, getAnthropometry } = useAdminAnthropometryStore();
-
-const index = ref(0);
-const lock = computed(() => anthropometryList.state.isLoading());
-const slides = computed(
-  () =>
-    anthropometryList.data?.data
-      .filter((slide) => slide.userId === props.id)
-      .map((slide) => merge(slide, { name: slide.id.toString() })) ?? null,
+useLoadingAction(anthropometryList, () =>
+  getAnthropometry({
+    id: props.id,
+    from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
+    to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
+  }),
 );
-
-const date = ref<Moment>(moment());
-const dateISOString = computed(() => date.value.toISOString());
-const updateDate = (newValue: string) => {
-  const val = newValue.split('/').join('-');
-  date.value = moment(val);
-
-  const from = date.value.clone().subtract(2, 'w').toISOString();
-  const to = dateISOString.value;
-
-  getAnthropometry({ from, to, id: props.id });
-};
-
-const update = (direction: 'back' | 'front', createdAt: string = date.value.toISOString()) => {
-  const delta = anthrpJobPeriod.value ?? 3;
-
-  let to = moment(createdAt);
-  let from = to.clone().subtract(delta, 'day');
-
-  if (direction === 'back') {
-    to.subtract(delta, 'day');
-    from.subtract(delta, 'day');
-  } else {
-    to.add(delta, 'day');
-    from.add(delta, 'day');
-  }
-
-  date.value = to;
-  return getAnthropometry({ from: from.toISOString(), to: to.toISOString(), id: props.id });
-};
-useLoadingAction(anthropometryList, () => update('back', date.value.add(2, 'w').toISOString()));
+const slides = computed(() => anthropometryList.data?.data);
 
 const { deleteUser, users } = useAdminUserProfileStore();
 const deletionDialog = ref<InstanceType<typeof SRemoveDialog>>();
@@ -155,27 +127,28 @@ const onUserDelete = (userId: User['id']) => {
 
         <div>
           <SCalendar
-            :model-value="dateISOString"
-            @update:model-value="updateDate"
+            :model-value="date"
+            @update:model-value="(newDate) => (date = newDate.split('/').join('-'))"
             :options="(date) => fromCreatedToToday(date)"
           />
-          <SPaginationSlider
-            :slides="slides?.length ? slides : [{ name: 'no-result' }]"
-            :lock="lock"
-            v-model="index"
-            @first-element="() => update('back')"
-            @last-element="() => update('front')"
+          <SDatePagination
+            v-model="date"
+            :half-range="halfRange"
+            :offset="offset"
+            @need-fetch="(from, to) => getAnthropometry({ id, from, to, expanded: true })"
+            h="16rem!"
           >
-            <EAthropometricsItem
-              v-if="slides && slides.length"
-              :profile="slides[index]"
-              p="0!"
-              readonly
-              pointer-events-none
-              select-none
-            />
-            <SNoResultsScreen v-else p-1.5rem />
-          </SPaginationSlider>
+            <template #item="{ date: dd }">
+              <EAthropometricsItem
+                v-if="slides && slides.find((slide) => isEqualDates(slide.createdAt, dd))"
+                :profile="slides.find((slide) => isEqualDates(slide.createdAt, dd))!"
+                p="0!"
+                readonly
+                pointer-events-none
+                select-none
+              />
+            </template>
+          </SDatePagination>
         </div>
       </template>
     </SWithHeaderLayout>

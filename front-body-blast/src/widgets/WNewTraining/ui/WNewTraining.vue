@@ -114,7 +114,7 @@ const onsubmit = async () => {
 const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
-useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
+if (!prompts.data?.data) useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
 </script>
 
 <template>

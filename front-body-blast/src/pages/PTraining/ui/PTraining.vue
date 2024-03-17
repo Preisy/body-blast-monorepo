@@ -1,74 +1,66 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { TouchSwipeValue } from 'quasar';
 import { WAdditionCard } from 'widgets/WAdditionCard';
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
-import { gtCreation } from 'shared/lib/utils';
+import { gtCreation, isEqualDates } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
+import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
 const { getWorkouts, workouts } = useWorkoutStore();
 
-const date = ref(moment());
-const dateAsString = computed(() => date.value.format('YYYY-MM-DD'));
+const today = moment();
+const date = ref(today.format('YYYY-MM-DD'));
 
-//pick workout of certain date
-watch(
-  date,
-  () =>
-    useLoadingAction(workouts.state, () =>
-      getWorkouts({
-        from: date.value.format('YYYY-MM-DD'),
-        to: date.value.clone().add(1, 'd').format('YYYY-MM-DD'),
-        expanded: true,
-      }),
-    ),
-  { immediate: true },
-);
+const offset = ref(0);
+const halfRange = ref(3);
 
 const workoutsData = computed(() => workouts.data?.data);
-const workout = computed(() => workoutsData.value?.[0]);
-
-const onSwipe = (event: Parameters<Exclude<TouchSwipeValue, undefined>>['0']) => {
-  if (event.direction === 'left') {
-    date.value = moment(date.value).add(1, 'day');
-  }
-  if (event.direction === 'right') {
-    const newVal = date.value.clone().subtract(1, 'day');
-    const isLegal = gtCreation(newVal.format('YYYY/MM/DD'));
-    if (!isLegal) return;
-    date.value = newVal;
-  }
-};
+useLoadingAction(workouts, () =>
+  getWorkouts({
+    expanded: true,
+    from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
+    to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
+  }),
+);
 </script>
 
 <template>
-  <SStructure>
+  <SStructure h-full>
     <SCalendar
-      :model-value="dateAsString"
-      @update:model-value="(val) => (date = moment(val))"
-      mask="YYYY-MM-DD"
+      :model-value="date"
+      @update:model-value="(val) => (date = val)"
       :options="(date) => gtCreation(date)"
       py-1rem
     />
 
-    <SSplide :options="{ direction: 'ttb', height: '35rem' }" v-touch-swipe.horizontal="onSwipe">
-      <SSplideSlide v-if="!workouts.state.isSuccess() || !workout">
-        <SNoResultsScreen p-1.5rem />
-      </SSplideSlide>
-      <template v-else>
-        <SSplideSlide v-for="exercise in workout.exercises" :key="exercise.name">
-          <ETrainingCard :exercises="exercise" py-1.5rem />
-        </SSplideSlide>
-        <SSplideSlide>
-          <WAdditionCard :id="workout.id" py-1.5rem />
-        </SSplideSlide>
+    <SDatePagination
+      v-model="date"
+      :half-range="halfRange"
+      :offset="offset"
+      @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true })"
+      p="0!"
+    >
+      <template #item="{ date: dd }">
+        <SSplide
+          v-if="workoutsData && workoutsData.find((workout) => isEqualDates(workout.date, dd))"
+          :options="{ direction: 'ttb', height: '35rem' }"
+        >
+          <SSplideSlide
+            v-for="exercise in workoutsData.find((workout) => isEqualDates(workout.date, dd))!.exercises"
+            :key="exercise.name"
+          >
+            <ETrainingCard :exercises="exercise" py-1.5rem />
+          </SSplideSlide>
+          <SSplideSlide>
+            <WAdditionCard :id="workoutsData.find((workout) => isEqualDates(workout.date, dd))!.id" py-1.5rem />
+          </SSplideSlide>
+        </SSplide>
       </template>
-    </SSplide>
+    </SDatePagination>
   </SStructure>
 </template>

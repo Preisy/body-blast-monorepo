@@ -74,6 +74,8 @@ watch(() => props.modelValue, handleNewPart); //need to handle if date changes t
         :key="start.clone().add(N, 'd').format('YYYY-MM-DD')"
         :name="start.clone().add(N, 'd').format('YYYY-MM-DD')"
         h-full
+        overflow-hidden
+        p="0!"
       >
         <slot name="item" :date="start.clone().add(N, 'd')">
           <SNoResultsScreen />
