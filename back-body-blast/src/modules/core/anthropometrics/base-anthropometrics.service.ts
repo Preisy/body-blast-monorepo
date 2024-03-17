@@ -34,7 +34,7 @@ export class BaseAnthropometrcisService implements OnModuleInit {
     if (users.length > 0 && data.length > 0) {
       const greatestAnthrp = data.reduce((prev, next) => (prev.createdAt > next.createdAt ? prev : next));
 
-      const diff = Math.ceil(Math.abs(new Date().getTime() - greatestAnthrp.createdAt.getTime()) / PeriodTime.dayTime);
+      const diff = Math.floor(Math.abs(new Date().getTime() - greatestAnthrp.createdAt.getTime()) / PeriodTime.dayTime);
       const createdDate = greatestAnthrp.createdAt;
 
       for (let i = 0; i < diff; ++i) {
