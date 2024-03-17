@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
+import { QDate, QTabPanels } from 'quasar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
@@ -7,6 +8,7 @@ export interface SDatePaginationProps {
   modelValue: string; //Date. YYYY-MM-DD
   halfRange: number;
   offset: number;
+  options?: QDate['options']; //TODO:
 }
 
 const props = defineProps<SDatePaginationProps>();
@@ -16,6 +18,9 @@ const emit = defineEmits<{
   needFetch: [from: string, to: string];
 }>();
 
+const tabPanels = ref<InstanceType<typeof QTabPanels>>();
+const isAnimated = ref<boolean>(true);
+
 const today = moment().hour(0).minute(0).second(0).millisecond(0);
 const localOffset = ref(props.offset);
 const start = computed(() =>
@@ -24,18 +29,19 @@ const start = computed(() =>
     .subtract(props.halfRange + 1, 'd')
     .add(localOffset.value * props.halfRange * 2, 'd'),
 );
-const lastReached = (date: string) => {
-  const delta = moment(date)
+
+const handleNewPart = () => {
+  const delta = moment(props.modelValue)
     .subtract(localOffset.value * props.halfRange * 2, 'd')
     .diff(today, 'd');
-  console.log(delta);
-  if (Math.abs(delta) !== props.halfRange) return;
+  if (Math.abs(delta) < props.halfRange) return;
 
+  const localOffsetDelta = Math.floor((Math.abs(delta) + props.halfRange) / (2 * props.halfRange));
   if (delta > 0) {
-    localOffset.value++;
+    localOffset.value += localOffsetDelta;
     emit('update:offset', localOffset.value);
   } else {
-    localOffset.value--;
+    localOffset.value -= localOffsetDelta;
     emit('update:offset', localOffset.value);
   }
   emit(
@@ -47,16 +53,20 @@ const lastReached = (date: string) => {
       .format('YYYY-MM-DD'),
   );
 };
+
+const fixEdgeCase = () => handleNewPart();
+watch(() => props.modelValue, handleNewPart); //need to handle if date changes through SCalendar
 </script>
 
 <template>
   <SComponentWrapper h-full>
     <q-tab-panels
+      ref="tabPanels"
       :model-value="modelValue"
       @update:model-value="(newVal) => $emit('update:model-value', newVal as string)"
-      @before-transition="lastReached"
+      v-touch-swipe.horizontal="fixEdgeCase"
       :swipeable="true"
-      :animated="true"
+      :animated="isAnimated"
       h-full
     >
       <q-tab-panel
