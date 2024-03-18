@@ -36,23 +36,42 @@ const openDialog = (data: Prompt) => {
 const onDeleteClick = async (id: AppBaseEntity['id']) => {
   deletePrompt({ id });
 };
+
+const isModalShown = ref(false);
 </script>
 
 <template>
   <div>
     <h2 mb-0.75rem>{{ prompt.type }}</h2>
     <div relative>
-      <div v-if="video.data && photo.data" max-h-20rem>
-        <q-img v-if="!videoControl?.isPlaying" :src="photo.data.link" absolute h-full w-full rounded-1rem />
-
-        <SVideo ref="videoControl" :link-url="video.data.link" disable-btn h-auto w-full />
+      <div v-if="video.data && photo.data">
+        <SVideo
+          ref="videoControl"
+          :link-url="video.data.link"
+          disable-btn
+          absolute
+          w-full
+          top="50%"
+          left="50%"
+          translate="-50%"
+        />
+        <q-img
+          @click="isModalShown = true"
+          :src="photo.data.link"
+          :class="{ 'opacity-0': videoControl?.isPlaying }"
+          z-1
+          h-auto
+          max-h-20rem
+          w-full
+          rounded-1rem
+        />
       </div>
       <template v-else>
         <SLoading />
       </template>
     </div>
 
-    <div mx-5px mt--1rem flex flex-row gap-x-0.5rem>
+    <div mx-5px mt-0.5rem flex flex-row gap-x-0.5rem>
       <SBtn
         :icon="videoControl?.isPlaying ? symRoundedPause : symRoundedPlayArrow"
         bg="bg!"
@@ -64,5 +83,15 @@ const onDeleteClick = async (id: AppBaseEntity['id']) => {
 
     <!-- onEditPopup -->
     <FPromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt-data="editPromptData" />
+    <q-dialog v-model="isModalShown">
+      <q-img
+        :src="photo.data?.link"
+        @click="isModalShown = false"
+        overflow="hidden!"
+        rounded="1.5rem!"
+        h="90%"
+        w="90%"
+      />
+    </q-dialog>
   </div>
 </template>
