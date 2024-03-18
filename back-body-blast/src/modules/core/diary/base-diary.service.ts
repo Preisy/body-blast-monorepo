@@ -37,13 +37,14 @@ export class BaseDiaryService implements OnModuleInit {
     if (data.length > 0) {
       const greatestDiary = data.reduce((prev, next) => (next.createdAt > prev.createdAt ? next : prev));
 
-      const diff = Math.floor(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime);
+      const diff =
+        Math.floor(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime) + 2;
       const createdDate = greatestDiary.createdAt;
-
+      const newDate = new Date();
+      newDate.setHours(0, 0, 0, 0);
       for (let i = 0; i < diff; ++i) {
         createdDate.setDate(createdDate.getDate() + 1);
-        const newDate = new Date();
-        newDate.setHours(0, 0, 0, 0);
+        newDate.setDate(newDate.getDate() + 1);
         const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
           where: {
             date: newDate,
@@ -57,7 +58,12 @@ export class BaseDiaryService implements OnModuleInit {
           relations: ['props'],
         });
         const promises = templates.map(async (template) => {
-          const labels = template.props.map(({ label }) => ({ label }));
+          const labels = template.props.map(({ label, createdAt }) => ({ label, createdAt }));
+
+          for (const label of labels) {
+            label.createdAt = createdDate;
+          }
+
           const newDiary = this.diaryRepository.create({
             userId: template.userId,
             props: labels,
