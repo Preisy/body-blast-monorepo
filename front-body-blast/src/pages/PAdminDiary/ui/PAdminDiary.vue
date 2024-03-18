@@ -8,8 +8,8 @@ import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
+import { SStructure } from 'shared/ui/SStructure';
 
 export interface PAdminDiaryProps {
   id: AppBaseEntity['id'];
@@ -59,7 +59,7 @@ const diariesSlides = computed(() => {
 </script>
 
 <template>
-  <SComponentWrapper h-full>
+  <SStructure h-full>
     <SCalendar
       :model-value="calendarDate"
       @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
@@ -68,7 +68,7 @@ const diariesSlides = computed(() => {
       today-btn
     />
 
-    <SProxyScroll h-full>
+    <SProxyScroll h-full p-1.5rem>
       <WStepsList :weeks="stepsData?.weeks ?? []" mb-2rem />
       <WSelfControlList
         v-for="week in Object.keys(diariesSlides)"
@@ -77,5 +77,5 @@ const diariesSlides = computed(() => {
         :week="week"
       />
     </SProxyScroll>
-  </SComponentWrapper>
+  </SStructure>
 </template>
