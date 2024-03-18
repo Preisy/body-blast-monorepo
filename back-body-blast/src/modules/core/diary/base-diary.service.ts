@@ -57,11 +57,7 @@ export class BaseDiaryService implements OnModuleInit {
           relations: ['props'],
         });
         const promises = templates.map(async (template) => {
-          const labels = template.props.map(({ label, createdAt }) => ({ label, createdAt }));
-
-          for (const label of labels) {
-            label.createdAt = createdDate;
-          }
+          const labels = template.props.map(({ label }) => ({ label, createdAt: createdDate }));
 
           const newDiary = this.diaryRepository.create({
             userId: template.userId,
