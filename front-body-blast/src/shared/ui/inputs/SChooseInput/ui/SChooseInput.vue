@@ -53,8 +53,10 @@ const open = () => {
   emit('open');
 };
 const close = () => {
-  isOpen.value = false;
-  emit('close');
+  setTimeout(() => {
+    isOpen.value = false;
+    emit('close');
+  }, 100);
 };
 </script>
 
