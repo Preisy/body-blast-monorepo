@@ -48,7 +48,7 @@ useLoadingAction(workouts, () =>
       <template #item="{ date: dd }">
         <SSplide
           v-if="workoutsData && workoutsData.find((workout) => isEqualDates(workout.date, dd))"
-          :options="{ direction: 'ttb', height: '35rem' }"
+          :options="{ direction: 'ttb', height: '100vh' }"
         >
           <SSplideSlide
             v-for="exercise in workoutsData.find((workout) => isEqualDates(workout.date, dd))!.exercises"
