@@ -37,8 +37,7 @@ export class BaseDiaryService implements OnModuleInit {
     if (data.length > 0) {
       const greatestDiary = data.reduce((prev, next) => (next.createdAt > prev.createdAt ? next : prev));
 
-      const diff =
-        Math.floor(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime) + 2;
+      const diff = Math.floor(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime);
       const createdDate = greatestDiary.createdAt;
       const newDate = new Date();
       newDate.setHours(0, 0, 0, 0);
