@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { QDate, QTabPanels } from 'quasar';
+import { getUTC3Date } from 'shared/lib/utils';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
 
@@ -21,7 +22,7 @@ const emit = defineEmits<{
 const tabPanels = ref<InstanceType<typeof QTabPanels>>();
 const isAnimated = ref<boolean>(true);
 
-const today = moment().hour(0).minute(0).second(0).millisecond(0);
+const today = getUTC3Date().hour(0).minute(0).second(0).millisecond(0);
 const localOffset = ref(props.offset);
 const start = computed(() =>
   today

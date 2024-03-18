@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
-import { isEqualDates } from 'shared/lib/utils';
+import { getUTC3Date, isEqualDates } from 'shared/lib/utils';
 import { SInput } from 'shared/ui/inputs';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -15,7 +15,7 @@ import { SSplide } from 'shared/ui/SSplide';
 import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
-const today = moment(); // Current date
+const today = getUTC3Date(); // Current date
 
 const emit = defineEmits<{
   'update:date': [date: string];

@@ -8,7 +8,7 @@ import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
-import { fromCreatedToToday, isEqualDates } from 'shared/lib/utils';
+import { fromCreatedToToday, getUTC3Date, isEqualDates } from 'shared/lib/utils';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -21,7 +21,7 @@ export interface PAdminUserProfileProps {
   id: AppBaseEntity['id'];
 }
 
-const today = moment();
+const today = getUTC3Date();
 
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();

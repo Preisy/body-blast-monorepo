@@ -27,7 +27,7 @@ const dateValue = computed({
 });
 
 const getDate = (td: string) => {
-  const localTd = moment(td.split('/').join('-'));
+  const localTd = moment(td.split('/').join('-')).utc(true);
 
   if (props.defaultView == 'Months') return new Date(td).toLocaleString('ru-RU', { month: 'long' });
   return isToday(td) ? t('global.date.today') : localTd.format('DD.MM');
