@@ -14,10 +14,10 @@ export function isToday(date: Moment): boolean;
 
 export function isToday(date: string | Moment) {
   const isoString = typeof date === 'string' ? date.split('/').join('-') : undefined;
-  const dateMoment = typeof date === 'string' ? moment(isoString) : date;
-  return (
-    moment().isSame(dateMoment, 'days') && moment().isSame(dateMoment, 'months') && moment().isSame(dateMoment, 'years')
-  );
+  const dateMoment = typeof date === 'string' ? moment(isoString).utc(true).utcOffset(-3, true) : date;
+  const today = getUTC3Date();
+
+  return today.isSame(dateMoment, 'days') && today.isSame(dateMoment, 'months') && today.isSame(dateMoment, 'years');
 }
 
 export function isEqualDates(date1: string | Moment, date2: string | Moment) {
@@ -27,7 +27,11 @@ export function isEqualDates(date1: string | Moment, date2: string | Moment) {
   const dateMoment2 = typeof date2 === 'string' ? moment(isoString2) : date2;
   return (
     dateMoment1.isSame(dateMoment2, 'days') &&
-    moment().isSame(dateMoment2, 'months') &&
-    moment().isSame(dateMoment2, 'years')
+    dateMoment1.isSame(dateMoment2, 'months') &&
+    dateMoment1.isSame(dateMoment2, 'years')
   );
+}
+
+export function getUTC3Date() {
+  return moment().utc().utcOffset(-3, true);
 }

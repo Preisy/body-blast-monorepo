@@ -5,9 +5,9 @@ import { EDiaryHeader } from 'entities/diary/EDiaryHeader';
 import { useDiaryStore } from 'shared/api/diary';
 import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
-import { toWeekRange } from 'shared/lib/utils';
+import { getUTC3Date, toWeekRange } from 'shared/lib/utils';
 
-const today = moment();
+const today = getUTC3Date();
 const { diaryList, getDiary } = useDiaryStore();
 
 const diaryData = computed(() => diaryList.data?.data);

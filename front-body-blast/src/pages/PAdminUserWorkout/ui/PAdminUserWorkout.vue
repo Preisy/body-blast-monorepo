@@ -6,7 +6,7 @@ import { useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
-import { gtCreation, isEqualDates } from 'shared/lib/utils';
+import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
@@ -17,7 +17,8 @@ export interface PAdminUserWorkoutProps {
 }
 defineProps<PAdminUserWorkoutProps>();
 
-const today = moment();
+const today = getUTC3Date();
+
 const date = ref(today.format('YYYY-MM-DD'));
 const halfRange = ref(7); //2weeks
 const offset = ref(0);

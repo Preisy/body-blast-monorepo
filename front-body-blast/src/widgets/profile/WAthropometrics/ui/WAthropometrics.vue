@@ -5,7 +5,7 @@ import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/profile/
 import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
 import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';
-import { gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
+import { getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SPaginationSliderProps } from 'shared/ui/SPaginationSlider';
@@ -14,7 +14,7 @@ interface AthropometricsSlide extends EAthropometricsItemProps {
   dateValue: string;
 }
 
-const date = ref(moment().format('YYYY-MM-DD'));
+const date = ref(getUTC3Date().format('YYYY-MM-DD'));
 const options = ref([moment().format('YYYY/MM/DD')]);
 
 const { anthropometry, getAnthropometry, patchAnthropometry } = useProfileStore();

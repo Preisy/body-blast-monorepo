@@ -4,7 +4,7 @@ import { WAdditionCard } from 'widgets/WAdditionCard';
 import { ETrainingCard } from 'entities/trainings/ETrainingCard';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
-import { gtCreation, isEqualDates } from 'shared/lib/utils';
+import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SDatePagination } from 'shared/ui/SDatePagination';
 import { SSplide } from 'shared/ui/SSplide';
@@ -13,7 +13,7 @@ import { SStructure } from 'shared/ui/SStructure';
 
 const { getWorkouts, workouts } = useWorkoutStore();
 
-const today = moment();
+const today = getUTC3Date();
 const date = ref(today.format('YYYY-MM-DD'));
 
 const offset = ref(0);
