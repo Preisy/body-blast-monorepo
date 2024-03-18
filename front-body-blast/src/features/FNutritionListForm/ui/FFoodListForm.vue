@@ -62,13 +62,20 @@ const onsubmit = async (index: number, values: Pick<Food, 'name'>) => {
   if (!line.name) emit('create', { name: values.name, category: props.category });
   else emit('edit', { id: line.id!, name: values.name });
 };
-const validationSchema = toTypedSchema(Food.validation().pick({ name: true }));
+const validationSchema = toTypedSchema(Food.validation().pick({ name: true }).partial());
 
 const getFormValues = async () => {
   if (!forms.value) return;
   const result: Array<Food> = [];
   for (const form of forms.value)
-    await form.handleSubmit((values) => result.push({ ...values, category: props.category }))();
+    await form.handleSubmit(
+      (values) => {
+        if (values.name) result.push({ ...values, category: props.category });
+      },
+      (e) => {
+        console.log(e);
+      },
+    )();
   return result;
 };
 
@@ -108,6 +115,7 @@ onMounted(() => {
         <SListControls
           disabled-submit
           :disabled-add="index !== lines.length - 1"
+          :disabled-remove="index === 0"
           @remove="() => onremove(index)"
           @add="onadd"
           mt-0.5rem
