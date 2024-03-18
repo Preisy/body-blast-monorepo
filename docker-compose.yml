@@ -9,6 +9,10 @@ services:
     working_dir: /app
     ports:
       - "${NODEJS_PUBLIC_PORT}:3000"
+    volumes:
+      - ./back-body-blast/uploads:/app/uploads
+      - ./back-body-blast/log.txt:/app/log.txt
+
     depends_on:
       - blast_database
     networks:
