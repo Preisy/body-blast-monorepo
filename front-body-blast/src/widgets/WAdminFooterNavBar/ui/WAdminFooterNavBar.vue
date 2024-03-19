@@ -58,7 +58,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
 
 <template>
   <q-footer class="w-footer w-admin-footer" bg-unset>
-    <SUploadProgress mb-1rem w-full />
+    <SUploadProgress w-full py-1rem />
     <div rounded-t-2rem bg-bg boxshadow-footer>
       <q-tabs flex flex-row justify-between px-0.5rem>
         <SFooterNavLink v-for="navlink of links" :key="navlink.imgSrc" v-bind="navlink" />
