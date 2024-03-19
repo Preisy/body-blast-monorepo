@@ -10,5 +10,6 @@ export default {
     notification: {
       attention: 'Внимание!',
     },
+    seconds_short: 'с',
   },
 };

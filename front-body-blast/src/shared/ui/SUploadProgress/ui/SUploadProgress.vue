@@ -28,7 +28,7 @@ fileEventBus.on('uploadDone', (data) => {
       p-0.5rem
     >
       <h2 top="50%" left="50%" absolute text-1rem text="secondary" mix-blend-difference class="translate--50%">
-        {{ progress.estimated?.toFixed(2) }} с
+        {{ progress.estimated?.toFixed(2) }} {{ $t('global.seconds_short') }}
       </h2>
       <div class="progress-bar" :style="{ width: `${progress.progress * 100}%` }" h-1.5rem rounded-1rem bg-secondary />
     </div>
