@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
-import { MainExceptionFilter } from './exceptions/main-exception.filter';
+import { AppErrorFilter, MainExceptionFilter } from './exceptions/main-exception.filter';
 import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
@@ -10,6 +10,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new MainExceptionFilter());
+  app.useGlobalFilters(new AppErrorFilter());
   app.setGlobalPrefix('api');
   app.useLogger(app.get(Logger));
 
