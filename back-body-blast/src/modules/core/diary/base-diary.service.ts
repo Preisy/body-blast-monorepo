@@ -145,7 +145,7 @@ export class BaseDiaryService implements OnModuleInit {
       },
       order: { createdAt: 'DESC' },
     });
-    if (!latestDiary) return false;
+    if (!latestDiary || !latestDiary.props) return false;
 
     return (
       latestDiary.activity == null ||
