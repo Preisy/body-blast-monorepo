@@ -15,7 +15,15 @@ fileEventBus.on('uploadDone', (data) => {
 </script>
 
 <template>
-  <div v-if="Object.entries(filesPending).length" class="s-upload-progress" flex flex-col px-1.5rem text-primary>
+  <div
+    v-if="Object.entries(filesPending).length"
+    class="s-upload-progress"
+    flex
+    flex-col
+    gap-y-0.25rem
+    px-1.5rem
+    text-primary
+  >
     <h2>{{ $t('global.loading') }}</h2>
     <div
       v-for="progress in filesPending"
