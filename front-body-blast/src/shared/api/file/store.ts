@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ISingleState, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { adminFileService } from './service';
+import { fileService } from './service';
 import { File } from './types';
 
 export interface URLHandler {
@@ -13,7 +13,7 @@ export const useFileStore = defineStore('file-store', () => {
   const getFileByName = (data: File.Dto, stateWrapper?: ISingleState<URLHandler>) =>
     useStoreAction({
       state: stateWrapper?.state ?? getFileResponse.value.state,
-      serviceAction: adminFileService.getFileByName(data),
+      serviceAction: fileService.getFileByName(data),
       onSuccess: (file) => {
         const link = URL.createObjectURL(file);
         const destructor = () => URL.revokeObjectURL(link);

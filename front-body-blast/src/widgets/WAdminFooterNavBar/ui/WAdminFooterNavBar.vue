@@ -11,6 +11,7 @@ import {
 import { useI18n } from 'vue-i18n';
 import { ENUMS } from 'shared/lib/enums';
 import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/SFooterNavLink';
+import { SUploadProgress } from 'shared/ui/SUploadProgress';
 
 const route = useRoute();
 const { t } = useI18n();
@@ -56,9 +57,12 @@ const links = computed<SFooterNavLinkProps[]>(() => {
 </script>
 
 <template>
-  <q-footer class="w-footer w-admin-footer" rounded-t-2rem bg-bg boxshadow-footer>
-    <q-tabs flex flex-row justify-between px-0.5rem>
-      <SFooterNavLink v-for="navlink of links" :key="navlink.imgSrc" v-bind="navlink" />
-    </q-tabs>
+  <q-footer class="w-footer w-admin-footer" bg-unset>
+    <SUploadProgress mb-1rem w-full />
+    <div rounded-t-2rem bg-bg boxshadow-footer>
+      <q-tabs flex flex-row justify-between px-0.5rem>
+        <SFooterNavLink v-for="navlink of links" :key="navlink.imgSrc" v-bind="navlink" />
+      </q-tabs>
+    </div>
   </q-footer>
 </template>
