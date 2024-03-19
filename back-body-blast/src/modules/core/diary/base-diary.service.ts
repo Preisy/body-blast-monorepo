@@ -77,7 +77,7 @@ export class BaseDiaryService implements OnModuleInit {
   }
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { timeZone: 'Europe/Moscow' })
   private async createDiaryCron() {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);

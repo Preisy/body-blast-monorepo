@@ -62,7 +62,7 @@ export class BaseAnthropometrcisService implements OnModuleInit {
 
   public readonly relations: (keyof AnthropometricsEntity)[] = ['user'];
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { timeZone: 'Europe/Moscow' })
   private async createAnthropometricsCron() {
     const { data: users } = await this.userService.getUsers(new AppPagination.Request(), {
       where: {
