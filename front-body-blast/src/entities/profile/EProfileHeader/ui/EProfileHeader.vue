@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { useProfileStore } from 'shared/api/anthropometry';
 import { useAuthStore } from 'shared/api/auth';
+import { useDiaryStore } from 'shared/api/diary';
 import { useMeStore } from 'shared/api/me';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
@@ -10,12 +12,16 @@ defineProps<EProfileHeaderProps>();
 
 const router = useRouter();
 
-const { clear } = useMeStore();
+const { clear: clearMe } = useMeStore();
+const { clear: clearDiary } = useDiaryStore();
+const { clear: clearAnthropometry } = useProfileStore();
 
 const logout = () => {
   useAuthStore().logout();
   router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
-  clear();
+  clearMe();
+  clearDiary();
+  clearAnthropometry();
 };
 </script>
 

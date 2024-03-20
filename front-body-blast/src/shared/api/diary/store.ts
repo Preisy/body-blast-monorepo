@@ -35,11 +35,17 @@ export const useDiaryStore = defineStore('diary-store', () => {
       },
     });
 
+  const clear = () => {
+    diaryList.value = useSingleState({ update: true });
+    diary.value = useSingleState();
+  };
+
   return {
     diaryList,
     diary,
     getDiary,
     patchDiary,
     getDiaryById,
+    clear,
   };
 });
