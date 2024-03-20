@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { BonusVideo } from 'shared/api/bonusVideo';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { useAdminFileStore } from '../file';
 import { AdminBonusVideoService } from './service';
 import { AdminBonusVideo } from './types';
@@ -51,6 +51,7 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
         if (!listData) return;
 
         listData.push(res.data);
+        Notify.createSuccess();
       },
     });
   };

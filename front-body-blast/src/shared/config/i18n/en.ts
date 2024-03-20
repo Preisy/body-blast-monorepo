@@ -10,5 +10,7 @@ export default {
     notification: {
       attention: 'Attention!',
     },
+    createdSuccessfuly: 'Created successfully',
+    updatedSuccessfuly: 'Updated successfully',
   },
 };
