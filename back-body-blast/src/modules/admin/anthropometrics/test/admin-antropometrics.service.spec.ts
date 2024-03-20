@@ -142,7 +142,7 @@ describe('AdminAnthropometricsService', () => {
       const query: GetAnthropometricsForUserByAdminRequest = {
         from: new Date('2023-18-10'),
         to: new Date('2023-20-11'),
-        id: savedUser.id,
+        userId: savedUser.id,
       };
 
       const result = await service.findAll(query);
