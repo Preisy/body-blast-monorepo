@@ -4,13 +4,15 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { AppErrorFilter, MainExceptionFilter } from './exceptions/main-exception.filter';
 import { Logger } from 'nestjs-pino';
+import { TelegramService } from './modules/telegram/telegram.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const service = app.get<TelegramService>(TelegramService);
 
   app.useGlobalPipes(new ValidationPipe());
-  app.useGlobalFilters(new MainExceptionFilter());
-  app.useGlobalFilters(new AppErrorFilter());
+  app.useGlobalFilters(new MainExceptionFilter(service));
+  app.useGlobalFilters(new AppErrorFilter(service));
   app.setGlobalPrefix('api');
   app.useLogger(app.get(Logger));
 

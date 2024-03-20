@@ -4,14 +4,15 @@ import { TelegramService } from '../modules/telegram/telegram.service';
 
 @Catch(MainException)
 export class MainExceptionFilter implements ExceptionFilter {
-  private readonly telegramService: TelegramService;
-  public catch(exception: MainException, host: ArgumentsHost) {
+  constructor(private readonly telegramService: TelegramService) {}
+  public async catch(exception: MainException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
+    const response = await ctx.getResponse();
+    const request = await ctx.getRequest();
     const status = exception.status;
 
-    if (!(exception instanceof MainException.forbidden) || !(exception instanceof MainException.unauthorized)) {
-      this.telegramService.onError(`${status}, ${ctx.getRequest()} ,${response}`);
+    if (status !== 401 && status !== 403) {
+      await this.telegramService.notifyError(exception, request);
     }
 
     response.status(status).json(exception);
@@ -20,12 +21,12 @@ export class MainExceptionFilter implements ExceptionFilter {
 
 @Catch(Error)
 export class AppErrorFilter implements ExceptionFilter {
-  private readonly telegramService: TelegramService;
-  public catch(error: Error, host: ArgumentsHost) {
+  constructor(private readonly telegramService: TelegramService) {}
+  public async catch(error: Error, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    this.telegramService.onError(`500, ${request}, ${response}, ${error}`);
+    await this.telegramService.notifyError(error, request);
 
     response.status(500).json(MainException.internalRequestError());
   }
