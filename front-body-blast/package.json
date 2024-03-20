@@ -21,6 +21,7 @@
     "axios": "^1.2.1",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.45",
     "pinia": "^2.0.11",
     "quasar": "^2.6.0",
     "vee-validate": "^4.11.8",
