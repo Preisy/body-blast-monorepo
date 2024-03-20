@@ -1,5 +1,5 @@
 ﻿dcup:
-	docker-compose down && docker-compose up --build
+	docker-compose down && docker-compose up --build -d
 
 dclog:
 	docker logs -f blast_backend
