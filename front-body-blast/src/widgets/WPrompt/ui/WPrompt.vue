@@ -50,6 +50,7 @@ const isModalShown = ref(false);
           :link-url="video.data.link"
           disable-btn
           absolute
+          h-full
           w-full
           overflow-hidden
           top="50%"
@@ -63,6 +64,7 @@ const isModalShown = ref(false);
           h-auto
           max-h-20rem
           w-full
+          overflow-hidden
           rounded-1rem
         />
       </div>

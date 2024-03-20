@@ -24,10 +24,11 @@ const isModalShown = ref(false);
         <SVideo
           ref="videoControl"
           :link-url="video.data.link"
-          :class="{ 'z-1': videoControl?.isPlaying }"
           disable-btn
           absolute
+          h-full
           w-full
+          overflow-hidden
           top="50%"
           left="50%"
           translate="-50%"
@@ -39,6 +40,7 @@ const isModalShown = ref(false);
           h-auto
           max-h-20rem
           w-full
+          overflow-hidden
           rounded-1rem
         />
       </div>
@@ -54,14 +56,7 @@ const isModalShown = ref(false);
       @click="videoControl?.togglePlay"
     />
     <q-dialog v-model="isModalShown">
-      <q-img
-        :src="photo.data?.link"
-        @click="isModalShown = false"
-        overflow="hidden!"
-        rounded="1.5rem!"
-        h="90%"
-        w="90%"
-      />
+      <q-img :src="photo.data?.link" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
     </q-dialog>
   </div>
 </template>
