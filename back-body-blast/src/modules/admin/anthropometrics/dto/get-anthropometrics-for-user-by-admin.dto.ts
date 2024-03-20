@@ -6,5 +6,5 @@ export class GetAnthropometricsForUserByAdminRequest extends AppDatePagination.R
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  public id: string;
+  public userId: string;
 }

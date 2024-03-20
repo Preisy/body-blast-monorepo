@@ -9,5 +9,5 @@ export class GetWorkoutForUserByAdminRequest extends AppDatePagination.Request {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  public id: string;
+  public userId: string;
 }

@@ -31,10 +31,12 @@ export class AdminWorkoutService {
   async findAllByDate(request: GetWorkoutForUserByAdminRequest): Promise<AppDatePagination.Response<WorkoutEntity>> {
     const { getPaginatedData } = AppDatePagination.getExecutor(this.workoutRepository, this.relations);
 
-    const query = request;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id } = query;
-    const { data: workoutRecords, count: count } = await getPaginatedData(query, { where: { userId: request.id } });
+    const query: AppDatePagination.Request = {
+      from: request.from,
+      to: request.to,
+      expanded: request.expanded,
+    };
+    const { data: workoutRecords, count: count } = await getPaginatedData(query, { where: { userId: request.userId } });
 
     return new AppDatePagination.Response(workoutRecords, count);
   }

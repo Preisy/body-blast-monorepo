@@ -21,10 +21,12 @@ export class AdminAnthropometricsService {
   ): Promise<AppDatePagination.Response<AnthropometricsEntity>> {
     const { getPaginatedData } = AppDatePagination.getExecutor(this.anthrpRepository, this.relations);
 
-    const query = request;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { id } = query;
-    const { data: anthrpRecords, count: count } = await getPaginatedData(query, { where: { userId: request.id } });
+    const query: AppDatePagination.Request = {
+      from: request.from,
+      to: request.to,
+      expanded: request.expanded,
+    };
+    const { data: anthrpRecords, count: count } = await getPaginatedData(query, { where: { userId: request.userId } });
 
     return new AppDatePagination.Response(anthrpRecords, count);
   }
