@@ -4,6 +4,7 @@ import { FFoodListForm } from 'features/FNutritionListForm';
 import { useAdminFoodStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { useLoading } from 'shared/lib/loading';
+import { Notify } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
 import { SInput } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -39,6 +40,7 @@ const onCreate = async () => {
   );
 
   emit('created', type.value);
+  Notify.createSuccess();
   clear();
 };
 </script>
