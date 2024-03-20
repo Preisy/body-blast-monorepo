@@ -57,7 +57,7 @@ useLoadingAction(workouts, () =>
             <ETrainingCard :exercises="exercise" py-1.5rem />
           </SSplideSlide>
           <SSplideSlide>
-            <WAdditionCard :id="workoutsData.find((workout) => isEqualDates(workout.date, dd))!.id" py-1.5rem />
+            <WAdditionCard :workout="workoutsData.find((workout) => isEqualDates(workout.date, dd))!" py-1.5rem />
           </SSplideSlide>
         </SSplide>
       </template>
