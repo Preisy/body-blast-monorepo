@@ -17,7 +17,7 @@ const emit = defineEmits<{
 
 const dateValue = computed({
   get() {
-    return props.modelValue;
+    return props.modelValue.split('-').join('/');
   },
   set(value: string) {
     showDateModal.value = false;
