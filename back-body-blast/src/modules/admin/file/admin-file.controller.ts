@@ -22,6 +22,8 @@ import { AppPagination } from '../../../utils/app-pagination.util';
 import { AdminFileService } from './admin-file.service';
 import { CreateFileByAdminResponse } from './dto/admin-create-file.dto';
 import { FileEntity } from '../../../modules/core/file/entity/file.entity';
+import { extname } from 'path';
+import { uuid } from 'uuidv4';
 
 @Controller('admin/files')
 @ApiTags('Admin files')
@@ -48,7 +50,8 @@ export class AdminFileController {
       storage: diskStorage({
         destination: './uploads',
         filename: (req, file, callback) => {
-          callback(null, `${file.originalname}`);
+          const fileExtName = extname(file.originalname);
+          callback(null, `${uuid()}${fileExtName}`);
         },
       }),
     }),
