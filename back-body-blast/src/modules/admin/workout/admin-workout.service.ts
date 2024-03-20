@@ -7,10 +7,18 @@ import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { CreateWorkoutByAdminRequest } from './dto/admin-create-wrokout.dto';
 import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { GetWorkoutForUserByAdminRequest } from './dto/admin-get-workout.dto';
 
 @Injectable()
 export class AdminWorkoutService {
-  constructor(private readonly baseService: BaseWorkoutService) {}
+  constructor(
+    @InjectRepository(WorkoutEntity)
+    private readonly workoutRepository: Repository<WorkoutEntity>,
+    private readonly baseService: BaseWorkoutService,
+  ) {}
+  public readonly relations: (keyof WorkoutEntity)[] = ['exercises', 'user'];
 
   async create(request: CreateWorkoutByAdminRequest): Promise<AppSingleResponse<WorkoutEntity>> {
     return this.baseService.create(request);
@@ -20,8 +28,15 @@ export class AdminWorkoutService {
     return this.baseService.findAll(query);
   }
 
-  async findAllByDate(query: AppDatePagination.Request): Promise<AppDatePagination.Response<WorkoutEntity>> {
-    return this.baseService.findAllByDate(query);
+  async findAllByDate(request: GetWorkoutForUserByAdminRequest): Promise<AppDatePagination.Response<WorkoutEntity>> {
+    const { getPaginatedData } = AppDatePagination.getExecutor(this.workoutRepository, this.relations);
+
+    const query = request;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id } = query;
+    const { data: workoutRecords, count: count } = await getPaginatedData(query, { where: { userId: request.id } });
+
+    return new AppDatePagination.Response(workoutRecords, count);
   }
 
   async findOne(id: WorkoutEntity['id']) {
