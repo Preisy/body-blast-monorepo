@@ -17,14 +17,12 @@ export class TelegramService {
     private readonly telegramRepository: Repository<ExceptionCHatNotifierEntity>,
   ) {}
 
-  private ctx: Context;
   async start(ctx: Context) {
     const chat = ctx.message?.chat as Chat.GroupChat;
 
     const newChatId = await this.telegramRepository.create(new ExceptionCHatNotifierEntity());
     newChatId.chatId = chat.id;
     await this.telegramRepository.save(newChatId);
-    this.ctx = ctx;
   }
 
   async notifyError(exception: MainException, request: Request): Promise<void>;
@@ -53,6 +51,8 @@ export class TelegramService {
     )}\`\`\` \nERR:\`\`\`${err}\`\`\``;
 
     const chatIds = await this.telegramRepository.find();
-    chatIds.map((bot) => this.tgBot.telegram.sendMessage(bot.chatId as number, reply, { parse_mode: 'Markdown' }));
+    await chatIds.map((bot) =>
+      this.tgBot.telegram.sendMessage(bot.chatId as number, reply, { parse_mode: 'Markdown' }),
+    );
   }
 }

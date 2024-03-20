@@ -12,7 +12,7 @@ export class MainExceptionFilter implements ExceptionFilter {
     const status = exception.status;
 
     if (status !== 401 && status !== 403) {
-      await this.telegramService.notifyError(exception, request);
+      this.telegramService.notifyError(exception, request);
     }
 
     response.status(status).json(exception);
@@ -26,7 +26,7 @@ export class AppErrorFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    await this.telegramService.notifyError(error, request);
+    this.telegramService.notifyError(error, request);
 
     response.status(500).json(MainException.internalRequestError());
   }
