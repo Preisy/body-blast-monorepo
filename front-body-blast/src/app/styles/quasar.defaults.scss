@@ -5,6 +5,7 @@
   --q-secondary: theme('colors.secondary');
   --q-accent: theme('colors.accent');
   --q-positive: theme('colors.positive');
+  --q-success: theme('colors.success');
 }
 
 .text-primary-50-solid {
@@ -12,4 +13,11 @@
 }
 .bg-primary-50-solid {
   background-color: var(--q-primary-50-solid) !important;
+}
+
+.text-success {
+  color: var(--q-success) !important;
+}
+.bg-success {
+  background-color: var(--q-success) !important;
 }

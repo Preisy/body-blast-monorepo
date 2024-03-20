@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { useAdminFileStore } from '../file';
 import { adminPromptsService } from './service';
 import { Prompt } from './types';
@@ -39,6 +39,7 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
         },
       });
     }
+    Notify.createSuccess();
   };
 
   const deletePrompt = async (data: Prompt.Delete.Dto) =>
@@ -90,6 +91,7 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
         if (!listData) return;
         const index = listData.findIndex((prompt) => prompt.id === res.data.id);
         assign(listData[index], res.data);
+        Notify.updateSuccess();
       },
     });
   };

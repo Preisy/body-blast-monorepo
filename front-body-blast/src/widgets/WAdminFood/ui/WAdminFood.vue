@@ -5,6 +5,7 @@ import { useAdminFoodStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
+import { Notify } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
@@ -48,6 +49,7 @@ const onSubmit = async () => {
         useLoadingAction(foodList.updateState, () => patchFood({ id: prevFood.id, name: food.name }));
     }
   }
+  Notify.updateSuccess();
 };
 </script>
 

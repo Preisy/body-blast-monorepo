@@ -2,7 +2,7 @@ import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { AppBaseEntity } from 'shared/api/base';
 import { AppPagination } from 'shared/api/pagination';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AdminWorkoutService } from './service';
 import { Workout as AdminWorkout } from './types';
 
@@ -35,6 +35,7 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
         if (!listData) return;
 
         listData.push(res.data);
+        Notify.createSuccess();
       },
     });
 
@@ -49,6 +50,7 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
 
         const index = listData.findIndex((workout) => workout.id === id);
         assign(listData[index], res.data);
+        Notify.updateSuccess();
       },
     });
 

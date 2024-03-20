@@ -91,7 +91,9 @@ const calcHeight = (nutr: Nutrition): StyleValue => ({
       </q-tab-panel>
 
       <q-tab-panel name="new_food" p="0!">
-        <WAdminNewFood :user-id="id" @created="(type) => (pageValue = type)" />
+        <SProxyScroll type="vertical" h-full overflow-x-hidden>
+          <WAdminNewFood :user-id="id" @created="(type) => (pageValue = type)" />
+        </SProxyScroll>
       </q-tab-panel>
     </q-tab-panels>
     <SLoading v-else />

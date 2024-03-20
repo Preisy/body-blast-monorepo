@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { BonusVideo } from 'shared/api/bonusVideo';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { useAdminFileStore } from '../file';
 import { AdminBonusVideoService } from './service';
 import { AdminBonusVideo } from './types';
@@ -35,6 +35,7 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
     });
 
   const postVideo = async (data: { name: BonusVideo['name']; video: File }) => {
+    videoList.value.createState.loading();
     const { postFile } = useAdminFileStore();
     const response = await postFile({ file: data.video });
     if (!response.data) {
@@ -50,6 +51,7 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
         if (!listData) return;
 
         listData.push(res.data);
+        Notify.createSuccess();
       },
     });
   };

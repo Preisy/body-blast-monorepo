@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { AppBaseEntity } from 'shared/api/base';
 import { AppPagination } from 'shared/api/pagination';
-import { useSingleState, useSimpleStoreAction, useStoreAction } from 'shared/lib/utils';
+import { useSingleState, useSimpleStoreAction, useStoreAction, Notify } from 'shared/lib/utils';
 import { adminProfileService } from './service';
 import { AdminUser } from './types';
 
@@ -38,6 +38,7 @@ export const useAdminUserProfileStore = defineStore('admin-user-profile-store', 
 
         const index = listData.findIndex((user) => user.id === data.id);
         listData.splice(index, 1);
+        Notify.deleteSuccess();
       },
     });
 

@@ -10,6 +10,8 @@ export default {
     notification: {
       attention: 'Внимание!',
     },
+    createdSuccessfuly: 'Успешно создано',
+    updatedSuccessfuly: 'Успешно изменено',
     seconds_short: 'с',
   },
 };

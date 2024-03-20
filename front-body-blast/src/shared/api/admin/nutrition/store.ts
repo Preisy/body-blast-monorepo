@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { adminNutritionService } from './service';
 import { AdminNutrition } from './types';
 
@@ -23,6 +23,9 @@ export const useAdminNutritionStore = defineStore('admin-nutrition-store', () =>
     useStoreAction({
       state: nutritionList.value.createState,
       serviceAction: adminNutritionService.postNutrition(data),
+      onSuccess: () => {
+        Notify.createSuccess();
+      },
     });
 
   const patchNutrition = (data: AdminNutrition.Patch.Dto) =>
@@ -34,6 +37,7 @@ export const useAdminNutritionStore = defineStore('admin-nutrition-store', () =>
         if (!nutritionListData) return;
         const index = nutritionListData.findIndex((food) => food.id === res.data.id);
         assign(nutritionListData[index], res.data);
+        Notify.updateSuccess();
       },
     });
 

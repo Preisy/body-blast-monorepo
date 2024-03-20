@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AppBaseEntity } from '../base';
 import { DiaryService } from './service';
 import { Diary } from './types';
@@ -32,6 +32,7 @@ export const useDiaryStore = defineStore('diary-store', () => {
         if (index === -1) return;
 
         assign(listData[index], res.data);
+        Notify.updateSuccess();
       },
     });
 

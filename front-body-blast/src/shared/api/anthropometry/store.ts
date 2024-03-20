@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { anthropometryService } from './service';
 import { Anthropometry } from './types';
 
@@ -15,6 +15,9 @@ export const useProfileStore = defineStore('profile-store', () => {
     useStoreAction({
       state: anthropometry.value.updateState,
       serviceAction: anthropometryService.patchAnthropometry(data),
+      onSuccess: () => {
+        Notify.updateSuccess();
+      },
     });
 
   return { anthropometry, getAnthropometry, patchAnthropometry };
