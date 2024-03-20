@@ -9,13 +9,17 @@ services:
     working_dir: /app
     ports:
       - "${NODEJS_PUBLIC_PORT}:3000"
+    volumes:
+      - ./back-body-blast/uploads:/app/uploads
+      - ./back-body-blast/log.txt:/app/log.txt
+
     depends_on:
       - blast_database
     networks:
       - blast_network
 
   blast_database:
-    image: postgres:15.3-alpine
+    image: postgres:16.2
     container_name: blast_database
     restart: always
     env_file: .env

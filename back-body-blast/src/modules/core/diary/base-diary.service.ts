@@ -39,11 +39,11 @@ export class BaseDiaryService implements OnModuleInit {
 
       const diff = Math.floor(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime);
       const createdDate = greatestDiary.createdAt;
-
+      const newDate = new Date();
+      newDate.setHours(0, 0, 0, 0);
       for (let i = 0; i < diff; ++i) {
         createdDate.setDate(createdDate.getDate() + 1);
-        const newDate = new Date();
-        newDate.setHours(0, 0, 0, 0);
+        newDate.setDate(newDate.getDate() + 1);
         const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
           where: {
             date: newDate,
@@ -57,7 +57,8 @@ export class BaseDiaryService implements OnModuleInit {
           relations: ['props'],
         });
         const promises = templates.map(async (template) => {
-          const labels = template.props.map(({ label }) => ({ label }));
+          const labels = template.props.map(({ label }) => ({ label, createdAt: createdDate }));
+
           const newDiary = this.diaryRepository.create({
             userId: template.userId,
             props: labels,
@@ -76,7 +77,7 @@ export class BaseDiaryService implements OnModuleInit {
   }
   public readonly relations: (keyof DiaryEntity)[] = ['user', 'props'];
 
-  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, { timeZone: 'Europe/Moscow' })
   private async createDiaryCron() {
     const newDate = new Date();
     newDate.setHours(0, 0, 0, 0);
@@ -144,7 +145,7 @@ export class BaseDiaryService implements OnModuleInit {
       },
       order: { createdAt: 'DESC' },
     });
-    if (!latestDiary) return false;
+    if (!latestDiary || !latestDiary.props) return false;
 
     return (
       latestDiary.activity == null ||
