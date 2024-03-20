@@ -33,7 +33,7 @@ useLoadingAction(workouts, () =>
   <SStructure h-full>
     <SCalendar
       :model-value="date"
-      @update:model-value="(val) => (date = val)"
+      @update:model-value="(val) => (date = val.split('/').join('-'))"
       :options="(date) => gtCreation(date)"
       py-1rem
     />
