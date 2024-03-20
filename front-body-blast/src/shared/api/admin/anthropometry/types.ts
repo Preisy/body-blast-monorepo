@@ -5,7 +5,7 @@ import { AppPagination } from 'shared/api/pagination';
 export namespace AdminAnthropometry {
   export namespace Get {
     export interface Dto extends Partial<AppPagination.DateDto> {
-      id: AppBaseEntity['id'];
+      userId: AppBaseEntity['id'];
     }
     export interface Response extends AppPagination.Response<Anthropometry> {}
   }

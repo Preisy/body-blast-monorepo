@@ -65,7 +65,7 @@ const offset = ref(0);
 const { anthropometryList, getAnthropometry } = useAdminAnthropometryStore();
 useLoadingAction(anthropometryList, () =>
   getAnthropometry({
-    id: props.id,
+    userId: props.id,
     from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
     to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
   }),
@@ -135,7 +135,7 @@ const onUserDelete = (userId: User['id']) => {
             v-model="date"
             :half-range="halfRange"
             :offset="offset"
-            @need-fetch="(from, to) => getAnthropometry({ id, from, to, expanded: true })"
+            @need-fetch="(from, to) => getAnthropometry({ userId: id, from, to, expanded: true })"
             h="16rem!"
           >
             <template #item="{ date: dd }">
