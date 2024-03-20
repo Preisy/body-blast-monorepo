@@ -5,6 +5,8 @@ import { TelegrafModule } from 'nestjs-telegraf';
 import LocalSession from 'telegraf-session-local';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ExceptionCHatNotifierEntity } from './entity/telegram.entity';
+import { config } from 'dotenv';
+config();
 
 const session = new LocalSession({ database: 'session_db.json' });
 
