@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   blast_database:
-    image: postgres:15.3-alpine
+    image: postgres:16.2
     container_name: blast_database
     restart: always
     env_file: .env

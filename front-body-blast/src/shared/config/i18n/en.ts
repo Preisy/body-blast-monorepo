@@ -12,5 +12,6 @@ export default {
     },
     createdSuccessfuly: 'Created successfully',
     updatedSuccessfuly: 'Updated successfully',
+    seconds_short: 's',
   },
 };

@@ -12,5 +12,6 @@ export default {
     },
     createdSuccessfuly: 'Успешно создано',
     updatedSuccessfuly: 'Успешно изменено',
+    seconds_short: 'с',
   },
 };
