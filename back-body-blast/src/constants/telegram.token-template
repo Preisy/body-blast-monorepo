@@ -1,0 +1,4 @@
+#TELEGRAM TOKEN
+#PATH: ../src/constants/telegram.token.ts
+
+export const TELEGRAM_TOKEN=

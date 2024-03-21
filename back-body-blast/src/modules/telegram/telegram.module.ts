@@ -6,6 +6,7 @@ import LocalSession from 'telegraf-session-local';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ExceptionCHatNotifierEntity } from './entity/telegram.entity';
 import { config } from 'dotenv';
+import { TELEGRAM_TOKEN } from '../../constants/telegram.token';
 config();
 
 const session = new LocalSession({ database: 'session_db.json' });
@@ -16,7 +17,7 @@ const session = new LocalSession({ database: 'session_db.json' });
     TelegrafModule.forRoot({
       botName: 'ExceptionChatNotifier',
       middlewares: [session.middleware()],
-      token: `${process.env.TELEGRAM_TOKEN}`,
+      token: TELEGRAM_TOKEN,
       include: [TelegramModule],
     }),
     TypeOrmModule.forFeature([ExceptionCHatNotifierEntity]),
