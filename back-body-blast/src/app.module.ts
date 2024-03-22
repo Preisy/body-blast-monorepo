@@ -25,6 +25,7 @@ import { ClientDiaryModule } from './modules/client/diary/client-diary.module';
 import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
 import { AppLoggerModule } from './logger/app-logger.module';
 import { AdminLogsModule } from './modules/admin/logging/admin-logs.module';
+import { TelegramModule } from './modules/telegram/telegram.module';
 
 @Module({
   imports: [
@@ -53,6 +54,7 @@ import { AdminLogsModule } from './modules/admin/logging/admin-logs.module';
     ClientDiaryModule,
     AppLoggerModule,
     AdminLogsModule,
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppService],

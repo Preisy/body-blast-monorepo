@@ -24,7 +24,7 @@ import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
 import { RoleGuard } from '../../authentication/guards/role.guard';
 import { AdminWorkoutService } from './admin-workout.service';
 import { CreateWorkoutByAdminRequest } from './dto/admin-create-wrokout.dto';
-import { GetWorkoutByAdminDTO } from './dto/admin-get-workout.dto';
+import { GetWorkoutByAdminDTO, GetWorkoutForUserByAdminRequest } from './dto/admin-get-workout.dto';
 import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
@@ -52,7 +52,7 @@ export class AdminWorkoutController {
 
   @Get('date')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
-  async getAllByDate(@Query() query: AppDatePagination.Request) {
+  async getAllByDate(@Query() query: GetWorkoutForUserByAdminRequest) {
     return await this.adminService.findAllByDate(query);
   }
 

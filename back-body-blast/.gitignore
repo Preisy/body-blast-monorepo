@@ -23,3 +23,6 @@
 
 #LOGS
 log.txt
+
+#TELEGRAM
+session_db.json 

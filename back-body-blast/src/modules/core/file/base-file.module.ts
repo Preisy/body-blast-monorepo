@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/modules/authentication/auth.module';
+import { AuthModule } from '../../../modules/authentication/auth.module';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileEntity } from './entity/file.entity';
 import { BaseFileService } from './base-file.service';

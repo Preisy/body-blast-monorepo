@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from 'src/modules/authentication/auth.module';
+import { AuthModule } from '../../../modules/authentication/auth.module';
 import { BaseFoodService } from './base-food.service';
 import { FoodEntity } from './entity/food.entity';
 @Module({
