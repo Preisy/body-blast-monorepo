@@ -1,4 +1,4 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from '@nestjs/common';
 import { MainException } from './main.exception';
 import { TelegramService } from '../modules/telegram/telegram.service';
 
@@ -28,6 +28,10 @@ export class AppErrorFilter implements ExceptionFilter {
     const request = ctx.getRequest();
     this.telegramService.notifyError(error, request);
 
-    response.status(500).json(MainException.internalRequestError());
+    if (error instanceof HttpException) {
+      response.status(error.getStatus()).json(error);
+    } else {
+      response.status(500).json(MainException.internalRequestError());
+    }
   }
 }
