@@ -15,7 +15,7 @@ import { SStructure } from 'shared/ui/SStructure';
 export interface PAdminUserWorkoutProps {
   id: AppBaseEntity['id'];
 }
-defineProps<PAdminUserWorkoutProps>();
+const props = defineProps<PAdminUserWorkoutProps>();
 
 const today = getUTC3Date();
 
@@ -30,6 +30,7 @@ useLoadingAction(workoutList, () =>
     expanded: true,
     from: moment(date.value).subtract(halfRange.value, 'd').format('YYYY-MM-DD'),
     to: moment(date.value).add(halfRange.value, 'd').format('YYYY-MM-DD'),
+    userId: props.id,
   }),
 );
 
@@ -58,7 +59,7 @@ const clearEditing = () => {
       v-model="date"
       :offset="offset"
       :half-range="halfRange"
-      @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true })"
+      @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true, userId: id })"
       p="0!"
     >
       <template #item="{ date: dd }">
