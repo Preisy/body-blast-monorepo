@@ -1,9 +1,13 @@
 import { AppBaseEntity } from 'shared/api/base';
+import { AppPagination } from 'shared/api/pagination';
+import { User } from 'shared/api/user';
 import { Workout as UserWorkout } from 'shared/api/workout';
 
 export namespace Workout {
   export namespace Get {
-    export interface Dto extends UserWorkout.Get.Dto {}
+    export interface Dto extends AppPagination.DateDto {
+      userId: User['id'];
+    }
     export interface Response extends UserWorkout.Get.Response {}
   }
 

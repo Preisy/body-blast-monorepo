@@ -1,7 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { AppBaseEntity } from 'shared/api/base';
-import { AppPagination } from 'shared/api/pagination';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AdminWorkoutService } from './service';
 import { Workout as AdminWorkout } from './types';
@@ -11,7 +10,7 @@ export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
 
   const workoutList = ref(useSingleState<AdminWorkout.Get.Response>({ create: true, update: true, delete: true }));
   // GET /api/admin/workouts
-  const getWorkouts = (data: AppPagination.DateDto) =>
+  const getWorkouts = (data: AdminWorkout.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: workoutList.value,
       serviceAction: AdminWorkoutService.getWorkout(data),
