@@ -26,11 +26,11 @@ export class AppErrorFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
     const request = ctx.getRequest();
-    this.telegramService.notifyError(error, request);
 
     if (error instanceof HttpException) {
       response.status(error.getStatus()).json(error);
     } else {
+      this.telegramService.notifyError(error, request);
       response.status(500).json(MainException.internalRequestError());
     }
   }
