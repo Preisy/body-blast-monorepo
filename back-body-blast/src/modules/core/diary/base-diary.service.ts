@@ -239,8 +239,13 @@ export class BaseDiaryService implements OnModuleInit {
   async update(id: DiaryEntity['id'], request: UpdateDiaryRequest) {
     const { data: diary } = await this.findOne(id);
     if (request.props) {
-      diary.sum = request.props.reduce((acc, it) => acc + it.value, 0);
+      const oldLabels = diary.props.map(({ label }) => ({ label }));
+      const newLabels = request.props.map(({ label }) => ({ label }));
 
+      if (newLabels != oldLabels) {
+        throw MainException.invalidData(`Provided data is not valid: label properties do not match`);
+      }
+      diary.sum = request.props.reduce((acc, it) => acc + it.value, 0);
       await this.diaryPropsRepository.delete({
         diaryId: id,
       });
