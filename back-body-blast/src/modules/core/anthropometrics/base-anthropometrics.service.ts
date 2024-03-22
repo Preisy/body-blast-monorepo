@@ -34,10 +34,20 @@ export class BaseAnthropometrcisService implements OnModuleInit {
     if (users.length > 0 && data.length > 0) {
       const greatestAnthrp = data.reduce((prev, next) => (prev.createdAt > next.createdAt ? prev : next));
 
-      const diff = Math.floor(Math.abs(new Date().getTime() - greatestAnthrp.createdAt.getTime()) / PeriodTime.dayTime);
+      const diff = Math.abs(new Date().getTime() - greatestAnthrp.createdAt.getTime()) / PeriodTime.dayTime;
+
+      let days = Math.floor(diff);
+
+      if (
+        Math.floor(diff) <= diff &&
+        diff <= Math.ceil(diff) &&
+        Math.abs(new Date().getDay() - greatestAnthrp.createdAt.getDay()) != days
+      ) {
+        days += 1;
+      }
       const createdDate = greatestAnthrp.createdAt;
 
-      for (let i = 0; i < diff; ++i) {
+      for (let i = 0; i < days; ++i) {
         data = await this.findLatestAnthropometricsForEachUser();
         const anthrpMap = data.reduce(
           (acc, value) => ({ ...acc, [value.userId]: value }),

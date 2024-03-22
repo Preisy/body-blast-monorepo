@@ -36,17 +36,23 @@ export class BaseDiaryService implements OnModuleInit {
 
     if (data.length > 0) {
       const greatestDiary = data.reduce((prev, next) => (next.createdAt > prev.createdAt ? next : prev));
-
-      const diff = Math.floor(Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime);
       const createdDate = greatestDiary.createdAt;
-      const newDate = new Date();
-      newDate.setHours(0, 0, 0, 0);
-      for (let i = 0; i < diff; ++i) {
+      const diff = Math.abs(new Date().getTime() - greatestDiary.createdAt.getTime()) / PeriodTime.dayTime;
+
+      let days = Math.floor(diff);
+
+      if (
+        Math.floor(diff) <= diff &&
+        diff <= Math.ceil(diff) &&
+        Math.abs(new Date().getDay() - greatestDiary.createdAt.getDay()) != days
+      ) {
+        days += 1;
+      }
+      for (let i = 0; i < days; ++i) {
         createdDate.setDate(createdDate.getDate() + 1);
-        newDate.setDate(newDate.getDate() + 1);
         const { data: workouts } = await this.workoutService.findAll(new AppPagination.Request(), {
           where: {
-            date: newDate,
+            date: createdDate,
           },
         });
         const workoutsToUserId = workouts.reduce(
@@ -62,7 +68,7 @@ export class BaseDiaryService implements OnModuleInit {
           const newDiary = this.diaryRepository.create({
             userId: template.userId,
             props: labels,
-            date: newDate,
+            date: createdDate,
             createdAt: createdDate,
           });
 
