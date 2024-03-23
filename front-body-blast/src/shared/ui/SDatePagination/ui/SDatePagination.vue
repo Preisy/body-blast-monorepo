@@ -55,21 +55,22 @@ const handleNewPart = () => {
   );
 };
 
-const fixEdgeCase = () => handleNewPart();
-watch(() => props.modelValue, handleNewPart); //need to handle if date changes through SCalendar
+// const fixEdgeCase = () => handleNewPart();
+watch(() => props.modelValue, handleNewPart); //need to handle if date changes through SCalendakr
 </script>
 
 <template>
   <SComponentWrapper h-full>
+    <!-- v-touch-swipe.horizontal="fixEdgeCase" -->
     <q-tab-panels
       ref="tabPanels"
       :model-value="modelValue"
       @update:model-value="(newVal) => $emit('update:model-value', newVal as string)"
-      v-touch-swipe.horizontal="fixEdgeCase"
       :swipeable="true"
       :animated="isAnimated"
       h-full
     >
+      <q-tab-panel :name="start.clone().format('YYYY-MM-DD')" h-full overflow-hidden p="0!" />
       <q-tab-panel
         v-for="N in 2 * (halfRange + 1) - 1"
         :key="start.clone().add(N, 'd').format('YYYY-MM-DD')"
@@ -82,6 +83,17 @@ watch(() => props.modelValue, handleNewPart); //need to handle if date changes t
           <SNoResultsScreen />
         </slot>
       </q-tab-panel>
+      <q-tab-panel
+        :name="
+          start
+            .clone()
+            .add(2 * (halfRange + 1), 'd')
+            .format('YYYY-MM-DD')
+        "
+        h-full
+        overflow-hidden
+        p="0!"
+      />
     </q-tab-panels>
   </SComponentWrapper>
 </template>
