@@ -18,6 +18,7 @@ import { BaseWorkoutService } from '../workout/base-workout.service';
 import { WorkoutEntity } from '../workout/entity/workout.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 import { PeriodTime } from '../../../constants/constants';
+import _ from 'lodash';
 
 @Injectable()
 export class BaseDiaryService implements OnModuleInit {
@@ -248,7 +249,10 @@ export class BaseDiaryService implements OnModuleInit {
       const oldLabels = diary.props.map(({ label }) => ({ label }));
       const newLabels = request.props.map(({ label }) => ({ label }));
 
-      if (newLabels != oldLabels) {
+      oldLabels.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
+      newLabels.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
+
+      if (!_.isEqual(newLabels, oldLabels)) {
         throw MainException.invalidData(`Provided data is not valid: label properties do not match`);
       }
       diary.sum = request.props.reduce((acc, it) => acc + it.value, 0);
