@@ -49,10 +49,15 @@ export class TelegramService {
       null,
       2,
     )}\`\`\` \nERR:\`\`\`${err}\`\`\``;
-
     const chatIds = await this.telegramRepository.find();
-    await chatIds.map((bot) =>
-      this.tgBot.telegram.sendMessage(bot.chatId as number, reply, { parse_mode: 'Markdown' }),
-    );
+
+    for (let chunk = 0; chunk < reply.length; chunk += 4096) {
+      const start = chunk;
+      await chatIds.map((bot) =>
+        this.tgBot.telegram.sendMessage(bot.chatId as number, reply.substring(start, chunk + 4096), {
+          parse_mode: 'Markdown',
+        }),
+      );
+    }
   }
 }
