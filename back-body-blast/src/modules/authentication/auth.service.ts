@@ -26,15 +26,18 @@ export class AuthService {
   }
 
   async login(request: LoginRequest): Promise<AuthResponse> {
-    const { data: user } = await this.userService.getUserByEmail(request.email.toLowerCase());
-    const passwordMatches = await bcrypt.compare(request.password, user.password);
-    if (!passwordMatches) throw MainException.forbidden(`Error: no password mathces for user with id ${user.id}`);
+    try {
+      const { data: user } = await this.userService.getUserByEmail(request.email.toLowerCase());
+      const passwordMatches = await bcrypt.compare(request.password, user.password);
+      if (!passwordMatches) throw MainException.forbidden('Incorrect email or password');
 
-    const tokens = await this.getTokens(user.id, user.email);
+      const tokens = await this.getTokens(user.id, user.email);
 
-    await this.updateRefreshHash(user.id, tokens.accessToken, tokens.refreshToken);
-
-    return tokens;
+      await this.updateRefreshHash(user.id, tokens.accessToken, tokens.refreshToken);
+      return tokens;
+    } catch {
+      throw MainException.forbidden('Incorrect email or password');
+    }
   }
 
   async refreshTokens(request: UpdateRefreshAccess): Promise<AuthResponse> {
