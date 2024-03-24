@@ -1,7 +1,6 @@
 import { AxiosError } from 'axios';
 import { useAuthStore, TokenService } from 'shared/api/auth';
 import { api } from '.';
-// import { api } from '.';
 
 export const refreshInterceptor = async (error: AxiosError) => {
   if (error.config?.url === '/auth/refresh') {
@@ -16,8 +15,8 @@ export const refreshInterceptor = async (error: AxiosError) => {
   // If no token -> return error
   if (!refreshToken || !accessToken) return error;
 
-  // if auth(401, 403) error -> try to refresh access token for N times
-  if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+  // if auth(401) error -> try to refresh access
+  if (error.response && error.response.status === 401) {
     // request to refresh
     const newAccess = await refresh({ refreshToken, accessToken });
 

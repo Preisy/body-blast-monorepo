@@ -41,10 +41,10 @@ export namespace Diary {
       props: z.array(
         z.object({
           label: z.string(),
-          value: z.coerce.number(),
+          value: z.coerce.number().min(1),
         }),
       ),
-      steps: z.coerce.number(),
+      steps: z.coerce.number().min(1),
       activity: z.string().min(1),
     });
 }

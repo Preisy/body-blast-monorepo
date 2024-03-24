@@ -23,6 +23,6 @@ const options = [
 
   <template v-for="prop of diaryProps" :key="prop.id">
     <p mb-2 mt-4>{{ prop.label }}</p>
-    <SBtnToggle v-model="prop.value" :options="options" :readonly="readonly" />
+    <SBtnToggle :options="options" :readonly="readonly" :name="prop.label" :init-value="prop.value" />
   </template>
 </template>

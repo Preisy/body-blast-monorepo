@@ -13,5 +13,6 @@ export default {
     createdSuccessfuly: 'Created successfully',
     updatedSuccessfuly: 'Updated successfully',
     seconds_short: 's',
+    formError: 'Please correct the errors in the form',
   },
 };

@@ -9,6 +9,12 @@ export namespace Notify {
       timeout: 2000,
     });
   }
+  export const simpleError = (message: string) =>
+    QNotify.create({
+      type: 'negative',
+      message: message,
+      timeout: 1000,
+    });
 
   export const no401error = (err: IResource.Error) => err.statusCode !== 401 && error(err);
 

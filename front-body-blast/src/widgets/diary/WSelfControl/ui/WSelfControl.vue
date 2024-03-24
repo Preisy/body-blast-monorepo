@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import moment from 'moment';
+import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import { EDiarySelfControlItem } from 'entities/diary/EDiarySelfControlItem';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
-import { getUTC3Date, isEqualDates } from 'shared/lib/utils';
+import { Notify, getUTC3Date, isEqualDates } from 'shared/lib/utils';
 import { SInput } from 'shared/ui/inputs';
 import { SCalendar } from 'shared/ui/SCalendar';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
@@ -16,6 +17,7 @@ import { SSplideSlide } from 'shared/ui/SSplideSlide';
 import { SStructure } from 'shared/ui/SStructure';
 
 const today = getUTC3Date(); // Current date
+const { t } = useI18n();
 
 const emit = defineEmits<{
   'update:date': [date: string];
@@ -35,11 +37,21 @@ const updateModel = (newDate: string) => {
 
 const isReadonly = (date: string) => today.diff(moment(date), 'd') >= 7;
 
+const propsForm = ref<InstanceType<typeof SForm>>();
 const activityValidation = Diary.validation().pick({ activity: true, steps: true });
-const onSubmit = (diary: Diary, values: z.infer<typeof activityValidation>) => {
-  useLoadingAction(diaryList.updateState, () =>
-    patchDiary(diary.id, { ...values, props: diary.props?.filter((prop) => prop.value) }),
-  );
+const buildPropsSchema = (props: Diary['props']) => {
+  if (!props) return z.object({});
+  return z.object(Object.fromEntries(props.map((it) => [it.label, z.number().min(1).max(5)])));
+};
+const onSubmit = async (diary: Diary, values: z.infer<typeof activityValidation>) => {
+  const props = await propsForm.value?.handleSubmit(
+    (values) => values,
+    () => Notify.simpleError(t('global.formError')),
+  )();
+  if (!props) return;
+
+  const localProps = diary.props?.map((it) => ({ ...it, value: props[it.label] }));
+  useLoadingAction(diaryList.updateState, () => patchDiary(diary.id, { ...values, props: localProps }));
 };
 
 const offset = ref(0);
@@ -79,10 +91,19 @@ const halfRange = ref(7);
             }"
           >
             <SSplideSlide>
-              <EDiarySelfControlItem
-                :diary="diaryData.find((item) => isEqualDates(item.date, dd))!"
-                :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
-              />
+              <SForm
+                ref="propsForm"
+                :readonly="true"
+                :field-schema="
+                  toTypedSchema(buildPropsSchema(diaryData.find((item) => isEqualDates(item.date, dd))!.props))
+                "
+                p="0!"
+              >
+                <EDiarySelfControlItem
+                  :diary="diaryData.find((item) => isEqualDates(item.date, dd))!"
+                  :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
+                />
+              </SForm>
             </SSplideSlide>
 
             <SSplideSlide>
