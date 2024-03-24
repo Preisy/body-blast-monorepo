@@ -13,5 +13,6 @@ export default {
     createdSuccessfuly: 'Успешно создано',
     updatedSuccessfuly: 'Успешно изменено',
     seconds_short: 'с',
+    formError: 'Пожалуйста, исправьте ошибки в форме',
   },
 };

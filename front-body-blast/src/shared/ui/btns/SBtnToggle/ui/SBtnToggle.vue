@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { QBtnToggle, QBtnToggleProps } from 'quasar';
+import { useField } from 'vee-validate';
 import { HTMLAttributes } from 'vue';
 
-export interface SBtnToggleProps extends QBtnToggleProps {}
+export interface SBtnToggleProps {
+  name?: string;
+  readonly?: boolean;
+  options: QBtnToggleProps['options'];
+  initValue?: number;
+  modelValue?: number | boolean | null;
+}
 const props = defineProps<SBtnToggleProps>();
 const emit = defineEmits<{
   'update:model-value': [newValue: boolean];
 }>();
 
-//modelValue wrapper
-const value = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit('update:model-value', value);
-  },
-});
+const { value, setValue } = useField<number | undefined | null>(() => props.name ?? '_');
+if (props.initValue) setValue(props.initValue);
 
 const toggle = ref<InstanceType<typeof QBtnToggle>>();
 const elemsAsArray = computed(() => {
@@ -43,7 +43,9 @@ const styles = computed(() => {
   );
 });
 
-const currentIndex = computed(() => props.options.findIndex((option) => option.value === value.value));
+const currentIndex = computed(() =>
+  props.options.findIndex((option) => (props.name ? option.value === value.value : option.value === props.modelValue)),
+);
 const currentStyle = computed(() => styles.value?.[currentIndex.value]);
 const onResize = (size: { height: number; width: number }) => (isParentHidden.value = !size.height && !size.width);
 </script>
@@ -66,7 +68,15 @@ const onResize = (size: { height: number; width: number }) => (isParentHidden.va
       text-color="bg"
       toggle-text-color="bg"
       size="1rem"
-      v-model="value"
+      :model-value="name ? value : modelValue"
+      @update:model-value="
+        (val) => {
+          if (name) {
+            setValue(val);
+          }
+          emit('update:model-value', val);
+        }
+      "
     />
 
     <div
