@@ -51,13 +51,12 @@ export class TelegramService {
     )}\`\`\` \nERR:\`\`\`${err}\`\`\``;
     const chatIds = await this.telegramRepository.find();
 
-    for (let chunk = 0; chunk < reply.length; chunk += 4096) {
-      const start = chunk;
-      await chatIds.map((bot) =>
-        this.tgBot.telegram.sendMessage(bot.chatId as number, reply.substring(start, chunk + 4096), {
+    Array.from({ length: Math.ceil(reply.length / 4096) }, (_, index) => index * 4096).map((item) => {
+      chatIds.map((bot) => {
+        this.tgBot.telegram.sendMessage(bot.chatId as number, reply.substring(item, item + 4096), {
           parse_mode: 'Markdown',
-        }),
-      );
-    }
+        });
+      });
+    });
   }
 }
