@@ -1,0 +1,28 @@
+# Tests
+/coverage
+/.nyc_output
+
+# IDEs and editors
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# ENV
+.env
+.env.docker
+
+#LOGS
+log.txt
+
+#TELEGRAM
+session_db.json 

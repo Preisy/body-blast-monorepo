@@ -1,0 +1,41 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "composite": true,
+    "outDir": "../dist/front-body-blast",
+    "baseUrl": ".",
+    "paths": {
+      "app/*": [
+        "src/app/*"
+      ],
+      "processes/*": [
+        "src/processes/*"
+      ],
+      "pages/*": [
+        "src/pages/*"
+      ],
+      "widgets/*": [
+        "src/widgets/*"
+      ],
+      "features/*": [
+        "src/features/*"
+      ],
+      "entities/*": [
+        "src/entities/*"
+      ],
+      "shared/*": [
+        "src/shared/*"
+      ],
+    },
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+  },
+  "exclude": [
+    "dist",
+    ".quasar",
+    "node_modules",
+  ]
+}

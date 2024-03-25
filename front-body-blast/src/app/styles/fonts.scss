@@ -1,0 +1,33 @@
+@import url('https://gistcdn.githack.com/mfd/09b70eb47474836f25a21660282ce0fd/raw/e06a670afcb2b861ed2ac4a1ef752d062ef6b46b/Gilroy.css');
+
+:root {
+  --font-family: 'Gilroy', sans-serif;
+}
+
+h1,
+.text-lg {
+  --uno: text-lg font-800 tracking-normal;
+}
+
+h2,
+.text-md {
+  --uno: text-md font-800 tracking-normal;
+}
+
+p,
+.text-base {
+  --uno: text-base font-400 tracking-normal;
+}
+
+span,
+.text-sm {
+  --uno: text-sm font-400 tracking-normal;
+}
+
+a {
+  --uno: text-primary no-underline;
+}
+
+.material-symbols-rounded {
+  font-variation-settings: 'FILL' 1;
+}

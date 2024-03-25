@@ -1,0 +1,23 @@
+:root {
+  --q-bg: theme('colors.bg');
+  --q-primary: theme('colors.primary');
+  --q-primary-50-solid: theme('colors.primary-50-solid');
+  --q-secondary: theme('colors.secondary');
+  --q-accent: theme('colors.accent');
+  --q-positive: theme('colors.positive');
+  --q-success: theme('colors.success');
+}
+
+.text-primary-50-solid {
+  color: var(--q-primary-50-solid) !important;
+}
+.bg-primary-50-solid {
+  background-color: var(--q-primary-50-solid) !important;
+}
+
+.text-success {
+  color: var(--q-success) !important;
+}
+.bg-success {
+  background-color: var(--q-success) !important;
+}

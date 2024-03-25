@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  blast_database:
+    image: postgres:16.2
+    container_name: blast_database
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: '${DB_USER}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      POSTGRES_DB: '${DB_TITLE}'
+    ports:
+      - '${DATABASE_PUBLIC_PORT}:5432'
+    volumes:
+      - blast_db_data:/var/lib/postgresql/data
+    networks:
+      - blast_network
+volumes:
+  blast_db_data:
+    name: blast_db_data
+networks:
+  blast_network:
+    driver: bridge

@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+  blast_backend:
+    container_name: blast_backend
+    build:
+      context: .
+      dockerfile: ./back-body-blast/Dockerfile
+    env_file: .env
+    working_dir: /app
+    ports:
+      - "${NODEJS_PUBLIC_PORT}:3000"
+    volumes:
+      - ./back-body-blast/uploads:/app/uploads
+      - ./back-body-blast/log.txt:/app/log.txt
+
+    depends_on:
+      - blast_database
+    networks:
+      - blast_network
+
+  blast_database:
+    image: postgres:16.2
+    container_name: blast_database
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_TITLE}"
+    ports:
+      - "${DATABASE_PUBLIC_PORT}:5432"
+    volumes:
+      - blast_db_data:/var/lib/postgresql/data
+    networks:
+      - blast_network
+
+  blast_frontend:
+    build:
+      context: .
+      dockerfile: ./front-body-blast/Dockerfile
+    ports:
+      - 4000:4000
+    networks:
+      - blast_network
+
+volumes:
+  blast_db_data:
+    name: blast_db_data
+networks:
+  blast_network:
+    driver: bridge
