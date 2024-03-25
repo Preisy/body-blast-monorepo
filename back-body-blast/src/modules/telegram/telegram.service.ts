@@ -52,10 +52,22 @@ export class TelegramService {
     const chatIds = await this.telegramRepository.find();
 
     await Promise.all(
-      Array.from({ length: Math.ceil(reply.length / 4096) }, (_, index) => index * 4096).map(async (item) => {
+      Array.from({ length: Math.ceil(reply.length / 4000) }, (_, index) => index * 4000).map(async (item) => {
+        let flag = false;
+        let chunk = reply.substring(item, item + 4000);
+        const regex = new RegExp('```', 'g');
+        const count = (chunk.match(regex) || []).length;
+        if (flag) {
+          flag = false;
+          '```' + chunk;
+        }
+        if (count % 2 !== 0) {
+          chunk += '```';
+          flag = true;
+        }
         await Promise.all(
           chatIds.map(async (bot) => {
-            await this.tgBot.telegram.sendMessage(bot.chatId as number, reply.substring(item, item + 4096), {
+            await this.tgBot.telegram.sendMessage(bot.chatId as number, chunk, {
               parse_mode: 'Markdown',
             });
           }),
