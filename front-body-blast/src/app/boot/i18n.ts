@@ -1,11 +1,11 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
-import { TPAdminHomeI18n } from 'pages/PAdminHome';
-import { TPAdminPromptsI18n } from 'pages/PAdminPrompt';
-import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
-import { TPAdminUserProfileNutritionI18n } from 'pages/PAdminUserProfileNutrition';
-import { TPAdminVideoI18n } from 'pages/PAdminVideo';
-import { TPDietI18n } from 'pages/PDiet';
+import { TPAdminHomeI18n } from 'pages/admin/home';
+import { TPAdminVideoI18n } from 'pages/admin/learning';
+import { TPAdminUserProfileNutritionI18n } from 'pages/admin/nutrition';
+import { TPAdminPromptsI18n } from 'pages/admin/prompt';
+import { TPAdminUserProfileI18n } from 'pages/admin/user-profile';
+import { TPDietI18n } from 'pages/diet';
 import { TWAdminDiaryI18n } from 'widgets/admin/diary';
 import { TWAdminFooterNavBarI18n } from 'widgets/admin/footer';
 import { TWAdminLearningI18n } from 'widgets/admin/learning';

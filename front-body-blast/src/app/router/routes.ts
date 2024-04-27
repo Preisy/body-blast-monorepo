@@ -12,13 +12,13 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: 'register',
-        component: () => import('pages/PRegister/ui/PRegister.vue'),
+        component: () => import('pages/register/ui/PRegister.vue'),
         name: ENUMS.ROUTES_NAMES.REGISTER,
         meta: { transition: 'slide-left' },
       },
       {
         path: 'login',
-        component: () => import('pages/PLogin/ui/PLogin.vue'),
+        component: () => import('pages/login/ui/PLogin.vue'),
         name: ENUMS.ROUTES_NAMES.LOGIN,
         meta: { transition: 'slide-right' },
       },
@@ -28,7 +28,7 @@ const routes: RouteRecordRaw[] = [
 
   {
     path: '/404',
-    component: () => import('pages/PNotFound/ui/PNotFound.vue'),
+    component: () => import('pages/not-found/ui/PNotFound.vue'),
     name: ENUMS.ROUTES_NAMES.NOT_FOUND,
   },
 
