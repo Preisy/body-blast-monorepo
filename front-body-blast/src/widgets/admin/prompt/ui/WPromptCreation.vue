@@ -2,7 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, uniqueId } from 'lodash';
 import { useI18n } from 'vue-i18n';
-import { FListControls } from 'features/FListControls';
+import { FListControls } from 'features/list-controls';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { SInput, SFilePicker } from 'shared/ui/inputs';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';

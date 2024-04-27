@@ -14,7 +14,7 @@ import { TWPromptCreationI18n } from 'widgets/admin/prompt';
 import { TWNewTrainingI18n } from 'widgets/admin/trainings';
 import { TFooterNavigationBarI18n } from 'widgets/footer';
 import { TTrainingAdditionBlockI18n } from 'widgets/trainings';
-import { TFNutritionListFormI18n } from 'features/FNutritionListForm';
+import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
 import { TEDiaryI18n } from 'entities/diary';
 import { TAuthFormsI18n } from 'entities/form/i18n';
 import { TEProfileI18n } from 'entities/profile';

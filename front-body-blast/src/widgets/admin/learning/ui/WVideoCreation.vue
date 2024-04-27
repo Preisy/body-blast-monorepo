@@ -2,7 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
-import { FListControls } from 'features/FListControls';
+import { FListControls } from 'features/list-controls';
 import { useAdminBonusVideoStore } from 'shared/api/admin';
 import { BonusVideo } from 'shared/api/bonusVideo';
 import { SInput, SFilePicker } from 'shared/ui/inputs';

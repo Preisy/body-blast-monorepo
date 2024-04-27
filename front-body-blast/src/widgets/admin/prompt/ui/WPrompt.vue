@@ -5,7 +5,7 @@ import {
   symRoundedPause,
   symRoundedPlayArrow,
 } from '@quasar/extras/material-symbols-rounded';
-import { FPromptEditDialog } from 'features/FPromptEditDialog';
+import { FPromptEditDialog } from 'features/prompt-edit-dialog';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { useAuthLink } from 'shared/lib/hooks';
