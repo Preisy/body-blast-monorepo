@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WFooterNavBar } from 'widgets/WFooterNavBar';
+import { WFooterNavBar } from 'widgets/footer';
 import { ENUMS } from 'shared/lib/enums';
 import { SNotification } from 'shared/ui/SNotification';
 import LDashboard from './LDashboard.vue';

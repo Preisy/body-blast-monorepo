@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { QTabProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
-import { WPrompt } from 'widgets/WPrompt';
-import { WPromptCreation } from 'widgets/WPromptCreation';
+import { WPrompt, WPromptCreation } from 'widgets/admin/prompt';
 import { useAdminPromptStore } from 'shared/api/admin';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';

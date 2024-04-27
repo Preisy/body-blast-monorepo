@@ -6,16 +6,14 @@ import { TPAdminUserProfileI18n } from 'pages/PAdminUserProfile';
 import { TPAdminUserProfileNutritionI18n } from 'pages/PAdminUserProfileNutrition';
 import { TPAdminVideoI18n } from 'pages/PAdminVideo';
 import { TPDietI18n } from 'pages/PDiet';
-import { TTrainingAdditionBlockI18n } from 'widgets/WAdditionCard';
-import { TWAdminFooterNavBarI18n } from 'widgets/WAdminFooterNavBar';
-import { TWAdminNewFoodI18n } from 'widgets/WAdminNewFood';
-import { TWAdminNewNutritionI18n } from 'widgets/WAdminNewNutrition/i18n';
-import { TFooterNavigationBarI18n } from 'widgets/WFooterNavBar';
-import { TWNewTrainingI18n } from 'widgets/WNewTraining';
-import { TWPromptCreationI18n } from 'widgets/WPromptCreation';
-import { TWSelfControlListI18n } from 'widgets/WSelfControlList';
-import { TWStepsListI18n } from 'widgets/WStepsList';
-import { TWVideoCreationI18n } from 'widgets/WVideoCreation';
+import { TWAdminDiaryI18n } from 'widgets/admin/diary';
+import { TWAdminFooterNavBarI18n } from 'widgets/admin/footer';
+import { TWAdminLearningI18n } from 'widgets/admin/learning';
+import { TWAdminNutritionI18n } from 'widgets/admin/nutrition';
+import { TWPromptCreationI18n } from 'widgets/admin/prompt';
+import { TWNewTrainingI18n } from 'widgets/admin/trainings';
+import { TFooterNavigationBarI18n } from 'widgets/footer';
+import { TTrainingAdditionBlockI18n } from 'widgets/trainings';
 import { TFNutritionListFormI18n } from 'features/FNutritionListForm';
 import { TEDiaryI18n } from 'entities/diary';
 import { TAuthFormsI18n } from 'entities/form/i18n';
@@ -45,17 +43,15 @@ export default boot(({ app }) => {
       TEDiaryI18n,
       TWPromptCreationI18n,
       TSNoResultsScreenI18n,
-      TWStepsListI18n,
-      TWSelfControlListI18n,
+      TWAdminDiaryI18n,
       TWNewTrainingI18n,
       TPAdminPromptsI18n,
       TFNutritionListFormI18n,
       TPAdminUserProfileNutritionI18n,
-      TWAdminNewNutritionI18n,
-      TWAdminNewFoodI18n,
+      TWAdminNutritionI18n,
       TSRemoveDialogI18n,
       TPAdminVideoI18n,
-      TWVideoCreationI18n,
+      TWAdminLearningI18n,
       TSNotificationI18n,
     ),
     fallbackLocale: 'ru-RU',

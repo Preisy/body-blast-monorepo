@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { WAdminFood } from 'widgets/WAdminFood';
-import { WAdminNewFood } from 'widgets/WAdminNewFood';
-import { WAdminNewNutrition } from 'widgets/WAdminNewNutrition';
-import { WAdminNutrition } from 'widgets/WAdminNutrition';
+import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/admin/nutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
@@ -13,7 +10,6 @@ import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
 import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
 import { SLoading } from 'shared/ui/SLoading';
-// import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';
 import { SStructure } from 'shared/ui/SStructure';
 

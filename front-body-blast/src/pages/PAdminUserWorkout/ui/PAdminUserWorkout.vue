@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WNewTraining } from 'widgets/WNewTraining';
-import { WOldTraining } from 'widgets/WOldTraining';
+import { WNewTraining, WOldTraining } from 'widgets/admin/trainings';
 import { useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';

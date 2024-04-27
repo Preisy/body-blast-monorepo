@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WSelfControl } from 'widgets/diary/WSelfControl';
+import { WSelfControl } from 'widgets/diary';
 import { EDiaryHeader } from 'entities/diary';
 import { useDiaryStore } from 'shared/api/diary';
 import { useMeStore } from 'shared/api/me';
