@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { z } from 'zod';
-import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/profile/EAthropometricsItem';
+import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/profile';
 import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
 import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';

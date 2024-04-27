@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EVideo } from 'entities/learning/EVideo';
+import { EVideo } from 'entities/learning/';
 import { useBonusVideoStore } from 'shared/api/bonusVideo';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SProxyScroll } from 'shared/ui/SProxyScroll';

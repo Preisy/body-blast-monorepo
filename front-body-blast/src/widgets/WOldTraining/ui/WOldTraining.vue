@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { symRoundedDelete, symRoundedEdit } from '@quasar/extras/material-symbols-rounded';
-import { ETrainingCard } from 'entities/trainings/ETrainingCard';
+import { ETrainingCard } from 'entities/trainings';
 import { useAdminWorkoutStore } from 'shared/api/admin';
 import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';

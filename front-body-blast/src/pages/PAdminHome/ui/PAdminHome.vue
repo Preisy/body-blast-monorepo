@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { FSearchPanel } from 'features/FSearchPanel';
-import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
+import { EUnitedProfileCard } from 'entities/profile';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { useAuthStore } from 'shared/api/auth';
 import { useMeStore } from 'shared/api/me';

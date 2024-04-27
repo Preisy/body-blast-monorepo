@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { WAdditionCard } from 'widgets/WAdditionCard';
-import { ETrainingCard } from 'entities/trainings/ETrainingCard';
+import { ETrainingCard } from 'entities/trainings';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';

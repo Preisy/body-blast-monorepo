@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { useI18n } from 'vue-i18n';
-import { EAthropometricsItem } from 'entities/profile/EAthropometricsItem';
-import { EUnitedProfileCard } from 'entities/profile/EUnitedProfileCard';
+import { EAthropometricsItem, EUnitedProfileCard } from 'entities/profile/';
 import { useAdminUserProfileStore, useAdminAnthropometryStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';

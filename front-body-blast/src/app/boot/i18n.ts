@@ -17,13 +17,10 @@ import { TWSelfControlListI18n } from 'widgets/WSelfControlList';
 import { TWStepsListI18n } from 'widgets/WStepsList';
 import { TWVideoCreationI18n } from 'widgets/WVideoCreation';
 import { TFNutritionListFormI18n } from 'features/FNutritionListForm';
-import { TEDiaryI18n } from 'entities/diary/EDiaryHeader';
-import { TEDiarySelfControlI18n } from 'entities/diary/EDiarySelfControlItem';
+import { TEDiaryI18n } from 'entities/diary';
 import { TAuthFormsI18n } from 'entities/form/i18n';
-import { TEAthropometricsItemI18n } from 'entities/profile/EAthropometricsItem';
-import { TEProfileHeaderI18n } from 'entities/profile/EProfileHeader';
-import { TEProfileCardI18n } from 'entities/profile/EUnitedProfileCard';
-import { TTrainingI18n } from 'entities/trainings/ETrainingCard';
+import { TEProfileI18n } from 'entities/profile';
+import { TTrainingI18n } from 'entities/trainings';
 import { TGlobalI18n } from 'shared/config/i18n';
 import { mergeI18n } from 'shared/lib/i18utils';
 import { TSNoResultsScreenI18n } from 'shared/ui/SNoResultsScreen';
@@ -43,13 +40,10 @@ export default boot(({ app }) => {
       TTrainingI18n,
       TTrainingAdditionBlockI18n,
       TAuthFormsI18n,
-      TEProfileHeaderI18n,
-      TEAthropometricsItemI18n,
+      TEProfileI18n,
       TPDietI18n,
       TEDiaryI18n,
-      TEDiarySelfControlI18n,
       TWPromptCreationI18n,
-      TEProfileCardI18n,
       TSNoResultsScreenI18n,
       TWStepsListI18n,
       TWSelfControlListI18n,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EDietItem } from 'entities/diet/EDietItem';
+import { EDietItem } from 'entities/diet';
 import { Nutrition } from 'shared/api/nutrition';
 import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';

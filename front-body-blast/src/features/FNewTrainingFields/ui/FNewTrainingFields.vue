@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { uniqueId } from 'lodash';
-import { EAdminPromptThumbnail } from 'entities/workout/EAdminPromptThumbnail';
+import { EAdminPromptThumbnail } from 'entities/workout';
 import { Prompt, useAdminWorkoutStore } from 'shared/api/admin';
 import { SChooseInput, SInput } from 'shared/ui/inputs';
 

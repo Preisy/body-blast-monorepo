@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { WAthropometrics } from 'widgets/profile/WAthropometrics';
-import { EProfileHeader } from 'entities/profile/EProfileHeader';
+import { EProfileHeader } from 'entities/profile';
 import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SStructure } from 'shared/ui/SStructure';

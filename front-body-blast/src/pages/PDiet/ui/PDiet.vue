@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QTabPanel } from 'quasar';
 import { WDietNutrition } from 'widgets/diet/WDietNutrition';
-import { EDietItem } from 'entities/diet/EDietItem';
+import { EDietItem } from 'entities/diet';
 import { useFoodStore } from 'shared/api/food';
 import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';

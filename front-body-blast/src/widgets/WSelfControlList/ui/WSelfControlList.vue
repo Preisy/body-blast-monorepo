@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ESelfControlSlide } from 'entities/diary/ESelfControlSlide';
+import { ESelfControlSlide } from 'entities/diary';
 import { Diary } from 'shared/api/diary';
 
 export interface WSelfControlListProps {
