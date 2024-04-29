@@ -13,9 +13,9 @@ import { Me, useMeStore } from 'shared/api/me';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
-import { SForm, SFormProps } from 'shared/ui/SForm';
-import { SProxyScroll } from 'shared/ui/SProxyScroll';
-import { SStructure } from 'shared/ui/SStructure';
+import { SForm, SFormProps } from 'shared/ui/form';
+import { SProxyScroll } from 'shared/ui/proxy-scroll';
+import { SStructure } from 'shared/ui/structure';
 
 const { me, getMe, patchMe } = useMeStore();
 const data = computed(() => me.data?.data);

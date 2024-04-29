@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { EDietItem } from 'entities/diet';
 import { Nutrition } from 'shared/api/nutrition';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
-import { SSplide } from 'shared/ui/SSplide';
-import { SSplideSlide } from 'shared/ui/SSplideSlide';
-import { SStructure } from 'shared/ui/SStructure';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SNoResultsScreen } from 'shared/ui/no-results-screen';
+import { SSplide } from 'shared/ui/splide';
+import { SSplideSlide } from 'shared/ui/splide-slide';
+import { SStructure } from 'shared/ui/structure';
 
 export interface WDietNutritionProps {
   nutritions: Array<Nutrition>;

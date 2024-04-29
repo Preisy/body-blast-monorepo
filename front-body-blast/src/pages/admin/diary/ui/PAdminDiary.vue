@@ -6,9 +6,9 @@ import { AppBaseEntity } from 'shared/api/base';
 import { Diary } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/SCalendar';
-import { SProxyScroll } from 'shared/ui/SProxyScroll';
-import { SStructure } from 'shared/ui/SStructure';
+import { SCalendar } from 'shared/ui/calendar';
+import { SProxyScroll } from 'shared/ui/proxy-scroll';
+import { SStructure } from 'shared/ui/structure';
 
 export interface PAdminDiaryProps {
   id: AppBaseEntity['id'];

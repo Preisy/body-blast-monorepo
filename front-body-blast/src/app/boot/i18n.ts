@@ -14,6 +14,8 @@ import { TWPromptCreationI18n } from 'widgets/admin/prompt';
 import { TWNewTrainingI18n } from 'widgets/admin/trainings';
 import { TFooterNavigationBarI18n } from 'widgets/footer';
 import { TTrainingAdditionBlockI18n } from 'widgets/trainings';
+import { TFRemoveDialogI18n } from 'features/dialogs';
+import { TFNotificationI18n } from 'features/notification';
 import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
 import { TEDiaryI18n } from 'entities/diary';
 import { TAuthFormsI18n } from 'entities/form/i18n';
@@ -21,9 +23,6 @@ import { TEProfileI18n } from 'entities/profile';
 import { TTrainingI18n } from 'entities/trainings';
 import { TGlobalI18n } from 'shared/config/i18n';
 import { mergeI18n } from 'shared/lib/i18utils';
-import { TSNoResultsScreenI18n } from 'shared/ui/SNoResultsScreen';
-import { TSNotificationI18n } from 'shared/ui/SNotification';
-import { TSRemoveDialogI18n } from 'shared/ui/SRemoveDialog';
 
 export default boot(({ app }) => {
   const i18n = createI18n({
@@ -42,17 +41,16 @@ export default boot(({ app }) => {
       TPDietI18n,
       TEDiaryI18n,
       TWPromptCreationI18n,
-      TSNoResultsScreenI18n,
       TWAdminDiaryI18n,
       TWNewTrainingI18n,
       TPAdminPromptsI18n,
       TFNutritionListFormI18n,
       TPAdminUserProfileNutritionI18n,
       TWAdminNutritionI18n,
-      TSRemoveDialogI18n,
+      TFRemoveDialogI18n,
       TPAdminVideoI18n,
       TWAdminLearningI18n,
-      TSNotificationI18n,
+      TFNotificationI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

@@ -6,9 +6,9 @@ import { useAdminNutritionStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SForm } from 'shared/ui/SForm';
 
 export interface WAdminNewNutritionProps {
   userId: AppBaseEntity['id'];

@@ -10,8 +10,8 @@ import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
-import { SLoading } from 'shared/ui/SLoading';
-import { SVideo } from 'shared/ui/SVideo';
+import { SLoading } from 'shared/ui/loading';
+import { SVideo } from 'shared/ui/video';
 
 export interface WPromptsProps {
   prompt: Prompt;

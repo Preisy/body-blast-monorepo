@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { SInput } from 'shared/ui/inputs';
-import { SSelect } from 'shared/ui/SSelect';
+import { SSelect } from 'shared/ui/select';
 
 defineProps<{
   readonly?: boolean;

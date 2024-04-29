@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
+// eslint-disable-next-line boundaries/element-types
+import { FRemoveDialog } from 'features/dialogs';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
 import { SListControls } from 'shared/ui/btns';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SForm } from 'shared/ui/SForm';
-import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import NutritionListHeader from './NutritionListHeader.vue';
 
 export interface FNutritionListFormProps {
@@ -32,7 +33,7 @@ const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
 );
 
 // Deletion dialog ref
-const dialog = ref<InstanceType<typeof SRemoveDialog>>();
+const dialog = ref<InstanceType<typeof FRemoveDialog>>();
 const removeItemIndex = ref<number>(); // index to deletion
 // Called if user hits 'apply' in deletionDialog.
 const onRemoveApply = () => {
@@ -106,6 +107,6 @@ onMounted(() => {
       </SForm>
     </q-intersection>
 
-    <SRemoveDialog ref="dialog" @apply="onRemoveApply" />
+    <FRemoveDialog ref="dialog" @apply="onRemoveApply" />
   </div>
 </template>

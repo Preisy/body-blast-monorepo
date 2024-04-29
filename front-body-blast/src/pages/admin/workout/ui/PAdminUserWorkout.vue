@@ -6,10 +6,10 @@ import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/SCalendar';
-import { SDatePagination } from 'shared/ui/SDatePagination';
-import { SProxyScroll } from 'shared/ui/SProxyScroll';
-import { SStructure } from 'shared/ui/SStructure';
+import { SCalendar } from 'shared/ui/calendar';
+import { SDatePagination } from 'shared/ui/date-pagination';
+import { SProxyScroll } from 'shared/ui/proxy-scroll';
+import { SStructure } from 'shared/ui/structure';
 
 export interface PAdminUserWorkoutProps {
   id: AppBaseEntity['id'];

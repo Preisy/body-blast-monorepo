@@ -7,7 +7,7 @@ import { Food } from 'shared/api/food';
 import { useLoadingAction } from 'shared/lib/loading';
 import { Notify } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
 
 export interface WAdminFoodProps {
   type: string;

@@ -4,8 +4,8 @@ import { ELoginForm } from 'entities/form';
 import { Auth, useAuthStore } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
-import { SForm } from 'shared/ui/SForm';
-import { SStructure } from 'shared/ui/SStructure';
+import { SForm } from 'shared/ui/form';
+import { SStructure } from 'shared/ui/structure';
 
 const router = useRouter();
 const schema = toTypedSchema(Auth.validation());

@@ -8,10 +8,10 @@ import { Food } from 'shared/api/food';
 import { Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
-import { SCenteredNav, SCenteredNavProps } from 'shared/ui/SCenteredNav';
-import { SLoading } from 'shared/ui/SLoading';
-import { SProxyScroll } from 'shared/ui/SProxyScroll';
-import { SStructure } from 'shared/ui/SStructure';
+import { SCenteredNav, SCenteredNavProps } from 'shared/ui/centered-nav';
+import { SLoading } from 'shared/ui/loading';
+import { SProxyScroll } from 'shared/ui/proxy-scroll';
+import { SStructure } from 'shared/ui/structure';
 
 export interface PAdminUserProfileNutritionProps {
   id: AppBaseEntity['id'];
@@ -95,3 +95,4 @@ const calcHeight = (nutr: Nutrition): StyleValue => ({
     <SLoading v-else />
   </SStructure>
 </template>
+shared/ui/centered-nav

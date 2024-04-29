@@ -4,10 +4,10 @@ import { useI18n } from 'vue-i18n';
 import { WAdminVideo, WVideoCreation } from 'widgets/admin/learning';
 import { useAdminBonusVideoStore } from 'shared/api/admin';
 import { useLoadingAction } from 'shared/lib/loading';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
-import { SProxyScroll } from 'shared/ui/SProxyScroll';
-import { SStructure } from 'shared/ui/SStructure';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SNoResultsScreen } from 'shared/ui/no-results-screen';
+import { SProxyScroll } from 'shared/ui/proxy-scroll';
+import { SStructure } from 'shared/ui/structure';
 
 const { t } = useI18n();
 const routes: QTabProps[] = [

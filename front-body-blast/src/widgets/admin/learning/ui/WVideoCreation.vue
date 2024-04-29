@@ -5,9 +5,9 @@ import { z } from 'zod';
 import { FListControls } from 'features/list-controls';
 import { useAdminBonusVideoStore } from 'shared/api/admin';
 import { BonusVideo } from 'shared/api/bonusVideo';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SForm } from 'shared/ui/form';
 import { SInput, SFilePicker } from 'shared/ui/inputs';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SForm } from 'shared/ui/SForm';
 
 const { t } = useI18n();
 const schema = toTypedSchema(BonusVideo.validation(t));

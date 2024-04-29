@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FRemoveDialog } from 'features/dialogs';
 import { FSearchPanel } from 'features/search-panel';
 import { EUnitedProfileCard } from 'entities/profile';
 import { useAdminUserProfileStore } from 'shared/api/admin';
@@ -8,10 +9,9 @@ import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
-import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
-import { SStructure } from 'shared/ui/SStructure';
-import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
+import { SNoResultsScreen } from 'shared/ui/no-results-screen';
+import { SScaffold } from 'shared/ui/scaffold';
+import { SStructure } from 'shared/ui/structure';
 
 const router = useRouter();
 
@@ -45,7 +45,7 @@ const onUserProfileClick = (user: User) => {
   router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE, params: { id: user.id } });
 };
 
-const deletionDialog = ref<InstanceType<typeof SRemoveDialog>>();
+const deletionDialog = ref<InstanceType<typeof FRemoveDialog>>();
 const userToDelete = ref<User>();
 const onDeletionApply = () => {
   useLoadingAction(users.deleteState, () => {
@@ -61,7 +61,7 @@ const onUserDelete = (user: User) => {
 
 <template>
   <SStructure h-full>
-    <SWithHeaderLayout>
+    <SScaffold>
       <template #header>
         <EUnitedProfileCard
           :header="myName ?? $t('global.loading')"
@@ -99,8 +99,8 @@ const onUserDelete = (user: User) => {
 
         <SNoResultsScreen v-else-if="users.state.isError()" />
       </template>
-    </SWithHeaderLayout>
+    </SScaffold>
 
-    <SRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
+    <FRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
   </SStructure>
 </template>

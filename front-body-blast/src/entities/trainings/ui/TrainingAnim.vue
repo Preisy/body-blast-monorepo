@@ -2,8 +2,8 @@
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
-import { SLoading } from 'shared/ui/SLoading';
-import { SVideo } from 'shared/ui/SVideo';
+import { SLoading } from 'shared/ui/loading';
+import { SVideo } from 'shared/ui/video';
 
 const props = defineProps<{
   photoLink: string;

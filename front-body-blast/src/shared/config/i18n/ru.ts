@@ -14,5 +14,8 @@ export default {
     updatedSuccessfuly: 'Успешно изменено',
     seconds_short: 'с',
     formError: 'Пожалуйста, исправьте ошибки в форме',
+    noresults: {
+      message: 'Ничего не нашлось :(',
+    },
   },
 };

@@ -7,14 +7,14 @@ import { EDiarySelfControlItem } from 'entities/diary';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { Notify, getUTC3Date, isEqualDates } from 'shared/lib/utils';
+import { SCalendar } from 'shared/ui/calendar';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SDatePagination } from 'shared/ui/date-pagination';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SCalendar } from 'shared/ui/SCalendar';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SDatePagination } from 'shared/ui/SDatePagination';
-import { SForm } from 'shared/ui/SForm';
-import { SSplide } from 'shared/ui/SSplide';
-import { SSplideSlide } from 'shared/ui/SSplideSlide';
-import { SStructure } from 'shared/ui/SStructure';
+import { SSplide } from 'shared/ui/splide';
+import { SSplideSlide } from 'shared/ui/splide-slide';
+import { SStructure } from 'shared/ui/structure';
 
 const today = getUTC3Date(); // Current date
 const { t } = useI18n();

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { useI18n } from 'vue-i18n';
+import { FRemoveDialog } from 'features/dialogs';
 import { EAthropometricsItem, EUnitedProfileCard } from 'entities/profile/';
 import { useAdminUserProfileStore, useAdminAnthropometryStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
@@ -9,12 +10,11 @@ import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { fromCreatedToToday, getUTC3Date, isEqualDates } from 'shared/lib/utils';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
-import { SCalendar } from 'shared/ui/SCalendar';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SDatePagination } from 'shared/ui/SDatePagination';
-import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
-import { SStructure } from 'shared/ui/SStructure';
-import { SWithHeaderLayout } from 'shared/ui/SWithHeaderLayout';
+import { SCalendar } from 'shared/ui/calendar';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SDatePagination } from 'shared/ui/date-pagination';
+import { SScaffold } from 'shared/ui/scaffold';
+import { SStructure } from 'shared/ui/structure';
 
 export interface PAdminUserProfileProps {
   id: AppBaseEntity['id'];
@@ -72,7 +72,7 @@ useLoadingAction(anthropometryList, () =>
 const slides = computed(() => anthropometryList.data?.data);
 
 const { deleteUser, users } = useAdminUserProfileStore();
-const deletionDialog = ref<InstanceType<typeof SRemoveDialog>>();
+const deletionDialog = ref<InstanceType<typeof FRemoveDialog>>();
 const userIdToDelete = ref<User['id']>();
 const onDeletionApply = () => {
   useLoadingAction(users.deleteState, () => {
@@ -89,7 +89,7 @@ const onUserDelete = (userId: User['id']) => {
 
 <template>
   <SStructure h-full>
-    <SWithHeaderLayout>
+    <SScaffold>
       <template #header>
         <EUnitedProfileCard
           :header="userName ?? $t('global.loading')"
@@ -150,8 +150,8 @@ const onUserDelete = (userId: User['id']) => {
           </SDatePagination>
         </div>
       </template>
-    </SWithHeaderLayout>
+    </SScaffold>
 
-    <SRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
+    <FRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
   </SStructure>
 </template>

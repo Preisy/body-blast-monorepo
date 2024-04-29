@@ -3,8 +3,8 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
 import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
 import { AppBaseEntity } from 'shared/api/base';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SForm } from 'shared/ui/SForm';
 
 export interface EAthropometricsItemProps {
   readonly: boolean;

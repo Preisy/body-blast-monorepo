@@ -2,13 +2,15 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
+//TODO: refactor FFoodListForm ?
+// eslint-disable-next-line boundaries/element-types
+import { FRemoveDialog } from 'features/dialogs';
 import { useAdminFoodStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';
 import { SListControls } from 'shared/ui/btns';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SForm } from 'shared/ui/SForm';
-import { SRemoveDialog } from 'shared/ui/SRemoveDialog';
 import NutritionListHeader, { NutritionListHeaderProps } from './NutritionListHeader.vue';
 
 export interface FFoodListFormProps {
@@ -30,7 +32,7 @@ const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
   props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
 );
 
-const dialog = ref<InstanceType<typeof SRemoveDialog>>();
+const dialog = ref<InstanceType<typeof FRemoveDialog>>();
 const removeItemIndex = ref<number>();
 const onRemoveApply = async () => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
@@ -123,6 +125,6 @@ onMounted(() => {
       </template>
     </SForm>
 
-    <SRemoveDialog ref="dialog" @apply="onRemoveApply" />
+    <FRemoveDialog ref="dialog" @apply="onRemoveApply" />
   </div>
 </template>

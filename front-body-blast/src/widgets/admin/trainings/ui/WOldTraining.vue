@@ -5,8 +5,8 @@ import { useAdminWorkoutStore } from 'shared/api/admin';
 import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SReadonlyField } from 'shared/ui/inputs';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
 export interface WOldWorkoutsProps {
   workout: Workout;

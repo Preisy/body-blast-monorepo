@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
 
 export interface EUnitedProfileCardProps {
   header: string;

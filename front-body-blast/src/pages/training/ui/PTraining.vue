@@ -5,11 +5,11 @@ import { ETrainingCard } from 'entities/trainings';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/SCalendar';
-import { SDatePagination } from 'shared/ui/SDatePagination';
-import { SSplide } from 'shared/ui/SSplide';
-import { SSplideSlide } from 'shared/ui/SSplideSlide';
-import { SStructure } from 'shared/ui/SStructure';
+import { SCalendar } from 'shared/ui/calendar';
+import { SDatePagination } from 'shared/ui/date-pagination';
+import { SSplide } from 'shared/ui/splide';
+import { SSplideSlide } from 'shared/ui/splide-slide';
+import { SStructure } from 'shared/ui/structure';
 
 const { getWorkouts, workouts } = useWorkoutStore();
 

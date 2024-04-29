@@ -10,7 +10,7 @@ import { useI18n } from 'vue-i18n';
 import { useMeStore } from 'shared/api/me';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
-import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/SFooterNavLink';
+import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/footer-nav-link';
 
 const { t } = useI18n();
 const meStore = useMeStore();

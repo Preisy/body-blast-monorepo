@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AdminUser } from 'shared/api/admin';
 import { SReadonlyField } from 'shared/ui/inputs';
-import { SNoResultsScreen } from 'shared/ui/SNoResultsScreen';
+import { SNoResultsScreen } from 'shared/ui/no-results-screen';
 
 type Week = AdminUser.GetSteps.Response['weeks'][number];
 export interface WStepsMonitoringProps {

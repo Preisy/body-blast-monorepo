@@ -4,8 +4,8 @@ import { useAdminBonusVideoStore } from 'shared/api/admin';
 import { BonusVideo } from 'shared/api/bonusVideo';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns/';
-import { SLoading } from 'shared/ui/SLoading';
-import { SVideo } from 'shared/ui/SVideo';
+import { SLoading } from 'shared/ui/loading';
+import { SVideo } from 'shared/ui/video';
 
 export interface WAdminVideoProps {
   video: BonusVideo;

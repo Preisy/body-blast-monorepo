@@ -10,8 +10,8 @@ import {
 } from '@quasar/extras/material-symbols-rounded';
 import { useI18n } from 'vue-i18n';
 import { ENUMS } from 'shared/lib/enums';
-import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/SFooterNavLink';
-import { SUploadProgress } from 'shared/ui/SUploadProgress';
+import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/footer-nav-link';
+import { SUploadProgress } from 'shared/ui/upload-progress';
 
 const route = useRoute();
 const { t } = useI18n();

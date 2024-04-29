@@ -5,7 +5,7 @@ import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
 
 export interface WAdminNutritionLongProps {
   nutrition: Nutrition;

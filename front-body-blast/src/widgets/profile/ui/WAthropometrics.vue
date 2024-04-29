@@ -6,9 +6,9 @@ import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
 import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/SCalendar';
-import { SDatePagination } from 'shared/ui/SDatePagination';
-import { SPaginationSliderProps } from 'shared/ui/SPaginationSlider';
+import { SCalendar } from 'shared/ui/calendar';
+import { SDatePagination } from 'shared/ui/date-pagination';
+import { SPaginationSliderProps } from 'shared/ui/pagination-slider';
 
 interface AthropometricsSlide extends EAthropometricsItemProps {
   dateValue: string;

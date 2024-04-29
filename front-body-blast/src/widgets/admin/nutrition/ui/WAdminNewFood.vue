@@ -6,8 +6,8 @@ import { AppBaseEntity } from 'shared/api/base';
 import { useLoading } from 'shared/lib/loading';
 import { Notify } from 'shared/lib/utils';
 import { SBtn } from 'shared/ui/btns';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SInput } from 'shared/ui/inputs';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
 
 export interface WAdminNewFoodProps {
   userId: AppBaseEntity['id'];

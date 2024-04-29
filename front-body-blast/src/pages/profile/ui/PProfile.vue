@@ -4,7 +4,7 @@ import { WAthropometrics } from 'widgets/profile/';
 import { EProfileHeader } from 'entities/profile';
 import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
-import { SStructure } from 'shared/ui/SStructure';
+import { SStructure } from 'shared/ui/structure';
 
 const { t } = useI18n();
 

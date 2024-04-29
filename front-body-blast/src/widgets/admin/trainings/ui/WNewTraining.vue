@@ -10,9 +10,9 @@ import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SForm } from 'shared/ui/SForm';
 
 type Exercise = NonNullable<Workout['exercises']>[number];
 const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;

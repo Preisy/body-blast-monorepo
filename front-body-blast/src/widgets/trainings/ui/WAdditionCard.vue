@@ -3,9 +3,9 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
 import { useWorkoutStore, Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
-import { SComponentWrapper } from 'shared/ui/SComponentWrapper';
-import { SForm } from 'shared/ui/SForm';
 
 export interface WAdditionCardProps {
   workout: Workout;

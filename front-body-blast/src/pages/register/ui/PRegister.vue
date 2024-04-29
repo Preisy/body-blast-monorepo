@@ -12,10 +12,10 @@ import {
 import { useAuthStore, TokenService, SignUp } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
-import { SForm, SFormProps } from 'shared/ui/SForm';
-import { SSplide } from 'shared/ui/SSplide';
-import { SSplideSlide } from 'shared/ui/SSplideSlide';
-import { SStructure } from 'shared/ui/SStructure';
+import { SForm, SFormProps } from 'shared/ui/form';
+import { SSplide } from 'shared/ui/splide';
+import { SSplideSlide } from 'shared/ui/splide-slide';
+import { SStructure } from 'shared/ui/structure';
 
 const authStore = useAuthStore();
 const { t } = useI18n();
