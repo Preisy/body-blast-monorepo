@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { symRoundedDelete, symRoundedEdit } from '@quasar/extras/material-symbols-rounded';
-import { ETrainingCard } from 'entities/trainings';
+import { EWorkoutCard } from 'entities/workout';
 import { useAdminWorkoutStore } from 'shared/api/admin';
 import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -39,6 +39,6 @@ const onDelete = () => useLoadingAction(workoutList.deleteState, () => deleteWor
       <SBtn @click="onEdit" :icon="symRoundedEdit" bg="bg!" ml-auto />
       <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="workoutList.deleteState.isLoading()" />
     </div>
-    <ETrainingCard v-for="exercise in workout.exercises" :key="exercise.id" :exercises="exercise" p="0!" mb-1rem />
+    <EWorkoutCard v-for="exercise in workout.exercises" :key="exercise.id" :exercises="exercise" p="0!" mb-1rem />
   </SComponentWrapper>
 </template>

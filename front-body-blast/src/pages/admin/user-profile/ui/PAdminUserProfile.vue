@@ -3,7 +3,7 @@ import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { FRemoveDialog } from 'features/dialogs';
 import { EAthropometricsItem, EUnitedProfileCard } from 'entities/profile/';
-import { useAdminUserProfileStore, useAdminAnthropometryStore } from 'shared/api/admin';
+import { useAdminUserProfileStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
@@ -15,6 +15,7 @@ import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SDatePagination } from 'shared/ui/date-pagination';
 import { SScaffold } from 'shared/ui/scaffold';
 import { SStructure } from 'shared/ui/structure';
+import { useAdminAnthropometryStore } from '..';
 
 export interface PAdminUserProfileProps {
   id: AppBaseEntity['id'];

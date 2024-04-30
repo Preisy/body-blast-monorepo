@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { AppBaseEntity } from '../base';
-import { AppPagination } from '../pagination';
+import { AppBaseEntity } from 'shared/api/base';
+import { AppPagination } from 'shared/api/pagination';
 
 export interface Food extends AppBaseEntity {
   type: string;

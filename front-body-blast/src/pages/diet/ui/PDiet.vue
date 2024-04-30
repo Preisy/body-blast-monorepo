@@ -56,4 +56,3 @@ const pages = computed(
     </STabPanels>
   </div>
 </template>
-shared/ui/centered-nav

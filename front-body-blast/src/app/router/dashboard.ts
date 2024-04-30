@@ -11,7 +11,7 @@ export const dashboardRoutes: RouteRecordRaw = {
     {
       meta: { auth: true },
       path: '',
-      component: () => import('pages/training/ui/PTraining.vue'),
+      component: () => import('pages/workout/ui/PWorkout.vue'),
       name: ENUMS.ROUTES_NAMES.TRAINING,
     },
     {

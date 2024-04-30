@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { WAdditionCard } from 'widgets/trainings';
-import { ETrainingCard } from 'entities/trainings';
+import { EWorkoutCard } from 'entities/workout';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
@@ -54,7 +54,7 @@ useLoadingAction(workouts, () =>
             v-for="exercise in workoutsData.find((workout) => isEqualDates(workout.date, dd))!.exercises"
             :key="exercise.name"
           >
-            <ETrainingCard :exercises="exercise" py-1.5rem />
+            <EWorkoutCard :exercises="exercise" py-1.5rem />
           </SSplideSlide>
           <SSplideSlide>
             <WAdditionCard :workout="workoutsData.find((workout) => isEqualDates(workout.date, dd))!" py-1.5rem />

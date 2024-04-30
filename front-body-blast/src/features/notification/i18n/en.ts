@@ -1,4 +1,4 @@
-import { NotificationTypes } from 'shared/api/notification';
+import { NotificationTypes } from '..';
 
 export default {
   notification: {

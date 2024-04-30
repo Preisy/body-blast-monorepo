@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WNewTraining, WOldTraining } from 'widgets/admin/trainings';
+import { WNewWorkout, WOldWorkout } from 'widgets/admin/workout';
 import { useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
@@ -63,14 +63,14 @@ const clearEditing = () => {
     >
       <template #item="{ date: dd }">
         <SProxyScroll h-full type="vertical">
-          <WOldTraining
+          <WOldWorkout
             v-if="
               !editingWorkout && workoutListData && workoutListData.find((workout) => isEqualDates(workout.date, dd))
             "
             :workout="workoutListData.find((workout) => isEqualDates(workout.date, dd))!"
             @edit="onEdit"
           />
-          <WNewTraining
+          <WNewWorkout
             v-else
             :date="date.split('/').join('-')"
             :id="id"

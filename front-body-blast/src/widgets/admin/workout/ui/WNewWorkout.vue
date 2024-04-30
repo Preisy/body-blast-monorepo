@@ -17,7 +17,7 @@ import { SInput } from 'shared/ui/inputs';
 type Exercise = NonNullable<Workout['exercises']>[number];
 const ExerciseValidation = Workout.validation().pick({ exercises: true }).shape.exercises.element;
 
-export interface WNewTrainingProps {
+export interface WNewWorkoutProps {
   id: AppBaseEntity['id'];
   date: string; //ISO date, used for
   isEdit?: boolean;
@@ -25,7 +25,7 @@ export interface WNewTrainingProps {
   initValues?: Workout;
 }
 
-const props = defineProps<WNewTrainingProps>();
+const props = defineProps<WNewWorkoutProps>();
 const emit = defineEmits<{
   edit: [];
   rejectEdit: [];

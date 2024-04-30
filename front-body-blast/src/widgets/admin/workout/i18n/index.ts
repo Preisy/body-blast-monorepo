@@ -1,7 +1,7 @@
 import eu from './en';
 import ru from './ru';
 
-export const TWNewTrainingI18n = {
+export const TWNewWorkoutI18n = {
   'en-US': eu,
   'ru-RU': ru,
 };

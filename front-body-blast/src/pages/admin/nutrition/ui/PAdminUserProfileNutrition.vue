@@ -95,4 +95,3 @@ const calcHeight = (nutr: Nutrition): StyleValue => ({
     <SLoading v-else />
   </SStructure>
 </template>
-shared/ui/centered-nav

@@ -6,10 +6,10 @@ import { SReadonlyFieldProps } from 'shared/ui/inputs';
 import InfoBlock from './InfoBlock.vue';
 import TrainingAnim from './TrainingAnim.vue';
 
-export interface ETrainingCardProps {
+export interface EWorkoutCardProps {
   exercises: NonNullable<Workout['exercises']>[number];
 }
-const props = defineProps<ETrainingCardProps>();
+const props = defineProps<EWorkoutCardProps>();
 const { t } = useI18n();
 
 const cards = computed<Array<SReadonlyFieldProps>>(() => [

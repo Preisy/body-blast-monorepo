@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { symRoundedClose, symRoundedError } from '@quasar/extras/material-symbols-rounded';
 import { useMeStore } from 'shared/api/me';
-import { NotificationTypes, notificationBus, useNotificationStore } from 'shared/api/notification';
 import { ENUMS } from 'shared/lib/enums';
+import { NotificationTypes, notificationBus, useNotificationStore } from '..';
 
 const router = useRouter();
 const currentNotificationType = ref<NotificationTypes | null>(null);

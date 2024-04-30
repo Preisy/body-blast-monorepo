@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { useSingleState, useStoreAction } from 'shared/lib/utils';
-import { notificationService } from './service';
-import { NotificationTypes } from './types';
+import { notificationService, NotificationTypes } from '..';
 
 export const useNotificationStore = defineStore('notification-store', () => {
   const notificationsQueue = ref(useSingleState<Array<NotificationTypes>>());

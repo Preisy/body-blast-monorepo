@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
-import { anthropometryService } from './service';
-import { AdminAnthropometry } from './types';
+import { anthropometryService, AdminAnthropometry } from '..';
 
 export const useAdminAnthropometryStore = defineStore('admin-anthropometry-store', () => {
   const anthropometryList = ref(useSingleState<AdminAnthropometry.Get.Response>());

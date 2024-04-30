@@ -1,1 +1,2 @@
-export { default as EAdminPromptThumbnail } from './EAdminPromptThumbnail.vue';
+export { default as EWorkoutCard } from './EWorkoutCard.vue';
+export * from './EWorkoutCard.vue';

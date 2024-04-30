@@ -1,6 +1,6 @@
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
-import { AdminAnthropometry } from './types';
+import { AdminAnthropometry } from '..';
 
 export const anthropometryService = {
   getAnthropometry: useServiceAction((data: AdminAnthropometry.Get.Dto) =>
