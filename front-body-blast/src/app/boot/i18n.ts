@@ -18,7 +18,7 @@ import { TFRemoveDialogI18n } from 'features/dialogs';
 import { TFNotificationI18n } from 'features/notification';
 import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
 import { TEDiaryI18n } from 'entities/diary';
-import { TAuthFormsI18n } from 'entities/form/i18n';
+import { TAuthFormsI18n } from 'entities/fields/i18n';
 import { TEProfileI18n } from 'entities/profile';
 import { TWorkoutI18n } from 'entities/workout';
 import { TGlobalI18n } from 'shared/config/i18n';

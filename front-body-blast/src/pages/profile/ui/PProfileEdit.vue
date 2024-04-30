@@ -7,7 +7,7 @@ import {
   EDiseasesSignUpForm,
   EForbiddensSignUpForm,
   EMotivationsSignUpForm,
-} from 'entities/form';
+} from 'entities/fields';
 import { SignUp } from 'shared/api/auth';
 import { Me, useMeStore } from 'shared/api/me';
 import { ENUMS } from 'shared/lib/enums';

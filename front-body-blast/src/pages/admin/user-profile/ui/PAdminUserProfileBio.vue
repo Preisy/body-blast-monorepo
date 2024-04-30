@@ -7,7 +7,7 @@ import {
   EDiseasesSignUpForm,
   EForbiddensSignUpForm,
   EMotivationsSignUpForm,
-} from 'entities/form';
+} from 'entities/fields';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { SignUp } from 'shared/api/auth';
 import { AppBaseEntity } from 'shared/api/base';

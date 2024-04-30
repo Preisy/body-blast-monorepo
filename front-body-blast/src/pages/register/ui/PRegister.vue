@@ -8,7 +8,7 @@ import {
   EDiseasesSignUpForm,
   EForbiddensSignUpForm,
   EMotivationsSignUpForm,
-} from 'entities/form';
+} from 'entities/fields';
 import { useAuthStore, TokenService, SignUp } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';

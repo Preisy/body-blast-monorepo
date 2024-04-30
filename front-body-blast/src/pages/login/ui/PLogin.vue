@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { ELoginForm } from 'entities/form';
+import { ELoginForm } from 'entities/fields';
 import { Auth, useAuthStore } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
