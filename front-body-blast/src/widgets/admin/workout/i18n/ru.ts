@@ -1,8 +1,8 @@
 export default {
   admin: {
     prompt: {
-      training: {
-        training: 'Тренировка',
+      workout: {
+        workout: 'Тренировка',
         cycle: 'Цикл',
         type: 'Тип',
         date: 'Дата',

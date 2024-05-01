@@ -21,7 +21,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
   const base = [
     {
       imgSrc: symRoundedExercise,
-      title: t('dashboard.footer.links.trainings'),
+      title: t('dashboard.footer.links.workout'),
       name: ENUMS.ROUTES_NAMES.TRAINING,
     },
     {

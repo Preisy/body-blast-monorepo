@@ -28,7 +28,7 @@ const onDelete = () => useLoadingAction(workoutList.deleteState, () => deleteWor
   <SComponentWrapper>
     <div flex gap-x-0.5rem>
       <SReadonlyField
-        :title="$t('admin.prompt.training.cycle')"
+        :title="$t('admin.prompt.workout.cycle')"
         :value="workout.cycle"
         mb-1rem
         bg-accent

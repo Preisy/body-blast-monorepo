@@ -13,7 +13,7 @@ import { TWAdminNutritionI18n } from 'widgets/admin/nutrition';
 import { TWPromptCreationI18n } from 'widgets/admin/prompt';
 import { TWNewWorkoutI18n } from 'widgets/admin/workout';
 import { TFooterNavigationBarI18n } from 'widgets/footer';
-import { TTrainingAdditionBlockI18n } from 'widgets/trainings';
+import { TWorkoutAdditionBlockI18n } from 'widgets/workout';
 import { TFRemoveDialogI18n } from 'features/dialogs';
 import { TFNotificationI18n } from 'features/notification';
 import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
@@ -35,7 +35,7 @@ export default boot(({ app }) => {
       TWAdminFooterNavBarI18n,
       TGlobalI18n,
       TWorkoutI18n,
-      TTrainingAdditionBlockI18n,
+      TWorkoutAdditionBlockI18n,
       TAuthFormsI18n,
       TEProfileI18n,
       TPDietI18n,

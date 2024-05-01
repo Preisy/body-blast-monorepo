@@ -1,6 +1,6 @@
 export enum ROUTES_NAMES {
   HOME = 'home',
-  TRAINING = 'training',
+  TRAINING = 'workout',
   DIARY = 'diary',
   PROFILE = 'profile',
   DIET = 'diet',

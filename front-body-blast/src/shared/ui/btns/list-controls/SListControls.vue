@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { symRoundedAdd, symRoundedDelete, symRoundedDone } from '@quasar/extras/material-symbols-rounded';
-import {} from 'shared/ui/btns';
+import { SBtn } from 'shared/ui/btns';
 
 withDefaults(
   defineProps<{

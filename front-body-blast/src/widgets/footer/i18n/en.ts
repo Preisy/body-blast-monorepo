@@ -2,7 +2,7 @@ export default {
   dashboard: {
     footer: {
       links: {
-        trainings: 'Training',
+        workout: 'Workout',
         diary: 'Diary',
         diet: 'Diet',
         profile: 'Profile',

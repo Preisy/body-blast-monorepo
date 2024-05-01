@@ -1,6 +1,6 @@
 export default {
   dashboard: {
-    trainings: {
+    workout: {
       addition: {
         title: 'Хотите что-то добавить?',
         input: 'Введите текст',

@@ -4,7 +4,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
 import { z } from 'zod';
 import { FListControls } from 'features/list-controls';
-import { FNewTrainingFields } from 'features/new-training-fields';
+import { FNewWorkoutFields } from 'features/new-workout-fields';
 import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
@@ -35,7 +35,7 @@ const { workoutList, postWorkout, patchWorkout } = useAdminWorkoutStore();
 const { prompts, getPrompts } = useAdminPromptStore();
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
-const trainingForm = ref<InstanceType<typeof SForm>>();
+const workoutForm = ref<InstanceType<typeof SForm>>();
 const exercises = ref<Array<Partial<Exercise & { key: string }>>>(
   props.initValues && props.initValues.exercises
     ? props.initValues.exercises?.map((exercise) => ({ ...exercise, key: uniqueId('workout-') }))
@@ -86,13 +86,13 @@ const onsubmit = async () => {
     )();
   }
 
-  await trainingForm.value?.handleSubmit(
+  await workoutForm.value?.handleSubmit(
     (values: z.infer<ReturnType<typeof Workout.validation>>) => {
       const workout: Omit<Workout, keyof AppBaseEntity | 'user'> = {
         name: values.name,
         comment: values.comment,
         date: props.date,
-        exercises: exercises.value.map((training) => omit(training, ['key'])) as Exercise[],
+        exercises: exercises.value.map((workout) => omit(workout, ['key'])) as Exercise[],
         cycle: values.cycle,
         userId: props.id,
       };
@@ -120,18 +120,18 @@ if (!prompts.data?.data) useLoadingAction(prompts.state, () => getPrompts({ type
 <template>
   <SComponentWrapper h-full flex flex-col gap-y-1rem>
     <div flex flex-row>
-      <h1>{{ $t('admin.prompt.training.training') }}</h1>
+      <h1>{{ $t('admin.prompt.workout.workout') }}</h1>
       <SBtn v-if="isEdit" :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
     </div>
 
     <SForm
-      ref="trainingForm"
+      ref="workoutForm"
       :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))"
       :init-values="isEdit ? initValues : {}"
       p="0!"
     >
-      <SInput name="cycle" :label="$t('admin.prompt.training.cycle')" />
-      <SInput name="name" :label="$t('admin.prompt.training.name')" />
+      <SInput name="cycle" :label="$t('admin.prompt.workout.cycle')" />
+      <SInput name="name" :label="$t('admin.prompt.workout.name')" />
       <SForm
         ref="exerciseForms"
         v-for="(exercise, index) in exercises"
@@ -144,7 +144,7 @@ if (!prompts.data?.data) useLoadingAction(prompts.state, () => getPrompts({ type
         p="0!"
         mt-0.5rem
       >
-        <FNewTrainingFields :prompts="prompts.data?.data" />
+        <FNewWorkoutFields :prompts="prompts.data?.data" />
 
         <template #submit-btn>
           <FListControls

@@ -4,7 +4,7 @@ import { Workout } from 'shared/api/workout';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SReadonlyFieldProps } from 'shared/ui/inputs';
 import InfoBlock from './InfoBlock.vue';
-import TrainingAnim from './TrainingAnim.vue';
+import WorkoutAnim from './WorkoutAnim.vue';
 
 export interface EWorkoutCardProps {
   exercises: NonNullable<Workout['exercises']>[number];
@@ -13,11 +13,11 @@ const props = defineProps<EWorkoutCardProps>();
 const { t } = useI18n();
 
 const cards = computed<Array<SReadonlyFieldProps>>(() => [
-  { title: t(`dashboard.trainings.infoBlock.weight`), value: props.exercises.weight },
-  { title: t(`dashboard.trainings.infoBlock.sets`), value: props.exercises.sets },
-  { title: t(`dashboard.trainings.infoBlock.repetitions`), value: props.exercises.repetitions },
-  { title: t(`dashboard.trainings.infoBlock.restTime`), value: props.exercises.restTime },
-  { title: t(`dashboard.trainings.infoBlock.pace`), value: props.exercises.pace },
+  { title: t(`dashboard.workout.infoBlock.weight`), value: props.exercises.weight },
+  { title: t(`dashboard.workout.infoBlock.sets`), value: props.exercises.sets },
+  { title: t(`dashboard.workout.infoBlock.repetitions`), value: props.exercises.repetitions },
+  { title: t(`dashboard.workout.infoBlock.restTime`), value: props.exercises.restTime },
+  { title: t(`dashboard.workout.infoBlock.pace`), value: props.exercises.pace },
 ]);
 </script>
 
@@ -28,7 +28,7 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
         <h1>{{ exercises.name }}</h1>
         <p>{{ exercises.trainerComment }}</p>
       </div>
-      <TrainingAnim :video-link="exercises.videoLink" :photo-link="exercises.photoLink" />
+      <WorkoutAnim :video-link="exercises.videoLink" :photo-link="exercises.photoLink" />
       <InfoBlock :cards="cards" />
     </div>
   </SComponentWrapper>

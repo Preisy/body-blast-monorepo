@@ -6,7 +6,7 @@ export default {
         prompt: 'Prompt',
         learning: 'Learning',
         profile: 'Profile',
-        trainings: 'Trainings',
+        workout: 'Workouts',
       },
     },
   },

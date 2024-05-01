@@ -23,7 +23,7 @@ const onsubmit = (values: z.infer<typeof validationSchema>) => {
 
 <template>
   <SComponentWrapper>
-    <h1 mb-1rem>{{ $t('dashboard.trainings.addition.title') }}</h1>
+    <h1 mb-1rem>{{ $t('dashboard.workout.addition.title') }}</h1>
     <SForm
       p="0!"
       @submit="onsubmit"
@@ -31,7 +31,7 @@ const onsubmit = (values: z.infer<typeof validationSchema>) => {
       :loading="workouts.updateState.isLoading()"
       :init-values="{ comment: workout.comment ? workout.comment : '' }"
     >
-      <SInput name="comment" :placeholder="$t('dashboard.trainings.addition.input')" />
+      <SInput name="comment" :placeholder="$t('dashboard.workout.addition.input')" />
     </SForm>
   </SComponentWrapper>
 </template>

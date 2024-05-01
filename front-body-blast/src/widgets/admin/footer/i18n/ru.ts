@@ -6,7 +6,7 @@ export default {
         prompt: 'Промпты',
         learning: 'Обучение',
         profile: 'Профиль',
-        trainings: 'Тренировки',
+        workout: 'Тренировки',
       },
     },
   },

@@ -253,7 +253,7 @@ export class BaseDiaryService implements OnModuleInit {
       newLabels.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
       if (!_.isEqual(newLabels, oldLabels)) {
-        throw MainException.invalidData(`Provided data is not valid: label properties do not match`);
+        throw MainException.invalidData('Provided data is not valid: label properties do not match');
       }
       diary.sum = request.props.reduce((acc, it) => acc + it.value, 0);
       await this.diaryPropsRepository.delete({

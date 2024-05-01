@@ -1,6 +1,6 @@
 export default {
   dashboard: {
-    trainings: {
+    workout: {
       infoBlock: {
         weight: 'Weight',
         sets: 'Sets',

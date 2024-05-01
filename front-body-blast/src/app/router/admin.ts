@@ -45,7 +45,7 @@ export const adminRoutes: RouteRecordRaw = {
           component: () => import('pages/admin/user-profile/ui/PAdminUserProfileBio.vue'),
         },
         {
-          path: 'trainings',
+          path: 'workout',
           meta: { auth: true, admin: true },
           name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_TRAININGS,
           props: true,

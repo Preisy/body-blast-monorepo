@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WAdditionCard } from 'widgets/trainings';
+import { WAdditionCard } from 'widgets/workout';
 import { EWorkoutCard } from 'entities/workout';
 import { useWorkoutStore } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';

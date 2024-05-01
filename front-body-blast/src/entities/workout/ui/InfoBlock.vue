@@ -5,7 +5,7 @@ defineProps<{
   cards: Array<SReadonlyFieldProps>;
 }>();
 
-//$t(`dashboard.trainings.infoBlock.${prop}`)
+//$t(`dashboard.workout.infoBlock.${prop}`)
 </script>
 
 <template>
