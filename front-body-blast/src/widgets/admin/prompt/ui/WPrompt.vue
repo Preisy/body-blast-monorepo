@@ -5,13 +5,13 @@ import {
   symRoundedPause,
   symRoundedPlayArrow,
 } from '@quasar/extras/material-symbols-rounded';
-import { FPromptEditDialog } from 'features/prompt-edit-dialog';
 import { Prompt, useAdminPromptStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
 import { SLoading } from 'shared/ui/loading';
 import { SVideo } from 'shared/ui/video';
+import PromptEditDialog from './PromptEditDialog.vue';
 
 export interface WPromptsProps {
   prompt: Prompt;
@@ -84,7 +84,7 @@ const isModalShown = ref(false);
     </div>
 
     <!-- onEditPopup -->
-    <FPromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt-data="editPromptData" />
+    <PromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt-data="editPromptData" />
     <q-dialog v-model="isModalShown">
       <q-img :src="photo.data?.link" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
     </q-dialog>

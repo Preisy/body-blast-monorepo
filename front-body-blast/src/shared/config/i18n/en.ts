@@ -17,5 +17,10 @@ export default {
     noresults: {
       message: 'Nothing found :(',
     },
+    dialog: {
+      deletion: {
+        question: 'Want to delete?',
+      },
+    },
   },
 };

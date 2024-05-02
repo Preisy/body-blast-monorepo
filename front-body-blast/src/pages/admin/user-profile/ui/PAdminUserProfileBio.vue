@@ -3,11 +3,11 @@ import { symRoundedClose } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
 import { pick } from 'lodash';
 import {
-  EBodyParamsSignUpForm,
+  EUserBodyParamsFields,
   EDiseasesSignUpForm,
   EForbiddensSignUpForm,
   EMotivationsSignUpForm,
-} from 'entities/fields';
+} from 'entities/user';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { SignUp } from 'shared/api/auth';
 import { AppBaseEntity } from 'shared/api/base';
@@ -37,7 +37,7 @@ if (!userData.value)
 
 const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; values: Record<string, unknown> }> = [
   {
-    is: EBodyParamsSignUpForm,
+    is: EUserBodyParamsFields,
     form: { fieldSchema: toTypedSchema(SignUp.BodyParams.validation()) },
     values: pick(userData.value, ['age', 'weightInYouth', 'weight', 'height']),
   },

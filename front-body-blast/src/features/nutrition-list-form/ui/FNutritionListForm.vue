@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
-//TODO: somnitelno
-// eslint-disable-next-line boundaries/element-types
-import { FRemoveDialog } from 'features/dialogs';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { Nutrition } from 'shared/api/nutrition';
+import { SConfirmDialog } from 'shared/ui';
 import { SListControls } from 'shared/ui/btns';
 import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
@@ -34,17 +32,17 @@ const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
 );
 
 // Deletion dialog ref
-const dialog = ref<InstanceType<typeof FRemoveDialog>>();
+const isConfirmDialogShown = ref<boolean>();
 const removeItemIndex = ref<number>(); // index to deletion
 // Called if user hits 'apply' in deletionDialog.
-const onRemoveApply = () => {
+const onRemoveConfirm = () => {
   if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
   lines.value.splice(removeItemIndex.value, 1); // Deletes line from array
   setTimeout(() => emit('submit'), 0); // For some reason needs time to update form
 };
 // If delete btn pressed -> show dialog + save index
 const onremove = (index: number) => {
-  dialog.value?.show();
+  isConfirmDialogShown.value = true;
   removeItemIndex.value = index;
 };
 // If add btn pressed -> push empty line to end
@@ -108,6 +106,6 @@ onMounted(() => {
       </SForm>
     </q-intersection>
 
-    <FRemoveDialog ref="dialog" @apply="onRemoveApply" />
+    <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onRemoveConfirm" />
   </div>
 </template>

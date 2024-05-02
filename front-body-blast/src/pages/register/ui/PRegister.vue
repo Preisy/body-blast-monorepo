@@ -3,12 +3,12 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import {
-  EBodyParamsSignUpForm,
+  EUserBodyParamsFields,
   ECredentialsSignUpForm,
   EDiseasesSignUpForm,
   EForbiddensSignUpForm,
   EMotivationsSignUpForm,
-} from 'entities/fields';
+} from 'entities/user';
 import { useAuthStore, TokenService, SignUp } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
@@ -51,7 +51,7 @@ const slides: RegisterSlides = [
     },
   },
   {
-    is: EBodyParamsSignUpForm,
+    is: EUserBodyParamsFields,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.BodyParams.validation()),
       onSubmit: (values: z.infer<ReturnType<typeof SignUp.BodyParams.validation>>) => {

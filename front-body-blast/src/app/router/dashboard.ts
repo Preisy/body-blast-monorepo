@@ -17,13 +17,13 @@ export const dashboardRoutes: RouteRecordRaw = {
     {
       meta: { auth: true },
       path: 'profile',
-      component: () => import('pages/profile/ui/PProfile.vue'),
+      component: () => import('pages/user/ui/PUserProfile.vue'),
       name: ENUMS.ROUTES_NAMES.PROFILE,
     },
     {
       meta: { auth: true },
       path: 'profile-edit',
-      component: () => import('pages/profile/ui/PProfileEdit.vue'),
+      component: () => import('pages/user/ui/PUserProfileEdit.vue'),
       name: ENUMS.ROUTES_NAMES.PROFILE_EDIT,
     },
     {

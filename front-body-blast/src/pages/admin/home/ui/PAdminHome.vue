@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { FRemoveDialog } from 'features/dialogs';
 import { FSearchPanel } from 'features/search-panel';
-import { EUnitedProfileCard } from 'entities/profile';
+import { EProfileCard } from 'entities/user';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { useAuthStore } from 'shared/api/auth';
 import { useMeStore } from 'shared/api/me';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
+import { SConfirmDialog } from 'shared/ui';
 import { SBtn } from 'shared/ui/btns';
 import { SNoResultsScreen } from 'shared/ui/no-results-screen';
 import { SScaffold } from 'shared/ui/scaffold';
@@ -45,7 +45,7 @@ const onUserProfileClick = (user: User) => {
   router.push({ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE, params: { id: user.id } });
 };
 
-const deletionDialog = ref<InstanceType<typeof FRemoveDialog>>();
+const isConfirmDialogShown = ref<boolean>();
 const userToDelete = ref<User>();
 const onDeletionApply = () => {
   useLoadingAction(users.deleteState, () => {
@@ -55,7 +55,7 @@ const onDeletionApply = () => {
 };
 const onUserDelete = (user: User) => {
   userToDelete.value = user;
-  deletionDialog.value?.show();
+  isConfirmDialogShown.value = true;
 };
 </script>
 
@@ -63,7 +63,7 @@ const onUserDelete = (user: User) => {
   <SStructure h-full>
     <SScaffold>
       <template #header>
-        <EUnitedProfileCard
+        <EProfileCard
           :header="myName ?? $t('global.loading')"
           :describe="$t('home.profile.header.admin')"
           dark
@@ -76,24 +76,21 @@ const onUserDelete = (user: User) => {
               <SBtn icon="sym_r_logout" @click="logout" ml-auto />
             </div>
           </template>
-        </EUnitedProfileCard>
+        </EProfileCard>
       </template>
       <template #body>
         <FSearchPanel v-model:query="nameFilter" />
 
         <div v-if="users.state.isSuccess() || displayCards?.length">
           <div v-for="user in displayCards" :key="user.id" @click="onUserProfileClick(user)" cursor-pointer>
-            <EUnitedProfileCard
-              :header="user.firstName + ' ' + user.lastName"
-              :describe="$t('home.profile.header.student')"
-            >
+            <EProfileCard :header="user.firstName + ' ' + user.lastName" :describe="$t('home.profile.header.student')">
               <template #action>
                 <div flex flex-row justify-between>
                   <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(user)" />
                   <SBtn icon="sym_r_delete" @click.stop="onUserDelete(user)" />
                 </div>
               </template>
-            </EUnitedProfileCard>
+            </EProfileCard>
           </div>
         </div>
 
@@ -101,6 +98,6 @@ const onUserDelete = (user: User) => {
       </template>
     </SScaffold>
 
-    <FRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
+    <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onDeletionApply" />
   </SStructure>
 </template>

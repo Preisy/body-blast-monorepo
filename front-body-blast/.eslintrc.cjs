@@ -66,6 +66,7 @@ module.exports = {
       },
     ],
     'vue/padding-line-between-blocks': ['error'],
+    'vue/require-explicit-emits': 0,
     'arrow-body-style': 2,
   },
 };

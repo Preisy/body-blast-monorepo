@@ -1,0 +1,22 @@
+<script setup lang="ts">
+import { SComponentWrapper } from 'shared/ui/component-wrapper';
+
+export interface EProfileCardProps {
+  header: string;
+  describe: string;
+  dark?: boolean;
+}
+defineProps<EProfileCardProps>();
+</script>
+
+<template>
+  <SComponentWrapper class="s-united-profile-card" :class="{ ' bg-primary text-bg': dark }">
+    <div mb-1rem>
+      <h1>{{ header }}</h1>
+      <p>{{ describe }}</p>
+    </div>
+    <div>
+      <slot name="action" />
+    </div>
+  </SComponentWrapper>
+</template>

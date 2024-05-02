@@ -14,12 +14,10 @@ import { TWPromptCreationI18n } from 'widgets/admin/prompt';
 import { TWNewWorkoutI18n } from 'widgets/admin/workout';
 import { TFooterNavigationBarI18n } from 'widgets/footer';
 import { TWorkoutAdditionBlockI18n } from 'widgets/workout';
-import { TFRemoveDialogI18n } from 'features/dialogs';
 import { TFNotificationI18n } from 'features/notification';
 import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
 import { TEDiaryI18n } from 'entities/diary';
-import { TAuthFormsI18n } from 'entities/fields/i18n';
-import { TEProfileI18n } from 'entities/profile';
+import { TEProfileI18n } from 'entities/user';
 import { TWorkoutI18n } from 'entities/workout';
 import { TGlobalI18n } from 'shared/config/i18n';
 import { mergeI18n } from 'shared/lib/i18utils';
@@ -36,7 +34,6 @@ export default boot(({ app }) => {
       TGlobalI18n,
       TWorkoutI18n,
       TWorkoutAdditionBlockI18n,
-      TAuthFormsI18n,
       TEProfileI18n,
       TPDietI18n,
       TEDiaryI18n,
@@ -47,7 +44,6 @@ export default boot(({ app }) => {
       TFNutritionListFormI18n,
       TPAdminUserProfileNutritionI18n,
       TWAdminNutritionI18n,
-      TFRemoveDialogI18n,
       TPAdminVideoI18n,
       TWAdminLearningI18n,
       TFNotificationI18n,

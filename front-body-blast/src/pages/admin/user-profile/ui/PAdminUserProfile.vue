@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { useI18n } from 'vue-i18n';
-import { FRemoveDialog } from 'features/dialogs';
-import { EAthropometricsItem, EUnitedProfileCard } from 'entities/profile/';
+import { EAthropometricsItem, EProfileCard } from 'entities/user/';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { fromCreatedToToday, getUTC3Date, isEqualDates } from 'shared/lib/utils';
+import { SConfirmDialog } from 'shared/ui';
 import { SBtn, SBtnToggle } from 'shared/ui/btns';
 import { SCalendar } from 'shared/ui/calendar';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';
@@ -73,7 +73,7 @@ useLoadingAction(anthropometryList, () =>
 const slides = computed(() => anthropometryList.data?.data);
 
 const { deleteUser, users } = useAdminUserProfileStore();
-const deletionDialog = ref<InstanceType<typeof FRemoveDialog>>();
+const isConfirmDialogShown = ref<boolean>();
 const userIdToDelete = ref<User['id']>();
 const onDeletionApply = () => {
   useLoadingAction(users.deleteState, () => {
@@ -84,7 +84,7 @@ const onDeletionApply = () => {
 };
 const onUserDelete = (userId: User['id']) => {
   userIdToDelete.value = userId;
-  deletionDialog.value?.show();
+  isConfirmDialogShown.value = true;
 };
 </script>
 
@@ -92,7 +92,7 @@ const onUserDelete = (userId: User['id']) => {
   <SStructure h-full>
     <SScaffold>
       <template #header>
-        <EUnitedProfileCard
+        <EProfileCard
           :header="userName ?? $t('global.loading')"
           :describe="$t('home.profile.header.student')"
           dark
@@ -106,7 +106,7 @@ const onUserDelete = (userId: User['id']) => {
               <SBtn icon="sym_r_delete" @click="onUserDelete(id)" />
             </div>
           </template>
-        </EUnitedProfileCard>
+        </EProfileCard>
       </template>
       <template #body>
         <SComponentWrapper py-1.5rem>
@@ -153,6 +153,6 @@ const onUserDelete = (userId: User['id']) => {
       </template>
     </SScaffold>
 
-    <FRemoveDialog ref="deletionDialog" @apply="onDeletionApply" />
+    <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onDeletionApply" />
   </SStructure>
 </template>
