@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import moment, { Moment } from 'moment';
-import { ESelfControlList, EStepsList } from 'widgets/admin/diary';
+import { ESelfControlList, EStepsList } from 'entities/diary';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Diary } from 'shared/api/diary';

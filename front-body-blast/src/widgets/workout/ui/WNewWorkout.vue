@@ -4,7 +4,6 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
 import { z } from 'zod';
 import { FListControls } from 'features/list-controls';
-import { FNewWorkoutFields } from 'features/new-workout-fields';
 import { useAdminPromptStore, useAdminWorkoutStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Workout } from 'shared/api/workout';
@@ -33,6 +32,7 @@ const emit = defineEmits<{
 
 const { workoutList, postWorkout, patchWorkout } = useAdminWorkoutStore();
 const { prompts, getPrompts } = useAdminPromptStore();
+const promptsData = computed(() => prompts.data?.data);
 
 const exerciseForms = ref<Array<InstanceType<typeof SForm>>>();
 const workoutForm = ref<InstanceType<typeof SForm>>();
@@ -115,6 +115,16 @@ const onadd = () => exercises.value.push({ key: uniqueId('prompt-') });
 const onremove = (index: number) => exercises.value.splice(index, 1);
 
 if (!prompts.data?.data) useLoadingAction(prompts.state, () => getPrompts({ type: '', expanded: true }));
+
+//TODO: Use getPrompts with filter
+const filterStr = ref('');
+const filteredPrompts = computed(
+  () =>
+    promptsData.value
+      ?.filter((prompt) => prompt.type.includes(filterStr.value))
+      .map((prompt) => ({ ...prompt, key: uniqueId('prompt-') })),
+);
+const store = useAdminWorkoutStore();
 </script>
 
 <template>
@@ -144,7 +154,30 @@ if (!prompts.data?.data) useLoadingAction(prompts.state, () => getPrompts({ type
         p="0!"
         mt-0.5rem
       >
-        <FNewWorkoutFields :prompts="prompts.data?.data" />
+        <SChooseInput
+          v-if="filteredPrompts"
+          name="prompt"
+          :label="$t('admin.prompt.workout.type')"
+          :items="filteredPrompts"
+          option-value="type"
+          v-model:inner-input="filterStr"
+          @open="store.isPopupVisible = true"
+          @close="store.isPopupVisible = false"
+        >
+          <template #item="{ item }">
+            <EAdminPromptThumbnail :photo="item.photoLink" :type="item.type" />
+          </template>
+        </SChooseInput>
+
+        <div class="grid-rows-[repeat(3,_auto)]" grid grid-cols-2 items-center gap-0.5rem>
+          <SInput name="name" :label="$t('admin.prompt.workout.name')" />
+          <SInput name="weight" :label="$t('admin.prompt.workout.weight')" />
+          <SInput name="sets" :label="$t('admin.prompt.workout.sets')" />
+          <SInput name="repetitions" :label="$t('admin.prompt.workout.repeats')" />
+          <SInput name="restTime" :label="$t('admin.prompt.workout.restTime')" />
+          <SInput name="pace" :label="$t('admin.prompt.workout.pace')" />
+        </div>
+        <SInput name="trainerComment" :label="$t('admin.prompt.workout.commentary')" />
 
         <template #submit-btn>
           <FListControls

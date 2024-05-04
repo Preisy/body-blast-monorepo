@@ -6,14 +6,11 @@ import { TPAdminUserProfileNutritionI18n } from 'pages/admin/nutrition';
 import { TPAdminPromptsI18n } from 'pages/admin/prompt';
 import { TPAdminUserProfileI18n } from 'pages/admin/user-profile';
 import { TPDietI18n } from 'pages/diet';
-import { TWAdminDiaryI18n } from 'widgets/admin/diary';
-import { TWAdminFooterNavBarI18n } from 'widgets/admin/footer';
-import { TWAdminLearningI18n } from 'widgets/admin/learning';
-import { TWAdminNutritionI18n } from 'widgets/admin/nutrition';
-import { TWPromptCreationI18n } from 'widgets/admin/prompt';
-import { TWNewWorkoutI18n } from 'widgets/admin/workout';
 import { TFooterNavigationBarI18n } from 'widgets/footer';
-import { TWorkoutAdditionBlockI18n } from 'widgets/workout';
+import { TWAdminLearningI18n } from 'widgets/learning';
+import { TWAdminNutritionI18n } from 'widgets/nutrition';
+import { TWPromptCreationI18n } from 'widgets/prompt';
+import { TWidgetWorkoutI18n } from 'widgets/workout';
 import { TFNotificationI18n } from 'features/notification';
 import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
 import { TEDiaryI18n } from 'entities/diary';
@@ -30,16 +27,13 @@ export default boot(({ app }) => {
       TPAdminHomeI18n,
       TFooterNavigationBarI18n,
       TPAdminUserProfileI18n,
-      TWAdminFooterNavBarI18n,
       TGlobalI18n,
       TWorkoutI18n,
-      TWorkoutAdditionBlockI18n,
+      TWidgetWorkoutI18n,
       TEProfileI18n,
       TPDietI18n,
       TEDiaryI18n,
       TWPromptCreationI18n,
-      TWAdminDiaryI18n,
-      TWNewWorkoutI18n,
       TPAdminPromptsI18n,
       TFNutritionListFormI18n,
       TPAdminUserProfileNutritionI18n,

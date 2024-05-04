@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { WAdminFooterNavBar } from 'widgets/admin/footer';
+import { WAdminFooterNavBar } from 'widgets/footer';
 import { ENUMS } from 'shared/lib/enums';
 import LDashboard from './LDashboard.vue';
 

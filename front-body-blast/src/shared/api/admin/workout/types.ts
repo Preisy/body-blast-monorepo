@@ -3,7 +3,7 @@ import { AppPagination } from 'shared/api/pagination';
 import { User } from 'shared/api/user';
 import { Workout as UserWorkout } from 'shared/api/workout';
 
-export namespace Workout {
+export namespace AdminWorkout {
   export namespace Get {
     export interface Dto extends AppPagination.DateDto {
       userId: User['id'];

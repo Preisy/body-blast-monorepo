@@ -2,7 +2,7 @@ import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib/utils';
 import { AdminFood } from './types';
 
-export const FoodService = {
+export const AdminFoodService = {
   getFoods: useServiceAction((pagination?: AdminFood.Get.Dto) =>
     api.get<AdminFood.Get.Response>('/admin/food', { params: pagination }),
   ),

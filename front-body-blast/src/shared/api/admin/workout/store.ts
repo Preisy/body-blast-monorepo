@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import { AppBaseEntity } from 'shared/api/base';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { AdminWorkoutService } from './service';
-import { Workout as AdminWorkout } from './types';
+import { AdminWorkout as AdminWorkout } from './types';
 
 export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {
   const isPopupVisible = ref<boolean>(false);

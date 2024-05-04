@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QTabProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
-import { WAdminVideo, WVideoCreation } from 'widgets/admin/learning';
+import { WAdminVideo, WVideoCreation } from 'widgets/learning';
 import { useAdminBonusVideoStore } from 'shared/api/admin';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/admin/nutrition';
+import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
 import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Food } from 'shared/api/food';

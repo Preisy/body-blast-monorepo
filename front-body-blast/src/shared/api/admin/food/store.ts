@@ -1,7 +1,7 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { FoodService } from './service';
+import { AdminFoodService } from './service';
 import { AdminFood } from './types';
 
 export const useAdminFoodStore = defineStore('admin-food-store', () => {
@@ -9,20 +9,20 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
   const getFoods = (pagination?: AdminFood.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: foodList.value,
-      serviceAction: FoodService.getFoods(pagination),
+      serviceAction: AdminFoodService.getFoods(pagination),
     });
 
   const food = ref(useSingleState<AdminFood.GetById.Response>());
   const getFoodById = (data: AdminFood.GetById.Dto) =>
     useSimpleStoreAction({
       stateWrapper: food.value,
-      serviceAction: FoodService.getFoodById(data),
+      serviceAction: AdminFoodService.getFoodById(data),
     });
 
   const postFood = (data: AdminFood.Post.Dto) =>
     useStoreAction({
       state: foodList.value.createState,
-      serviceAction: FoodService.postFood(data),
+      serviceAction: AdminFoodService.postFood(data),
       onSuccess: (res) => {
         const listData = foodList.value.data;
         if (!listData) return;
@@ -35,7 +35,7 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
   const patchFood = (data: AdminFood.Patch.Dto) =>
     useStoreAction({
       state: foodList.value.updateState,
-      serviceAction: FoodService.patchFood(data),
+      serviceAction: AdminFoodService.patchFood(data),
       onSuccess: (res) => {
         const foodListData = foodList.value.data?.data;
         if (!foodListData) return;
@@ -47,7 +47,7 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
   const deleteFood = (data: AdminFood.Delete.Dto) =>
     useStoreAction({
       state: foodList.value.deleteState,
-      serviceAction: FoodService.deleteFood(data),
+      serviceAction: AdminFoodService.deleteFood(data),
       onSuccess: (res) => {
         if (!res.status) return;
 
