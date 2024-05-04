@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import moment, { Moment } from 'moment';
-import { WSelfControlList, WStepsList } from 'widgets/admin/diary';
+import { ESelfControlList, EStepsList } from 'widgets/admin/diary';
 import { useAdminUserProfileStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Diary } from 'shared/api/diary';
@@ -68,8 +68,8 @@ const diariesSlides = computed(() => {
     />
 
     <SProxyScroll h-full p-1.5rem>
-      <WStepsList :weeks="stepsData?.weeks ?? []" mb-2rem />
-      <WSelfControlList
+      <EStepsList :weeks="stepsData?.weeks ?? []" mb-2rem />
+      <ESelfControlList
         v-for="week in Object.keys(diariesSlides)"
         :key="week"
         :slides="diariesSlides[week]"

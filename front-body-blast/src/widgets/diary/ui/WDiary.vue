@@ -3,7 +3,6 @@ import { toTypedSchema } from '@vee-validate/zod';
 import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
-import { EDiarySelfControlItem } from 'entities/diary';
 import { Diary, useDiaryStore } from 'shared/api/diary';
 import { useLoadingAction } from 'shared/lib/loading';
 import { Notify, getUTC3Date, isEqualDates } from 'shared/lib/utils';
@@ -56,6 +55,11 @@ const onSubmit = async (diary: Diary, values: z.infer<typeof activityValidation>
 
 const offset = ref(0);
 const halfRange = ref(7);
+
+const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
+  value,
+  label: value.toString(),
+}));
 </script>
 
 <template>
@@ -90,7 +94,10 @@ const halfRange = ref(7);
               gap: '2.5rem',
             }"
           >
+            <!-- self-control(upper) part of diary -->
             <SSplideSlide>
+              <h1 mb-4>{{ $t('home.diary.item.selfcontrol') }}</h1>
+
               <SForm
                 ref="propsForm"
                 :readonly="true"
@@ -99,13 +106,19 @@ const halfRange = ref(7);
                 "
                 p="0!"
               >
-                <EDiarySelfControlItem
-                  :diary="diaryData.find((item) => isEqualDates(item.date, dd))!"
-                  :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
-                />
+                <template v-for="prop of diaryData.find((item) => isEqualDates(item.date, dd))!.props" :key="prop.id">
+                  <p mb-2 mt-4>{{ prop.label }}</p>
+                  <SBtnToggle
+                    :options="selfControlOptions"
+                    :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
+                    :name="prop.label"
+                    :init-value="prop.value"
+                  />
+                </template>
               </SForm>
             </SSplideSlide>
 
+            <!-- activity(lower) part of diary -->
             <SSplideSlide>
               <h1 mb-4>{{ $t('home.diary.activity.activity') }}</h1>
               <SForm

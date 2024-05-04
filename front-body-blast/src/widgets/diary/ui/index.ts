@@ -1,1 +1,1 @@
-export { default as WSelfControl } from './WSelfControl.vue';
+export { default as WDiary } from './WDiary.vue';

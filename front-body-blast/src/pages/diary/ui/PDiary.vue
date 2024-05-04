@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WSelfControl } from 'widgets/diary';
+import { WDiary } from 'widgets/diary';
 import { EDiaryHeader } from 'entities/diary';
 import { useDiaryStore } from 'shared/api/diary';
 import { useMeStore } from 'shared/api/me';
@@ -51,6 +51,6 @@ const week = computed(() => {
       :steps-sum="stepsSum"
       :week="week ?? $t('global.error')"
     />
-    <WSelfControl @update:date="(newDate) => (date = newDate)" />
+    <WDiary @update:date="(newDate) => (date = newDate)" />
   </div>
 </template>

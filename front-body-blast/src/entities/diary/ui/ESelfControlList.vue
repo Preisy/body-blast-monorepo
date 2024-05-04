@@ -2,11 +2,11 @@
 import { ESelfControlSlide } from 'entities/diary';
 import { Diary } from 'shared/api/diary';
 
-export interface WSelfControlListProps {
+export interface ESelfControlListProps {
   week: string;
   slides: Array<Diary>;
 }
-defineProps<WSelfControlListProps>();
+defineProps<ESelfControlListProps>();
 </script>
 
 <template>
