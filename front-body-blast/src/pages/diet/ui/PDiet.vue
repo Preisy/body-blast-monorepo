@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { QTabPanel } from 'quasar';
-import { WDietNutrition } from 'widgets/diet';
-import { EDietItem } from 'entities/diet';
+import { EDietList, EDietItem } from 'entities/diet';
 import { useFoodStore } from 'shared/api/food';
 import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -46,7 +45,7 @@ const pages = computed(
 
     <STabPanels v-model="panel" keep-alive>
       <q-tab-panel name="nutrition" overflow-hidden>
-        <WDietNutrition v-if="nutritions" :nutritions="nutritions" />
+        <EDietList v-if="nutritions" :nutritions="nutritions" />
       </q-tab-panel>
       <q-tab-panel v-for="product in foodList" :name="product.name" :key="product.name">
         <SProxyScroll>

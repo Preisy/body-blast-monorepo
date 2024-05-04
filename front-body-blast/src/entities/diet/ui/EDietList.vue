@@ -7,10 +7,10 @@ import { SSplide } from 'shared/ui/splide';
 import { SSplideSlide } from 'shared/ui/splide-slide';
 import { SStructure } from 'shared/ui/structure';
 
-export interface WDietNutritionProps {
+export interface EDietListProps {
   nutritions: Array<Nutrition>;
 }
-defineProps<WDietNutritionProps>();
+defineProps<EDietListProps>();
 </script>
 
 <template>
