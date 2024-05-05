@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { z } from 'zod';
-import { EAthropometricsItem, EAthropometricsItemProps } from 'entities/user';
-import { Anthropometry, useProfileStore } from 'shared/api/anthropometry';
+import {
+  EAthropometricsItem,
+  EAthropometricsItemProps,
+  Anthropometry,
+  useAnthropometryStore,
+} from 'entities/anthropometry';
 import { AppBaseEntity } from 'shared/api/base';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
@@ -17,7 +21,7 @@ interface AthropometricsSlide extends EAthropometricsItemProps {
 const date = ref(getUTC3Date().format('YYYY-MM-DD'));
 const options = ref([moment().format('YYYY/MM/DD')]);
 
-const { anthropometry, getAnthropometry, patchAnthropometry } = useProfileStore();
+const { anthropometry, getAnthropometry, patchAnthropometry } = useAnthropometryStore();
 const anthropometryData = computed(() => anthropometry.data?.data);
 
 const halfRange = ref(3);

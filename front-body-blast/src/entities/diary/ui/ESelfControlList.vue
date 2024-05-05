@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ESelfControlSlide } from 'entities/diary';
+import { ESelfControlItem } from 'entities/diary';
 import { Diary } from 'shared/api/diary';
 
 export interface ESelfControlListProps {
@@ -14,7 +14,7 @@ defineProps<ESelfControlListProps>();
     <h1>{{ $t('admin.diary.selfControl') }} {{ week }}</h1>
 
     <div v-for="slide in slides" :key="slide.id" mt-1rem>
-      <ESelfControlSlide :diary="slide" />
+      <ESelfControlItem :diary="slide" />
     </div>
   </div>
 </template>

@@ -4,16 +4,18 @@ import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import { Diary, useDiaryStore } from 'shared/api/diary';
-import { useLoadingAction } from 'shared/lib/loading';
-import { Notify, getUTC3Date, isEqualDates } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/calendar';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SDatePagination } from 'shared/ui/date-pagination';
-import { SForm } from 'shared/ui/form';
-import { SInput } from 'shared/ui/inputs';
-import { SSplide } from 'shared/ui/splide';
-import { SSplideSlide } from 'shared/ui/splide-slide';
-import { SStructure } from 'shared/ui/structure';
+import { useLoadingAction, Notify, getUTC3Date, isEqualDates } from 'shared/lib';
+import {
+  SCalendar,
+  SComponentWrapper,
+  SDatePagination,
+  SForm,
+  SInput,
+  SSplide,
+  SSplideSlide,
+  SStructure,
+  SBtnToggle,
+} from 'shared/ui';
 
 const today = getUTC3Date(); // Current date
 const { t } = useI18n();

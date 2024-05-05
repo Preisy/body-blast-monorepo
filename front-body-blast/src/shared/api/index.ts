@@ -1,5 +1,4 @@
 export * from './admin';
-export * from './anthropometry';
 export * from './auth';
 export * from './base';
 export * from './bonusVideo';

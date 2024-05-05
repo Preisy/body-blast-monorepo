@@ -4,9 +4,9 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { assign, pick } from 'lodash';
 import {
   EUserBodyParamsFields,
-  EDiseasesSignUpForm,
-  EForbiddensSignUpForm,
-  EMotivationsSignUpForm,
+  EUserForbiddensFields,
+  EUserDiseasesFields,
+  EUserMotivationsFields,
 } from 'entities/user';
 import { SignUp } from 'shared/api/auth';
 import { Me, useMeStore } from 'shared/api/me';
@@ -29,17 +29,17 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
     values: pick(data.value, ['age', 'weightInYouth', 'weight', 'height']),
   },
   {
-    is: EForbiddensSignUpForm,
+    is: EUserForbiddensFields,
     form: { fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()) },
     values: pick(data.value, ['allergy', 'nutritRestrict', 'mealIntolerance']),
   },
   {
-    is: EDiseasesSignUpForm,
+    is: EUserDiseasesFields,
     form: { fieldSchema: toTypedSchema(SignUp.Diseases.validation()) },
     values: pick(data.value, ['gastroDeseases', 'insulinResistance', 'kidneyDesease', 'heartDesease', 'muscleDesease']),
   },
   {
-    is: EMotivationsSignUpForm,
+    is: EUserMotivationsFields,
     form: { fieldSchema: toTypedSchema(SignUp.Motivations.validation()) },
     values: pick(data.value, ['loadRestrictions', 'sportsExp', 'goals']),
   },

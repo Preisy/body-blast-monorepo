@@ -1,18 +1,17 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
-import { TPAdminHomeI18n } from 'pages/admin/home';
-import { TPAdminVideoI18n } from 'pages/admin/learning';
-import { TPAdminUserProfileNutritionI18n } from 'pages/admin/nutrition';
-import { TPAdminPromptsI18n } from 'pages/admin/prompt';
-import { TPAdminUserProfileI18n } from 'pages/admin/user-profile';
-import { TPDietI18n } from 'pages/diet';
+import { TPAdminHomeI18n } from 'pages/admin-home';
+import { TPLearningI18n } from 'pages/learning';
+import { TPNutritionI18n } from 'pages/nutrition';
+import { TPAdminPromptsI18n } from 'pages/prompt';
+import { TPUserI18n } from 'pages/user';
 import { TFooterNavigationBarI18n } from 'widgets/footer';
 import { TWAdminLearningI18n } from 'widgets/learning';
-import { TWAdminNutritionI18n } from 'widgets/nutrition';
+import { TWidgetDietI18n } from 'widgets/nutrition';
 import { TWPromptCreationI18n } from 'widgets/prompt';
 import { TWidgetWorkoutI18n } from 'widgets/workout';
 import { TFNotificationI18n } from 'features/notification';
-import { TFNutritionListFormI18n } from 'features/nutrition-list-form';
+import { TFNutritionListFormI18n } from 'features/nutrition';
 import { TEDiaryI18n } from 'entities/diary';
 import { TEProfileI18n } from 'entities/user';
 import { TWorkoutI18n } from 'entities/workout';
@@ -26,19 +25,18 @@ export default boot(({ app }) => {
     messages: mergeI18n(
       TPAdminHomeI18n,
       TFooterNavigationBarI18n,
-      TPAdminUserProfileI18n,
+      TPUserI18n,
       TGlobalI18n,
       TWorkoutI18n,
       TWidgetWorkoutI18n,
       TEProfileI18n,
-      TPDietI18n,
+      TPNutritionI18n,
       TEDiaryI18n,
       TWPromptCreationI18n,
       TPAdminPromptsI18n,
       TFNutritionListFormI18n,
-      TPAdminUserProfileNutritionI18n,
-      TWAdminNutritionI18n,
-      TPAdminVideoI18n,
+      TWidgetDietI18n,
+      TPLearningI18n,
       TWAdminLearningI18n,
       TFNotificationI18n,
     ),

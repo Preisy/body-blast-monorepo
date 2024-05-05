@@ -34,9 +34,9 @@ export const dashboardRoutes: RouteRecordRaw = {
     },
     {
       meta: { auth: true },
-      path: 'diet',
-      component: () => import('pages/diet/ui/PDiet.vue'),
-      name: ENUMS.ROUTES_NAMES.DIET,
+      path: 'nutrition',
+      component: () => import('pages/nutrition/ui/PNutrition.vue'),
+      name: ENUMS.ROUTES_NAMES.NUTRITION,
     },
     {
       meta: { auth: true, canWatchVideo: true },

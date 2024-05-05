@@ -36,8 +36,8 @@ const links = computed<SFooterNavLinkProps[]>(() => {
     },
     {
       imgSrc: symRoundedRestaurant,
-      title: t('dashboard.footer.links.diet'),
-      name: ENUMS.ROUTES_NAMES.DIET,
+      title: t('dashboard.footer.links.nutrition'),
+      name: ENUMS.ROUTES_NAMES.NUTRITION,
     },
     {
       imgSrc: symRoundedPlayArrow,

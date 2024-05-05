@@ -84,7 +84,7 @@ const isModalShown = ref(false);
     </div>
 
     <!-- onEditPopup -->
-    <PromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt-data="editPromptData" />
+    <PromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt="editPromptData" />
     <q-dialog v-model="isModalShown">
       <q-img :src="photo.data?.link" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
     </q-dialog>

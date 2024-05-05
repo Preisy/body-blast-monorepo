@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import moment from 'moment';
-import { WAdditionCard } from 'widgets/workout';
-import { EWorkoutCard } from 'entities/workout';
+import { FWorkoutCommentaryForm } from 'features/workout';
+import { EWorkoutExerciseCard } from 'entities/workout';
 import { useWorkoutStore } from 'shared/api/workout';
-import { useLoadingAction } from 'shared/lib/loading';
-import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/calendar';
-import { SDatePagination } from 'shared/ui/date-pagination';
-import { SSplide } from 'shared/ui/splide';
-import { SSplideSlide } from 'shared/ui/splide-slide';
-import { SStructure } from 'shared/ui/structure';
+import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates } from 'shared/lib';
+import { SCalendar, SDatePagination, SSplide, SSplideSlide, SStructure } from 'shared/ui';
 
 const { getWorkouts, workouts } = useWorkoutStore();
 
@@ -54,10 +49,13 @@ useLoadingAction(workouts, () =>
             v-for="exercise in workoutsData.find((workout) => isEqualDates(workout.date, dd))!.exercises"
             :key="exercise.name"
           >
-            <EWorkoutCard :exercises="exercise" py-1.5rem />
+            <EWorkoutExerciseCard :exercise="exercise" py-1.5rem />
           </SSplideSlide>
+
           <SSplideSlide>
-            <WAdditionCard :workout="workoutsData.find((workout) => isEqualDates(workout.date, dd))!" py-1.5rem />
+            <h1 mb-1rem px-1.5rem>{{ $t('dashboard.workout.addition.title') }}</h1>
+
+            <FWorkoutCommentaryForm :workout="workoutsData.find((workout) => isEqualDates(workout.date, dd))!" />
           </SSplideSlide>
         </SSplide>
       </template>

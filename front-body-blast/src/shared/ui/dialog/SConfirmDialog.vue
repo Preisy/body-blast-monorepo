@@ -2,18 +2,14 @@
 import { symRoundedClose, symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { SBtn, SDialog } from 'shared/ui';
 
-interface Label {
-  label: string;
+export interface Props {
+  label?: string;
+  type?: 'deletion';
 }
 
-interface Type {
-  type: 'deletion';
-  abc: string;
-}
+const props = defineProps<Props>();
+if (!props.type && !props.label) throw new Error('SConfirmDialog: type or label is required');
 
-export type Props = XOR<Label, Type>;
-
-defineProps<Props>();
 const modelValue = defineModel<boolean>();
 
 defineEmits<{

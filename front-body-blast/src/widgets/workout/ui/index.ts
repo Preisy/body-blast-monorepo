@@ -1,3 +1,2 @@
-export { default as WAdditionCard } from './WAdditionCard.vue';
-export { default as WNewWorkout } from './WNewWorkout.vue';
-export { default as WOldWorkout } from './WOldWorkout.vue';
+export { default as WCreateWorkout } from './WCreateWorkout.vue';
+export { default as WEditWorkout } from './WEditWorkout.vue';

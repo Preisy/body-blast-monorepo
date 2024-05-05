@@ -54,7 +54,7 @@ export default {
       },
       forbiddens: {
         fields: {
-          diet: 'Запреты в питании',
+          nutrition: 'Запреты в питании',
           allergic: 'Аллергии',
           intolerance: 'Непереносимость продуктов',
         },

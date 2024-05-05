@@ -1,3 +1,3 @@
-export * from './btn';
-export * from './btn-toggle';
-export * from './list-controls';
+export { default as SBtn } from './SBtn.vue';
+export { default as SBtnToggle } from './SBtnToggle.vue';
+export { default as SListControls } from './SListControls.vue';

@@ -1,4 +1,6 @@
-export * from './input';
-export * from './readonly-field';
-export * from './file-picker';
-export * from './choose-input';
+export { default as SChooseInput } from './SChooseInput.vue';
+export { default as SFilePicker } from './SFilePicker.vue';
+export { default as SInput } from './SInput.vue';
+export { default as SReadonlyField } from './SReadonlyField.vue';
+export { default as SSearchInput } from './SSearchInput.vue';
+export * from './SReadonlyField.vue';

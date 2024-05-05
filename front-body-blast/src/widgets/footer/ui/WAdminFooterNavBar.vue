@@ -47,7 +47,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       },
       {
         imgSrc: symRoundedRestaurant,
-        title: t('dashboard.footer.links.diet'),
+        title: t('dashboard.footer.links.nutrition'),
         name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_NUTRITION,
       },
     ];

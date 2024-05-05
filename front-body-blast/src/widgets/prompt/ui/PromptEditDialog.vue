@@ -10,10 +10,10 @@ import { SBtn } from 'shared/ui/btns';
 import { SForm } from 'shared/ui/form';
 import { SInput, SFilePicker } from 'shared/ui/inputs';
 
-export interface WPromptEditDialogProps extends QDialogProps {
-  promptData: Prompt;
+export interface Props extends QDialogProps {
+  prompt: Prompt;
 }
-const props = defineProps<WPromptEditDialogProps>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   'update:model-value': [boolean];
@@ -26,31 +26,31 @@ const { patchPrompt, prompts } = useAdminPromptStore();
 
 const updatePrompt = async (values: z.infer<typeof rawSchema>) => {
   const dto: Prompt.Patch.Dto = {
-    type: values.type ?? props.promptData.type,
+    type: values.type ?? props.prompt.type,
   };
   if (values.photo) dto.photo = values.photo;
-  else dto.photoLink = props.promptData.photoLink;
+  else dto.photoLink = props.prompt.photoLink;
 
   if (values.video) dto.video = values.video;
-  else dto.videoLink = props.promptData.videoLink;
+  else dto.videoLink = props.prompt.videoLink;
 
   useLoadingAction(prompts.updateState, async () => {
-    await patchPrompt(props.promptData.id, dto);
+    await patchPrompt(props.prompt.id, dto);
     if (prompts.updateState.isSuccess()) {
       emit('update:model-value', false); //close dialog after success
     }
   });
 };
 
-const photoFilename = computed(() => props.promptData.photoLink.split('/').at(-1));
-const videoFilename = computed(() => props.promptData.videoLink.split('/').at(-1));
+const photoFilename = computed(() => props.prompt.photoLink.split('/').at(-1));
+const videoFilename = computed(() => props.prompt.videoLink.split('/').at(-1));
 </script>
 
 <template>
   <q-dialog :model-value="modelValue" @update:model-value="(val) => $emit('update:model-value', val)">
     <div rounded="1rem!" bg-bg p-1rem>
-      <SForm :field-schema="schema" p="0!" mb-0.5rem @submit="updatePrompt" :init-values="promptData">
-        <SInput :model-value="promptData.type" name="type" :label="$t('admin.prompt.list.type')" />
+      <SForm :field-schema="schema" p="0!" mb-0.5rem @submit="updatePrompt" :init-values="prompt">
+        <SInput :model-value="prompt.type" name="type" :label="$t('admin.prompt.list.type')" />
         <div flex flex-row gap-x-0.5rem>
           <SFilePicker
             name="photo"

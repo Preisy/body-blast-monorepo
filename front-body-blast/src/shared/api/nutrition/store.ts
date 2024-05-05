@@ -3,7 +3,7 @@ import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
 import { ProductsService } from './service';
 import { Nutrition } from './types';
 
-export const useNutritionStore = defineStore('diet-store', () => {
+export const useNutritionStore = defineStore('nutrition-store', () => {
   const nutritionList = ref(useSingleState<Nutrition.Get.Response>());
   const getNutrition = (pagination?: Nutrition.Get.Dto) =>
     useSimpleStoreAction({

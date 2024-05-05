@@ -4,7 +4,7 @@ export default {
       links: {
         workout: 'Тренировки',
         diary: 'Дневник',
-        diet: 'Питание',
+        nutrition: 'Питание',
         profile: 'Профиль',
         learning: 'Обучение',
       },

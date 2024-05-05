@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
-import { FNutritionListForm } from 'features/nutrition-list-form';
+import { FNutritionListForm } from 'features/nutrition';
 import { useAdminNutritionStore } from 'shared/api/admin';
 import { AppBaseEntity } from 'shared/api/base';
 import { Nutrition } from 'shared/api/nutrition';

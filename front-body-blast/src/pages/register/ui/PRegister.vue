@@ -5,9 +5,9 @@ import { z } from 'zod';
 import {
   EUserBodyParamsFields,
   ECredentialsSignUpForm,
-  EDiseasesSignUpForm,
-  EForbiddensSignUpForm,
-  EMotivationsSignUpForm,
+  EUserDiseasesFields,
+  EUserForbiddensFields,
+  EUserMotivationsFields,
 } from 'entities/user';
 import { useAuthStore, TokenService, SignUp } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
@@ -66,7 +66,7 @@ const slides: RegisterSlides = [
     },
   },
   {
-    is: EForbiddensSignUpForm,
+    is: EUserForbiddensFields,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()),
       onSubmit: (values) => {
@@ -76,7 +76,7 @@ const slides: RegisterSlides = [
     },
   },
   {
-    is: EDiseasesSignUpForm,
+    is: EUserDiseasesFields,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Diseases.validation()),
       onSubmit: (values) => {
@@ -86,7 +86,7 @@ const slides: RegisterSlides = [
     },
   },
   {
-    is: EMotivationsSignUpForm,
+    is: EUserMotivationsFields,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Motivations.validation()),
       onSubmit: async (data) => {

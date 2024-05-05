@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { ELoginForm } from 'entities/user';
+import { EUserLoginFields } from 'entities/user';
 import { Auth, useAuthStore } from 'shared/api/auth';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
@@ -21,7 +21,7 @@ const login = async (values: Auth.Dto) => {
 <template>
   <SStructure relative mt--6.5rem class="h-[calc(100vh-4rem)]" flex items-center justify-center>
     <SForm :field-schema="schema" @submit="login" w-full>
-      <ELoginForm />
+      <EUserLoginFields />
       <template #submit-btn>
         <div mt-0.5rem flex justify-between>
           <SBtn :loading="authStore.loginState.state.isLoading()" icon="done" type="submit" ml-auto />

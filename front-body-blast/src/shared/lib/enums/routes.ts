@@ -3,7 +3,7 @@ export enum ROUTES_NAMES {
   TRAINING = 'workout',
   DIARY = 'diary',
   PROFILE = 'profile',
-  DIET = 'diet',
+  NUTRITION = 'nutrition',
   LEARNING = 'learning',
   AUTH = 'auth',
   LOGIN = 'login',

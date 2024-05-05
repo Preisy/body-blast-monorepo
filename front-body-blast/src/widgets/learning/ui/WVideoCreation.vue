@@ -2,9 +2,9 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
-import { FListControls } from 'features/list-controls';
 import { useAdminBonusVideoStore } from 'shared/api/admin';
 import { BonusVideo } from 'shared/api/bonusVideo';
+import { SListControls } from 'shared/ui';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SForm } from 'shared/ui/form';
 import { SInput, SFilePicker } from 'shared/ui/inputs';
@@ -37,7 +37,7 @@ const onsubmit = async (values: z.infer<ReturnType<typeof BonusVideo.validation>
         <SFilePicker name="video" :label="$t('admin.video.video')" accept=".mp4" />
 
         <template #submit-btn>
-          <FListControls
+          <SListControls
             :disabled-add="true"
             @remove="resetForm"
             :loading-submit="videoList.createState.isLoading()"

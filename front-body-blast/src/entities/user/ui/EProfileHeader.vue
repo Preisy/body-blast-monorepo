@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { useProfileStore } from 'shared/api/anthropometry';
+//TODO: remove
+// eslint-disable-next-line boundaries/element-types
+import { useAnthropometryStore } from 'entities/anthropometry';
 import { useAuthStore } from 'shared/api/auth';
 import { useDiaryStore } from 'shared/api/diary';
 import { useMeStore } from 'shared/api/me';
@@ -14,7 +16,7 @@ const router = useRouter();
 
 const { clear: clearMe } = useMeStore();
 const { clear: clearDiary } = useDiaryStore();
-const { clear: clearAnthropometry } = useProfileStore();
+const { clear: clearAnthropometry } = useAnthropometryStore();
 
 const logout = () => {
   useAuthStore().logout();

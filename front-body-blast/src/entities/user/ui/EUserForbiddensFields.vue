@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-  <SInput :readonly="readonly" name="nutritRestrict" :label="$t('auth.signUp.forbiddens.fields.diet')" />
+  <SInput :readonly="readonly" name="nutritRestrict" :label="$t('auth.signUp.forbiddens.fields.nutrition')" />
   <SInput :readonly="readonly" name="allergy" :label="$t('auth.signUp.forbiddens.fields.allergic')" />
   <SInput :readonly="readonly" name="mealIntolerance" :label="$t('auth.signUp.forbiddens.fields.intolerance')" />
 </template>

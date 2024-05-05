@@ -54,7 +54,7 @@ export default {
       },
       forbiddens: {
         fields: {
-          diet: 'Dietary restrictions',
+          nutrition: 'Dietary restrictions',
           allergic: 'Allergics',
           intolerance: 'Food intolerance',
         },
