@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import {
   EUserBodyParamsFields,
-  ECredentialsSignUpForm,
+  EUserCredentialsFields,
   EUserDiseasesFields,
   EUserForbiddensFields,
   EUserMotivationsFields,
@@ -36,7 +36,7 @@ type RegisterSlides = Array<{
 
 const slides: RegisterSlides = [
   {
-    is: ECredentialsSignUpForm,
+    is: EUserCredentialsFields,
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Credentials.validation(t)),
       onSubmit: (values: z.infer<ReturnType<typeof SignUp.Credentials.validation>>) => {
