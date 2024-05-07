@@ -3,7 +3,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
-import { Diary, useDiaryStore } from 'shared/api/diary';
+import { Diary, useDiaryStore } from 'entities/diary';
 import { useLoadingAction, Notify, getUTC3Date, isEqualDates } from 'shared/lib';
 import {
   SCalendar,

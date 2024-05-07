@@ -1,8 +1,7 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { adminDiaryService } from './service';
-import { AdminDiary } from './types';
+import { adminDiaryService, AdminDiary } from '..';
 
 export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
   const diaryList = ref(useSingleState<AdminDiary.Get.Response>({ update: true }));
@@ -17,6 +16,13 @@ export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
     useSimpleStoreAction({
       stateWrapper: diary.value,
       serviceAction: adminDiaryService.getDiaryById(data),
+    });
+
+  const userDiaries = ref(useSingleState<AdminDiary.GetUserDiaries.Response>());
+  const getUserDiaries = (data: AdminDiary.GetUserDiaries.Dto) =>
+    useSimpleStoreAction({
+      stateWrapper: userDiaries.value,
+      serviceAction: adminDiaryService.getUserDiaries(data),
     });
 
   const patchDiaryResponse = ref(useSingleState<AdminDiary.Patch.Response>());
@@ -40,5 +46,7 @@ export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
     getDiaryById,
     patchDiaryResponse,
     patchDiary,
+    userDiaries,
+    getUserDiaries,
   };
 });

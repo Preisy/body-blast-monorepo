@@ -1,5 +1,4 @@
 import { AppBaseEntity } from 'shared/api/base';
-import { Diary } from 'shared/api/diary';
 import { AppPagination } from 'shared/api/pagination';
 import { User } from 'shared/api/user';
 
@@ -11,14 +10,6 @@ export namespace AdminUser {
   export namespace Get {
     export interface Dto extends AppPagination.BaseDto {}
     export interface Response extends AppPagination.Response<User> {}
-  }
-
-  export namespace GetDiaries {
-    export interface Dto {
-      id: AppBaseEntity.Dto['id'];
-      pagination?: AppPagination.DateDto;
-    }
-    export interface Response extends AppPagination.Response<Diary> {}
   }
 
   export namespace GetSteps {

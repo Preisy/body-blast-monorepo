@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { QExpansionItem } from 'quasar';
-import { Diary } from 'shared/api/diary';
 import { SBtnToggle } from 'shared/ui/btns';
 import { SReadonlyField } from 'shared/ui/inputs';
+import { Diary } from '..';
 
 export interface ESelfControlSlideProps {
   diary: Diary;

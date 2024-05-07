@@ -15,6 +15,7 @@ const modelValue = defineModel<boolean>();
 defineEmits<{
   discard: [];
   confirm: [];
+  'update:modelValue': [boolean];
 }>();
 </script>
 

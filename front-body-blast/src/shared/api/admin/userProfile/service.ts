@@ -10,9 +10,6 @@ export const adminProfileService = {
   getUserById: useServiceAction((data: AppBaseEntity.Dto) =>
     api.get<AdminUser.GetById.Response>(`/admin/users/${data.id}`),
   ),
-  getUserDiaries: useServiceAction((data: AdminUser.GetDiaries.Dto) =>
-    api.get<AdminUser.GetDiaries.Response>(`/admin/users/${data.id}/diaries`, { params: data.pagination }),
-  ),
   getUserSteps: useServiceAction((data: AdminUser.GetSteps.Dto) =>
     api.get<AdminUser.GetSteps.Response>(`/admin/users/${data.id}/steps`, { params: data.pagination }),
   ),

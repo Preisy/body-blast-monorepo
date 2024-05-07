@@ -1,11 +1,9 @@
 import { z } from 'zod';
-import { AppBaseEntity } from '../base';
-import { AppPagination } from '../pagination';
-import { User } from '../user';
+import { AppBaseEntity, AppPagination, ISODate, User } from 'shared/api';
 
 export interface Diary extends AppBaseEntity {
   cycle: Nullable<number>;
-  date: string; // ISO format
+  date: ISODate; // ISO format
   sum: Nullable<number>;
   activity: Nullable<string>;
   steps: Nullable<number>;

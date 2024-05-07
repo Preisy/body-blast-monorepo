@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { WUserAthropometrics } from 'widgets/user';
+import { FUserLogoutBtn } from 'features/user';
 import { EProfileHeader } from 'entities/user';
 import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -21,7 +22,11 @@ const userName = computed(() =>
 
 <template>
   <SStructure h-full>
-    <EProfileHeader :user-name="userName" />
+    <EProfileHeader :user-name="userName">
+      <template #logout>
+        <FUserLogoutBtn />
+      </template>
+    </EProfileHeader>
     <WUserAthropometrics mt-1.75rem />
   </SStructure>
 </template>

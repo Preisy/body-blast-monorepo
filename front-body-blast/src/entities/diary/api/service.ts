@@ -1,7 +1,7 @@
+import { AppBaseEntity } from 'shared/api';
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
-import { AppBaseEntity } from '../base';
-import { Diary } from './types';
+import { Diary } from '..';
 
 export const DiaryService = {
   patch: useServiceAction((id: AppBaseEntity.Dto['id'], data: Diary.Patch.Dto) =>

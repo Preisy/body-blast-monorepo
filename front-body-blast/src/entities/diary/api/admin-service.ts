@@ -1,6 +1,6 @@
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
-import { AdminDiary } from './types';
+import { AdminDiary } from '..';
 
 export const adminDiaryService = {
   getDiary: useServiceAction((pagination?: AdminDiary.Get.Dto) =>
@@ -15,5 +15,8 @@ export const adminDiaryService = {
   ),
   deleteDiary: useServiceAction((data: AdminDiary.Delete.Dto) =>
     api.delete<AdminDiary.Delete.Response>(`/admin/diary/${data.id}`),
+  ),
+  getUserDiaries: useServiceAction((data: AdminDiary.GetUserDiaries.Dto) =>
+    api.get<AdminDiary.GetUserDiaries.Response>(`/admin/users/${data.id}/diaries`, { params: data.pagination }),
   ),
 };

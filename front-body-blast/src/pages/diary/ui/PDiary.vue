@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { WDiary } from 'widgets/diary';
-import { EDiaryHeader } from 'entities/diary';
-import { useDiaryStore } from 'shared/api/diary';
+import { EDiaryHeader, useDiaryStore } from 'entities/diary';
 import { useMeStore } from 'shared/api/me';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, toWeekRange } from 'shared/lib/utils';

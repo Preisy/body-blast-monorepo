@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ESelfControlItem } from 'entities/diary';
-import { Diary } from 'shared/api/diary';
+import { ESelfControlItem, Diary } from 'entities/diary';
 
 export interface ESelfControlListProps {
   week: string;

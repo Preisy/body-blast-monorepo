@@ -2,7 +2,6 @@ export * from './admin';
 export * from './auth';
 export * from './base';
 export * from './bonusVideo';
-export * from './diary';
 export * from './file';
 export * from './food';
 export * from './me';

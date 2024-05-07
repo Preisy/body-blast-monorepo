@@ -1,8 +1,8 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
+import { AppBaseEntity } from 'shared/api';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { AppBaseEntity } from '../base';
-import { DiaryService } from './service';
+import { DiaryService } from '..';
 import { Diary } from './types';
 
 export const useDiaryStore = defineStore('diary-store', () => {

@@ -42,13 +42,6 @@ export const useAdminUserProfileStore = defineStore('admin-user-profile-store', 
       },
     });
 
-  const userDiaries = ref(useSingleState<AdminUser.GetDiaries.Response>());
-  const getUserDiaries = (data: AdminUser.GetDiaries.Dto) =>
-    useSimpleStoreAction({
-      stateWrapper: userDiaries.value,
-      serviceAction: adminProfileService.getUserDiaries(data),
-    });
-
   const userSteps = ref(useSingleState<AdminUser.GetSteps.Response>());
   const getUserSteps = (data: AdminUser.GetSteps.Dto) =>
     useSimpleStoreAction({
@@ -62,8 +55,6 @@ export const useAdminUserProfileStore = defineStore('admin-user-profile-store', 
     getUserById,
     getUsers,
     patchUserProfile,
-    userDiaries,
-    getUserDiaries,
     userSteps,
     getUserSteps,
     deleteUser,

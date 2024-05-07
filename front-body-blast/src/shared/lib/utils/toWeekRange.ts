@@ -1,8 +1,8 @@
 import moment from 'moment';
-import { Diary } from 'shared/api/diary';
+import { ISODate } from 'shared/api';
 
 /// Converts ISO date format to week range,
-export const toWeekRange = (isoDateString: Diary['date']) => {
+export const toWeekRange = (isoDateString: ISODate) => {
   const endOfMonth = moment(isoDateString).endOf('month');
 
   const [dd, mm] = moment(isoDateString).format('DD.MM').split('.');
