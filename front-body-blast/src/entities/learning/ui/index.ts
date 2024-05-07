@@ -1,1 +1,1 @@
-export { default as EVideo } from './EVideo.vue';
+export { default as ELearningVideo } from './ELearningVideo.vue';
