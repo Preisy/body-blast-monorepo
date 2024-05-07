@@ -1,9 +1,8 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
+import { useAdminFileStore } from 'shared/api';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { useAdminFileStore } from '../file';
-import { adminPromptsService } from './service';
-import { Prompt } from './types';
+import { adminPromptsService, Prompt } from '..';
 
 export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   const fileStore = useAdminFileStore();

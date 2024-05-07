@@ -1,6 +1,6 @@
 import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib/utils';
-import { Prompt } from './types';
+import { Prompt } from '..';
 
 export const adminPromptsService = {
   postPrompt: useServiceAction((data: Pick<Prompt, 'type' | 'photoLink' | 'videoLink'>) =>
