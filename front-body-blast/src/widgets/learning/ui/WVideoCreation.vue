@@ -2,8 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
-import { useAdminBonusVideoStore } from 'shared/api/admin';
-import { BonusVideo } from 'shared/api/bonusVideo';
+import { BonusVideo, useAdminBonusVideoStore } from 'entities/learning';
 import { SListControls } from 'shared/ui';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SForm } from 'shared/ui/form';

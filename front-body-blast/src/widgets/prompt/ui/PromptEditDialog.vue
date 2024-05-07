@@ -4,7 +4,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { QDialogProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
-import { Prompt, useAdminPromptStore } from 'shared/api/admin';
+import { Prompt, useAdminPromptStore } from 'entities/prompt';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
 import { SForm } from 'shared/ui/form';

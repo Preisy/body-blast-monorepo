@@ -9,6 +9,6 @@ useLoadingAction(videoList, getVideos);
 
 <template>
   <div>
-    <ELearningVideo v-for="video in videos" :video="video" :key="video.id" />
+    <ELearningVideo v-for="video in videos" :key="video.id" :video="video" />
   </div>
 </template>

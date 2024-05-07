@@ -2,7 +2,7 @@
 import { QTabProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WPrompt, WPromptCreation } from 'widgets/prompt';
-import { useAdminPromptStore } from 'shared/api/admin';
+import { useAdminPromptStore } from 'entities/prompt';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SNoResultsScreen } from 'shared/ui/no-results-screen';
