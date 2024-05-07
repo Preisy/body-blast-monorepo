@@ -4,7 +4,8 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
 import { z } from 'zod';
 import { EAdminPromptThumbnail } from 'entities/prompt';
-import { AppBaseEntity, Workout, useAdminPromptStore, useAdminWorkoutStore } from 'shared/api';
+import { Workout, useAdminWorkoutStore } from 'entities/workout';
+import { AppBaseEntity, useAdminPromptStore } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SListControls, SInput, SChooseInput, SForm, SBtn, SComponentWrapper } from 'shared/ui';
 

@@ -1,6 +1,6 @@
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
-import { Workout } from './types';
+import { Workout } from '..';
 
 export namespace WorkoutsService {
   export const getWorkouts = useServiceAction((pagination?: Workout.Get.Dto) =>

@@ -1,7 +1,7 @@
+import { Workout as UserWorkout } from 'entities/workout';
 import { AppBaseEntity } from 'shared/api/base';
 import { AppPagination } from 'shared/api/pagination';
 import { User } from 'shared/api/user';
-import { Workout as UserWorkout } from 'shared/api/workout';
 
 export namespace AdminWorkout {
   export namespace Get {

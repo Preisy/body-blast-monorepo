@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
-import { Workout, useWorkoutStore } from 'shared/api';
+import { Workout, useWorkoutStore } from 'entities/workout';
 import { useLoadingAction } from 'shared/lib';
 import { SInput, SForm } from 'shared/ui';
 

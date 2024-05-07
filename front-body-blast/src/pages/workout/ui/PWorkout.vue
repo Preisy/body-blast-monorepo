@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { FWorkoutCommentaryForm } from 'features/workout';
-import { EWorkoutExerciseCard } from 'entities/workout';
-import { useWorkoutStore } from 'shared/api/workout';
+import { EWorkoutExerciseCard, useWorkoutStore } from 'entities/workout';
 import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates } from 'shared/lib';
 import { SCalendar, SDatePagination, SSplide, SSplideSlide, SStructure } from 'shared/ui';
 

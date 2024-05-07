@@ -1,8 +1,7 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { WorkoutsService } from './service';
-import { Workout } from './types';
+import { WorkoutsService, Workout } from '..';
 
 export const useWorkoutStore = defineStore('workout-store', () => {
   const workouts = ref(useSingleState<Workout.Get.Response>({ update: true }));

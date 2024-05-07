@@ -2,7 +2,7 @@ import { AppBaseEntity } from 'shared/api/base';
 import { AppPagination } from 'shared/api/pagination';
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
-import { AdminWorkout as AdminWorkout } from './types';
+import { AdminWorkout } from '..';
 
 export const AdminWorkoutService = {
   postWorkout: useServiceAction((data: AdminWorkout.Post.Dto) =>

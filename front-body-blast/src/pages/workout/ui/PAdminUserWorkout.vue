@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { WCreateWorkout, WEditWorkout } from 'widgets/workout';
-import { useAdminWorkoutStore } from 'shared/api/admin';
+import { Workout, useAdminWorkoutStore } from 'entities/workout';
 import { AppBaseEntity } from 'shared/api/base';
-import { Workout } from 'shared/api/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/calendar';
