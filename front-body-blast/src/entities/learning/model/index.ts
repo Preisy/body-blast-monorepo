@@ -1,22 +1,4 @@
-import { defineStore } from 'pinia';
-import { BonusVideo } from 'shared/api/bonusVideo';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
-import { LearningService } from '..';
-
-export const useBonusVideoStore = defineStore('bonus-video-store', () => {
-  const videoList = ref(useSingleState<BonusVideo.Get.Response>());
-  const getVideos = () =>
-    useSimpleStoreAction({
-      stateWrapper: videoList.value,
-      serviceAction: LearningService.getVideos(),
-    });
-
-  const video = ref(useSingleState<BonusVideo.GetById.Response>());
-  const getVideoById = (id: BonusVideo.GetById.Dto['id']) =>
-    useSimpleStoreAction({
-      stateWrapper: video.value,
-      serviceAction: LearningService.getVideoById(id),
-    });
-
-  return { videoList, getVideos, video, getVideoById };
-});
+export * from './store';
+export * from './types';
+export * from './admin-store';
+export * from './admin-types';

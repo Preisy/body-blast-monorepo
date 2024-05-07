@@ -1,6 +1,6 @@
 import { AppBaseEntity } from 'shared/api/base';
-import { BonusVideo } from 'shared/api/bonusVideo';
 import { AppPagination } from 'shared/api/pagination';
+import { BonusVideo } from '..';
 
 export namespace AdminBonusVideo {
   export namespace Get {

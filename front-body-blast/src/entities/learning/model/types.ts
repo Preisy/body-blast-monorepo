@@ -1,7 +1,6 @@
 import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
-import { AppBaseEntity } from '../base';
-import { AppPagination } from '../pagination';
+import { AppBaseEntity, AppPagination } from 'shared/api';
 
 export interface BonusVideo extends AppBaseEntity {
   name: string;

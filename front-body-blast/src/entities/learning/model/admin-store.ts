@@ -1,9 +1,7 @@
 import { defineStore } from 'pinia';
-import { BonusVideo } from 'shared/api/bonusVideo';
+import { useAdminFileStore } from 'shared/api';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
-import { useAdminFileStore } from '../file';
-import { AdminBonusVideoService } from './service';
-import { AdminBonusVideo } from './types';
+import { BonusVideo, AdminBonusVideoService, AdminBonusVideo } from '..';
 
 export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', () => {
   const videoList = ref(useSingleState<AdminBonusVideo.Get.Response>({ delete: true, create: true }));

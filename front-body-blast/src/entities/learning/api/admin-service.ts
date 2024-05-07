@@ -1,6 +1,6 @@
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
-import { AdminBonusVideo } from './types';
+import { AdminBonusVideo } from '..';
 
 export const AdminBonusVideoService = {
   getVideos: useServiceAction(() => api.get<AdminBonusVideo.Get.Response>('/admin/bonus-video')),
