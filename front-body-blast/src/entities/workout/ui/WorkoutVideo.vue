@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
+import { SLoading } from 'shared/ui';
 import { SBtn } from 'shared/ui/btns';
 import { SVideo } from 'shared/ui/video';
 
@@ -16,7 +17,7 @@ const isModalShown = ref(false);
 <template>
   <div relative w-full>
     <div relative>
-      <div v-if="loading">
+      <div v-if="!loading">
         <SVideo
           ref="videoControl"
           :link-url="videoLink"
