@@ -1,7 +1,6 @@
 import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib/utils';
-import { fileEventBus } from './bus';
-import { AdminFile } from './types';
+import { fileEventBus, AdminFile } from '..';
 
 export const adminFileService = {
   postFile: useServiceAction((data: AdminFile.Post.Dto) =>

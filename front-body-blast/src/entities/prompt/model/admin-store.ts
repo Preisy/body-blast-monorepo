@@ -1,6 +1,8 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useAdminFileStore } from 'shared/api';
+//TODO: fix this
+// eslint-disable-next-line boundaries/element-types
+import { useAdminFileStore } from 'entities/file';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
 import { adminPromptsService, Prompt } from '..';
 

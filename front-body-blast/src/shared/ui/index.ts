@@ -1,4 +1,3 @@
-export * from './auth-img';
 export * from './btns';
 export * from './form';
 export * from './inputs';
@@ -21,5 +20,4 @@ export * from './splide';
 export * from './splide-slide';
 export * from './structure';
 export * from './tab-panels';
-export * from './upload-progress';
 export * from './video';

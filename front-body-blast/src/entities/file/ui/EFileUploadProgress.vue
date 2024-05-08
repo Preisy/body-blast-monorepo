@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UploadProgressEventData, fileEventBus } from 'shared/api/admin';
+import { UploadProgressEventData, fileEventBus } from '..';
 
 type Data = Record<string, UploadProgressEventData>;
 const filesPending = reactive<Data>({});

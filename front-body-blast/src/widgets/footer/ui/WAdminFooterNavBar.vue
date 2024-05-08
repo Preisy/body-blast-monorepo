@@ -9,9 +9,9 @@ import {
   symRoundedSettings,
 } from '@quasar/extras/material-symbols-rounded';
 import { useI18n } from 'vue-i18n';
+import { EFileUploadProgress } from 'entities/file';
 import { ENUMS } from 'shared/lib/enums';
 import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/footer-nav-link';
-import { SUploadProgress } from 'shared/ui/upload-progress';
 
 const route = useRoute();
 const { t } = useI18n();
@@ -58,7 +58,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
 
 <template>
   <q-footer class="w-footer w-admin-footer" bg-unset>
-    <SUploadProgress w-full py-1rem />
+    <EFileUploadProgress w-full py-1rem />
     <div rounded-t-2rem bg-bg boxshadow-footer>
       <q-tabs flex flex-row justify-between px-0.5rem>
         <SFooterNavLink v-for="navlink of links" :key="navlink.imgSrc" v-bind="navlink" />

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { ISingleState, useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
-import { adminFileService } from './service';
-import { AdminFile } from './types';
+import { adminFileService, AdminFile } from '..';
 
 export const useAdminFileStore = defineStore('admin-file-store', () => {
   const getFileState = ref(useSingleState<AdminFile.GetByName.Response>());
