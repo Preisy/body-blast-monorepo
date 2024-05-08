@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { symRoundedDelete, symRoundedEdit } from '@quasar/extras/material-symbols-rounded';
+import { FGetAuthFiles } from 'features/file';
 import { EWorkoutExerciseCard, Workout, useAdminWorkoutStore } from 'entities/workout';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
@@ -37,12 +38,22 @@ const onDelete = () => useLoadingAction(workoutList.deleteState, () => deleteWor
       <SBtn @click="onEdit" :icon="symRoundedEdit" bg="bg!" ml-auto />
       <SBtn @click="onDelete" :icon="symRoundedDelete" :loading="workoutList.deleteState.isLoading()" />
     </div>
-    <EWorkoutExerciseCard
+    <FGetAuthFiles
       v-for="exercise in workout.exercises"
       :key="exercise.id"
-      :exercise="exercise"
-      p="0!"
-      mb-1rem
-    />
+      :urls="[exercise.videoLink, exercise.photoLink]"
+    >
+      <!-- TODO: looks like bad design -->
+      <template #default="{ links, loading }">
+        <EWorkoutExerciseCard
+          :exercise="exercise"
+          :video-link="links[0]"
+          :photo-link="links[1]"
+          :loading="loading"
+          p="0!"
+          mb-1rem
+        />
+      </template>
+    </FGetAuthFiles>
   </SComponentWrapper>
 </template>

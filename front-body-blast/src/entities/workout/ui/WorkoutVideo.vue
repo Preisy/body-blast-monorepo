@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
-import { useAuthLink } from 'shared/lib/hooks';
 import { SBtn } from 'shared/ui/btns';
-import { SLoading } from 'shared/ui/loading';
 import { SVideo } from 'shared/ui/video';
 
-const props = defineProps<{
+defineProps<{
   photoLink: string;
   videoLink: string;
+  loading?: boolean;
 }>();
-
-const { state: video } = useAuthLink(() => props.videoLink);
-const { state: photo } = useAuthLink(() => props.photoLink);
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
 const isModalShown = ref(false);
@@ -20,10 +16,10 @@ const isModalShown = ref(false);
 <template>
   <div relative w-full>
     <div relative>
-      <div v-if="video.data && photo.data">
+      <div v-if="loading">
         <SVideo
           ref="videoControl"
-          :link-url="video.data.link"
+          :link-url="videoLink"
           disable-btn
           absolute
           h-full
@@ -35,7 +31,7 @@ const isModalShown = ref(false);
         />
         <q-img
           @click="isModalShown = true"
-          :src="photo.data.link"
+          :src="photoLink"
           :class="{ 'opacity-0': videoControl?.isPlaying }"
           h-auto
           max-h-20rem
@@ -56,7 +52,7 @@ const isModalShown = ref(false);
       @click="videoControl?.togglePlay"
     />
     <q-dialog v-model="isModalShown">
-      <q-img :src="photo.data?.link" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
+      <q-img :src="photoLink" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
     </q-dialog>
   </div>
 </template>

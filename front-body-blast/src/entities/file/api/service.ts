@@ -1,6 +1,6 @@
 import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib/utils';
-import { File } from './types';
+import { File } from '..';
 
 export const fileService = {
   getFileByName: useServiceAction((data: File.Dto) =>

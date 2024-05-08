@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { useAuthLink } from 'shared/lib/hooks';
-
 export interface EAdminPromptThumbnailProps {
-  photo: string;
+  photoLink: string;
   type: string;
+  loading?: boolean;
 }
-const props = defineProps<EAdminPromptThumbnailProps>();
-
-const { state: link } = useAuthLink(() => props.photo);
+defineProps<EAdminPromptThumbnailProps>();
 </script>
 
 <template>
   <div flex flex-col gap-0.5rem p-1rem text-center text-bg>
-    <template v-if="link.data">
-      <q-img :src="link.data.link" h-4rem w-6.75rem rounded-0.25rem />
+    <template v-if="loading">
+      <q-img :src="photoLink" h-4rem w-6.75rem rounded-0.25rem />
     </template>
     <template v-else>
       <q-circular-progress indeterminate rounded size="30px" color="secondary" class="q-ma-md" />

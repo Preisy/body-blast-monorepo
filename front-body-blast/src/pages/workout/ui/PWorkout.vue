@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import moment from 'moment';
+import { FGetAuthFiles } from 'features/file';
 import { FWorkoutCommentaryForm } from 'features/workout';
 import { EWorkoutExerciseCard, useWorkoutStore } from 'entities/workout';
 import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates } from 'shared/lib';
@@ -48,7 +49,18 @@ useLoadingAction(workouts, () =>
             v-for="exercise in workoutsData.find((workout) => isEqualDates(workout.date, dd))!.exercises"
             :key="exercise.name"
           >
-            <EWorkoutExerciseCard :exercise="exercise" py-1.5rem />
+            <FGetAuthFiles :urls="[exercise.videoLink, exercise.photoLink]">
+              <template #default="{ links, loading }">
+                <!-- TODO: looks like bad design -->
+                <EWorkoutExerciseCard
+                  :exercise="exercise"
+                  :video-link="links[0]"
+                  :photo-link="links[1]"
+                  :loading="loading"
+                  py-1.5rem
+                />
+              </template>
+            </FGetAuthFiles>
           </SSplideSlide>
 
           <SSplideSlide>

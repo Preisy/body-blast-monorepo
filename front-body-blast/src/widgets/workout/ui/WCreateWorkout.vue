@@ -3,6 +3,7 @@ import { symRoundedClose } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, omit, uniqueId } from 'lodash';
 import { z } from 'zod';
+import { FGetAuthFile } from 'features/file';
 import { EAdminPromptThumbnail, useAdminPromptStore } from 'entities/prompt';
 import { Workout, useAdminWorkoutStore } from 'entities/workout';
 import { AppBaseEntity } from 'shared/api';
@@ -161,7 +162,11 @@ const store = useAdminWorkoutStore();
           @close="store.isPopupVisible = false"
         >
           <template #item="{ item }">
-            <EAdminPromptThumbnail :photo="item.photoLink" :type="item.type" />
+            <FGetAuthFile :url="item.photoLink">
+              <template #default="{ link, loading }">
+                <EAdminPromptThumbnail :photo-link="link" :loading="loading" :type="item.type" />
+              </template>
+            </FGetAuthFile>
           </template>
         </SChooseInput>
 

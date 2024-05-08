@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { symRoundedDelete, symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
+import { useAuthLink } from 'entities/file';
 import { BonusVideo, useAdminBonusVideoStore } from 'entities/learning';
-import { useAuthLink } from 'shared/lib';
 import { SBtn } from 'shared/ui/btns/';
 import { SLoading } from 'shared/ui/loading';
 import { SVideo } from 'shared/ui/video';

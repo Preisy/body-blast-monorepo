@@ -5,9 +5,9 @@ import {
   symRoundedPause,
   symRoundedPlayArrow,
 } from '@quasar/extras/material-symbols-rounded';
+import { useAuthLink } from 'entities/file';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
 import { AppBaseEntity } from 'shared/api/base';
-import { useAuthLink } from 'shared/lib';
 import { SBtn } from 'shared/ui/btns';
 import { SLoading } from 'shared/ui/loading';
 import { SVideo } from 'shared/ui/video';

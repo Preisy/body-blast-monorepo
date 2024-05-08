@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { FGetAuthFile } from 'features/file';
 import { useBonusVideoStore, ELearningVideo } from 'entities/learning';
 import { useLoadingAction } from 'shared/lib/loading';
 
@@ -9,6 +10,10 @@ useLoadingAction(videoList, getVideos);
 
 <template>
   <div>
-    <ELearningVideo v-for="video in videos" :key="video.id" :video="video" />
+    <FGetAuthFile v-for="video in videos" :key="video.id" :url="video.linkUrl">
+      <template #default="{ link }">
+        <ELearningVideo :video="video" :link="link" />
+      </template>
+    </FGetAuthFile>
   </div>
 </template>
