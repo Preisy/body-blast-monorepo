@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { TouchSwipeValue } from 'quasar';
-import { ENUMS } from 'shared/lib/enums';
-import { SNavList, RouteRecord } from 'shared/ui/nav-list';
+import { ENUMS } from 'shared/lib';
+import { SNavList, RouteRecord } from 'shared/ui';
 
 type SwipeEventData = Parameters<Exclude<TouchSwipeValue, undefined>>['0'];
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
+import { SProxyScroll } from 'shared/ui';
 </script>
 
 <template>

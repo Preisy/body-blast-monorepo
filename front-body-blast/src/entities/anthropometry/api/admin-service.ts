@@ -1,5 +1,5 @@
 import { api } from 'shared/config';
-import { useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib';
 import { AdminAnthropometry } from '..';
 
 export const anthropometryAdminService = {

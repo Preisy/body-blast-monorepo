@@ -1,6 +1,6 @@
 import { RouteLocationNormalized } from 'vue-router';
 import { User, useUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
+import { ENUMS } from 'shared/lib';
 
 export function checkAdminPermissions(to: RouteLocationNormalized, me: User) {
   const { isAuth } = useUserStore();

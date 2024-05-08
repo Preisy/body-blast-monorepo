@@ -9,12 +9,8 @@ import {
   EUserMotivationsFields,
 } from 'entities/user';
 import { SignUp, AppBaseEntity, useAdminUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SBtn } from 'shared/ui/btns';
-import { SForm, SFormProps } from 'shared/ui/form';
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
-import { SStructure } from 'shared/ui/structure';
+import { ENUMS, useLoadingAction } from 'shared/lib';
+import { SBtn, SForm, SFormProps, SStructure, SProxyScroll } from 'shared/ui';
 
 const props = defineProps<{
   id: AppBaseEntity['id'];

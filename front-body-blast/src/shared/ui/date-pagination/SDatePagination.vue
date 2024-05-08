@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import moment from 'moment';
 import { QDate, QTabPanels } from 'quasar';
-import { getUTC3Date } from 'shared/lib/utils';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SNoResultsScreen } from 'shared/ui/no-results-screen';
+import { getUTC3Date } from 'shared/lib';
+import { SNoResultsScreen, SComponentWrapper } from 'shared/ui';
 
 export interface SDatePaginationProps {
   modelValue: string; //Date. YYYY-MM-DD

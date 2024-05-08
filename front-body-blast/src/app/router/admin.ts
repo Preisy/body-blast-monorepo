@@ -1,7 +1,7 @@
 /* eslint-disable import/no-internal-modules */
 import { Loading } from 'quasar';
 import { RouteRecordRaw } from 'vue-router';
-import { ENUMS } from 'shared/lib/enums';
+import { ENUMS } from 'shared/lib';
 
 export const adminRoutes: RouteRecordRaw = {
   path: '/admin/',

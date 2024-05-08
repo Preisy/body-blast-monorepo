@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { Auth, Logout, Refresh, SignUp, User } from './types';
 import { TokenService, UserService } from '.';
 

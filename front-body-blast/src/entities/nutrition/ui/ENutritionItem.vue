@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Food } from 'shared/api/food';
 import { Nutrition } from 'shared/api';
-import { tod } from 'shared/lib/utils';
-import { SInput } from 'shared/ui/inputs';
+import { Food } from 'shared/api/food';
+import { tod } from 'shared/lib';
+import { SInput } from 'shared/ui';
 
 export interface ENutritionItemProps {
   name: Nutrition['name'];

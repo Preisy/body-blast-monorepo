@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SVideo } from 'shared/ui/video';
+import { SVideo } from 'shared/ui';
 import { BonusVideo } from '..';
 
 defineProps<{

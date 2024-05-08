@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SInput } from 'shared/ui/inputs';
+import { SInput } from 'shared/ui';
 
 defineProps<{
   readonly?: boolean;

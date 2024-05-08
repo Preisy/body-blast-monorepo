@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 //TODO: fix this
 // eslint-disable-next-line boundaries/element-types
 import { useAdminFileStore } from 'entities/file';
-import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { BonusVideo, AdminBonusVideoService, AdminBonusVideo } from '..';
 
 export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', () => {

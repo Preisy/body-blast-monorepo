@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FFoodListForm } from 'features/nutrition';
-import { useAdminFoodStore } from 'shared/api';
-import { AppBaseEntity } from 'shared/api';
-import { useLoading } from 'shared/lib/loading';
-import { Notify } from 'shared/lib/utils';
-import { SBtn } from 'shared/ui/btns';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SInput } from 'shared/ui/inputs';
+import { useAdminFoodStore, AppBaseEntity } from 'shared/api';
+import { useLoading, Notify } from 'shared/lib';
+import { SBtn, SInput, SComponentWrapper } from 'shared/ui';
 
 export interface WAdminNewFoodProps {
   userId: AppBaseEntity['id'];

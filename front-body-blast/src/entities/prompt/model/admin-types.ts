@@ -1,7 +1,6 @@
 import { ComposerTranslation } from 'vue-i18n';
 import { z } from 'zod';
-import { AppBaseEntity } from 'shared/api';
-import { AppPagination } from 'shared/api';
+import { AppBaseEntity, AppPagination } from 'shared/api';
 
 export interface Prompt extends AppBaseEntity {
   type: string;

@@ -3,10 +3,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { assign, uniqueId } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
-import { SListControls } from 'shared/ui';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SForm } from 'shared/ui/form';
-import { SInput, SFilePicker } from 'shared/ui/inputs';
+import { SListControls, SForm, SInput, SFilePicker, SComponentWrapper } from 'shared/ui';
 
 const { t } = useI18n();
 

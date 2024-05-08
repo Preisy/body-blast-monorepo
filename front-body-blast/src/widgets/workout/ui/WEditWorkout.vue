@@ -2,10 +2,8 @@
 import { symRoundedDelete, symRoundedEdit } from '@quasar/extras/material-symbols-rounded';
 import { FGetAuthFiles } from 'features/file';
 import { EWorkoutExerciseCard, Workout, useAdminWorkoutStore } from 'entities/workout';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SBtn } from 'shared/ui/btns';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SReadonlyField } from 'shared/ui/inputs';
+import { useLoadingAction } from 'shared/lib';
+import { SBtn, SReadonlyField, SComponentWrapper } from 'shared/ui';
 
 export interface WEditWorkoutsProps {
   workout: Workout;

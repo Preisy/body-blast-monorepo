@@ -2,9 +2,7 @@
 import { symRoundedDelete, symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
 import { useAuthLink } from 'entities/file';
 import { BonusVideo, useAdminBonusVideoStore } from 'entities/learning';
-import { SBtn } from 'shared/ui/btns/';
-import { SLoading } from 'shared/ui/loading';
-import { SVideo } from 'shared/ui/video';
+import { SLoading, SVideo, SBtn } from 'shared/ui';
 
 export interface WAdminVideoProps {
   video: BonusVideo;

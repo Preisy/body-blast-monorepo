@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { adminDiaryService, AdminDiary } from '..';
 
 export const useAdminDiaryStore = defineStore('admin-diary-store', () => {

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TypedSchema, useForm } from 'vee-validate';
-import { SBtn } from 'shared/ui/btns';
+import { SBtn } from 'shared/ui';
 
 export interface SFormProps {
   fieldSchema: TypedSchema; //Vee-validate/Zod value validation schema

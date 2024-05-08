@@ -3,10 +3,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import { BonusVideo, useAdminBonusVideoStore } from 'entities/learning';
-import { SListControls } from 'shared/ui';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SForm } from 'shared/ui/form';
-import { SInput, SFilePicker } from 'shared/ui/inputs';
+import { SListControls, SForm, SInput, SFilePicker, SComponentWrapper } from 'shared/ui';
 
 const { t } = useI18n();
 const schema = toTypedSchema(BonusVideo.validation(t));

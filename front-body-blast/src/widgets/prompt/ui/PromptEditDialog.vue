@@ -5,10 +5,8 @@ import { QDialogProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SBtn } from 'shared/ui/btns';
-import { SForm } from 'shared/ui/form';
-import { SInput, SFilePicker } from 'shared/ui/inputs';
+import { useLoadingAction } from 'shared/lib';
+import { SBtn, SForm, SInput, SFilePicker } from 'shared/ui';
 
 export interface Props extends QDialogProps {
   prompt: Prompt;

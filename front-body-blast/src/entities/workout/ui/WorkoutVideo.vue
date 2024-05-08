@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
-import { SLoading } from 'shared/ui';
-import { SBtn } from 'shared/ui/btns';
-import { SVideo } from 'shared/ui/video';
+import { SLoading, SBtn, SVideo } from 'shared/ui';
 
 defineProps<{
   photoLink?: string;

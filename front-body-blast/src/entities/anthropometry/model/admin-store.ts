@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState } from 'shared/lib';
 import { anthropometryAdminService, AdminAnthropometry } from '..';
 
 export const useAdminAnthropometryStore = defineStore('admin-anthropometry-store', () => {

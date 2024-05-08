@@ -3,11 +3,8 @@ import { QTabProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
 import { WAdminVideo, WVideoCreation } from 'widgets/learning';
 import { useAdminBonusVideoStore } from 'entities/learning';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SNoResultsScreen } from 'shared/ui/no-results-screen';
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
-import { SStructure } from 'shared/ui/structure';
+import { useLoadingAction } from 'shared/lib';
+import { SStructure, SNoResultsScreen, SProxyScroll, SComponentWrapper } from 'shared/ui';
 
 const { t } = useI18n();
 const routes: QTabProps[] = [

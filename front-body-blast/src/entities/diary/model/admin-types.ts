@@ -1,6 +1,5 @@
 import { Diary } from 'entities/diary';
-import { AppBaseEntity } from 'shared/api';
-import { AppPagination } from 'shared/api';
+import { AppBaseEntity, AppPagination } from 'shared/api';
 
 export namespace AdminDiary {
   export namespace Get {

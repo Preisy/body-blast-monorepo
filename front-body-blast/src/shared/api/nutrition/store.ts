@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState } from 'shared/lib';
 import { ProductsService } from './service';
 import { Nutrition } from './types';
 

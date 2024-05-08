@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { QIcon, QDate, QDateProps } from 'quasar';
 import { useI18n } from 'vue-i18n';
-import { isToday } from 'shared/lib/utils';
+import { isToday } from 'shared/lib';
 
 export interface SCalendarProps extends QDateProps {}
 const props = defineProps<SCalendarProps>();

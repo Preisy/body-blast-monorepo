@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { EProfileCard } from 'entities/user';
-import { useUserStore, useAdminUserStore, useUserStore, User } from 'shared/api';
+import { useUserStore, useAdminUserStore, User } from 'shared/api';
 import { ENUMS, useLoadingAction } from 'shared/lib';
 import { SSearchInput, SConfirmDialog, SBtn, SNoResultsScreen, SScaffold, SStructure } from 'shared/ui';
 

@@ -10,12 +10,8 @@ import {
   EUserMotivationsFields,
 } from 'entities/user';
 import { useUserStore, SignUp } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
-import { SBtn } from 'shared/ui/btns';
-import { SForm, SFormProps } from 'shared/ui/form';
-import { SSplide } from 'shared/ui/splide';
-import { SSplideSlide } from 'shared/ui/splide-slide';
-import { SStructure } from 'shared/ui/structure';
+import { ENUMS } from 'shared/lib';
+import { SBtn, SForm, SFormProps, SSplide, SStructure, SSplideSlide } from 'shared/ui';
 
 const userStore = useUserStore();
 const { t } = useI18n();

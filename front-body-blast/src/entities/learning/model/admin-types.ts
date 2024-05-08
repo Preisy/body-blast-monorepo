@@ -1,5 +1,4 @@
-import { AppBaseEntity } from 'shared/api';
-import { AppPagination } from 'shared/api';
+import { AppBaseEntity, AppPagination } from 'shared/api';
 import { BonusVideo } from '..';
 
 export namespace AdminBonusVideo {

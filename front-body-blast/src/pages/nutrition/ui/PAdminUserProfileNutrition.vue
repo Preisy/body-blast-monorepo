@@ -2,16 +2,10 @@
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
-import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api';
-import { AppBaseEntity } from 'shared/api';
+import { useAdminFoodStore, useAdminNutritionStore, AppBaseEntity, Nutrition } from 'shared/api';
 import { Food } from 'shared/api/food';
-import { Nutrition } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { tod } from 'shared/lib/utils';
-import { SCenteredNav, SCenteredNavProps } from 'shared/ui/centered-nav';
-import { SLoading } from 'shared/ui/loading';
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
-import { SStructure } from 'shared/ui/structure';
+import { useLoadingAction, tod } from 'shared/lib';
+import { SLoading, SStructure, SCenteredNav, SCenteredNavProps, SProxyScroll } from 'shared/ui';
 
 export interface PAdminUserProfileNutritionProps {
   id: AppBaseEntity['id'];

@@ -1,5 +1,5 @@
 import { api } from 'shared/config/axios';
-import { useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib';
 import { File } from '..';
 
 export const fileService = {

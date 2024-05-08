@@ -2,8 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
 import { AppBaseEntity } from 'shared/api';
-import { SForm } from 'shared/ui/form';
-import { SInput } from 'shared/ui/inputs';
+import { SForm, SInput } from 'shared/ui';
 import { Anthropometry, useAnthropometryStore } from '..';
 
 export interface EAthropometricsItemProps {

@@ -1,6 +1,6 @@
 import { AppBaseEntity } from 'shared/api';
 import { api } from 'shared/config';
-import { useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib';
 import { Diary } from '..';
 
 export const DiaryService = {

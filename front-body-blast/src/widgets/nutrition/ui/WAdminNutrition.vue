@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { symRoundedDelete, symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FNutritionListForm } from 'features/nutrition';
-import { useAdminNutritionStore } from 'shared/api';
-import { Nutrition } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SBtn } from 'shared/ui/btns';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { useAdminNutritionStore, Nutrition } from 'shared/api';
+import { useLoadingAction } from 'shared/lib';
+import { SBtn, SComponentWrapper } from 'shared/ui';
 
 export interface WAdminNutritionLongProps {
   nutrition: Nutrition;

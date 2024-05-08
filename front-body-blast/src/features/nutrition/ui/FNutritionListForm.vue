@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
-import { useAdminNutritionStore } from 'shared/api';
-import { Nutrition } from 'shared/api';
-import { SConfirmDialog } from 'shared/ui';
-import { SListControls } from 'shared/ui/btns';
-import { SForm } from 'shared/ui/form';
-import { SInput } from 'shared/ui/inputs';
+import { useAdminNutritionStore, Nutrition } from 'shared/api';
+import { SConfirmDialog, SListControls, SForm, SInput } from 'shared/ui';
 import NutritionListHeader from './NutritionListHeader.vue';
 
 export interface FNutritionListFormProps {

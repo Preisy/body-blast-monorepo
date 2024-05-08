@@ -3,12 +3,8 @@ import moment from 'moment';
 import { WCreateWorkout, WEditWorkout } from 'widgets/workout';
 import { Workout, useAdminWorkoutStore } from 'entities/workout';
 import { AppBaseEntity } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/calendar';
-import { SDatePagination } from 'shared/ui/date-pagination';
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
-import { SStructure } from 'shared/ui/structure';
+import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates } from 'shared/lib';
+import { SCalendar, SStructure, SDatePagination, SProxyScroll } from 'shared/ui';
 
 export interface PAdminUserWorkoutProps {
   id: AppBaseEntity['id'];

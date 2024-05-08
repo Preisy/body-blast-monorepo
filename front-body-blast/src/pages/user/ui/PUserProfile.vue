@@ -4,8 +4,8 @@ import { WUserAthropometrics } from 'widgets/user';
 import { FUserLogoutBtn } from 'features/user';
 import { EProfileHeader } from 'entities/user';
 import { useUserStore } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SStructure } from 'shared/ui/structure';
+import { useLoadingAction } from 'shared/lib';
+import { SStructure } from 'shared/ui';
 
 const { t } = useI18n();
 

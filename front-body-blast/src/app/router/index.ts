@@ -1,8 +1,7 @@
 import { route } from 'quasar/wrappers';
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
 import { useUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
-import { useLoading } from 'shared/lib/loading';
+import { ENUMS, useLoading } from 'shared/lib';
 import { checkAdminPermissions, checkWatchVideoPermissions } from './permissions';
 import routes from './routes';
 

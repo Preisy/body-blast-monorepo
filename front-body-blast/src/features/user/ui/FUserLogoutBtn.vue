@@ -2,7 +2,7 @@
 import { useAnthropometryStore } from 'entities/anthropometry';
 import { useDiaryStore } from 'entities/diary';
 import { useUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
+import { ENUMS } from 'shared/lib';
 import { SBtn } from 'shared/ui';
 
 const router = useRouter();

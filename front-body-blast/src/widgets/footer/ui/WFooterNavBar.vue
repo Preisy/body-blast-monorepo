@@ -8,9 +8,8 @@ import {
 } from '@quasar/extras/material-symbols-rounded';
 import { useI18n } from 'vue-i18n';
 import { useUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/footer-nav-link';
+import { ENUMS, useLoadingAction } from 'shared/lib';
+import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui';
 
 const { t } = useI18n();
 const userStore = useUserStore();

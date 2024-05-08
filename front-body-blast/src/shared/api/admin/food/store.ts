@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { AdminFoodService } from './service';
 import { AdminFood } from './types';
 

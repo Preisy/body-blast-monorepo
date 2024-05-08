@@ -3,8 +3,7 @@ import moment from 'moment';
 import { WDiary } from 'widgets/diary';
 import { EDiaryHeader, useDiaryStore } from 'entities/diary';
 import { useUserStore } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { getUTC3Date, toWeekRange } from 'shared/lib/utils';
+import { useLoadingAction, getUTC3Date, toWeekRange } from 'shared/lib';
 
 const today = getUTC3Date();
 const { diaryList, getDiary } = useDiaryStore();

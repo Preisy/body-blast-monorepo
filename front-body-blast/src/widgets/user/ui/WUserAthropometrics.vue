@@ -8,11 +8,8 @@ import {
   useAnthropometryStore,
 } from 'entities/anthropometry';
 import { AppBaseEntity } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/calendar';
-import { SDatePagination } from 'shared/ui/date-pagination';
-import { SPaginationSliderProps } from 'shared/ui/pagination-slider';
+import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib';
+import { SCalendar, SDatePagination, SPaginationSliderProps } from 'shared/ui';
 
 interface AthropometricsSlide extends EAthropometricsItemProps {
   dateValue: string;

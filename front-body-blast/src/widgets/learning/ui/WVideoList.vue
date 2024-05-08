@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { FGetAuthFile } from 'features/file';
 import { useBonusVideoStore, ELearningVideo } from 'entities/learning';
-import { useLoadingAction } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib';
 import { SNoResultsScreen } from 'shared/ui';
 
 const { getVideos, videoList } = useBonusVideoStore();

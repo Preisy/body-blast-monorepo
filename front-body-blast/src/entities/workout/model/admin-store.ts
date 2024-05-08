@@ -1,7 +1,7 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { AppBaseEntity } from 'shared/api';
-import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { AdminWorkoutService, AdminWorkout } from '..';
 
 export const useAdminWorkoutStore = defineStore('admin-workout-store', () => {

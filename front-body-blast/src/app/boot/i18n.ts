@@ -16,7 +16,7 @@ import { TEDiaryI18n } from 'entities/diary';
 import { TEProfileI18n } from 'entities/user';
 import { TWorkoutI18n } from 'entities/workout';
 import { TGlobalI18n } from 'shared/config/i18n';
-import { mergeI18n } from 'shared/lib/i18utils';
+import { mergeI18n } from 'shared/lib';
 
 export default boot(({ app }) => {
   const i18n = createI18n({

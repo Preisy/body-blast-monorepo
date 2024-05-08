@@ -2,10 +2,8 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { EUserLoginFields } from 'entities/user';
 import { Auth, useUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
-import { SBtn } from 'shared/ui/btns';
-import { SForm } from 'shared/ui/form';
-import { SStructure } from 'shared/ui/structure';
+import { ENUMS } from 'shared/lib';
+import { SBtn, SForm, SStructure } from 'shared/ui';
 
 const router = useRouter();
 const schema = toTypedSchema(Auth.validation());

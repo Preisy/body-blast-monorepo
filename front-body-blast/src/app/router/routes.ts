@@ -1,6 +1,6 @@
 /* eslint-disable import/no-internal-modules */
 import { RouteRecordRaw } from 'vue-router';
-import { ENUMS } from 'shared/lib/enums';
+import { ENUMS } from 'shared/lib';
 import { adminRoutes } from './admin';
 import { dashboardRoutes } from './dashboard';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QTabPanel, QTabPanels, TouchSwipeValue } from 'quasar';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
+import { SComponentWrapper } from 'shared/ui';
 
 type SlideContent = object & { name: string };
 export interface SPaginationSliderProps {

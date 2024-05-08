@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ISingleState, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { ISingleState, useSingleState, useStoreAction } from 'shared/lib';
 import { fileService, File } from '..';
 
 export interface URLHandler {

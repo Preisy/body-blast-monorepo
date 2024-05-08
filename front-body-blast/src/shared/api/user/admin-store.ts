@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
-import { AppBaseEntity } from 'shared/api';
-import { AppPagination } from 'shared/api';
-import { useSingleState, useSimpleStoreAction, useStoreAction, Notify } from 'shared/lib/utils';
+import { AppBaseEntity, AppPagination } from 'shared/api';
+import { useSingleState, useSimpleStoreAction, useStoreAction, Notify } from 'shared/lib';
 import { AdminUser, adminUserService } from '.';
 
 export const useAdminUserStore = defineStore('admin-user-profile-store', () => {

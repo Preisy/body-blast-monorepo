@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { SBtn } from 'shared/ui/btns';
+import { SBtn } from 'shared/ui';
 
 export interface SVideoProps {
   linkUrl: string;

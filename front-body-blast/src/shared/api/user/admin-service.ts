@@ -1,6 +1,6 @@
 import { AppBaseEntity } from 'shared/api';
 import { api } from 'shared/config/axios';
-import { useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib';
 import { AdminUser } from '.';
 
 export const adminUserService = {

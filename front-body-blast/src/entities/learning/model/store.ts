@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
+import { useSimpleStoreAction, useSingleState } from 'shared/lib';
 import { BonusVideo, LearningService } from '..';
 
 export const useBonusVideoStore = defineStore('bonus-video-store', () => {

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { useSingleState, useStoreAction } from 'shared/lib/utils';
+import { useSingleState, useStoreAction } from 'shared/lib';
 import { notificationService, NotificationTypes } from '..';
 
 export const useNotificationStore = defineStore('notification-store', () => {

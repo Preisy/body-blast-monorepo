@@ -2,8 +2,7 @@
 import { useFloating } from '@floating-ui/vue';
 import { debounce } from 'quasar';
 import { useField } from 'vee-validate';
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
-import { SInput, SInputProps } from '..';
+import { SProxyScroll, SInput, SInputProps } from 'shared/ui';
 
 export interface SChooseInputProps<T> {
   modelValue?: T;

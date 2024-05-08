@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { Workout } from 'entities/workout';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SReadonlyFieldProps } from 'shared/ui/inputs';
+import { SReadonlyFieldProps, SComponentWrapper } from 'shared/ui';
 import InfoBlock from './InfoBlock.vue';
 import WorkoutVideo from './WorkoutVideo.vue';
 

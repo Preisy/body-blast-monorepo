@@ -2,7 +2,7 @@
   Forbidden to place inside SProxyScroll/QScrollArea
 -->
 <script lang="ts" setup>
-import { SCenteredByChild } from 'shared/ui/centered-by-child';
+import { SCenteredByChild } from 'shared/ui';
 
 export interface SCenteredNavProps {
   pages: { value: string; label: string }[];

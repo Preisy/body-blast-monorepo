@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import moment, { Moment } from 'moment';
 import { ESelfControlList, EStepsList, Diary, useAdminDiaryStore } from 'entities/diary';
-import { useAdminUserStore } from 'shared/api';
-import { AppBaseEntity } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
-import { toWeekRange } from 'shared/lib/utils';
-import { SCalendar } from 'shared/ui/calendar';
-import { SProxyScroll } from 'shared/ui/proxy-scroll';
-import { SStructure } from 'shared/ui/structure';
+import { useAdminUserStore, AppBaseEntity } from 'shared/api';
+import { useLoadingAction, toWeekRange } from 'shared/lib';
+import { SCalendar, SStructure, SProxyScroll } from 'shared/ui';
 
 export interface PAdminDiaryProps {
   id: AppBaseEntity['id'];

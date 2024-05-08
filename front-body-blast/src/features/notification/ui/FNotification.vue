@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { symRoundedClose, symRoundedError } from '@quasar/extras/material-symbols-rounded';
 import { useUserStore } from 'shared/api';
-import { ENUMS } from 'shared/lib/enums';
+import { ENUMS } from 'shared/lib';
 import { NotificationTypes, notificationBus, useNotificationStore } from '..';
 
 const router = useRouter();

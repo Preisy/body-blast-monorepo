@@ -3,19 +3,19 @@ import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem, useAdminAnthropometryStore } from 'entities/anthropometry';
 import { EProfileCard } from 'entities/user';
-import { useAdminUserStore } from 'shared/api';
-import { AppBaseEntity } from 'shared/api';
+import { useAdminUserStore, AppBaseEntity } from 'shared/api';
 import { User } from 'shared/api/user';
-import { ENUMS } from 'shared/lib/enums';
-import { useLoadingAction } from 'shared/lib/loading';
-import { fromCreatedToToday, getUTC3Date, isEqualDates } from 'shared/lib/utils';
-import { SConfirmDialog } from 'shared/ui';
-import { SBtn, SBtnToggle } from 'shared/ui/btns';
-import { SCalendar } from 'shared/ui/calendar';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SDatePagination } from 'shared/ui/date-pagination';
-import { SScaffold } from 'shared/ui/scaffold';
-import { SStructure } from 'shared/ui/structure';
+import { ENUMS, useLoadingAction, fromCreatedToToday, getUTC3Date, isEqualDates } from 'shared/lib';
+import {
+  SConfirmDialog,
+  SBtn,
+  SBtnToggle,
+  SCalendar,
+  SScaffold,
+  SStructure,
+  SDatePagination,
+  SComponentWrapper,
+} from 'shared/ui';
 
 export interface PAdminUserProfileProps {
   id: AppBaseEntity['id'];

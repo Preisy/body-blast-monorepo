@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { debounce } from 'quasar';
-import { SBtn } from 'shared/ui/btns';
-import { SComponentWrapper } from 'shared/ui/component-wrapper';
-import { SInput } from 'shared/ui/inputs';
+import { SBtn, SInput, SComponentWrapper } from 'shared/ui';
 
 export interface FSearchPanelProps {
   query: Nillable<string | number>;

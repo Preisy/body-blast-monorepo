@@ -8,9 +8,7 @@ import {
 import { useAuthLink } from 'entities/file';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
 import { AppBaseEntity } from 'shared/api';
-import { SBtn } from 'shared/ui/btns';
-import { SLoading } from 'shared/ui/loading';
-import { SVideo } from 'shared/ui/video';
+import { SBtn, SLoading, SVideo } from 'shared/ui';
 import PromptEditDialog from './PromptEditDialog.vue';
 
 export interface WPromptsProps {

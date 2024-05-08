@@ -7,7 +7,7 @@ import { FGetAuthFile } from 'features/file';
 import { EAdminPromptThumbnail, useAdminPromptStore } from 'entities/prompt';
 import { Workout, useAdminWorkoutStore } from 'entities/workout';
 import { AppBaseEntity } from 'shared/api';
-import { useLoadingAction } from 'shared/lib/loading';
+import { useLoadingAction } from 'shared/lib';
 import { SListControls, SInput, SChooseInput, SForm, SBtn, SComponentWrapper } from 'shared/ui';
 
 type Exercise = NonNullable<Workout['exercises']>[number];

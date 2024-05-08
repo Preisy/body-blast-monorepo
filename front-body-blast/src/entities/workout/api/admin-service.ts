@@ -1,7 +1,6 @@
-import { AppBaseEntity } from 'shared/api';
-import { AppPagination } from 'shared/api';
+import { AppBaseEntity, AppPagination } from 'shared/api';
 import { api } from 'shared/config';
-import { useServiceAction } from 'shared/lib/utils';
+import { useServiceAction } from 'shared/lib';
 import { AdminWorkout } from '..';
 
 export const AdminWorkoutService = {

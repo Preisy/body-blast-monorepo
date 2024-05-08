@@ -1,5 +1,5 @@
 import { MaybeRefOrGetter } from 'vue';
-import { useSingleState } from 'shared/lib/utils';
+import { useSingleState } from 'shared/lib';
 import { URLHandler, useFileStore } from '..';
 
 export const useAuthLink = (link: MaybeRefOrGetter<string> | ComputedRef<string>) => {
