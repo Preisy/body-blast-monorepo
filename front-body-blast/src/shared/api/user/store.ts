@@ -1,11 +1,24 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState } from 'shared/lib/utils';
-import { authService } from './service';
-import { TokenService } from './token';
-import { Auth, SignUp, Refresh, Logout } from './types';
+import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib/utils';
+import { Auth, Logout, Refresh, SignUp, User } from './types';
+import { TokenService, UserService } from '.';
 
-export const useAuthStore = defineStore('auth-store', () => {
+export const useUserStore = defineStore('me-store', () => {
+  const user = ref(useSingleState<User.Get.Response>({ update: true }));
+  const clear = () => (user.value = useSingleState<User.Get.Response>({ update: true }));
+  const getUser = () =>
+    useSimpleStoreAction({
+      stateWrapper: user.value,
+      serviceAction: UserService.getUser(),
+    });
+
+  const patchUser = (data: User.Patch.Dto) =>
+    useStoreAction({
+      state: user.value.updateState,
+      serviceAction: UserService.patchUser(data),
+    });
+
   const isAuth = () => !!TokenService.getAccessToken();
   const signUpRequest = ref<Partial<SignUp.Dto>>({});
 
@@ -13,7 +26,7 @@ export const useAuthStore = defineStore('auth-store', () => {
   const logout = () =>
     useSimpleStoreAction({
       stateWrapper: logoutState.value,
-      serviceAction: authService.logout(),
+      serviceAction: UserService.logout(),
       onSuccess: () => TokenService.clearTokens(),
     });
 
@@ -21,7 +34,7 @@ export const useAuthStore = defineStore('auth-store', () => {
   const login = (data: Auth.Dto) =>
     useSimpleStoreAction({
       stateWrapper: loginState.value,
-      serviceAction: authService.login(data),
+      serviceAction: UserService.login(data),
       onSuccess: (res) => TokenService.setTokens(res),
     });
 
@@ -29,14 +42,14 @@ export const useAuthStore = defineStore('auth-store', () => {
   const signUp = (data?: SignUp.Dto) =>
     useSimpleStoreAction({
       stateWrapper: signUpState.value,
-      serviceAction: authService.signUp(data ?? signUpRequest.value),
+      serviceAction: UserService.signUp(data ?? signUpRequest.value),
     });
 
   const refreshState = ref(useSingleState<Refresh.Response>());
   const refresh = (data: Refresh.Dto) =>
     useSimpleStoreAction({
       stateWrapper: refreshState.value,
-      serviceAction: authService.refresh(data),
+      serviceAction: UserService.refresh(data),
     });
 
   const applyCredentials = (data: SignUp.Credentials.Dto) => assign(signUpRequest.value, data);
@@ -46,6 +59,10 @@ export const useAuthStore = defineStore('auth-store', () => {
   const applyDiseases = (data: SignUp.Diseases.Dto) => assign(signUpRequest.value, data);
 
   return {
+    user,
+    getUser,
+    clear,
+    patchUser,
     isAuth,
     login,
     logout,
@@ -53,12 +70,12 @@ export const useAuthStore = defineStore('auth-store', () => {
     refresh,
     refreshState,
     signUp,
+    signUpRequest,
     signUpState,
     applyCredentials,
     applyBodyParams,
     applyDiseases,
     applyForbiddens,
     applyMotivations,
-    signUpRequest,
   };
 });

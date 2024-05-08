@@ -9,7 +9,7 @@ import {
   EUserForbiddensFields,
   EUserMotivationsFields,
 } from 'entities/user';
-import { useAuthStore, TokenService, SignUp } from 'shared/api/auth';
+import { useUserStore, SignUp } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
 import { SForm, SFormProps } from 'shared/ui/form';
@@ -17,7 +17,7 @@ import { SSplide } from 'shared/ui/splide';
 import { SSplideSlide } from 'shared/ui/splide-slide';
 import { SStructure } from 'shared/ui/structure';
 
-const authStore = useAuthStore();
+const userStore = useUserStore();
 const { t } = useI18n();
 const router = useRouter();
 
@@ -40,7 +40,7 @@ const slides: RegisterSlides = [
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Credentials.validation(t)),
       onSubmit: (values: z.infer<ReturnType<typeof SignUp.Credentials.validation>>) => {
-        authStore.applyCredentials({
+        userStore.applyCredentials({
           email: values.email,
           firstName: values.firstname,
           lastName: values.lastname,
@@ -55,7 +55,7 @@ const slides: RegisterSlides = [
     formProps: {
       fieldSchema: toTypedSchema(SignUp.BodyParams.validation()),
       onSubmit: (values: z.infer<ReturnType<typeof SignUp.BodyParams.validation>>) => {
-        authStore.applyBodyParams({
+        userStore.applyBodyParams({
           age: values.age,
           weightInYouth: values.weightInYouth,
           height: values.height,
@@ -70,7 +70,7 @@ const slides: RegisterSlides = [
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Forbiddens.validation()),
       onSubmit: (values) => {
-        authStore.applyForbiddens(values);
+        userStore.applyForbiddens(values);
         moveNext();
       },
     },
@@ -80,7 +80,7 @@ const slides: RegisterSlides = [
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Diseases.validation()),
       onSubmit: (values) => {
-        authStore.applyDiseases(values);
+        userStore.applyDiseases(values);
         moveNext();
       },
     },
@@ -90,21 +90,20 @@ const slides: RegisterSlides = [
     formProps: {
       fieldSchema: toTypedSchema(SignUp.Motivations.validation()),
       onSubmit: async (data) => {
-        authStore.applyMotivations(data);
+        userStore.applyMotivations(data);
         submitBtnsExceptLast.value.forEach((btn) => btn.click());
-        if (!authStore.signUpRequest.email || !authStore.signUpRequest.password) return;
+        if (!userStore.signUpRequest.email || !userStore.signUpRequest.password) return;
 
-        const signUpResult = await authStore.signUp();
+        const signUpResult = await userStore.signUp();
         if (!signUpResult.data) {
           console.error(signUpResult.error);
           return;
         }
-        const tokenResponse = await authStore.login({
-          email: authStore.signUpRequest.email,
-          password: authStore.signUpRequest.password,
+        const tokenResponse = await userStore.login({
+          email: userStore.signUpRequest.email,
+          password: userStore.signUpRequest.password,
         });
-        if (authStore.signUpState.state.isSuccess() && tokenResponse.data) {
-          TokenService.setTokens(tokenResponse.data);
+        if (userStore.signUpState.state.isSuccess() && tokenResponse.data) {
           router.replace({ name: ENUMS.ROUTES_NAMES.HOME });
         }
       },
@@ -128,7 +127,7 @@ const submitBtnsExceptLast = computed(() => submitBtns.value.slice(0, -1));
               ref="submitBtns"
               icon="done"
               type="submit"
-              :loading="index === slides.length - 1 ? authStore.signUpState.state.isLoading() : false"
+              :loading="index === slides.length - 1 ? userStore.signUpState.state.isLoading() : false"
               @click="(event) => submitForms[index].handleSubmit(slides[index].formProps.onSubmit!)(event)"
               mt-0.5rem
               self-end

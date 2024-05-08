@@ -1,6 +1,6 @@
-import { AppBaseEntity } from 'shared/api/base';
-import { Nutrition } from 'shared/api/nutrition';
-import { AppPagination } from 'shared/api/pagination';
+import { AppBaseEntity } from 'shared/api';
+import { Nutrition } from 'shared/api';
+import { AppPagination } from 'shared/api';
 
 export namespace AdminNutrition {
   export namespace Get {

@@ -1,10 +1,9 @@
 import { RouteLocationNormalized } from 'vue-router';
-import { useAuthStore } from 'shared/api/auth';
-import { Me } from 'shared/api/me';
+import { User, useUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 
-export function checkAdminPermissions(to: RouteLocationNormalized, me: Me) {
-  const { isAuth } = useAuthStore();
+export function checkAdminPermissions(to: RouteLocationNormalized, me: User) {
+  const { isAuth } = useUserStore();
 
   //if requires login and no auth - return to login page
   if (to.meta.auth && !isAuth()) {
@@ -29,7 +28,7 @@ export function checkAdminPermissions(to: RouteLocationNormalized, me: Me) {
   return;
 }
 
-export function checkWatchVideoPermissions(to: RouteLocationNormalized, me: Me) {
+export function checkWatchVideoPermissions(to: RouteLocationNormalized, me: User) {
   // canWatchVideo check
   if (to.meta.canWatchVideo && !me.canWatchVideo) {
     // redirect to home, if user can't watch video, but tries to access

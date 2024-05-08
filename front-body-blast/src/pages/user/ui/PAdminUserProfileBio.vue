@@ -8,9 +8,7 @@ import {
   EUserForbiddensFields,
   EUserMotivationsFields,
 } from 'entities/user';
-import { useAdminUserProfileStore } from 'shared/api/admin';
-import { SignUp } from 'shared/api/auth';
-import { AppBaseEntity } from 'shared/api/base';
+import { SignUp, AppBaseEntity, useAdminUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
@@ -23,7 +21,7 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
-const { getUserById, user } = useAdminUserProfileStore();
+const { getUserById, user } = useAdminUserStore();
 const userData = computed(() => user.data?.data);
 if (!userData.value)
   useLoadingAction(user, async () => {

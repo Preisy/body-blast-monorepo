@@ -1,6 +1,6 @@
-import { AppBaseEntity } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api';
 import { Food } from 'shared/api/food';
-import { AppPagination } from 'shared/api/pagination';
+import { AppPagination } from 'shared/api';
 
 export namespace AdminFood {
   export namespace Get {

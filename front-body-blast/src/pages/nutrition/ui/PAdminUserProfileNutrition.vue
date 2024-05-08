@@ -2,10 +2,10 @@
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
-import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api/admin';
-import { AppBaseEntity } from 'shared/api/base';
+import { useAdminFoodStore, useAdminNutritionStore } from 'shared/api';
+import { AppBaseEntity } from 'shared/api';
 import { Food } from 'shared/api/food';
-import { Nutrition } from 'shared/api/nutrition';
+import { Nutrition } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
 import { SCenteredNav, SCenteredNavProps } from 'shared/ui/centered-nav';

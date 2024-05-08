@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { WCreateWorkout, WEditWorkout } from 'widgets/workout';
 import { Workout, useAdminWorkoutStore } from 'entities/workout';
-import { AppBaseEntity } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/calendar';

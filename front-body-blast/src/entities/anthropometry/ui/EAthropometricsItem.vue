@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
-import { AppBaseEntity } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api';
 import { SForm } from 'shared/ui/form';
 import { SInput } from 'shared/ui/inputs';
 import { Anthropometry, useAnthropometryStore } from '..';

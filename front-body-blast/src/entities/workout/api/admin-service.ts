@@ -1,5 +1,5 @@
-import { AppBaseEntity } from 'shared/api/base';
-import { AppPagination } from 'shared/api/pagination';
+import { AppBaseEntity } from 'shared/api';
+import { AppPagination } from 'shared/api';
 import { api } from 'shared/config';
 import { useServiceAction } from 'shared/lib/utils';
 import { AdminWorkout } from '..';

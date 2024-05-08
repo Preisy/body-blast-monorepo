@@ -8,8 +8,7 @@ import {
   EUserDiseasesFields,
   EUserMotivationsFields,
 } from 'entities/user';
-import { SignUp } from 'shared/api/auth';
-import { Me, useMeStore } from 'shared/api/me';
+import { User, useUserStore, SignUp } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SBtn } from 'shared/ui/btns';
@@ -17,9 +16,9 @@ import { SForm, SFormProps } from 'shared/ui/form';
 import { SProxyScroll } from 'shared/ui/proxy-scroll';
 import { SStructure } from 'shared/ui/structure';
 
-const { me, getMe, patchMe } = useMeStore();
-const data = computed(() => me.data?.data);
-if (!data.value) useLoadingAction(me, () => getMe());
+const { user, getUser, patchUser } = useUserStore();
+const data = computed(() => user.data?.data);
+if (!data.value) useLoadingAction(user, () => getUser());
 const router = useRouter();
 
 const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; values: Record<string, unknown> }> = [
@@ -46,14 +45,14 @@ const forms: Array<{ is: Component; form: Pick<SFormProps, 'fieldSchema'>; value
 ];
 
 const formsRef = ref<Array<InstanceType<typeof SForm>>>();
-const updatedUserData = ref<Me.Patch.Dto>({});
+const updatedUserData = ref<User.Patch.Dto>({});
 
-const patchUser = async () => {
+const patch = async () => {
   if (!formsRef.value) return;
   for (const form of formsRef.value) {
     await form.handleSubmit((formValues) => assign(updatedUserData.value, formValues))();
   }
-  await patchMe(updatedUserData.value);
+  await patchUser(updatedUserData.value);
   router.push({ name: ENUMS.ROUTES_NAMES.PROFILE });
 };
 </script>
@@ -63,13 +62,13 @@ const patchUser = async () => {
     <SProxyScroll>
       <SBtn :icon="symRoundedClose" ml-0.5rem :to="{ name: ENUMS.ROUTES_NAMES.PROFILE }" />
       <div v-for="(form, index) in forms" :key="form.is.name" mt-1rem>
-        <SForm ref="formsRef" :field-schema="form.form.fieldSchema" :init-values="form.values" @submit="patchUser">
+        <SForm ref="formsRef" :field-schema="form.form.fieldSchema" :init-values="form.values" @submit="patch">
           <component :is="form.is" />
           <template #submit-btn>
             <SBtn
               v-if="index === forms.length - 1"
               :icon="symRoundedDone"
-              :loading="me.updateState.isLoading()"
+              :loading="user.updateState.isLoading()"
               type="submit"
               mt-0.5rem
               self-end

@@ -1,36 +1,35 @@
 import { defineStore } from 'pinia';
-import { AppBaseEntity } from 'shared/api/base';
-import { AppPagination } from 'shared/api/pagination';
+import { AppBaseEntity } from 'shared/api';
+import { AppPagination } from 'shared/api';
 import { useSingleState, useSimpleStoreAction, useStoreAction, Notify } from 'shared/lib/utils';
-import { adminProfileService } from './service';
-import { AdminUser } from './types';
+import { AdminUser, adminUserService } from '.';
 
-export const useAdminUserProfileStore = defineStore('admin-user-profile-store', () => {
+export const useAdminUserStore = defineStore('admin-user-profile-store', () => {
   const users = ref(useSingleState<AdminUser.Get.Response>({ delete: true }));
   const getUsers = (data?: AppPagination.BaseDto) =>
     useSimpleStoreAction({
       stateWrapper: users.value,
-      serviceAction: adminProfileService.getUsers(data),
+      serviceAction: adminUserService.getUsers(data),
     });
 
   const user = ref(useSingleState<AdminUser.GetById.Response>({ update: true }));
   const getUserById = (data: AppBaseEntity.Dto) =>
     useSimpleStoreAction({
       stateWrapper: user.value,
-      serviceAction: adminProfileService.getUserById(data),
+      serviceAction: adminUserService.getUserById(data),
     });
 
   const patchUserProfile = (data: AdminUser.Patch.Dto) =>
     useStoreAction({
       state: user.value.updateState,
-      serviceAction: adminProfileService.patchUser(data),
+      serviceAction: adminUserService.patchUser(data),
       onSuccess: (res) => (user.value.data = res),
     });
 
   const deleteUser = (data: AdminUser.Delete.Dto) =>
     useStoreAction({
       state: users.value.deleteState,
-      serviceAction: adminProfileService.deleteUser(data),
+      serviceAction: adminUserService.deleteUser(data),
       onSuccess: (res) => {
         if (!res.status) return;
         const listData = users.value.data?.data;
@@ -46,7 +45,7 @@ export const useAdminUserProfileStore = defineStore('admin-user-profile-store', 
   const getUserSteps = (data: AdminUser.GetSteps.Dto) =>
     useSimpleStoreAction({
       stateWrapper: userSteps.value,
-      serviceAction: adminProfileService.getUserSteps(data),
+      serviceAction: adminUserService.getUserSteps(data),
     });
 
   return {

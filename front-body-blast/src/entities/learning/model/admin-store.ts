@@ -35,6 +35,7 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
     });
 
   const postVideo = async (data: { name: BonusVideo['name']; video: File }) => {
+    //TODO: вынести в фичу
     videoList.value.createState.loading();
     const { postFile } = useAdminFileStore();
     const response = await postFile({ file: data.video });

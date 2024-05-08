@@ -3,8 +3,8 @@ import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem, useAdminAnthropometryStore } from 'entities/anthropometry';
 import { EProfileCard } from 'entities/user';
-import { useAdminUserProfileStore } from 'shared/api/admin';
-import { AppBaseEntity } from 'shared/api/base';
+import { useAdminUserStore } from 'shared/api';
+import { AppBaseEntity } from 'shared/api';
 import { User } from 'shared/api/user';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
@@ -26,7 +26,7 @@ const today = getUTC3Date();
 const props = defineProps<PAdminUserProfileProps>();
 const { t } = useI18n();
 
-const { user, getUserById, patchUserProfile } = useAdminUserProfileStore();
+const { user, getUserById, patchUserProfile } = useAdminUserStore();
 const router = useRouter();
 const userData = computed(() => user.data?.data);
 
@@ -72,7 +72,7 @@ useLoadingAction(anthropometryList, () =>
 );
 const slides = computed(() => anthropometryList.data?.data);
 
-const { deleteUser, users } = useAdminUserProfileStore();
+const { deleteUser, users } = useAdminUserStore();
 const isConfirmDialogShown = ref<boolean>();
 const userIdToDelete = ref<User['id']>();
 const onDeletionApply = () => {

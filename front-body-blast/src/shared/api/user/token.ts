@@ -10,6 +10,7 @@ interface TokenPair {
   refreshToken: string;
 }
 
+//TODO: maybe move into store.ts
 export const TokenService = {
   getAccessToken: () => Cookies.get(Keys.access),
   getRefreshToken: () => Cookies.get(Keys.refresh),

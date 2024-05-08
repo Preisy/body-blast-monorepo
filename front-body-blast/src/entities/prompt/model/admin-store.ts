@@ -19,6 +19,7 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   const postPrompts = async (data: Array<Prompt.Post.Dto>) => {
     prompts.value.createState.loading();
     for (const prompt of data) {
+      //TODO: тоже вынести в фичу
       const [photoLink, videoLink] = await Promise.all([
         fileStore.postFile({ file: prompt.photo }),
         fileStore.postFile({ file: prompt.video }),

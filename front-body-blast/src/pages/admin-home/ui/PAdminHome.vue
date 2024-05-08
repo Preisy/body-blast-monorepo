@@ -1,20 +1,12 @@
 <script setup lang="ts">
 import { EProfileCard } from 'entities/user';
-import { useAdminUserProfileStore } from 'shared/api/admin';
-import { useAuthStore } from 'shared/api/auth';
-import { useMeStore } from 'shared/api/me';
-import { User } from 'shared/api/user';
-import { ENUMS } from 'shared/lib/enums';
-import { useLoadingAction } from 'shared/lib/loading';
-import { SSearchInput, SConfirmDialog } from 'shared/ui';
-import { SBtn } from 'shared/ui/btns';
-import { SNoResultsScreen } from 'shared/ui/no-results-screen';
-import { SScaffold } from 'shared/ui/scaffold';
-import { SStructure } from 'shared/ui/structure';
+import { useUserStore, useAdminUserStore, useUserStore, User } from 'shared/api';
+import { ENUMS, useLoadingAction } from 'shared/lib';
+import { SSearchInput, SConfirmDialog, SBtn, SNoResultsScreen, SScaffold, SStructure } from 'shared/ui';
 
 const router = useRouter();
 
-const { users, getUsers, user: storeUser, deleteUser } = useAdminUserProfileStore();
+const { users, getUsers, user: storeUser, deleteUser } = useAdminUserStore();
 useLoadingAction(users, getUsers);
 
 const nameFilter = ref<string>('');
@@ -28,13 +20,13 @@ const displayCards = computed(
     }),
 );
 
-const { me, getMe, clear } = useMeStore();
-const meData = computed(() => me.data?.data);
-if (!meData.value && !me.state.isLoading()) useLoadingAction(me, getMe);
-const myName = computed(() => meData.value?.firstName + ' ' + meData.value?.lastName);
+const { user, getUser, clear } = useUserStore();
+const userData = computed(() => user.data?.data);
+if (!userData.value && !user.state.isLoading()) useLoadingAction(user, getUser);
+const myName = computed(() => userData.value?.firstName + ' ' + userData.value?.lastName);
 
 const logout = () => {
-  useAuthStore().logout();
+  useUserStore().logout();
   router.push({ name: ENUMS.ROUTES_NAMES.LOGIN });
   clear();
 };
@@ -81,12 +73,15 @@ const onUserDelete = (user: User) => {
         <SSearchInput v-model:query="nameFilter" />
 
         <div v-if="users.state.isSuccess() || displayCards?.length">
-          <div v-for="user in displayCards" :key="user.id" @click="onUserProfileClick(user)" cursor-pointer>
-            <EProfileCard :header="user.firstName + ' ' + user.lastName" :describe="$t('home.profile.header.student')">
+          <div v-for="userCard in displayCards" :key="userCard.id" @click="onUserProfileClick(userCard)" cursor-pointer>
+            <EProfileCard
+              :header="userCard.firstName + ' ' + userCard.lastName"
+              :describe="$t('home.profile.header.student')"
+            >
               <template #action>
                 <div flex flex-row justify-between>
-                  <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(user)" />
-                  <SBtn icon="sym_r_delete" @click.stop="onUserDelete(user)" />
+                  <SBtn icon="sym_r_help" bg="bg!" @click="onUserProfileClick(userCard)" />
+                  <SBtn icon="sym_r_delete" @click.stop="onUserDelete(userCard)" />
                 </div>
               </template>
             </EProfileCard>

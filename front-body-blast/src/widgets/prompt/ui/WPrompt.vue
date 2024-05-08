@@ -7,7 +7,7 @@ import {
 } from '@quasar/extras/material-symbols-rounded';
 import { useAuthLink } from 'entities/file';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
-import { AppBaseEntity } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api';
 import { SBtn } from 'shared/ui/btns';
 import { SLoading } from 'shared/ui/loading';
 import { SVideo } from 'shared/ui/video';

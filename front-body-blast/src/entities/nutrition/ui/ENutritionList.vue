@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ENutritionItem } from 'entities/nutrition';
-import { Nutrition } from 'shared/api/nutrition';
+import { Nutrition } from 'shared/api';
 import { SComponentWrapper } from 'shared/ui/component-wrapper';
 import { SNoResultsScreen } from 'shared/ui/no-results-screen';
 import { SSplide } from 'shared/ui/splide';

@@ -1,9 +1,9 @@
-import { AppBaseEntity } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api';
 import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib/utils';
-import { AdminUser } from './types';
+import { AdminUser } from '.';
 
-export const adminProfileService = {
+export const adminUserService = {
   getUsers: useServiceAction((data?: AdminUser.Get.Dto) =>
     api.get<AdminUser.Get.Response>(`/admin/users`, { params: data }),
   ),

@@ -1,6 +1,6 @@
 import { Workout as UserWorkout } from 'entities/workout';
-import { AppBaseEntity } from 'shared/api/base';
-import { AppPagination } from 'shared/api/pagination';
+import { AppBaseEntity } from 'shared/api';
+import { AppPagination } from 'shared/api';
 import { User } from 'shared/api/user';
 
 export namespace AdminWorkout {

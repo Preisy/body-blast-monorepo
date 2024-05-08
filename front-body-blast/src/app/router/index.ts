@@ -1,6 +1,6 @@
 import { route } from 'quasar/wrappers';
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
-import { useMeStore } from 'shared/api/me';
+import { useUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoading } from 'shared/lib/loading';
 import { checkAdminPermissions, checkWatchVideoPermissions } from './permissions';
@@ -35,23 +35,23 @@ export default route(function (/* { store, ssrContext } */) {
 
     if (to.name === ENUMS.ROUTES_NAMES.LOGIN || to.name === ENUMS.ROUTES_NAMES.REGISTER) return;
 
-    const { me, getMe } = useMeStore();
-    if (!me.data?.data) {
-      useLoading(me);
-      await getMe();
+    const { user, getUser } = useUserStore();
+    if (!user.data?.data) {
+      useLoading(user);
+      await getUser();
     }
 
-    if (me.state.isError() || !me.data) {
+    if (user.state.isError() || !user.data) {
       // if can't get data about self, then need to relogin
       return {
         path: ENUMS.ROUTES_NAMES.LOGIN,
       };
     }
 
-    const adminCheckResult = checkAdminPermissions(to, me.data.data);
+    const adminCheckResult = checkAdminPermissions(to, user.data.data);
     if (adminCheckResult) return adminCheckResult;
 
-    const videoCheckResult = checkWatchVideoPermissions(to, me.data.data);
+    const videoCheckResult = checkWatchVideoPermissions(to, user.data.data);
     if (videoCheckResult) return videoCheckResult;
 
     return;

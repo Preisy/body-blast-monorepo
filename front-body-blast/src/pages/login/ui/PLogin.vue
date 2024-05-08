@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { EUserLoginFields } from 'entities/user';
-import { Auth, useAuthStore } from 'shared/api/auth';
+import { Auth, useUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { SBtn } from 'shared/ui/btns';
 import { SForm } from 'shared/ui/form';
@@ -9,7 +9,7 @@ import { SStructure } from 'shared/ui/structure';
 
 const router = useRouter();
 const schema = toTypedSchema(Auth.validation());
-const authStore = useAuthStore();
+const authStore = useUserStore();
 const { loginState } = authStore;
 const login = async (values: Auth.Dto) => {
   await authStore.login(values);

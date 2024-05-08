@@ -3,19 +3,19 @@ import { useI18n } from 'vue-i18n';
 import { WUserAthropometrics } from 'widgets/user';
 import { FUserLogoutBtn } from 'features/user';
 import { EProfileHeader } from 'entities/user';
-import { useMeStore } from 'shared/api/me';
+import { useUserStore } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SStructure } from 'shared/ui/structure';
 
 const { t } = useI18n();
 
-const { me, getMe } = useMeStore();
-const meData = computed(() => me.data?.data);
-if (!meData.value && !me.state.isLoading()) useLoadingAction(me, getMe);
+const { user, getUser } = useUserStore();
+const userData = computed(() => user.data?.data);
+if (!userData.value && !user.state.isLoading()) useLoadingAction(user, getUser);
 
 const userName = computed(() =>
-  meData.value?.firstName && meData.value?.lastName
-    ? `${meData.value.firstName} ${meData.value.lastName}`
+  userData.value?.firstName && userData.value?.lastName
+    ? `${userData.value.firstName} ${userData.value.lastName}`
     : t('global.loading'),
 );
 </script>

@@ -2,7 +2,7 @@
 import { QTabPanel } from 'quasar';
 import { ENutritionList, ENutritionItem } from 'entities/nutrition';
 import { useFoodStore } from 'shared/api/food';
-import { useNutritionStore, Nutrition } from 'shared/api/nutrition';
+import { useNutritionStore, Nutrition } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { tod } from 'shared/lib/utils';
 import { SCenteredNav } from 'shared/ui/centered-nav';

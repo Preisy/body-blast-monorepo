@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { symRoundedClose, symRoundedError } from '@quasar/extras/material-symbols-rounded';
-import { useMeStore } from 'shared/api/me';
+import { useUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { NotificationTypes, notificationBus, useNotificationStore } from '..';
 
@@ -16,7 +16,7 @@ const page = computed(() => {
   return map[currentNotificationType.value];
 });
 
-const { me } = useMeStore();
+const { user } = useUserStore();
 const { getNotifications, notificationsQueue } = useNotificationStore();
 
 const showAllNotifications = () => {
@@ -46,7 +46,7 @@ const redirect = () => {
 };
 
 onMounted(async () => {
-  if (me.data?.data) {
+  if (user.data?.data) {
     await getNotifications();
     if (notificationsQueue.state.isSuccess()) showAllNotifications();
   }

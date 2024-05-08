@@ -1,6 +1,6 @@
-import { AppBaseEntity } from 'shared/api/base';
-import { AppPagination } from 'shared/api/pagination';
-import { User } from 'shared/api/user';
+import { AppBaseEntity } from 'shared/api';
+import { AppPagination } from 'shared/api';
+import { User } from '.';
 
 export namespace AdminUser {
   export namespace GetById {

@@ -7,16 +7,16 @@ import {
   symRoundedRestaurant,
 } from '@quasar/extras/material-symbols-rounded';
 import { useI18n } from 'vue-i18n';
-import { useMeStore } from 'shared/api/me';
+import { useUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib/enums';
 import { useLoadingAction } from 'shared/lib/loading';
 import { SFooterNavLink, SFooterNavLinkProps } from 'shared/ui/footer-nav-link';
 
 const { t } = useI18n();
-const meStore = useMeStore();
-useLoadingAction(meStore.me, meStore.getMe);
+const userStore = useUserStore();
+useLoadingAction(userStore.user, userStore.getUser);
 
-const meData = computed(() => meStore.me.data?.data);
+const userData = computed(() => userStore.user.data?.data);
 const links = computed<SFooterNavLinkProps[]>(() => {
   const base = [
     {
@@ -45,7 +45,7 @@ const links = computed<SFooterNavLinkProps[]>(() => {
       name: ENUMS.ROUTES_NAMES.LEARNING,
     },
   ];
-  if (!meData.value?.canWatchVideo) base.pop();
+  if (!userData.value?.canWatchVideo) base.pop();
   return base;
 });
 </script>

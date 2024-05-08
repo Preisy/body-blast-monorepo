@@ -1,10 +1,10 @@
 import moment from 'moment';
-import { useMeStore } from 'shared/api/me';
+import { useUserStore } from 'shared/api';
 
 export function gtCreation(date: string) {
-  const { me } = useMeStore();
-  return me.data
-    ? date.split('/').join('-') > moment(me.data.data.createdAt).hour(0).minute(0).second(0).toISOString()
+  const { user } = useUserStore();
+  return user.data
+    ? date.split('/').join('-') > moment(user.data.data.createdAt).hour(0).minute(0).second(0).toISOString()
     : false;
 }
 export function lteToday(date: string) {

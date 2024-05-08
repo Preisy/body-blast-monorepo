@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AdminUser } from 'shared/api/admin';
+import { AdminUser } from 'shared/api';
 import { SReadonlyField } from 'shared/ui/inputs';
 import { SNoResultsScreen } from 'shared/ui/no-results-screen';
 

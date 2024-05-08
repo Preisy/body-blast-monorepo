@@ -2,8 +2,8 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
-import { useAdminFoodStore } from 'shared/api/admin';
-import { AppBaseEntity } from 'shared/api/base';
+import { useAdminFoodStore } from 'shared/api';
+import { AppBaseEntity } from 'shared/api';
 import { Food } from 'shared/api/food';
 import { SConfirmDialog } from 'shared/ui';
 import { SListControls } from 'shared/ui/btns';

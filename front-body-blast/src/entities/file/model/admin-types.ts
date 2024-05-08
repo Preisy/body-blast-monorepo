@@ -1,5 +1,5 @@
-import { AppBaseEntity } from 'shared/api/base';
-import { AppPagination } from 'shared/api/pagination';
+import { AppBaseEntity } from 'shared/api';
+import { AppPagination } from 'shared/api';
 
 export interface FileEntity extends AppBaseEntity {
   fileName: string;

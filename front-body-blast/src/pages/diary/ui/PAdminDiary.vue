@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import moment, { Moment } from 'moment';
 import { ESelfControlList, EStepsList, Diary, useAdminDiaryStore } from 'entities/diary';
-import { useAdminUserProfileStore } from 'shared/api/admin';
-import { AppBaseEntity } from 'shared/api/base';
+import { useAdminUserStore } from 'shared/api';
+import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { toWeekRange } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/calendar';
@@ -13,7 +13,7 @@ export interface PAdminDiaryProps {
   id: AppBaseEntity['id'];
 }
 const props = defineProps<PAdminDiaryProps>();
-const { getUserSteps, userSteps } = useAdminUserProfileStore();
+const { getUserSteps, userSteps } = useAdminUserStore();
 const { getUserDiaries, userDiaries } = useAdminDiaryStore();
 
 // 2024-02-01T23:59:59.000Z

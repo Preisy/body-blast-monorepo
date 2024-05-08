@@ -7,7 +7,7 @@ import {
   Anthropometry,
   useAnthropometryStore,
 } from 'entities/anthropometry';
-import { AppBaseEntity } from 'shared/api/base';
+import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib/utils';
 import { SCalendar } from 'shared/ui/calendar';

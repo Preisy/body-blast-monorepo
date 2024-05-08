@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { WDiary } from 'widgets/diary';
 import { EDiaryHeader, useDiaryStore } from 'entities/diary';
-import { useMeStore } from 'shared/api/me';
+import { useUserStore } from 'shared/api';
 import { useLoadingAction } from 'shared/lib/loading';
 import { getUTC3Date, toWeekRange } from 'shared/lib/utils';
 
@@ -18,8 +18,8 @@ useLoadingAction(diaryList, () =>
   }),
 );
 
-const { me } = useMeStore();
-const meData = computed(() => me.data?.data);
+const { user } = useUserStore();
+const userData = computed(() => user.data?.data);
 const date = ref(moment().format('YYYY-MM-DD'));
 
 const lastWeek = computed(
@@ -45,8 +45,8 @@ const week = computed(() => {
 <template>
   <div h-full>
     <EDiaryHeader
-      v-if="meData"
-      :steps-goal="meData.stepsGoal"
+      v-if="userData"
+      :steps-goal="userData.stepsGoal"
       :steps-sum="stepsSum"
       :week="week ?? $t('global.error')"
     />
