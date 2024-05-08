@@ -2,6 +2,7 @@
 import { FGetAuthFile } from 'features/file';
 import { useBonusVideoStore, ELearningVideo } from 'entities/learning';
 import { useLoadingAction } from 'shared/lib/loading';
+import { SNoResultsScreen } from 'shared/ui';
 
 const { getVideos, videoList } = useBonusVideoStore();
 const videos = computed(() => videoList.data?.data || []);
@@ -15,5 +16,6 @@ useLoadingAction(videoList, getVideos);
         <ELearningVideo :video="video" :link="link" />
       </template>
     </FGetAuthFile>
+    <SNoResultsScreen v-if="!videos.length" py-1.5rem />
   </div>
 </template>

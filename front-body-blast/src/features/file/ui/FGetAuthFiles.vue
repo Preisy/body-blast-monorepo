@@ -19,6 +19,8 @@ onUnmounted(() => links.forEach((link) => link.data?.destructor()));
 <template>
   <div>
     <slot v-if="!isLoading" :links="outputLinks" :loading="isLoading" />
-    <SLoading v-else-if="showLoading" />
+    <div v-else-if="showLoading" p-1.5rem>
+      <SLoading />
+    </div>
   </div>
 </template>

@@ -5,8 +5,8 @@ import { SBtn } from 'shared/ui/btns';
 import { SVideo } from 'shared/ui/video';
 
 defineProps<{
-  photoLink: string;
-  videoLink: string;
+  photoLink?: string;
+  videoLink?: string;
   loading?: boolean;
 }>();
 
@@ -17,7 +17,7 @@ const isModalShown = ref(false);
 <template>
   <div relative w-full>
     <div relative>
-      <div v-if="!loading">
+      <div v-if="!loading && videoLink && photoLink">
         <SVideo
           ref="videoControl"
           :link-url="videoLink"

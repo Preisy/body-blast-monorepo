@@ -8,8 +8,8 @@ import WorkoutVideo from './WorkoutVideo.vue';
 
 export interface EWorkoutExerciseCardProps {
   exercise: NonNullable<Workout['exercises']>[number];
-  videoLink: string;
-  photoLink: string;
+  videoLink?: string;
+  photoLink?: string;
   loading?: boolean;
 }
 const props = defineProps<EWorkoutExerciseCardProps>();

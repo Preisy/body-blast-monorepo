@@ -17,6 +17,8 @@ onUnmounted(() => link.value.data?.destructor());
 <template>
   <div>
     <slot v-if="link.data" :link="link.data.link" :loading="link.state.isLoading()" />
-    <SLoading v-else-if="props.showLoading" />
+    <div v-else-if="props.showLoading" p-1.5rem>
+      <SLoading />
+    </div>
   </div>
 </template>

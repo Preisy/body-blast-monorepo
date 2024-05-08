@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <div w-full p-6>
+  <div w-full p-1.5rem>
     <h2 mb-4>{{ video.name }}</h2>
     <div>
       <SVideo :link-url="link" />
