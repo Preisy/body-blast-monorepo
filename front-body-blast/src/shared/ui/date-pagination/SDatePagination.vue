@@ -50,7 +50,7 @@ const handleNewPart = () => {
     start.value.format('YYYY-MM-DD'),
     start.value
       .clone()
-      .add(2 * props.halfRange + 1, 'd')
+      .add(2 * (props.halfRange + 1), 'd')
       .format('YYYY-MM-DD'),
   );
 };
