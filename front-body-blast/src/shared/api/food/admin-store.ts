@@ -1,8 +1,7 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
-import { AdminFoodService } from './service';
-import { AdminFood } from './types';
+import { AdminFood, AdminFoodService } from '.';
 
 export const useAdminFoodStore = defineStore('admin-food-store', () => {
   const foodList = ref(useSingleState<AdminFood.Get.Response>({ update: true, delete: true, create: true }));

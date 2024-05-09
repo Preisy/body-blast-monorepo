@@ -1,4 +1,3 @@
-export * from './admin';
 export * from './base';
 export * from './food';
 export * from './nutrition';
