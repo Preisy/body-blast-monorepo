@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FGetAuthFile } from 'features/file';
 import { useBonusVideoStore, ELearningVideo } from 'entities/learning';
 import { useLoadingAction } from 'shared/lib';
 import { SNoResultsScreen } from 'shared/ui';
@@ -11,11 +10,7 @@ useLoadingAction(videoList, getVideos);
 
 <template>
   <div>
-    <FGetAuthFile v-for="video in videos" :key="video.id" :url="video.linkUrl">
-      <template #default="{ link }">
-        <ELearningVideo :video="video" :link="link" />
-      </template>
-    </FGetAuthFile>
+    <ELearningVideo v-for="video in videos" :key="video.id" :video="video" />
     <SNoResultsScreen v-if="!videos.length" py-1.5rem />
   </div>
 </template>

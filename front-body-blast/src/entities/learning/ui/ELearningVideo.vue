@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { SVideo } from 'shared/ui';
+//TODO: fix, when backend refactored
+// eslint-disable-next-line boundaries/element-types
+import { useAuthLink } from 'entities/file';
+import { SLoading } from 'shared/ui/loading';
+import { SVideo } from 'shared/ui/video';
 import { BonusVideo } from '..';
 
-defineProps<{
+const props = defineProps<{
   video: BonusVideo;
-  link: string;
 }>();
+const { state: link } = useAuthLink(props.video.linkUrl);
 </script>
 
 <template>
-  <div w-full p-1.5rem>
+  <div w-full p-6>
     <h2 mb-4>{{ video.name }}</h2>
     <div>
-      <SVideo :link-url="link" />
+      <SVideo v-if="link.data" :link-url="link.data.link" />
+      <SLoading v-else />
     </div>
   </div>
 </template>

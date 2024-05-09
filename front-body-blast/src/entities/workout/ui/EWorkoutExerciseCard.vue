@@ -7,9 +7,8 @@ import WorkoutVideo from './WorkoutVideo.vue';
 
 export interface EWorkoutExerciseCardProps {
   exercise: NonNullable<Workout['exercises']>[number];
-  videoLink?: string;
-  photoLink?: string;
-  loading?: boolean;
+  videoLink: string;
+  photoLink: string;
 }
 const props = defineProps<EWorkoutExerciseCardProps>();
 const { t } = useI18n();
@@ -30,7 +29,7 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
         <h1>{{ exercise.name }}</h1>
         <p>{{ exercise.trainerComment }}</p>
       </div>
-      <WorkoutVideo :video-link="videoLink" :photo-link="photoLink" :loading="loading" />
+      <WorkoutVideo :video-link="videoLink" :photo-link="photoLink" />
       <InfoBlock :cards="cards" />
     </div>
   </SComponentWrapper>
