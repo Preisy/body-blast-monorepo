@@ -10,7 +10,7 @@ defineProps<ENutritionListProps>();
 
 <template>
   <SStructure relative>
-    <SComponentWrapper>
+    <SComponentWrapper class="py-0!">
       <SSplide
         :options="{
           direction: 'ttb',

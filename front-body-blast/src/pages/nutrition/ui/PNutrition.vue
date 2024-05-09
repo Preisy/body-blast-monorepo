@@ -39,7 +39,6 @@ const pages = computed(
       </q-tab-panel>
       <q-tab-panel v-for="(food, type) in foodList" :name="type" :key="type">
         <SProxyScroll>
-          <!-- <ENutritionItem v-if="!!food.length" :name="type.toString()" :meal-items="food" /> -->
           <EFoodItem v-if="!!food.length" :type="type.toString()" :items="food" />
         </SProxyScroll>
       </q-tab-panel>
