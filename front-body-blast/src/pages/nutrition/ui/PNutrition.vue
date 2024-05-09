@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { groupBy } from 'lodash';
 import { QTabPanel } from 'quasar';
-import { ENutritionList, ENutritionItem, useNutritionStore, Nutrition } from 'entities/nutrition';
+import { ENutritionList, ENutritionItem, useNutritionStore } from 'entities/nutrition';
 import { useFoodStore } from 'shared/api/food';
 import { useLoadingAction, tod } from 'shared/lib';
 import { SCenteredNav, STabPanels, SProxyScroll } from 'shared/ui';
@@ -9,21 +10,9 @@ const panel = ref('nutrition');
 const { getNutrition, nutritionList } = useNutritionStore();
 const foodStore = useFoodStore();
 
-// Construct fake "Nutrition" array from "Food" array
-const foodList = computed(
-  () =>
-    foodStore.food.data?.data.reduce((acc: Pick<Nutrition, 'name' | 'mealItems'>[], rec) => {
-      // Tries to find Nutrition with rec.type as name
-      // rec.type example: 'berries', 'cereals'
-      // For each rec.type construct fake Nutrition. With rec.type as name
-      const index = acc.findIndex((it) => it.name === rec.type);
-      // If Nutrition.name with rec.type does not exists
-      if (index === -1) acc.push({ name: rec.type, mealItems: [rec] }); // Create one
-      else acc[index].mealItems?.push(rec); // Otherwise - push another food to nutrition.mealItems list
-      // return array of fake Nutritions
-      return acc;
-    }, []),
-);
+// Fake nutritions, build from foods
+const foodList = computed(() => groupBy(foodStore.food.data?.data, ({ type }) => type));
+
 // True nutritions, recieved from API
 const nutritions = computed(() => nutritionList.data?.data);
 
@@ -31,7 +20,8 @@ useLoadingAction(nutritionList, () => Promise.all([foodStore.getFood(), getNutri
 
 // Building upper navbar elements. See: SCenteredNav
 const pages = computed(
-  () => foodList.value?.map((it) => ({ value: it.name, label: tod(`home.nutrition.${it.name}`) })) || [],
+  // () => foodList.value?.map((it) => ({ value: it.name, label: tod(`home.nutrition.${it.name}`) })) || [],
+  () => Object.keys(foodList.value).map((name) => ({ value: name, label: tod(`home.nutrition.${name}`) })),
 );
 </script>
 
@@ -47,9 +37,9 @@ const pages = computed(
       <q-tab-panel name="nutrition" overflow-hidden>
         <ENutritionList v-if="nutritions" :nutritions="nutritions" />
       </q-tab-panel>
-      <q-tab-panel v-for="product in foodList" :name="product.name" :key="product.name">
+      <q-tab-panel v-for="(food, type) in foodList" :name="type" :key="type">
         <SProxyScroll>
-          <ENutritionItem v-if="product.mealItems" :name="product.name" :meal-items="product.mealItems" />
+          <ENutritionItem v-if="!!food.length" :name="type.toString()" :meal-items="food" />
         </SProxyScroll>
       </q-tab-panel>
     </STabPanels>
