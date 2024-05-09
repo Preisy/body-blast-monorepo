@@ -8,5 +8,10 @@ export default {
       accessTitle: 'Access to learning materials:',
       anthropometryTitle: 'Anthropometry data interval:',
     },
+    profile: {
+      search: {
+        label: 'Search',
+      },
+    },
   },
 };

@@ -8,5 +8,10 @@ export default {
       accessTitle: 'Доступ к дополнительным материалм:',
       anthropometryTitle: 'Антропометрические данные каждые:',
     },
+    profile: {
+      search: {
+        label: 'Поиск',
+      },
+    },
   },
 };
