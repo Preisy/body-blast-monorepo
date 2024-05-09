@@ -121,6 +121,8 @@ const filteredPrompts = computed(
       .map((prompt) => ({ ...prompt, key: uniqueId('prompt-') })),
 );
 const store = useAdminWorkoutStore();
+const workoutSchema = toTypedSchema(Workout.validation().omit({ exercises: true }));
+const exerciseSchema = toTypedSchema(ExerciseValidation);
 </script>
 
 <template>
@@ -130,19 +132,14 @@ const store = useAdminWorkoutStore();
       <SBtn v-if="isEdit" :icon="symRoundedClose" ml-auto @click="emit('rejectEdit')" />
     </div>
 
-    <SForm
-      ref="workoutForm"
-      :field-schema="toTypedSchema(Workout.validation().omit({ exercises: true }))"
-      :init-values="isEdit ? initValues : {}"
-      p="0!"
-    >
+    <SForm ref="workoutForm" :field-schema="workoutSchema" :init-values="isEdit ? initValues : {}" p="0!">
       <SInput name="cycle" :label="$t('admin.prompt.workout.cycle')" />
       <SInput name="name" :label="$t('admin.prompt.workout.name')" />
       <SForm
         ref="exerciseForms"
         v-for="(exercise, index) in exercises"
         :key="exercise.key"
-        :field-schema="toTypedSchema(ExerciseValidation)"
+        :field-schema="exerciseSchema"
         :init-values="{
           ...exercise,
           prompt: { type: exercise.promptType },

@@ -36,6 +36,7 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
     clear();
   });
 };
+const typedSchema = toTypedSchema(schema);
 </script>
 
 <template>
@@ -45,7 +46,7 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
       ref="outerForm"
       @submit="onsubmit"
       :loading="nutritionList.createState.isLoading()"
-      :field-schema="toTypedSchema(schema)"
+      :field-schema="typedSchema"
       p="0!"
       mt-0.5rem
     >
