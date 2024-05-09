@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState } from 'shared/lib';
-import { Food } from './types';
-import { FoodService } from '.';
+import { FoodService, Food } from '..';
 
 export const useFoodStore = defineStore('food-store', () => {
   const food = ref(useSingleState<Food.Get.Response>());

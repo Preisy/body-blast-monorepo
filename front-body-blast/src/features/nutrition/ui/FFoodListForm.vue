@@ -2,8 +2,8 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
 import { uniqueId } from 'lodash';
-import { useAdminFoodStore, AppBaseEntity } from 'shared/api';
-import { Food } from 'shared/api/food';
+import { Food, useAdminFoodStore } from 'entities/food';
+import { AppBaseEntity } from 'shared/api';
 import { SConfirmDialog, SListControls, SForm, SInput } from 'shared/ui';
 import NutritionListHeader, { NutritionListHeaderProps } from './NutritionListHeader.vue';
 

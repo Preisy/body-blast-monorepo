@@ -1,6 +1,6 @@
 import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib';
-import { AdminFood } from '.';
+import { AdminFood } from '..';
 
 export const AdminFoodService = {
   getFoods: useServiceAction((pagination?: AdminFood.Get.Dto) =>
