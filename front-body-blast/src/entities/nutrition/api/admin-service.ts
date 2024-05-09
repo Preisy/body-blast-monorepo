@@ -1,6 +1,6 @@
 import { api } from 'shared/config/axios';
 import { useServiceAction } from 'shared/lib';
-import { AdminNutrition } from '.';
+import { AdminNutrition } from '..';
 
 export const adminNutritionService = {
   getNutritions: useServiceAction((data?: AdminNutrition.Get.Dto) =>

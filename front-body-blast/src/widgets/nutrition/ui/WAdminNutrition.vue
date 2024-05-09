@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { symRoundedDelete, symRoundedDone } from '@quasar/extras/material-symbols-rounded';
 import { FNutritionListForm } from 'features/nutrition';
-import { useAdminNutritionStore, Nutrition } from 'shared/api';
+import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
 import { useLoadingAction } from 'shared/lib';
 import { SBtn, SComponentWrapper } from 'shared/ui';
 

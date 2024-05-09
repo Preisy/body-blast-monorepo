@@ -1,4 +1,5 @@
-import { AppBaseEntity, Nutrition, AppPagination } from 'shared/api';
+import { AppBaseEntity, AppPagination } from 'shared/api';
+import { Nutrition } from '..';
 
 export namespace AdminNutrition {
   export namespace Get {

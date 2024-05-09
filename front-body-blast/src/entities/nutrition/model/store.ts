@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { useSimpleStoreAction, useSingleState } from 'shared/lib';
-import { ProductsService } from './service';
+import { NutritionService } from '..';
 import { Nutrition } from './types';
 
 export const useNutritionStore = defineStore('nutrition-store', () => {
@@ -8,7 +8,7 @@ export const useNutritionStore = defineStore('nutrition-store', () => {
   const getNutrition = (pagination?: Nutrition.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: nutritionList.value,
-      serviceAction: ProductsService.getNutrition(pagination),
+      serviceAction: NutritionService.getNutrition(pagination),
     });
   return { nutritionList, getNutrition };
 });

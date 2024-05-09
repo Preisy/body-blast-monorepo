@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { QTabPanel } from 'quasar';
-import { ENutritionList, ENutritionItem } from 'entities/nutrition';
-import { useNutritionStore, Nutrition } from 'shared/api';
+import { ENutritionList, ENutritionItem, useNutritionStore, Nutrition } from 'entities/nutrition';
 import { useFoodStore } from 'shared/api/food';
 import { useLoadingAction, tod } from 'shared/lib';
 import { SCenteredNav, STabPanels, SProxyScroll } from 'shared/ui';

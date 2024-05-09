@@ -2,7 +2,8 @@
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
-import { useAdminFoodStore, useAdminNutritionStore, AppBaseEntity, Nutrition } from 'shared/api';
+import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
+import { useAdminFoodStore, AppBaseEntity } from 'shared/api';
 import { Food } from 'shared/api/food';
 import { useLoadingAction, tod } from 'shared/lib';
 import { SLoading, SStructure, SCenteredNav, SCenteredNavProps, SProxyScroll } from 'shared/ui';

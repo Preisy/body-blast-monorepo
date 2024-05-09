@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ENutritionItem } from 'entities/nutrition';
-import { Nutrition } from 'shared/api';
+import { ENutritionItem, Nutrition } from 'entities/nutrition';
 import { SComponentWrapper, SNoResultsScreen, SSplide, SSplideSlide, SStructure } from 'shared/ui';
 
 export interface ENutritionListProps {

@@ -1,7 +1,5 @@
 import { z } from 'zod';
-import { AppBaseEntity } from '../base';
-import { AppPagination } from '../pagination';
-import { User } from '../user';
+import { AppBaseEntity, AppPagination, User } from 'shared/api';
 
 export interface Nutrition extends AppBaseEntity {
   name: string;

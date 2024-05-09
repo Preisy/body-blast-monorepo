@@ -2,7 +2,8 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { z } from 'zod';
 import { FNutritionListForm } from 'features/nutrition';
-import { useAdminNutritionStore, AppBaseEntity, Nutrition } from 'shared/api';
+import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
+import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction } from 'shared/lib';
 import { SForm, SInput, SComponentWrapper } from 'shared/ui';
 
