@@ -1,1 +1,1 @@
-export * from './ui';
+export { default as FWorkoutCommentaryForm } from './ui/FWorkoutCommentaryForm.vue';

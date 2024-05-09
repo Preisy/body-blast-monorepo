@@ -1,1 +1,1 @@
-export * from './ui';
+export { default as WDiary } from './ui/WDiary.vue';
