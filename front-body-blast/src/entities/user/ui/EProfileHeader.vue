@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ENUMS } from 'shared/lib';
+import { SBtn } from 'shared/ui';
 
 export interface EProfileHeaderProps {
   userName: string;
