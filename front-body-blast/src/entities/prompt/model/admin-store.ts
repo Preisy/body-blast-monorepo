@@ -44,6 +44,19 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     Notify.createSuccess();
   };
 
+  const postPrompt = async (data: Pick<Prompt, 'photoLink' | 'videoLink' | 'type'>) =>
+    useStoreAction({
+      state: prompts.value.createState,
+      serviceAction: adminPromptsService.postPrompt(data),
+      onSuccess: (res) => {
+        const listData = prompts.value.data?.data;
+        if (!listData) return;
+
+        listData.push(res.data);
+        Notify.createSuccess();
+      },
+    });
+
   const deletePrompt = async (data: Prompt.Delete.Dto) =>
     useStoreAction({
       state: prompts.value.deleteState,
@@ -104,5 +117,6 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
     postPrompts,
     deletePrompt,
     patchPrompt,
+    postPrompt,
   };
 });

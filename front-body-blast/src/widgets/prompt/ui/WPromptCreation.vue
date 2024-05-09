@@ -2,6 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { assign, uniqueId } from 'lodash';
 import { useI18n } from 'vue-i18n';
+import { useAdminFileStore } from 'entities/file';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
 import { SListControls, SForm, SInput, SFilePicker, SComponentWrapper } from 'shared/ui';
 
@@ -10,7 +11,8 @@ const { t } = useI18n();
 const promptsList = ref<Array<Partial<Prompt.Post.Dto & { key: string }>>>([{ key: uniqueId('prompt-') }]);
 const schema = toTypedSchema(Prompt.validation(t));
 const forms = ref<Array<InstanceType<typeof SForm>>>([]);
-const { postPrompts, prompts } = useAdminPromptStore();
+const { postPrompt, prompts } = useAdminPromptStore();
+const fileStore = useAdminFileStore();
 
 const onsubmit = async () => {
   // apply values of each form to array
@@ -30,8 +32,18 @@ const onsubmit = async () => {
 
   //if exists prompts to push
   if (promptsDto.length) {
-    //push
-    await postPrompts(promptsDto);
+    prompts.createState.loading();
+    promptsDto.forEach(async (prompt) => {
+      const [photoLink, videoLink] = await Promise.all([
+        fileStore.postFile({ file: prompt.photo }),
+        fileStore.postFile({ file: prompt.video }),
+      ]);
+      if (!photoLink.data || !videoLink.data) {
+        prompts.createState.error();
+        return;
+      }
+      postPrompt({ type: prompt.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link });
+    });
 
     //check response
     if (prompts.createState.isSuccess()) {

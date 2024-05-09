@@ -2,6 +2,7 @@
 import { toTypedSchema } from '@vee-validate/zod';
 import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
+import { useAdminFileStore } from 'entities/file';
 import { BonusVideo, useAdminBonusVideoStore } from 'entities/learning';
 import { SListControls, SForm, SInput, SFilePicker, SComponentWrapper } from 'shared/ui';
 
@@ -15,7 +16,18 @@ const resetForm = () => {
 };
 
 const onsubmit = async (values: z.infer<ReturnType<typeof BonusVideo.validation>>) => {
-  const res = await postVideo(values);
+  videoList.createState.loading();
+  const { postFile } = useAdminFileStore();
+  const response = await postFile({ file: values.video });
+  if (!response.data) {
+    console.error(response.error);
+    return;
+  }
+
+  const res = await postVideo({
+    name: values.name,
+    videoLink: response.data.link,
+  });
   if (res?.error) {
     console.error(res.error);
     return;

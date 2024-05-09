@@ -1,7 +1,4 @@
 import { defineStore } from 'pinia';
-//TODO: fix this
-// eslint-disable-next-line boundaries/element-types
-import { useAdminFileStore } from 'entities/file';
 import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { BonusVideo, AdminBonusVideoService, AdminBonusVideo } from '..';
 
@@ -34,19 +31,10 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
       },
     });
 
-  const postVideo = async (data: { name: BonusVideo['name']; video: File }) => {
-    //TODO: вынести в фичу
-    videoList.value.createState.loading();
-    const { postFile } = useAdminFileStore();
-    const response = await postFile({ file: data.video });
-    if (!response.data) {
-      console.error(response.error);
-      return;
-    }
-
-    return useStoreAction({
+  const postVideo = async (data: { name: BonusVideo['name']; videoLink: string }) =>
+    useStoreAction({
       state: videoList.value.createState,
-      serviceAction: AdminBonusVideoService.postVideo({ name: data.name, linkUrl: response.data.link }),
+      serviceAction: AdminBonusVideoService.postVideo({ name: data.name, linkUrl: data.videoLink }),
       onSuccess: (res) => {
         const listData = videoList.value.data?.data;
         if (!listData) return;
@@ -55,7 +43,6 @@ export const useAdminBonusVideoStore = defineStore('admin-bonus-video-store', ()
         Notify.createSuccess();
       },
     });
-  };
 
   return { videoList, getVideos, video, getVideoById, deleteVideo, postVideo };
 });
