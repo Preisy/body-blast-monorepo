@@ -7,13 +7,13 @@ export const adminRoutes: RouteRecordRaw = {
   path: '/admin/',
   meta: { auth: true, admin: true },
   name: ENUMS.ROUTES_NAMES.ADMIN.BASE,
-  component: () => import('processes/layouts/LAdminDashboard.vue'),
+  component: () => import('processes/layouts/ui/LAdminDashboard.vue'),
   children: [
     {
       path: '',
       meta: { auth: true, admin: true },
       name: ENUMS.ROUTES_NAMES.ADMIN.HOME,
-      component: () => import('pages/admin-home/ui/PAdminHome.vue'),
+      component: () => import('pages/user/ui/PAdminHome.vue'),
     },
     {
       path: 'prompt',

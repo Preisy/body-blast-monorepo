@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { WFooterNavBar } from 'widgets/footer';
 import { FNotification } from 'features/notification';
 import { ENUMS } from 'shared/lib';
-import LDashboard from './LDashboard.vue';
+import BaseDashboard from './BaseDashboard.vue';
+import FooterNavBar from './FooterNavBar.vue';
 
 const isHidden = computed(() => useRoute().name === ENUMS.ROUTES_NAMES.PROFILE_EDIT);
 </script>
 
 <template>
   <FNotification />
-  <LDashboard>
+  <BaseDashboard>
     <template #footer>
-      <WFooterNavBar v-if="!isHidden" />
+      <FooterNavBar v-if="!isHidden" />
     </template>
-  </LDashboard>
+  </BaseDashboard>
 </template>

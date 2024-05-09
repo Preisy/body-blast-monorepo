@@ -1,11 +1,10 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
-import { TPAdminHomeI18n } from 'pages/admin-home';
+import { TFooterNavigationBarI18n } from 'processes/layouts';
 import { TPLearningI18n } from 'pages/learning';
 import { TPNutritionI18n } from 'pages/nutrition';
 import { TPAdminPromptsI18n } from 'pages/prompt';
 import { TPUserI18n } from 'pages/user';
-import { TFooterNavigationBarI18n } from 'widgets/footer';
 import { TWAdminLearningI18n } from 'widgets/learning';
 import { TWidgetDietI18n } from 'widgets/nutrition';
 import { TWPromptCreationI18n } from 'widgets/prompt';
@@ -23,7 +22,6 @@ export default boot(({ app }) => {
     locale: 'ru-RU',
     legacy: false,
     messages: mergeI18n(
-      TPAdminHomeI18n,
       TFooterNavigationBarI18n,
       TPUserI18n,
       TGlobalI18n,

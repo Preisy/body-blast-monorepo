@@ -6,7 +6,7 @@ export const dashboardRoutes: RouteRecordRaw = {
   path: '/home/',
   name: ENUMS.ROUTES_NAMES.HOME,
   meta: { auth: true },
-  component: () => import('processes/layouts/LClientDashboard.vue'),
+  component: () => import('processes/layouts/ui/LClientDashboard.vue'),
   children: [
     {
       meta: { auth: true },

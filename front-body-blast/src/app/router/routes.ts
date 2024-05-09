@@ -7,18 +7,18 @@ import { dashboardRoutes } from './dashboard';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('processes/layouts/LAuth.vue'),
+    component: () => import('processes/layouts/ui/LAuth.vue'),
     name: ENUMS.ROUTES_NAMES.AUTH,
     children: [
       {
         path: 'register',
-        component: () => import('pages/register/ui/PRegister.vue'),
+        component: () => import('pages/user/ui/PRegister.vue'),
         name: ENUMS.ROUTES_NAMES.REGISTER,
         meta: { transition: 'slide-left' },
       },
       {
         path: 'login',
-        component: () => import('pages/login/ui/PLogin.vue'),
+        component: () => import('pages/user/ui/PLogin.vue'),
         name: ENUMS.ROUTES_NAMES.LOGIN,
         meta: { transition: 'slide-right' },
       },
