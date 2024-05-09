@@ -84,6 +84,7 @@ module.exports = {
           'ui/*',
           'model/*',
           'api/*',
+          'lib/*',
           'i18n/*',
           /**
            * Allow not segments import from slices
