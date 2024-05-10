@@ -14,5 +14,13 @@ export default {
     updatedSuccessfuly: 'Updated successfully',
     seconds_short: 's',
     formError: 'Please correct the errors in the form',
+    noresults: {
+      message: 'Nothing found :(',
+    },
+    dialog: {
+      deletion: {
+        question: 'Want to delete?',
+      },
+    },
   },
 };
