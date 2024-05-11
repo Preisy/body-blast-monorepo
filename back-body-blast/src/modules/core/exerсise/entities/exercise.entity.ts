@@ -42,7 +42,7 @@ export class ExerciseEntity extends AppBaseEntity {
   public videoLink: string;
 
   @ApiProperty()
-  @Column({ type: 'varchar', length: 10 })
+  @Column({ type: 'varchar', length: 255 })
   public promptType: string;
 
   @ApiProperty({ type: () => WorkoutEntity })
