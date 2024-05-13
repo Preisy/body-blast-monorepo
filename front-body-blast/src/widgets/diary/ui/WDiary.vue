@@ -98,7 +98,7 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
           >
             <!-- self-control(upper) part of diary -->
             <SSplideSlide>
-              <h1 mb-4>{{ $t('home.diary.item.selfcontrol') }}</h1>
+              <h1>{{ $t('home.diary.item.selfcontrol') }}</h1>
 
               <SForm
                 ref="propsForm"
@@ -109,7 +109,7 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
                 p="0!"
               >
                 <template v-for="prop of diaryData.find((item) => isEqualDates(item.date, dd))!.props" :key="prop.id">
-                  <p mb-2 mt-4>{{ prop.label }}</p>
+                  <p mt-0.5rem>{{ prop.label }}</p>
                   <SBtnToggle
                     :options="selfControlOptions"
                     :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
