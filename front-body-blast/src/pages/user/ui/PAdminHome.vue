@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EProfileCard } from 'entities/user';
+import { EMinifiedProfileCard, EProfileCard } from 'entities/user';
 import { useUserStore, useAdminUserStore, User } from 'shared/api';
 import { ENUMS, useLoadingAction } from 'shared/lib';
 import { SSearchInput, SConfirmDialog, SBtn, SNoResultsScreen, SScaffold, SStructure } from 'shared/ui';
@@ -54,20 +54,18 @@ const onUserDelete = (user: User) => {
   <SStructure h-full>
     <SScaffold>
       <template #header>
-        <EProfileCard
+        <EMinifiedProfileCard
           :header="myName ?? $t('global.loading')"
           :describe="$t('home.profile.header.admin')"
           dark
           mx--0.5rem
-          px-2rem
-          pt-4rem
         >
           <template #action>
             <div flex flex-row>
               <SBtn icon="sym_r_logout" @click="logout" ml-auto />
             </div>
           </template>
-        </EProfileCard>
+        </EMinifiedProfileCard>
       </template>
       <template #body>
         <SSearchInput v-model:query="nameFilter" />

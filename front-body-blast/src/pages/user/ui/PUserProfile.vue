@@ -2,7 +2,7 @@
 import { useI18n } from 'vue-i18n';
 import { WUserAthropometrics } from 'widgets/user';
 import { FUserLogoutBtn } from 'features/user';
-import { EProfileHeader } from 'entities/user';
+import { EMinifiedProfileCard } from 'entities/user';
 import { useUserStore } from 'shared/api';
 import { useLoadingAction } from 'shared/lib';
 import { SStructure } from 'shared/ui';
@@ -22,11 +22,11 @@ const userName = computed(() =>
 
 <template>
   <SStructure h-full>
-    <EProfileHeader :user-name="userName">
-      <template #logout>
+    <EMinifiedProfileCard :header="userName" :describe="$t('home.profile.header.student')" dark>
+      <template #action>
         <FUserLogoutBtn />
       </template>
-    </EProfileHeader>
+    </EMinifiedProfileCard>
     <WUserAthropometrics mt-1.75rem />
   </SStructure>
 </template>

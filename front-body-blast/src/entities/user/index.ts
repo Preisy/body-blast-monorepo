@@ -7,6 +7,7 @@ export const TEProfileI18n = {
 };
 
 export { default as EProfileCard } from './ui/EProfileCard.vue';
+export { default as EMinifiedProfileCard } from './ui/EMinifiedProfileCard.vue';
 export * from './ui/EProfileCard.vue';
 
 export { default as EProfileHeader } from './ui/EProfileHeader.vue';
