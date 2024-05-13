@@ -72,6 +72,7 @@ const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Ant
           })
       "
       :options="(date) => gtCreation(date)"
+      h-full
     >
       <template #item="{ date: dd }">
         <EAthropometricsItem

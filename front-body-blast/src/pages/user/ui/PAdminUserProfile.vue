@@ -90,7 +90,7 @@ const onUserDelete = (userId: User['id']) => {
 
 <template>
   <SStructure h-full>
-    <SScaffold>
+    <SScaffold w-full>
       <template #header>
         <EProfileCard
           :header="userName ?? $t('global.loading')"
@@ -125,7 +125,7 @@ const onUserDelete = (userId: User['id']) => {
           />
         </SComponentWrapper>
 
-        <div>
+        <div h-full>
           <SCalendar
             :model-value="date"
             @update:model-value="(newDate) => (date = newDate.split('/').join('-'))"
@@ -136,7 +136,7 @@ const onUserDelete = (userId: User['id']) => {
             :half-range="halfRange"
             :offset="offset"
             @need-fetch="(from, to) => getAnthropometry({ userId: id, from, to, expanded: true })"
-            h="16rem!"
+            h-full
           >
             <template #item="{ date: dd }">
               <EAthropometricsItem
