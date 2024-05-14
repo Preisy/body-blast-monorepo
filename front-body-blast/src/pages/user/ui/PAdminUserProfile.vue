@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { useI18n } from 'vue-i18n';
 import { EAthropometricsItem, useAdminAnthropometryStore } from 'entities/anthropometry';
-import { EProfileCard } from 'entities/user';
+import { EMinifiedProfileCard } from 'entities/user';
 import { useAdminUserStore, AppBaseEntity } from 'shared/api';
 import { User } from 'shared/api/user';
 import { ENUMS, useLoadingAction, fromCreatedToToday, getUTC3Date, isEqualDates } from 'shared/lib';
@@ -92,21 +92,19 @@ const onUserDelete = (userId: User['id']) => {
   <SStructure h-full>
     <SScaffold>
       <template #header>
-        <EProfileCard
+        <EMinifiedProfileCard
           :header="userName ?? $t('global.loading')"
           :describe="$t('home.profile.header.student')"
           dark
           mx--0.5rem
-          px-2rem
-          pt-4rem
         >
           <template #action>
-            <div flex flex-row justify-between>
+            <div flex flex-row gap-x-0.5rem>
               <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO }" />
               <SBtn icon="sym_r_delete" @click="onUserDelete(id)" />
             </div>
           </template>
-        </EProfileCard>
+        </EMinifiedProfileCard>
       </template>
       <template #body>
         <SComponentWrapper py-1.5rem>
