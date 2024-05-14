@@ -56,7 +56,7 @@ const patch = async () => {
 <template>
   <SStructure h-full py-1rem>
     <SProxyScroll>
-      <SBtn :icon="symRoundedClose" ml-0.5rem :to="{ name: ENUMS.ROUTES_NAMES.PROFILE }" />
+      <SBtn :icon="symRoundedClose" :to="{ name: ENUMS.ROUTES_NAMES.PROFILE }" fixed z-999 ml-0.5rem />
       <div v-for="(form, index) in forms" :key="form.is.name" mt-1rem>
         <SForm ref="formsRef" :field-schema="form.form.fieldSchema" :init-values="form.values" @submit="patch">
           <component :is="form.is" />
