@@ -3,8 +3,7 @@ import { groupBy } from 'lodash';
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Food, useAdminFoodStore } from 'entities/food';
+import { useAdminFoodStore } from 'entities/food';
 import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
 import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction, tod } from 'shared/lib';

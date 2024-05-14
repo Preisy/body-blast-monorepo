@@ -10,25 +10,21 @@ const props = defineProps<Props>();
 const foodStore = useAdminFoodStore();
 const foodList = computed(() => foodStore.foodList.data?.data);
 
-const deleteFood = () => {
-  //TODO: fix, when api will be ready
-  foodList.value
-    ?.filter((item) => item.type === props.foodType)
-    .forEach((item) => foodStore.deleteFood({ id: item.id }));
-};
-
-defineEmits<{
+const emit = defineEmits<{
   click: [];
 }>();
+
+const deleteFood = async () => {
+  if (!foodList.value) return;
+  //TODO: fix, when api will be ready
+  Promise.all(
+    foodList.value.filter((item) => item.type === props.foodType).map((item) => foodStore.deleteFood({ id: item.id })),
+  );
+
+  emit('click');
+};
 </script>
 
 <template>
-  <SBtn
-    @click="
-      deleteFood();
-      $emit('click');
-    "
-    icon="sym_r_delete"
-    :loading="foodStore.foodList.deleteState.isLoading()"
-  />
+  <SBtn @click="deleteFood" icon="sym_r_delete" :loading="foodStore.foodList.deleteState.isLoading()" />
 </template>
