@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { SProxyScroll } from 'shared/ui';
+
+export interface Props {
+  scroll?: boolean;
+}
+defineProps<Props>();
 </script>
 
 <template>
@@ -8,9 +13,12 @@ import { SProxyScroll } from 'shared/ui';
       <slot name="header" />
     </div>
     <div h-full>
-      <SProxyScroll h-full>
-        <slot name="body" />
-      </SProxyScroll>
+      <template v-if="scroll">
+        <SProxyScroll h-full>
+          <slot name="body" />
+        </SProxyScroll>
+      </template>
+      <slot v-else name="body" />
     </div>
   </div>
 </template>
