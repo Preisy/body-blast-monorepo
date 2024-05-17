@@ -61,16 +61,12 @@ const diariesSlides = computed(() => {
       default-view="Months"
       :emit-immediately="true"
       today-btn
+      pt-1rem
     />
 
     <SProxyScroll h-full p-1.5rem>
       <EStepsList :weeks="stepsData?.weeks ?? []" mb-2rem />
-      <ESelfControlList
-        v-for="week in Object.keys(diariesSlides)"
-        :key="week"
-        :slides="diariesSlides[week]"
-        :week="week"
-      />
+      <ESelfControlList v-for="(slide, week) in diariesSlides" :key="week" :slides="slide" :week="week" />
     </SProxyScroll>
   </SStructure>
 </template>
