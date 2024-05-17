@@ -23,8 +23,8 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
     :horizontal-thumb-style="thumbStyle"
     :style="{ contain: 'unset' }"
     h-full
-    :content-style="{ width: type === 'vertical' ? '100%' : '' }"
-    :content-active-style="{ width: type === 'vertical' ? '100%' : '' }"
+    :content-style="{ width: type === 'vertical' ? '100%' : '', height: '100%' }"
+    :content-active-style="{ width: type === 'vertical' ? '100%' : '', height: '100%' }"
   >
     <slot />
   </q-scroll-area>

@@ -4,6 +4,7 @@ import { WDiary } from 'widgets/diary';
 import { EDiaryHeader, useDiaryStore } from 'entities/diary';
 import { useUserStore } from 'shared/api';
 import { useLoadingAction, getUTC3Date, toWeekRange } from 'shared/lib';
+import { SProxyScroll } from 'shared/ui';
 
 const today = getUTC3Date();
 const { diaryList, getDiary } = useDiaryStore();
@@ -42,13 +43,15 @@ const week = computed(() => {
 </script>
 
 <template>
-  <div h-full>
+  <SProxyScroll h-full type="vertical">
     <EDiaryHeader
       v-if="userData"
       :steps-goal="userData.stepsGoal"
       :steps-sum="stepsSum"
       :week="week ?? $t('global.error')"
+      mx-0
+      w-full
     />
     <WDiary @update:date="(newDate) => (date = newDate)" />
-  </div>
+  </SProxyScroll>
 </template>
