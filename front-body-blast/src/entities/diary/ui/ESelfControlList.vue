@@ -9,7 +9,7 @@ defineProps<ESelfControlListProps>();
 </script>
 
 <template>
-  <div h-full>
+  <div mb-2rem h-full>
     <h1>{{ $t('admin.diary.selfControl') }} {{ week }}</h1>
 
     <div v-for="slide in slides" :key="slide.id" mt-1rem>
