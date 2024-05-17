@@ -4,6 +4,7 @@ export default {
       links: {
         workout: 'Workout',
         diary: 'Diary',
+        diaryEdit: 'Diary Edit',
         nutrition: 'Diet',
         profile: 'Profile',
         learning: 'Learning',

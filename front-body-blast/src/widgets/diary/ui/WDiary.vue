@@ -102,7 +102,7 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
 
               <SForm
                 ref="propsForm"
-                :readonly="true"
+                :disable-submit-btn="true"
                 :field-schema="
                   toTypedSchema(buildPropsSchema(diaryData.find((item) => isEqualDates(item.date, dd))!.props))
                 "
@@ -124,7 +124,7 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
             <SSplideSlide>
               <h1 mb-4>{{ $t('home.diary.activity.activity') }}</h1>
               <SForm
-                :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
+                :disable-submit-btn="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
                 :field-schema="toTypedSchema(activityValidation)"
                 :init-values="diaryData.find((item) => isEqualDates(item.date, dd))!"
                 @submit="(values) => onSubmit(diaryData!.find((item) => isEqualDates(item.date, dd))!, values)"

@@ -5,6 +5,7 @@ import { TPLearningI18n } from 'pages/learning';
 import { TPNutritionI18n } from 'pages/nutrition';
 import { TPAdminPromptsI18n } from 'pages/prompt';
 import { TPUserI18n } from 'pages/user';
+import { TWDiaryI18n } from 'widgets/diary';
 import { TWAdminLearningI18n } from 'widgets/learning';
 import { TWidgetDietI18n } from 'widgets/nutrition';
 import { TWPromptCreationI18n } from 'widgets/prompt';
@@ -37,6 +38,7 @@ export default boot(({ app }) => {
       TPLearningI18n,
       TWAdminLearningI18n,
       TFNotificationI18n,
+      TWDiaryI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

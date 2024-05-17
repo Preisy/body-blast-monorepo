@@ -21,7 +21,7 @@ const { anthropometry } = useAnthropometryStore();
 
 <template>
   <SForm
-    :readonly="readonly"
+    :disable-submit-btn="readonly"
     :init-values="profile"
     :field-schema="schema"
     :loading="anthropometry.updateState.isLoading()"
