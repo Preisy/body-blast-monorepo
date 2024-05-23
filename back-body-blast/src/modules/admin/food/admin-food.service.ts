@@ -30,4 +30,8 @@ export class AdminFoodService {
   async deleteOne(id: FoodEntity['id']): Promise<AppStatusResponse> {
     return this.baseService.deleteOne(id);
   }
+
+  async deleteType(type: FoodEntity['type']): Promise<AppStatusResponse> {
+    return this.baseService.deleteType(type);
+  }
 }

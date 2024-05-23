@@ -65,4 +65,10 @@ export class AdminFoodController {
   async deleteOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.deleteOne(id);
   }
+
+  @Delete()
+  @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
+  async deleteType(@Query('type') type: string) {
+    return this.adminService.deleteType(type);
+  }
 }
