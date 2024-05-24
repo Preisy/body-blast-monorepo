@@ -15,7 +15,7 @@ export class BaseDiaryTemplateService {
   constructor(
     @InjectRepository(DiaryTemplateEntity)
     private readonly diaryTemlpateRepository: Repository<DiaryTemplateEntity>,
-    @InjectRepository(DiaryTemplateEntity)
+    @InjectRepository(DiaryTemplatePropsEntity)
     private readonly templatePropsEntityRepository: Repository<DiaryTemplatePropsEntity>,
   ) {}
   public readonly relations: (keyof DiaryTemplateEntity)[] = ['props'];
