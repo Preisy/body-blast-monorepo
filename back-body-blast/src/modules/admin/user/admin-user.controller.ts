@@ -30,6 +30,8 @@ import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { AdminDiaryService } from '../diary/admin-diary.service';
 import { GetStepsByUserIdByAdminDTO } from '../diary/dto/admin-get-steps-by-userId.dto';
 import { DiaryEntity } from '../../../modules/core/diary/entity/diary.entity';
+import { AdminDiaryTemplateService } from '../diary-template/admin-diary-template.service';
+import { UpdateDiaryTemplateByAdminRequest } from '../diary-template/dto/admin-update-diary-template.dto';
 
 @AppAuthGuard(RoleGuard(UserRole.Admin))
 @Controller('admin/users')
@@ -40,6 +42,7 @@ export class AdminUserController {
   constructor(
     private readonly adminService: AdminUserService,
     private readonly diaryService: AdminDiaryService,
+    private readonly templateService: AdminDiaryTemplateService,
   ) {}
 
   @Post()
@@ -83,5 +86,17 @@ export class AdminUserController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetStepsByUserIdByAdminDTO) })
   async getSteps(@Param('id', ParseUUIDPipe) id: string, @Query() query: AppDatePagination.Request) {
     return this.diaryService.getStepsByUserId(id, query);
+  }
+
+  @Get(':id/diary-template')
+  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  async getOne(@Param('id', ParseUUIDPipe) id: string) {
+    return await this.templateService.findOne(id);
+  }
+
+  @Patch(':id/diary-template')
+  @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
+  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateDiaryTemplateByAdminRequest) {
+    return await this.templateService.update(id, body);
   }
 }
