@@ -27,15 +27,15 @@ import { UpdateDiaryTemplateByAdminRequest } from './dto/admin-update-diary-temp
 export class AdminDiaryTemplateController {
   constructor(private readonly adminService: AdminDiaryTemplateService) {}
 
-  @Get(':id')
+  @Get(':userId')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async getOne(@Param('id', ParseUUIDPipe) id: string) {
-    return await this.adminService.findOne(id);
+  async getOne(@Param('userId', ParseUUIDPipe) userId: string) {
+    return await this.adminService.findOne(userId);
   }
 
-  @Patch(':id')
+  @Patch(':userId')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
-  async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateDiaryTemplateByAdminRequest) {
-    return await this.adminService.update(id, body);
+  async update(@Param('userId', ParseUUIDPipe) userId: string, @Body() body: UpdateDiaryTemplateByAdminRequest) {
+    return await this.adminService.update(userId, body);
   }
 }
