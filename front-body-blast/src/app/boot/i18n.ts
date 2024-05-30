@@ -1,6 +1,7 @@
 import { boot } from 'quasar/wrappers';
 import { createI18n } from 'vue-i18n';
 import { TFooterNavigationBarI18n } from 'processes/layouts';
+import { TPDiaryI18n } from 'pages/diary';
 import { TPLearningI18n } from 'pages/learning';
 import { TPNutritionI18n } from 'pages/nutrition';
 import { TPAdminPromptsI18n } from 'pages/prompt';
@@ -39,6 +40,7 @@ export default boot(({ app }) => {
       TWAdminLearningI18n,
       TFNotificationI18n,
       TWDiaryI18n,
+      TPDiaryI18n,
     ),
     fallbackLocale: 'ru-RU',
   });

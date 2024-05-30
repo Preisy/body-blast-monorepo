@@ -6,7 +6,7 @@ import { z } from 'zod';
 import { useAdminDiaryStore } from 'entities/diary';
 import { User } from 'shared/api';
 import { useLoadingAction } from 'shared/lib';
-import { SListControls, SInput, SStructure, SBtn, SForm, SLoading } from 'shared/ui';
+import { SListControls, SInput, SBtn, SForm, SLoading, SComponentWrapper } from 'shared/ui';
 
 export interface Props {
   id: User['id'];
@@ -31,17 +31,10 @@ const initValues = computed(() => ({ props: propsLabels.value }));
 </script>
 
 <template>
-  <SStructure>
-    <SLoading v-if="!diarySchemeData" mt-1.5rem />
-    <SForm
-      v-else
-      @submit="onsubmit"
-      :field-schema="typedSchema"
-      :init-values="initValues"
-      disable-submit-btn
-      mt-2rem
-      p="0!"
-    >
+  <SComponentWrapper>
+    <h1 mb-1rem>{{ $t('admin.diary.edit.title') }}</h1>
+    <SLoading v-if="!diarySchemeData" />
+    <SForm v-else @submit="onsubmit" :field-schema="typedSchema" :init-values="initValues" disable-submit-btn p="0!">
       <FieldArray name="props" v-slot="{ fields, push, remove }">
         <div
           v-for="(field, idx) in fields as FieldEntry<string>[]"
@@ -59,5 +52,5 @@ const initValues = computed(() => ({ props: propsLabels.value }));
         <SListControls disabled-remove @add="push('')" :loading-submit="diaryScheme.updateState.isLoading()" />
       </FieldArray>
     </SForm>
-  </SStructure>
+  </SComponentWrapper>
 </template>
