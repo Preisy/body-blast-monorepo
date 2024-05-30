@@ -3,7 +3,7 @@ import { toTypedSchema } from '@vee-validate/zod';
 import { EUserLoginFields } from 'entities/user';
 import { Auth, useUserStore } from 'shared/api';
 import { ENUMS } from 'shared/lib';
-import { SBtn, SForm, SStructure } from 'shared/ui';
+import { SBtn, SForm, SLoading, SSplide, SSplideSlide, SStructure } from 'shared/ui';
 
 const router = useRouter();
 const schema = toTypedSchema(Auth.validation());
@@ -18,13 +18,23 @@ const login = async (values: Auth.Dto) => {
 
 <template>
   <SStructure relative mt--6.5rem class="h-[calc(100vh-4rem)]" flex items-center justify-center>
-    <SForm :field-schema="schema" @submit="login" w-full>
-      <EUserLoginFields />
-      <template #submit-btn>
-        <div mt-0.5rem flex justify-between>
-          <SBtn :loading="authStore.loginState.state.isLoading()" icon="done" type="submit" ml-auto />
-        </div>
-      </template>
-    </SForm>
+    <SSplide :options="{ direction: 'ltr', pagination: false, perMove: 1, perPage: 1 }">
+      <SSplideSlide>
+        <SLoading />
+      </SSplideSlide>
+      <SSplideSlide>
+        <SForm :field-schema="schema" @submit="login" w-full>
+          <EUserLoginFields />
+          <template #submit-btn>
+            <div mt-0.5rem flex justify-between>
+              <SBtn :loading="authStore.loginState.state.isLoading()" icon="done" type="submit" ml-auto />
+            </div>
+          </template>
+        </SForm>
+      </SSplideSlide>
+      <SSplideSlide>
+        <SLoading />
+      </SSplideSlide>
+    </SSplide>
   </SStructure>
 </template>

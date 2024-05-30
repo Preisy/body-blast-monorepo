@@ -18,6 +18,7 @@ const routes: Array<RouteRecord> = [
 ];
 
 const e = ({ direction }: SwipeEventData) => {
+  return;
   if (!direction) return;
   const map = {
     right: () => router.push(routes.at(0)!.name),
