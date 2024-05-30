@@ -132,7 +132,7 @@ const onUserDelete = (userId: User['id']) => {
           <SDatePagination
             v-model="date"
             :half-range="halfRange"
-            :offset="offset"
+            :page="offset"
             @need-fetch="(from, to) => getAnthropometry({ userId: id, from, to, expanded: true })"
             h-full
           >

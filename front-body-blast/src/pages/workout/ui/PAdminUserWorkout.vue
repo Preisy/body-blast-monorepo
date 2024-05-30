@@ -51,7 +51,7 @@ const clearEditing = () => {
 
     <SDatePagination
       v-model="date"
-      :offset="offset"
+      :page="offset"
       :half-range="halfRange"
       @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true, userId: id })"
       p="0!"

@@ -69,7 +69,7 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
           emit('update:date', newDate);
         }
       "
-      :offset="offset"
+      :page="offset"
       :half-range="halfRange"
       @need-fetch="(from, to) => getDiary({ from, to, expanded: true })"
       p="0!"

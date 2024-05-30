@@ -1,1 +1,1 @@
-export { default as SDatePagination } from './SDatePagination.vue';
+export { default as SDatePagination } from './SDatePaginationExp.vue';

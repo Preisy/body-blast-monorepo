@@ -35,7 +35,7 @@ useLoadingAction(workouts, () =>
     <SDatePagination
       v-model="date"
       :half-range="halfRange"
-      :offset="offset"
+      :page="offset"
       @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true })"
       p="0!"
     >

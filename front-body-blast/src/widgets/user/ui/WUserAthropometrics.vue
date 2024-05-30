@@ -62,7 +62,7 @@ const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Ant
     <SDatePagination
       v-model="date"
       :half-range="halfRange"
-      :offset="offset"
+      :page="offset"
       @need-fetch="
         (from, to) =>
           getAnthropometry({
