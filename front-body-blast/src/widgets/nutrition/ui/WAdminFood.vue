@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
+import { FDeleteFoodBtn } from 'features/food';
 import { FFoodListForm } from 'features/nutrition';
 import { Food, useAdminFoodStore } from 'entities/food';
 import { AppBaseEntity } from 'shared/api';
@@ -48,11 +49,18 @@ const onSubmit = async () => {
   }
   Notify.updateSuccess();
 };
+
+defineEmits<{
+  deleted: [];
+}>();
 </script>
 
 <template>
   <SComponentWrapper>
-    <h1 mb-1rem>{{ type }}</h1>
+    <div mb-1rem flex flex-row>
+      <h1>{{ type }}</h1>
+      <FDeleteFoodBtn :food-type="type" ml-auto @click="$emit('deleted')" />
+    </div>
 
     <FFoodListForm
       ref="forms"

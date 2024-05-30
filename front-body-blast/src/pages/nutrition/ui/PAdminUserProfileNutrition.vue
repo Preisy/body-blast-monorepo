@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { groupBy } from 'lodash';
 import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
-import { Food, useAdminFoodStore } from 'entities/food';
+import { useAdminFoodStore } from 'entities/food';
 import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
 import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction, tod } from 'shared/lib';
@@ -24,16 +25,7 @@ useLoadingAction(foodList.state, getFoods);
 const nutritionsData = computed(() => nutritionList.data?.data);
 const foodsData = computed(() => foodList.data?.data);
 
-type AccumulatorType = Record<string, Array<Food>>;
-const foodSlides = computed(
-  () =>
-    foodsData.value?.reduce<AccumulatorType>((acc: AccumulatorType, food) => {
-      const isTypeInAcc = food.type in acc;
-      if (!isTypeInAcc) acc[food.type] = [];
-      acc[food.type].push(food);
-      return acc;
-    }, {}),
-);
+const foodSlides = computed(() => groupBy(foodsData.value, ({ type }) => type));
 
 const pages = computed<SCenteredNavProps['pages']>(() => {
   const nutritionPage = { label: t('admin.nutrition.nutrition'), value: 'nutrition' };
@@ -69,15 +61,9 @@ const calcHeight = (nutr: Nutrition): StyleValue => ({
         </SProxyScroll>
       </q-tab-panel>
 
-      <q-tab-panel
-        v-for="[type, foodItems] in Object.entries(foodSlides)"
-        :key="type"
-        :name="type"
-        p="0!"
-        overflow-hidden
-      >
+      <q-tab-panel v-for="(foodItems, type) in foodSlides" :key="type" :name="type" p="0!" overflow-hidden>
         <SProxyScroll h-full>
-          <WAdminFood :type="type" :food-items="foodItems" />
+          <WAdminFood :type="type.toString()" :food-items="foodItems" @deleted="pageValue = 'nutrition'" />
         </SProxyScroll>
       </q-tab-panel>
 

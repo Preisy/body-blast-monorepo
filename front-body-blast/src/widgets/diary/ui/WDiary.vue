@@ -5,17 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { z } from 'zod';
 import { Diary, useDiaryStore } from 'entities/diary';
 import { useLoadingAction, Notify, getUTC3Date, isEqualDates } from 'shared/lib';
-import {
-  SCalendar,
-  SComponentWrapper,
-  SDatePagination,
-  SForm,
-  SInput,
-  SSplide,
-  SSplideSlide,
-  SStructure,
-  SBtnToggle,
-} from 'shared/ui';
+import { SCalendar, SComponentWrapper, SDatePagination, SForm, SInput, SStructure, SBtnToggle } from 'shared/ui';
 
 const today = getUTC3Date(); // Current date
 const { t } = useI18n();
@@ -83,59 +73,49 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
       :half-range="halfRange"
       @need-fetch="(from, to) => getDiary({ from, to, expanded: true })"
       p="0!"
+      h-full
     >
       <template #item="{ date: dd }">
         <SStructure v-if="diaryData && diaryData.find((item) => isEqualDates(item.date, dd))" px="0!" relative>
-          <SSplide
-            :options="{
-              direction: 'ttb',
-              height: '15rem',
-              fixedHeight: 'auto',
-              arrows: false,
-              omitEnd: true,
-              gap: '2.5rem',
-            }"
-          >
-            <!-- self-control(upper) part of diary -->
-            <SSplideSlide>
-              <h1>{{ $t('home.diary.item.selfcontrol') }}</h1>
+          <!-- self-control(upper) part of diary -->
+          <div>
+            <h1>{{ $t('home.diary.item.selfcontrol') }}</h1>
 
-              <SForm
-                ref="propsForm"
-                :disable-submit-btn="true"
-                :field-schema="
-                  toTypedSchema(buildPropsSchema(diaryData.find((item) => isEqualDates(item.date, dd))!.props))
-                "
-                p="0!"
-              >
-                <template v-for="prop of diaryData.find((item) => isEqualDates(item.date, dd))!.props" :key="prop.id">
-                  <p mt-0.5rem>{{ prop.label }}</p>
-                  <SBtnToggle
-                    :options="selfControlOptions"
-                    :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
-                    :name="prop.label"
-                    :init-value="prop.value"
-                  />
-                </template>
-              </SForm>
-            </SSplideSlide>
+            <SForm
+              ref="propsForm"
+              :readonly="true"
+              :field-schema="
+                toTypedSchema(buildPropsSchema(diaryData.find((item) => isEqualDates(item.date, dd))!.props))
+              "
+              p="0!"
+            >
+              <template v-for="prop of diaryData.find((item) => isEqualDates(item.date, dd))!.props" :key="prop.id">
+                <p mt-0.5rem>{{ prop.label }}</p>
+                <SBtnToggle
+                  :options="selfControlOptions"
+                  :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
+                  :name="prop.label"
+                  :init-value="prop.value"
+                />
+              </template>
+            </SForm>
+          </div>
 
-            <!-- activity(lower) part of diary -->
-            <SSplideSlide>
-              <h1 mb-4>{{ $t('home.diary.activity.activity') }}</h1>
-              <SForm
-                :disable-submit-btn="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
-                :field-schema="toTypedSchema(activityValidation)"
-                :init-values="diaryData.find((item) => isEqualDates(item.date, dd))!"
-                @submit="(values) => onSubmit(diaryData!.find((item) => isEqualDates(item.date, dd))!, values)"
-                :loading="diaryList.updateState.isLoading()"
-                p="0!"
-              >
-                <SInput mb-2 name="activity" :label="$t('home.diary.activity.physical')" />
-                <SInput name="steps" :label="$t('home.diary.activity.steps')" />
-              </SForm>
-            </SSplideSlide>
-          </SSplide>
+          <!-- activity(lower) part of diary -->
+          <div mt-1.5rem>
+            <h1 mb-4>{{ $t('home.diary.activity.activity') }}</h1>
+            <SForm
+              :readonly="isReadonly(diaryData.find((item) => isEqualDates(item.date, dd))!.date)"
+              :field-schema="toTypedSchema(activityValidation)"
+              :init-values="diaryData.find((item) => isEqualDates(item.date, dd))!"
+              @submit="(values) => onSubmit(diaryData!.find((item) => isEqualDates(item.date, dd))!, values)"
+              :loading="diaryList.updateState.isLoading()"
+              p="0!"
+            >
+              <SInput mb-2 name="activity" :label="$t('home.diary.activity.physical')" />
+              <SInput name="steps" :label="$t('home.diary.activity.steps')" />
+            </SForm>
+          </div>
         </SStructure>
       </template>
     </SDatePagination>

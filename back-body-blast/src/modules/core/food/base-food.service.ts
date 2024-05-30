@@ -52,4 +52,14 @@ export class BaseFoodService {
     const { affected } = await this.foodRepository.delete(id);
     return new AppStatusResponse(!!affected);
   }
+
+  async deleteType(type: FoodEntity['type']): Promise<AppStatusResponse> {
+    const { affected } = await this.foodRepository
+      .createQueryBuilder('food')
+      .delete()
+      .from(FoodEntity)
+      .where('food.type = :type', { type: `${type}` })
+      .execute();
+    return new AppStatusResponse(!!affected);
+  }
 }
