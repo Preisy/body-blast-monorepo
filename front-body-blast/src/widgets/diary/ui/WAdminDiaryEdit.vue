@@ -1,30 +1,47 @@
-<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
-import { symRoundedAdd, symRoundedDelete } from '@quasar/extras/material-symbols-rounded';
+import { symRoundedDelete } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
 import { FieldArray, FieldEntry } from 'vee-validate';
 import { z } from 'zod';
 import { useAdminDiaryStore } from 'entities/diary';
-import { SListControls, SInput, SStructure, SBtn, SForm } from 'shared/ui';
+import { User } from 'shared/api';
+import { useLoadingAction } from 'shared/lib';
+import { SListControls, SInput, SStructure, SBtn, SForm, SLoading } from 'shared/ui';
 
-const { getDiaryScheme, patchDiaryScheme } = useAdminDiaryStore();
+export interface Props {
+  id: User['id'];
+}
+const props = defineProps<Props>();
 
-//TODO: fetch scheme, when api will be ready
-//useLoadingAction(getDiaryScheme);
+const { getDiaryScheme, patchDiaryScheme, diaryScheme } = useAdminDiaryStore();
+
+useLoadingAction(diaryScheme, () => getDiaryScheme({ id: props.id }));
+const diarySchemeData = computed(() => diaryScheme.data?.data);
+const propsLabels = computed(() => diarySchemeData.value?.props?.map((prop) => prop.label) || []);
+
 const schema = z.object({
   props: z.array(z.string().min(1)),
 });
 const typedSchema = toTypedSchema(schema);
 const onsubmit = (values: z.infer<typeof schema>) => {
-  console.log(values);
+  patchDiaryScheme({ id: props.id, props: values.props.map((prop) => ({ label: prop })) });
 };
 
-const initValues = { props: ['abc', 'def'] }; //TODO: remove, when api will be ready
+const initValues = computed(() => ({ props: propsLabels.value }));
 </script>
 
 <template>
   <SStructure>
-    <SForm @submit="onsubmit" :field-schema="typedSchema" :init-values="initValues" disable-submit-btn mt-2rem p="0!">
+    <SLoading v-if="!diarySchemeData" mt-1.5rem />
+    <SForm
+      v-else
+      @submit="onsubmit"
+      :field-schema="typedSchema"
+      :init-values="initValues"
+      disable-submit-btn
+      mt-2rem
+      p="0!"
+    >
       <FieldArray name="props" v-slot="{ fields, push, remove }">
         <div
           v-for="(field, idx) in fields as FieldEntry<string>[]"
@@ -39,7 +56,7 @@ const initValues = { props: ['abc', 'def'] }; //TODO: remove, when api will be r
           <SBtn :icon="symRoundedDelete" @click="remove(idx)" />
         </div>
 
-        <SListControls disabled-remove @add="push('')" />
+        <SListControls disabled-remove @add="push('')" :loading-submit="diaryScheme.updateState.isLoading()" />
       </FieldArray>
     </SForm>
   </SStructure>

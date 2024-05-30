@@ -38,13 +38,14 @@ export namespace AdminDiary {
     export interface Dto {
       id: AppBaseEntity['id'];
     }
-    export interface Response {}
+    export interface Response extends AppBaseEntity.Response<Pick<Diary, keyof AppBaseEntity | 'userId' | 'props'>> {}
   }
   export namespace PatchScheme {
     export interface Dto {
       id: AppBaseEntity['id'];
-      data: [];
+
+      props: Array<{ label: string }>;
     }
-    export interface Response {}
+    export interface Response extends AppBaseEntity.Response<Pick<Diary, keyof AppBaseEntity | 'userId' | 'props'>> {}
   }
 }

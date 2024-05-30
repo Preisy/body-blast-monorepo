@@ -27,8 +27,8 @@ export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
 
   const diaryScheme = ref(useSingleState<AdminDiary.GetScheme.Response>({ update: true }));
   const getDiaryScheme = (data: AdminDiary.GetScheme.Dto) =>
-    useStoreAction({
-      state: diaryScheme.value.state,
+    useSimpleStoreAction({
+      stateWrapper: diaryScheme.value,
       serviceAction: adminDiaryService.getDiaryScheme(data),
     });
 
@@ -36,6 +36,12 @@ export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
     useStoreAction({
       state: diaryScheme.value.updateState,
       serviceAction: adminDiaryService.patchDiaryScheme(data),
+      onSuccess: (res) => {
+        const schemeData = diaryScheme.value.data?.data;
+        if (!schemeData) return;
+
+        assign(schemeData, res.data);
+      },
     });
 
   const patchDiaryResponse = ref(useSingleState<AdminDiary.Patch.Response>());
@@ -63,5 +69,6 @@ export const useAdminDiaryStore = defineStore('admin-diary-store', () => {
     getUserDiaries,
     getDiaryScheme,
     patchDiaryScheme,
+    diaryScheme,
   };
 });
