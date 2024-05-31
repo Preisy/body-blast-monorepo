@@ -19,4 +19,10 @@ export const adminDiaryService = {
   getUserDiaries: useServiceAction((data: AdminDiary.GetUserDiaries.Dto) =>
     api.get<AdminDiary.GetUserDiaries.Response>(`/admin/users/${data.id}/diaries`, { params: data.pagination }),
   ),
+  getDiaryScheme: useServiceAction((data: AdminDiary.GetScheme.Dto) =>
+    api.get<AdminDiary.GetScheme.Response>(`/admin/users/${data.id}/diary-template`),
+  ),
+  patchDiaryScheme: useServiceAction((data: AdminDiary.PatchScheme.Dto) =>
+    api.patch<AdminDiary.PatchScheme.Response>(`/admin/users/${data.id}/diary-template`, { props: data.props }),
+  ),
 };

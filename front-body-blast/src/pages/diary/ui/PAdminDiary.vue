@@ -54,17 +54,17 @@ const diariesSlides = computed(() => {
 </script>
 
 <template>
-  <SStructure my-1rem h-full>
+  <SStructure h-full flex flex-col>
     <SCalendar
       :model-value="calendarDate"
       @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
       default-view="Months"
       :emit-immediately="true"
       today-btn
-      pt-1rem
+      py-1rem
     />
 
-    <SProxyScroll h-full p-1.5rem>
+    <SProxyScroll h-full px-1.5rem pb-1.5rem>
       <EStepsList :weeks="stepsData?.weeks ?? []" mb-2rem />
       <ESelfControlList v-for="(slide, week) in diariesSlides" :key="week" :slides="slide" :week="week" />
     </SProxyScroll>

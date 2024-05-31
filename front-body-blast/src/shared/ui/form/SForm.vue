@@ -5,7 +5,7 @@ import { SBtn } from 'shared/ui';
 export interface SFormProps {
   fieldSchema: TypedSchema; //Vee-validate/Zod value validation schema
   loading?: boolean; //SBtn state props. Displays request status
-  readonly?: boolean; //disables submit btn
+  disableSubmitBtn?: boolean; //disables submit btn
   initValues?: Record<string, unknown>; //init form with some values
 }
 
@@ -36,7 +36,7 @@ const onsubmit = handleSubmit((...data) => emits('submit', ...data));
     </div>
     <slot name="submit-btn">
       <SBtn
-        v-if="!$slots['submit-btn'] && !readonly"
+        v-if="!$slots['submit-btn'] && !disableSubmitBtn"
         :loading="loading"
         icon="done"
         type="submit"

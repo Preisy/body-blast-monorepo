@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   symRoundedAccountCircle,
+  symRoundedAppRegistration,
   symRoundedEdit,
   symRoundedExercise,
   symRoundedHome,
@@ -44,6 +45,11 @@ const links = computed<SFooterNavLinkProps[]>(() => {
         imgSrc: symRoundedEdit,
         title: t('dashboard.footer.links.diary'),
         name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY,
+      },
+      {
+        imgSrc: symRoundedAppRegistration,
+        title: t('dashboard.footer.links.diary'),
+        name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_DIARY_EDIT,
       },
       {
         imgSrc: symRoundedRestaurant,

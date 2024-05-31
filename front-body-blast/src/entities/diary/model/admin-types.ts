@@ -34,4 +34,18 @@ export namespace AdminDiary {
     }
     export interface Response extends AppPagination.Response<Diary> {}
   }
+  export namespace GetScheme {
+    export interface Dto {
+      id: AppBaseEntity['id'];
+    }
+    export interface Response extends AppBaseEntity.Response<Pick<Diary, keyof AppBaseEntity | 'userId' | 'props'>> {}
+  }
+  export namespace PatchScheme {
+    export interface Dto {
+      id: AppBaseEntity['id'];
+
+      props: Array<{ label: string }>;
+    }
+    export interface Response extends AppBaseEntity.Response<Pick<Diary, keyof AppBaseEntity | 'userId' | 'props'>> {}
+  }
 }
