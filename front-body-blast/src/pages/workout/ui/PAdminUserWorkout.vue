@@ -54,6 +54,7 @@ const clearEditing = () => {
       :page="offset"
       :half-range="halfRange"
       @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true, userId: id })"
+      start-date="2024-06-05"
       p="0!"
     >
       <template #item="{ date: dd }">
