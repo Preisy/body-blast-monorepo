@@ -26,6 +26,9 @@ import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
 import { AppLoggerModule } from './logger/app-logger.module';
 import { AdminLogsModule } from './modules/admin/logging/admin-logs.module';
 import { TelegramModule } from './modules/telegram/telegram.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AbilityGuard } from './modules/authentication/guards/ability.guard';
+import { AbilityModule } from './modules/ability/ability.module';
 
 @Module({
   imports: [
@@ -55,6 +58,7 @@ import { TelegramModule } from './modules/telegram/telegram.module';
     AppLoggerModule,
     AdminLogsModule,
     TelegramModule,
+    AbilityModule,
   ],
   controllers: [AppController],
   providers: [AppService],

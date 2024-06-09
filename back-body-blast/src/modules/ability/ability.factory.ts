@@ -1,4 +1,4 @@
-import { AbilityBuilder, createMongoAbility, InferSubjects, MongoAbility } from '@casl/ability';
+import { AbilityBuilder, createMongoAbility, ExtractSubjectType, InferSubjects, MongoAbility } from '@casl/ability';
 import { UserEntity } from '../core/user/entities/user.entity';
 import { WorkoutEntity } from '../core/workout/entity/workout.entity';
 import { Injectable } from '@nestjs/common';
@@ -11,7 +11,7 @@ export enum Action {
   Delete = 'delete',
 }
 
-type Subjects = InferSubjects<typeof WorkoutEntity> | 'all';
+export type Subjects = InferSubjects<typeof WorkoutEntity> | 'all';
 export type Ability = MongoAbility<[Action, Subjects]>;
 
 @Injectable()
@@ -32,5 +32,6 @@ export class AbilityFactory {
         'Sorry, you can only comment your own workouts',
       );
     }
+    return build({ detectSubjectType: (item) => item.constructor as ExtractSubjectType<Subjects> });
   }
 }

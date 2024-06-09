@@ -9,6 +9,7 @@ import {
   Post,
   Query,
   UseFilters,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -28,16 +29,23 @@ import { GetWorkoutByAdminDTO, GetWorkoutForUserByAdminRequest } from './dto/adm
 import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { AbilityFactory, Action } from 'src/modules/ability/ability.factory';
+import { CheckAbilities } from 'src/decorators/ability.decorator';
+import { AbilityGuard } from 'src/modules/authentication/guards/ability.guard';
+import { AppAuthGuard } from 'src/modules/authentication/guards/appAuth.guard';
 
 @Controller('admin/workouts')
 @ApiTags('Admin workouts')
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
-@BaseAuthGuard(RoleGuard(UserRole.Admin))
+// @BaseAuthGuard(RoleGuard(UserRole.Admin))
+@AppAuthGuard()
 export class AdminWorkoutController {
   constructor(private readonly adminService: AdminWorkoutService) {}
 
   @Post()
+  @UseGuards(AbilityGuard)
+  @CheckAbilities({ action: Action.Create, subject: WorkoutEntity })
   @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Body() request: CreateWorkoutByAdminRequest) {
@@ -45,30 +53,40 @@ export class AdminWorkoutController {
   }
 
   @Get()
+  @UseGuards(AbilityGuard)
+  @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
   async getAll(@Query() query: AppPagination.Request) {
     return await this.adminService.findAll(query);
   }
 
   @Get('date')
+  @UseGuards(AbilityGuard)
+  @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
   async getAllByDate(@Query() query: GetWorkoutForUserByAdminRequest) {
     return await this.adminService.findAllByDate(query);
   }
 
   @Get(':id')
+  @UseGuards(AbilityGuard)
+  @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetWorkoutByAdminDTO) })
   async getOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.findOne(id);
   }
 
   @Patch(':id')
+  @UseGuards(AbilityGuard)
+  @CheckAbilities({ action: Action.Update, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
   async update(@Param('id', ParseUUIDPipe) id: string, @Body() body: UpdateWorkoutByAdminRequest) {
     return await this.adminService.update(id, body);
   }
 
   @Delete(':id')
+  @UseGuards(AbilityGuard)
+  @CheckAbilities({ action: Action.Delete, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   async deleteOne(@Param('id', ParseUUIDPipe) id: string) {
     return await this.adminService.deleteOne(id);
