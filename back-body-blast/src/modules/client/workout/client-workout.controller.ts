@@ -8,6 +8,7 @@ import {
   Query,
   Req,
   UseFilters,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -22,8 +23,9 @@ import { ClientWorkoutService } from './client-workout.service';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
-import { CheckAbilities } from 'src/decorators/ability.decorator';
-import { Action } from 'src/modules/ability/ability.factory';
+import { CheckAbilities } from '../../../decorators/ability.decorator';
+import { Action } from '../../../modules/ability/ability.factory';
+import { AbilityGuard } from '../../../modules/authentication/guards/ability.guard';
 
 @ApiTags('Workouts')
 @Controller('workouts')
@@ -33,20 +35,23 @@ import { Action } from 'src/modules/ability/ability.factory';
 export class ClientWorkoutController {
   constructor(private readonly clientService: ClientWorkoutService) {}
 
+  @UseGuards(AbilityGuard)
   @Get()
   @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
-  async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
-    return await this.clientService.findAll(req.user.id, query);
+  async getAll(@Query() query: AppPagination.Request) {
+    return await this.clientService.findAll(query);
   }
 
+  @UseGuards(AbilityGuard)
   @Get('date')
   @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
-  async getAllByDate(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
-    return await this.clientService.findAllByDate(req.user.id, query);
+  async getAllByDate(@Query() query: AppDatePagination.Request) {
+    return await this.clientService.findAllByDate(query);
   }
 
+  @UseGuards(AbilityGuard)
   @Patch(':id')
   @CheckAbilities({ action: Action.Update, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })

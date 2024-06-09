@@ -18,7 +18,6 @@ import { Throttle } from '@nestjs/throttler';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
-import { BaseAuthGuard } from '../../../modules/authentication/guards/baseAuth.guard';
 import { AppPagination } from '../../../utils/app-pagination.util';
 import { UserRole } from '../../../constants/constants';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
@@ -29,17 +28,16 @@ import { GetWorkoutByAdminDTO, GetWorkoutForUserByAdminRequest } from './dto/adm
 import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
-import { AbilityFactory, Action } from 'src/modules/ability/ability.factory';
-import { CheckAbilities } from 'src/decorators/ability.decorator';
-import { AbilityGuard } from 'src/modules/authentication/guards/ability.guard';
-import { AppAuthGuard } from 'src/modules/authentication/guards/appAuth.guard';
+import { Action } from '../../../modules/ability/ability.factory';
+import { CheckAbilities } from '../../../decorators/ability.decorator';
+import { AbilityGuard } from '../../../modules/authentication/guards/ability.guard';
+import { AppAuthGuard } from '../../../modules/authentication/guards/appAuth.guard';
 
 @Controller('admin/workouts')
 @ApiTags('Admin workouts')
 @UseFilters(MainExceptionFilter)
 @UsePipes(ValidationPipe)
-// @BaseAuthGuard(RoleGuard(UserRole.Admin))
-@AppAuthGuard()
+@AppAuthGuard(RoleGuard(UserRole.Admin))
 export class AdminWorkoutController {
   constructor(private readonly adminService: AdminWorkoutService) {}
 

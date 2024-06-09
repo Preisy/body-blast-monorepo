@@ -11,26 +11,12 @@ import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 export class ClientWorkoutService {
   constructor(private readonly baseService: BaseWorkoutService) {}
 
-  async findAll(
-    userId: WorkoutEntity['userId'],
-    query: AppPagination.Request,
-  ): Promise<AppPagination.Response<WorkoutEntity>> {
-    return this.baseService.findAll(query, {
-      where: {
-        userId,
-      },
-    });
+  async findAll(query: AppPagination.Request): Promise<AppPagination.Response<WorkoutEntity>> {
+    return this.baseService.findAll(query);
   }
 
-  async findAllByDate(
-    userId: WorkoutEntity['userId'],
-    query: AppDatePagination.Request,
-  ): Promise<AppDatePagination.Response<WorkoutEntity>> {
-    return this.baseService.findAllByDate(query, {
-      where: {
-        userId,
-      },
-    });
+  async findAllByDate(query: AppDatePagination.Request): Promise<AppDatePagination.Response<WorkoutEntity>> {
+    return this.baseService.findAllByDate(query);
   }
 
   async update(userId: UserEntity['id'], id: WorkoutEntity['id'], request: UpdateWorkoutByClientRequest) {
