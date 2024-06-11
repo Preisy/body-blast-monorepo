@@ -106,7 +106,15 @@ const updateCheck = () => {
 watch(() => props.modelValue, updateCheck); //need to handle if date changes through SCalendar
 
 //TODO: props.halfRange + 1 should be todaySlide(), which not implemented yet
-onMounted(() => splide.value?.go(props.halfRange + 1));
+onMounted(() => {
+  //go to today slide
+  let slide = props.halfRange + 1;
+  // if startDate cuts off a part of page -> need to subtract
+  if (enabledSlidesBorders.value.length > 1) {
+    slide -= enabledSlidesBorders.value[0];
+  }
+  splide.value?.go(slide);
+});
 console.log(enabledSlidesBorders.value);
 </script>
 
