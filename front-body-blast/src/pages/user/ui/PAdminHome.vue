@@ -51,23 +51,18 @@ const onUserDelete = (user: User) => {
 </script>
 
 <template>
-  <SStructure h-full>
-    <SScaffold>
-      <template #header>
-        <EMinifiedProfileCard
-          :header="myName ?? $t('global.loading')"
-          :describe="$t('home.profile.header.admin')"
-          dark
-          mx--0.5rem
-        >
-          <template #action>
-            <div flex flex-row>
-              <SBtn icon="sym_r_logout" @click="logout" ml-auto />
-            </div>
-          </template>
-        </EMinifiedProfileCard>
-      </template>
-      <template #body>
+  <SScaffold>
+    <template #header>
+      <EMinifiedProfileCard :header="myName ?? $t('global.loading')" :describe="$t('home.profile.header.admin')" dark>
+        <template #action>
+          <div flex flex-row>
+            <SBtn icon="sym_r_logout" @click="logout" ml-auto />
+          </div>
+        </template>
+      </EMinifiedProfileCard>
+    </template>
+    <template #body>
+      <SStructure h-full>
         <SSearchInput v-model:query="nameFilter" />
 
         <div v-if="users.state.isSuccess() || displayCards?.length">
@@ -87,9 +82,9 @@ const onUserDelete = (user: User) => {
         </div>
 
         <SNoResultsScreen v-else-if="users.state.isError()" />
-      </template>
-    </SScaffold>
+      </SStructure>
+    </template>
+  </SScaffold>
 
-    <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onDeletionApply" type="deletion" />
-  </SStructure>
+  <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onDeletionApply" type="deletion" />
 </template>

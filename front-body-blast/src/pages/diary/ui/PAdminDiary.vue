@@ -54,7 +54,7 @@ const diariesSlides = computed(() => {
 </script>
 
 <template>
-  <SStructure my-1rem h-full>
+  <SStructure h-full flex flex-col>
     <SCalendar
       :model-value="calendarDate"
       @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
