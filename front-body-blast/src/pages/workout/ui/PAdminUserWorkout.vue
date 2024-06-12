@@ -2,7 +2,7 @@
 import moment from 'moment';
 import { WCreateWorkout, WEditWorkout } from 'widgets/workout';
 import { Workout, useAdminWorkoutStore } from 'entities/workout';
-import { AppBaseEntity } from 'shared/api';
+import { AppBaseEntity, useUserStore } from 'shared/api';
 import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates } from 'shared/lib';
 import { SCalendar, SStructure, SDatePagination, SProxyScroll } from 'shared/ui';
 
@@ -18,6 +18,7 @@ const halfRange = ref(7); //2weeks
 const offset = ref(0);
 
 const { getWorkouts, workoutList } = useAdminWorkoutStore();
+const { user } = useUserStore();
 
 useLoadingAction(workoutList, () =>
   getWorkouts({
@@ -54,7 +55,9 @@ const clearEditing = () => {
       :page="offset"
       :half-range="halfRange"
       @need-fetch="(from, to) => getWorkouts({ from, to, expanded: true, userId: id })"
-      start-date="2024-06-05"
+      :borders="{
+        startDate: moment(user.data?.data.createdAt).hour(0).minute(0).second(0).toISOString(),
+      }"
       p="0!"
     >
       <template #item="{ date: dd }">

@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-unused-vars -->
 <script setup lang="ts">
 import moment, { Moment } from 'moment';
 import { QDate } from 'quasar';
@@ -8,9 +9,10 @@ export interface SDatePaginationProps {
   modelValue: string; //Date. YYYY-MM-DD
   halfRange: number;
   page: number;
-  options?: QDate['options']; //TODO:
-  startDate?: string;
-  endDate?: string;
+  borders: {
+    startDate?: string;
+    endDate?: string;
+  };
 }
 
 const props = defineProps<SDatePaginationProps>();
@@ -36,9 +38,7 @@ const start = computed(() =>
 const slides = computed(() =>
   new Array(2 * (props.halfRange + 1) + 1).fill(0).map((_, i) => start.value.clone().add(i, 'd')),
 );
-
 const enabledSlides = computed(() => slides.value.map(checkDateConstraints));
-
 const enabledSlidesBorders = computed(() => {
   const reduced = enabledSlides.value.reduce<number[]>((acc, cur, i) => {
     if (cur != enabledSlides.value[i - 1]) acc.push(0);
@@ -52,47 +52,55 @@ const checkDateConstraints = (date: Moment) => {
   let canDisplay = true;
   date = date.utc(true).hour(0).minutes(0).seconds(0);
 
-  if (props.startDate) {
-    canDisplay = canDisplay && date.isSameOrAfter(moment(props.startDate).utc(true).hour(0).minutes(0).seconds(1));
+  console.log(date.toISOString());
+  console.log(props.borders.startDate);
+
+  if (props.borders.startDate) {
+    canDisplay =
+      canDisplay && date.isSameOrAfter(moment(props.borders.startDate).utc(true).hour(0).minutes(0).seconds(1));
   }
 
-  if (props.endDate) {
-    canDisplay = canDisplay && date.isSameOrBefore(moment(props.endDate));
+  if (props.borders.endDate) {
+    canDisplay = canDisplay && date.isSameOrBefore(moment(props.borders.endDate));
   }
 
   return canDisplay;
 };
 
+const delta = computed(() =>
+  moment(props.modelValue)
+    .subtract(localPage.value * props.halfRange * 2, 'd')
+    .diff(today, 'd'),
+);
 const updateCheck = () => {
   if (!checkDateConstraints(moment(props.modelValue))) return;
 
-  // calculate slide number
-  // today's delta = 0
-  // possible range: [-halfRange-1, halfRange+1]
-  const delta = moment(props.modelValue)
-    .subtract(localPage.value * props.halfRange * 2, 'd')
-    .diff(today, 'd');
+  //Calendar handler
+  setTimeout(() => {
+    let slide = 1 + props.halfRange + delta.value;
+    if (enabledSlidesBorders.value.length > 1) {
+      slide -= enabledSlidesBorders.value[0];
+    }
 
-  if (Math.abs(delta) <= props.halfRange) {
-    //TODO: fix calendar navigation
-    // setTimeout(() => splide.value?.go(1 + props.halfRange + delta));
+    splide.value?.go(slide);
+  });
+
+  //If not crossing the page -> no need to fetch
+  if (Math.abs(delta.value) <= props.halfRange) {
     return;
   }
 
-  // debugger;
-  const localPageDelta = Math.floor((Math.abs(delta) + props.halfRange) / (2 * props.halfRange));
-  if (delta > 0) {
+  //Updating page
+  const localPageDelta = Math.floor((Math.abs(delta.value) + props.halfRange) / (2 * props.halfRange));
+  if (delta.value > 0) {
     localPage.value += localPageDelta;
     emit('update:page', localPage.value);
-    setTimeout(() => splide.value?.go(2));
   } else {
     localPage.value -= localPageDelta;
     emit('update:page', localPage.value);
-    // enabledSlidesBorders.value[1] - 3 -- i don't know why "3" is here
-    setTimeout(
-      () => splide.value?.go(enabledSlidesBorders.value[1] ? enabledSlidesBorders.value[1] - 3 : 2 * props.halfRange),
-    );
   }
+
+  //Fetching
   emit(
     'needFetch',
     start.value.format('YYYY-MM-DD'),
@@ -105,7 +113,6 @@ const updateCheck = () => {
 
 watch(() => props.modelValue, updateCheck); //need to handle if date changes through SCalendar
 
-//TODO: props.halfRange + 1 should be todaySlide(), which not implemented yet
 onMounted(() => {
   //go to today slide
   let slide = props.halfRange + 1;
@@ -115,7 +122,6 @@ onMounted(() => {
   }
   splide.value?.go(slide);
 });
-console.log(enabledSlidesBorders.value);
 </script>
 
 <template>
