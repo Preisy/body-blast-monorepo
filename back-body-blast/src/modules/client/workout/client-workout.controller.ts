@@ -8,7 +8,6 @@ import {
   Query,
   Req,
   UseFilters,
-  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -23,9 +22,8 @@ import { ClientWorkoutService } from './client-workout.service';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
-import { CheckAbilities } from '../../../decorators/ability.decorator';
-import { Action } from '../../../modules/ability/ability.factory';
-import { AbilityGuard } from '../../../modules/authentication/guards/ability.guard';
+import { AbilityFactory, Action } from '../../../modules/ability/ability.factory';
+import { MainException } from '../../../exceptions/main.exception';
 
 @ApiTags('Workouts')
 @Controller('workouts')
@@ -33,33 +31,43 @@ import { AbilityGuard } from '../../../modules/authentication/guards/ability.gua
 @UsePipes(ValidationPipe)
 @AppAuthGuard()
 export class ClientWorkoutController {
-  constructor(private readonly clientService: ClientWorkoutService) {}
+  constructor(
+    private readonly clientService: ClientWorkoutService,
+    private readonly abilityFactory: AbilityFactory,
+  ) {}
 
-  @UseGuards(AbilityGuard)
   @Get()
-  @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
-  async getAll(@Query() query: AppPagination.Request) {
-    return await this.clientService.findAll(query);
+  async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
+    const ability = this.abilityFactory.defineAbility(req.user);
+
+    if (!ability.can(Action.Read, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    return await this.clientService.findAll(req.user.id, query);
   }
 
-  @UseGuards(AbilityGuard)
   @Get('date')
-  @CheckAbilities({ action: Action.Read, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
-  async getAllByDate(@Query() query: AppDatePagination.Request) {
-    return await this.clientService.findAllByDate(query);
+  async getAllByDate(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
+    const ability = this.abilityFactory.defineAbility(req.user);
+
+    if (!ability.can(Action.Read, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    return await this.clientService.findAllByDate(req.user.id, query);
   }
 
-  @UseGuards(AbilityGuard)
   @Patch(':id')
-  @CheckAbilities({ action: Action.Update, subject: WorkoutEntity })
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppSingleResponse) })
   async update(
     @Req() req: RequestWithUser,
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateWorkoutByClientRequest,
   ) {
-    return await this.clientService.update(req.user.id, id, body);
+    const ability = this.abilityFactory.defineAbility(req.user);
+
+    if (
+      !ability.can(Action.Update, WorkoutEntity, 'comment') ||
+      !ability.can(Action.Update, WorkoutEntity, req.user.id)
+    )
+      throw MainException.forbidden('Cannot update workout');
+    return await this.clientService.update(id, body);
   }
 }

@@ -22,15 +22,10 @@ export class AbilityFactory {
       can(Action.Manage, WorkoutEntity);
       cannot(Action.Update, WorkoutEntity, ['comment']);
     } else if (user.role == 'client') {
-      can(Action.Read, WorkoutEntity);
-      cannot(Action.Read, WorkoutEntity, { userId: { $ne: user.id } }).because(
-        'Sorry, you can only see your own workouts',
-      );
+      can(Action.Read, WorkoutEntity, { userId: { $eq: user.id } });
 
       can(Action.Update, WorkoutEntity, ['comment']);
-      cannot(Action.Update, WorkoutEntity, { userId: { $ne: user.id } }).because(
-        'Sorry, you can only comment your own workouts',
-      );
+      can(Action.Update, WorkoutEntity, { userId: { $eq: user.id } });
     }
     return build({ detectSubjectType: (item) => item.constructor as ExtractSubjectType<Subjects> });
   }
