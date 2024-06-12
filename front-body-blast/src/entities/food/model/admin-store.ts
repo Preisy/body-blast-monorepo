@@ -58,6 +58,24 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
       },
     });
 
+  const deleteFoodByType = (data: AdminFood.DeleteByType.Dto) =>
+    useStoreAction({
+      state: foodList.value.deleteState,
+      serviceAction: AdminFoodService.deleteFoodByType(data),
+      onSuccess: (res) => {
+        if (!res.status) return;
+
+        const foodListData = foodList.value.data?.data;
+        if (!foodListData) return;
+
+        const filteredFood = foodListData.filter((food) => food.type === data.type);
+        filteredFood.forEach((food) => {
+          const index = foodListData.findIndex((item) => item.id === food.id);
+          foodListData.splice(index, 1);
+        });
+      },
+    });
+
   return {
     foodList,
     getFoods,
@@ -66,5 +84,6 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
     patchFood,
     postFood,
     deleteFood,
+    deleteFoodByType,
   };
 });
