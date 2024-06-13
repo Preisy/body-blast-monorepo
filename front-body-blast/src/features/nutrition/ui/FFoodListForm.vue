@@ -1,92 +1,85 @@
-<!-- Significant part of component is copy-paste from FNutritionListForm.vue -->
 <script setup lang="ts">
+import { symRoundedDelete } from '@quasar/extras/material-symbols-rounded';
 import { toTypedSchema } from '@vee-validate/zod';
-import { uniqueId } from 'lodash';
+import { cloneDeep, groupBy } from 'lodash';
+import { FieldArray, FieldEntry, InvalidSubmissionHandler, SubmissionHandler } from 'vee-validate';
+import { z } from 'zod';
 import { Food, useAdminFoodStore } from 'entities/food';
-import { AppBaseEntity } from 'shared/api';
-import { SConfirmDialog, SListControls, SForm, SInput } from 'shared/ui';
+import { Notify, useLoadingAction } from 'shared/lib';
+import { SConfirmDialog, SListControls, SForm, SInput, SBtn } from 'shared/ui';
 import NutritionListHeader, { NutritionListHeaderProps } from './NutritionListHeader.vue';
 
 export interface FFoodListFormProps {
   category: NutritionListHeaderProps['category'];
+  type: Food['type'];
   initValues?: Array<Food>;
+  cleanOnCreate?: boolean;
+  disableSubmitBtn?: boolean;
 }
 
 const props = defineProps<FFoodListFormProps>();
 const emit = defineEmits<{
-  create: [Pick<Food, 'name' | 'category'>]; //Emit only name and category. 'type' will be added in WAdminFood
-  edit: [Pick<Food, 'id' | 'name'>]; //Id is mandatory. 'name' field is only field in form
-  remove: [AppBaseEntity['id']];
+  submit: [values: { foods: Array<Food> }];
 }>();
-const forms = ref<Array<InstanceType<typeof SForm>>>();
 
-const { foodList } = useAdminFoodStore();
+const { deleteFood, postFood, patchFood, foodList } = useAdminFoodStore();
 
-const lines = ref<Array<Partial<Food & { uniqueId: string }>>>(
-  props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
-);
+const form = ref<InstanceType<typeof SForm>>();
+const validationSchema = toTypedSchema(z.object({ foods: z.array(Food.validation().partial()) }));
+
+// Save init values to compare later
+// Alternative solution: add "onchange" listener to SInput inside form
+const prevFoods = ref(cloneDeep(props.initValues));
+const onsubmit = (values: { foods: Array<Food> }) => {
+  emit('submit', values);
+  const { false: maybeChangedValues, true: completelyNewValues } = groupBy(values.foods, ({ id }) => id === undefined);
+  let needToNotify = false;
+
+  //Check for updates
+  if (maybeChangedValues?.length > 0)
+    for (let i = 0; i < maybeChangedValues.length; i++) {
+      const food = maybeChangedValues[i];
+      const prevFood = prevFoods.value?.[i];
+
+      if (!prevFood) {
+        console.warn('Unreachable');
+        return;
+      } else if (food.name !== prevFood?.name) {
+        useLoadingAction(foodList.updateState, () => patchFood({ id: prevFood!.id, name: food.name }));
+        needToNotify = true; // TODO: check updateState/createState for success
+      }
+    }
+
+  //Push completely new items to api
+  if (completelyNewValues?.length > 0) {
+    for (let food of completelyNewValues) {
+      useLoadingAction(foodList.createState, () => postFood({ ...food, type: props.type, category: props.category }));
+    }
+    needToNotify = true;
+  }
+
+  if (props.cleanOnCreate) {
+    form.value?.resetForm();
+    prevFoods.value = [];
+  }
+  if (needToNotify) Notify.updateSuccess();
+};
 
 const isConfirmDialogShown = ref<boolean>();
 const removeItemIndex = ref<number>();
-const onRemoveConfirmed = async () => {
-  if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  const food = lines.value[removeItemIndex.value];
-  if (!food) return;
-
-  if (!food.id) {
-    lines.value.splice(removeItemIndex.value, 1);
-    return;
-  }
-  // if deletionDialog was approved -> emit 'remove' signal to parent
-  emit('remove', food.id);
-  // See watchEffect in the end of <script> to further explanaition
-};
-
 const onremove = (index: number) => {
   isConfirmDialogShown.value = true;
   foodList.deleteState.error();
   removeItemIndex.value = index;
 };
-const onadd = () => {
-  lines.value.push({ uniqueId: uniqueId('line-') });
-};
 
-const onsubmit = async (index: number, values: Pick<Food, 'name'>) => {
-  const line = lines.value[index];
-  if (!line) return;
-
-  if (!line.name) emit('create', { name: values.name, category: props.category });
-  else emit('edit', { id: line.id!, name: values.name });
-};
-const validationSchema = toTypedSchema(Food.validation().pick({ name: true }).partial());
-
-const getFormValues = async () => {
-  if (!forms.value) return;
-  const result: Array<Food> = [];
-  for (const form of forms.value)
-    await form.handleSubmit(
-      (values) => {
-        if (values.name) result.push({ ...values, category: props.category });
-      },
-      (e) => {
-        console.log(e);
-      },
-    )();
-  return result;
-};
-
+const initVals = ref<Partial<Food>[]>(props.initValues ?? []);
+onBeforeMount(() => {
+  if (!initVals.value.length) initVals.value.push({ name: '' });
+});
 defineExpose({
-  getFormValues,
-  category: props.category,
-  resetForms: () => forms.value?.forEach((form) => form.resetForm()),
-});
-
-watchEffect(() => {
-  if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  if (foodList.deleteState.isSuccess()) lines.value.splice(removeItemIndex.value, 1);
-});
-onMounted(() => {
-  if (!lines.value.length) lines.value.push({ uniqueId: uniqueId('line-') });
+  resetForm: () => form.value?.resetForm(),
+  handleSubmit: (cb: SubmissionHandler, cbe?: InvalidSubmissionHandler) => form.value?.handleSubmit(cb, cbe),
 });
 </script>
 
@@ -95,30 +88,46 @@ onMounted(() => {
     <NutritionListHeader :category="category" />
 
     <SForm
-      ref="forms"
-      v-for="(line, index) of lines"
-      :key="line.uniqueId"
-      @submit="(value) => onsubmit(index, value)"
+      ref="form"
+      @submit="onsubmit"
       :field-schema="validationSchema"
-      :init-values="line"
+      :init-values="{ foods: initVals }"
+      disable-submit-btn
       p="0!"
     >
-      <div>
-        <SInput name="name" :label="$t('admin.nutrition.name')" />
-      </div>
+      <FieldArray name="foods" v-slot="{ fields, push, remove }">
+        <div
+          v-for="(field, idx) in fields as FieldEntry<Food>[]"
+          :key="field.key"
+          w-full
+          flex
+          flex-row
+          items-center
+          gap-x-0.5rem
+        >
+          <SInput :name="`foods[${idx}].name`" :label="$t('admin.nutrition.name')" w-full />
+          <SBtn @click="field.value.id ? onremove(idx) : remove(idx)" :icon="symRoundedDelete" bg="bg!" />
+        </div>
 
-      <template #submit-btn>
-        <SListControls
-          disabled-submit
-          :disabled-add="index !== lines.length - 1"
-          :disabled-remove="index === 0"
-          @remove="() => onremove(index)"
-          @add="onadd"
-          mt-0.5rem
+        <SListControls disabled-remove :disabled-submit="disableSubmitBtn" @add="push({ name: '' })" mt-0.5rem />
+        <SConfirmDialog
+          v-model="isConfirmDialogShown"
+          @confirm="
+            () => {
+              const _fields = fields as FieldEntry<Food>[];
+              if (removeItemIndex === undefined) {
+                console.error('removeItemIndex should not be undefined');
+                return;
+              }
+
+              // Order is important! If 'remove' stays before 'deleteFood', it will delete the wrong item
+              useLoadingAction(foodList.deleteState, () => deleteFood({ id: _fields[removeItemIndex!].value.id }));
+              remove(removeItemIndex);
+            }
+          "
+          type="deletion"
         />
-      </template>
+      </FieldArray>
     </SForm>
-
-    <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onRemoveConfirmed" type="deletion" />
   </div>
 </template>
