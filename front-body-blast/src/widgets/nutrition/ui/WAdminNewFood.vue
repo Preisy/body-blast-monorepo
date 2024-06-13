@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { symRoundedDone } from '@quasar/extras/material-symbols-rounded';
+import { useI18n } from 'vue-i18n';
 import { FFoodListForm } from 'features/nutrition';
-import { useAdminFoodStore } from 'entities/food';
+import { Food, useAdminFoodStore } from 'entities/food';
 import { AppBaseEntity } from 'shared/api';
-import { useLoading, Notify } from 'shared/lib';
+import { Notify } from 'shared/lib';
 import { SBtn, SInput, SComponentWrapper } from 'shared/ui';
 
 export interface WAdminNewFoodProps {
@@ -14,31 +15,56 @@ const emit = defineEmits<{
   created: [type: string];
 }>();
 
-const { postFood, foodList } = useAdminFoodStore();
+const { t } = useI18n();
 
 const categories = [1, 2, 3] as const;
-const type = ref();
+const type = ref('');
 const forms = ref<Array<InstanceType<typeof FFoodListForm>>>();
+const { postFood } = useAdminFoodStore();
 
-const clear = () => {
+const clean = () => {
   type.value = '';
-  forms.value?.forEach((form) => form.resetForms());
+  forms.value?.forEach((form) => form.resetForm());
 };
-const onCreate = async () => {
+const onsubmit = async () => {
   if (!forms.value) return;
+  if (type.value.length < 1) {
+    Notify.simpleError(t('admin.nutrition.errors.no_type'));
+    return;
+  }
 
-  useLoading(foodList.createState);
-  await Promise.allSettled(
-    forms.value.map(async (form) => {
-      const foodValues = await form.getFormValues();
-      if (!foodValues) return;
-      return Promise.allSettled(foodValues.map((food) => postFood({ ...food, type: type.value })));
-    }),
-  );
+  let cat = 0;
 
-  emit('created', type.value);
-  Notify.createSuccess();
-  clear();
+  //TODO: refactor, bad design
+  const requests = forms.value
+    .map((form) => form.handleSubmit)
+    .map((handle) => handle((values: { foods: Array<Food> }) => values.foods))
+    .flatMap(async (call: () => Promise<Food[] | undefined>) => {
+      const foods = await call?.();
+      if (!foods) return Promise.reject(t('admin.nutrition.errors.no_food'));
+      ++cat;
+      return foods.map((food) => {
+        if (food.name) return postFood({ name: food.name, category: cat, type: type.value });
+        else return Promise.reject(t('admin.nutrition.errors.no_food_name'));
+      });
+    });
+
+  const settled = (await Promise.allSettled(requests)) as Array<{ status: 'fulfilled' | 'rejected'; reason: string }>;
+  const isAnySuccess = settled.some((settled) => settled.status === 'fulfilled');
+
+  if (isAnySuccess) {
+    Notify.createSuccess();
+  } else {
+    Notify.simpleError(settled[0].reason);
+  }
+
+  if (isAnySuccess) {
+    emit('created', 'nutrition');
+
+    setTimeout(() => {
+      clean();
+    });
+  }
 };
 </script>
 
@@ -48,13 +74,19 @@ const onCreate = async () => {
 
     <SInput v-model="type" watch-model-value :label="$t('admin.nutrition.type')" mb-1rem mt-0.5rem />
 
-    <FFoodListForm ref="forms" v-for="category in categories" :key="category" :category="category" mb-1.5rem />
+    <FFoodListForm
+      ref="forms"
+      v-for="category in categories"
+      :key="category"
+      :category="category"
+      :type="type"
+      @submit="onsubmit"
+      clean-on-create
+      disable-submit-btn
+      mb-1.5rem
+    />
     <div flex flex-row justify-end>
-      <SBtn
-        @click="onCreate"
-        :icon="symRoundedDone"
-        :loading="foodList.updateState.isLoading() || foodList.createState.isLoading()"
-      />
+      <SBtn @click="onsubmit" :icon="symRoundedDone" class="translate-y-[calc(-100%-1.5rem)]" />
     </div>
   </SComponentWrapper>
 </template>
