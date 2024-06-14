@@ -11,14 +11,15 @@ export namespace AdminNutrition {
     export interface Response extends AppBaseEntity.Response<Nutrition> {}
   }
   export namespace Post {
-    export interface Dto extends Pick<Nutrition, 'userId' | 'name' | 'mealItems'> {}
+    export interface Dto
+      extends Pick<Nutrition, 'userId' | 'name' | 'mealItems'> {}
     export interface Response extends Omit<Nutrition, 'user'> {}
   }
   export namespace Patch {
     export interface Dto {
       id: Nutrition['id'];
-      name?: Nutrition['name'];
-      mealItems?: Nutrition['mealItems'];
+      name: Nutrition['name'];
+      mealItems: Pick<Nutrition.Item, 'category' | 'type' | 'quantity'>[];
     }
     export interface Response extends AppBaseEntity.Response<Nutrition> {}
   }

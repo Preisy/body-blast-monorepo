@@ -24,12 +24,14 @@ export namespace Nutrition {
       name: z.string(),
       userId: z.coerce.number(),
       mealItems: z.array(
-        z.object({
-          category: z.coerce.number(),
-          type: z.string(),
-          quantity: z.string(),
-          nutritionId: z.string(),
-        }),
+        z
+          .object({
+            category: z.coerce.number(),
+            type: z.string(),
+            quantity: z.string(),
+            nutritionId: z.string(),
+          })
+          .partial(),
       ),
     });
 }
