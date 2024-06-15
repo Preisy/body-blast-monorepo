@@ -5,7 +5,7 @@ import { cloneDeep, groupBy } from 'lodash';
 import { FieldArray, FieldEntry, InvalidSubmissionHandler, SubmissionHandler } from 'vee-validate';
 import { z } from 'zod';
 import { Food, useAdminFoodStore } from 'entities/food';
-import { Notify, useLoadingAction } from 'shared/lib';
+import { useLoadingAction } from 'shared/lib';
 import { SConfirmDialog, SListControls, SForm, SInput, SBtn } from 'shared/ui';
 import NutritionListHeader, { NutritionListHeaderProps } from './NutritionListHeader.vue';
 
@@ -33,7 +33,6 @@ const prevFoods = ref(cloneDeep(props.initValues));
 const onsubmit = (values: { foods: Array<Food> }) => {
   emit('submit', values);
   const { false: maybeChangedValues, true: completelyNewValues } = groupBy(values.foods, ({ id }) => id === undefined);
-  let needToNotify = false;
 
   //Check for updates
   if (maybeChangedValues?.length > 0)
@@ -46,7 +45,6 @@ const onsubmit = (values: { foods: Array<Food> }) => {
         return;
       } else if (food.name !== prevFood?.name) {
         useLoadingAction(foodList.updateState, () => patchFood({ id: prevFood!.id, name: food.name }));
-        needToNotify = true; // TODO: check updateState/createState for success
       }
     }
 
@@ -55,14 +53,12 @@ const onsubmit = (values: { foods: Array<Food> }) => {
     for (let food of completelyNewValues) {
       useLoadingAction(foodList.createState, () => postFood({ ...food, type: props.type, category: props.category }));
     }
-    needToNotify = true;
   }
 
   if (props.cleanOnCreate) {
     form.value?.resetForm();
     prevFoods.value = [];
   }
-  if (needToNotify) Notify.updateSuccess();
 };
 
 const isConfirmDialogShown = ref<boolean>();

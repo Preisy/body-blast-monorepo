@@ -52,9 +52,7 @@ const onsubmit = async () => {
   const settled = (await Promise.allSettled(requests)) as Array<{ status: 'fulfilled' | 'rejected'; reason: string }>;
   const isAnySuccess = settled.some((settled) => settled.status === 'fulfilled');
 
-  if (isAnySuccess) {
-    Notify.createSuccess();
-  } else {
+  if (!isAnySuccess) {
     Notify.simpleError(settled[0].reason);
   }
 
@@ -81,8 +79,8 @@ const onsubmit = async () => {
       :category="category"
       :type="type"
       @submit="onsubmit"
-      clean-on-create
       disable-submit-btn
+      clean-on-create
       mb-1.5rem
     />
     <div flex flex-row justify-end>

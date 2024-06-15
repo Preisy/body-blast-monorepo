@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import { symRoundedDelete } from '@quasar/extras/material-symbols-rounded';
 import { Food, useAdminFoodStore } from 'entities/food';
-import { SBtn } from 'shared/ui';
+import { SBtn, SConfirmDialog } from 'shared/ui';
 
 export interface Props {
   foodType: Food['type'];
@@ -14,6 +15,8 @@ const emit = defineEmits<{
   click: [];
 }>();
 
+const showDialog = ref<boolean>(false);
+
 const deleteFood = async () => {
   if (!foodList.value) return;
   foodStore.deleteFoodByType({ type: props.foodType });
@@ -23,5 +26,11 @@ const deleteFood = async () => {
 </script>
 
 <template>
-  <SBtn @click="deleteFood" icon="sym_r_delete" :loading="foodStore.foodList.deleteState.isLoading()" />
+  <SBtn
+    @click="showDialog = true"
+    :icon="symRoundedDelete"
+    :loading="foodStore.foodList.deleteState.isLoading()"
+    v-bind="{ ...$attrs }"
+  />
+  <SConfirmDialog v-model="showDialog" type="deletion" @confirm="deleteFood" />
 </template>

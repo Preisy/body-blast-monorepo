@@ -2,7 +2,6 @@
 import { FDeleteFoodBtn } from 'features/food';
 import { FFoodListForm } from 'features/nutrition';
 import { Food } from 'entities/food';
-import { Notify } from 'shared/lib';
 import { SComponentWrapper } from 'shared/ui';
 
 export interface WAdminFoodProps {
@@ -24,14 +23,7 @@ defineEmits<{
   <SComponentWrapper>
     <div mb-1rem flex flex-row>
       <h1>{{ type }}</h1>
-      <FDeleteFoodBtn
-        :food-type="type"
-        ml-auto
-        @click="
-          $emit('deleted');
-          Notify.deleteSuccess();
-        "
-      />
+      <FDeleteFoodBtn :food-type="type" ml-auto @click="$emit('deleted')" />
     </div>
 
     <FFoodListForm
