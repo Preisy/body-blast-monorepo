@@ -23,15 +23,17 @@ export namespace Nutrition {
     z.object({
       name: z.string(),
       userId: z.coerce.number(),
-      mealItems: z.array(
-        z
-          .object({
-            category: z.coerce.number(),
-            type: z.string(),
-            quantity: z.string(),
-            nutritionId: z.string(),
-          })
-          .partial(),
-      ),
+      mealItems: z
+        .array(
+          z
+            .object({
+              category: z.coerce.number(),
+              type: z.string(),
+              quantity: z.string(),
+              nutritionId: z.string(),
+            })
+            .partial(),
+        )
+        .min(1),
     });
 }

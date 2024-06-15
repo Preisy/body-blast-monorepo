@@ -4,6 +4,10 @@ export default {
       quantity: 'Количество',
       type: 'Тип',
       category: 'Категория',
+      errors: {
+        atLeastOneRequired: 'Необходимо заполнить хотя бы один элемент',
+        titleRequired: 'Нужен заголовок',
+      },
     },
   },
 };
