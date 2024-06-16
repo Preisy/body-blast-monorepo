@@ -36,17 +36,24 @@ const { floatingStyles } = useFloating(anchor, float, {
 const isOpen = ref(false);
 
 const { value, setValue } = useField<Partial<ModelValue>>(() => props.name);
+const filterString = ref('');
+const filteredItems = computed(() => {
+  if (!filterString.value) return props.items;
+  return props.items.filter(
+    (item) => item[props.optionValue]?.toString().toLowerCase().includes(filterString.value.toLowerCase()),
+  );
+});
 
 const onItemClick = (val: ModelValue) => {
   close();
   setValue(val);
+  filterString.value = '';
   emit('update:modelValue', val);
 };
 const onInput = debounce((val) => {
-  emit('update:innerInput', val);
+  filterString.value = val;
   if (value.value) value.value[props.optionValue] = val;
 }, 300);
-
 const open = () => {
   isOpen.value = true;
   emit('open');
@@ -73,7 +80,7 @@ const close = () => {
       bg-primary
     >
       <div ref="content" flex flex-row rounded-0.75rem>
-        <div v-for="item in items" :key="item.key" @click="onItemClick(item)">
+        <div v-for="item in filteredItems" :key="item.key" @click="onItemClick(item)">
           <slot name="item" :item="item" />
         </div>
       </div>
@@ -81,12 +88,13 @@ const close = () => {
     <div>
       <SInput
         ref="anchor"
-        @focus="open"
-        @blur="close"
-        @update:model-value="onInput"
+        :name="`${name}.innerInput`"
         :label="label"
         watch-model-value
         :model-value="value?.[optionValue as keyof T]"
+        @update:model-value="onInput"
+        @focus="open"
+        @blur="close"
       />
     </div>
   </div>
