@@ -16,34 +16,6 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
       serviceAction: adminPromptsService.getPrompts(data),
     });
 
-  const postPrompts = async (data: Array<Prompt.Post.Dto>) => {
-    prompts.value.createState.loading();
-    for (const prompt of data) {
-      //TODO: тоже вынести в фичу
-      const [photoLink, videoLink] = await Promise.all([
-        fileStore.postFile({ file: prompt.photo }),
-        fileStore.postFile({ file: prompt.video }),
-      ]);
-      if (!photoLink.data || !videoLink.data) {
-        prompts.value.createState.error();
-        return;
-      }
-
-      const promptDto = { type: prompt.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link };
-      await useStoreAction({
-        state: prompts.value.createState,
-        serviceAction: adminPromptsService.postPrompt(promptDto),
-        onSuccess: (res) => {
-          const listData = prompts.value.data?.data;
-          if (!listData) return;
-
-          listData.push(res.data);
-        },
-      });
-    }
-    Notify.createSuccess();
-  };
-
   const postPrompt = async (data: Pick<Prompt, 'photoLink' | 'videoLink' | 'type'>) =>
     useStoreAction({
       state: prompts.value.createState,
@@ -114,7 +86,6 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
   return {
     prompts,
     getPrompts,
-    postPrompts,
     deletePrompt,
     patchPrompt,
     postPrompt,
