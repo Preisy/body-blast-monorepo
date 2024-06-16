@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
   Param,
   ParseUUIDPipe,
@@ -24,6 +25,9 @@ import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { AbilityFactory, Action } from '../../../modules/ability/ability.factory';
 import { MainException } from '../../../exceptions/main.exception';
+import { BaseWorkoutService } from 'src/modules/core/workout/base-workout.service';
+import { ForbiddenError } from '@casl/ability';
+import { GetWorkoutDTO } from 'src/modules/core/workout/dto/get-workout.dto';
 
 @ApiTags('Workouts')
 @Controller('workouts')
@@ -34,6 +38,7 @@ export class ClientWorkoutController {
   constructor(
     private readonly clientService: ClientWorkoutService,
     private readonly abilityFactory: AbilityFactory,
+    private readonly baseService: BaseWorkoutService,
   ) {}
 
   @Get()
@@ -62,12 +67,16 @@ export class ClientWorkoutController {
     @Body() body: UpdateWorkoutByClientRequest,
   ) {
     const ability = this.abilityFactory.defineAbility(req.user);
+    const { data: workout } = await this.baseService.findOne(id);
 
-    if (
-      !ability.can(Action.Update, WorkoutEntity, 'comment') ||
-      !ability.can(Action.Update, WorkoutEntity, req.user.id)
-    )
-      throw MainException.forbidden('Cannot update workout');
-    return await this.clientService.update(id, body);
+    const newWorkout = new WorkoutEntity();
+    Object.assign(newWorkout, workout);
+
+    try {
+      ForbiddenError.from(ability).throwUnlessCan(Action.Update, newWorkout, 'comment');
+      return await this.clientService.update(id, body);
+    } catch (err) {
+      throw new ForbiddenException(err.message);
+    }
   }
 }

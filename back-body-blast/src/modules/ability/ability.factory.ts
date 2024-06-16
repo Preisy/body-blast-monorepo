@@ -20,12 +20,14 @@ export class AbilityFactory {
     const { can, cannot, build } = new AbilityBuilder<Ability>(createMongoAbility);
     if (user.role == 'admin') {
       can(Action.Manage, WorkoutEntity);
-      cannot(Action.Update, WorkoutEntity, ['comment']);
+      cannot(Action.Update, WorkoutEntity, ['comment']).because('Comment filed is client only');
     } else if (user.role == 'client') {
       can(Action.Read, WorkoutEntity, { userId: { $eq: user.id } });
 
       can(Action.Update, WorkoutEntity, ['comment']);
-      can(Action.Update, WorkoutEntity, { userId: { $eq: user.id } });
+      cannot(Action.Update, WorkoutEntity, { userId: { $ne: user.id } }).because(
+        'You can only update your own workouts',
+      );
     }
     return build({ detectSubjectType: (item) => item.constructor as ExtractSubjectType<Subjects> });
   }
