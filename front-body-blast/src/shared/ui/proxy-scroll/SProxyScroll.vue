@@ -17,8 +17,9 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
 </script>
 
 <template>
+  {{ console.log($q.platform) }}
   <q-scroll-area
-    v-if="!$q.platform.is.mac"
+    v-if="!$q.platform.is.mac || !$q.platform.is.ios || !$q.platform.is.iphone || !$q.platform.is.safari"
     v-bind="$props"
     :thumb-style="thumbStyle"
     :horizontal-thumb-style="thumbStyle"
