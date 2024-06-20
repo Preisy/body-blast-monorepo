@@ -13,7 +13,6 @@ defineProps<EProfileCardProps>();
   <SComponentWrapper
     class="e-minified-profile-card"
     :class="{ ' bg-primary text-bg': dark }"
-    mx--2
     flex
     flex-row
     items-center

@@ -89,24 +89,23 @@ const onUserDelete = (userId: User['id']) => {
 </script>
 
 <template>
-  <SStructure h-full>
-    <SScaffold w-full>
-      <template #header>
-        <EMinifiedProfileCard
-          :header="userName ?? $t('global.loading')"
-          :describe="$t('home.profile.header.student')"
-          dark
-          mx--0.5rem
-        >
-          <template #action>
-            <div flex flex-row gap-x-0.5rem>
-              <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO }" />
-              <SBtn icon="sym_r_delete" @click="onUserDelete(id)" />
-            </div>
-          </template>
-        </EMinifiedProfileCard>
-      </template>
-      <template #body>
+  <SScaffold w-full>
+    <template #header>
+      <EMinifiedProfileCard
+        :header="userName ?? $t('global.loading')"
+        :describe="$t('home.profile.header.student')"
+        dark
+      >
+        <template #action>
+          <div flex flex-row gap-x-0.5rem>
+            <SBtn icon="sym_r_help" bg="bg!" :to="{ name: ENUMS.ROUTES_NAMES.ADMIN.USER_PROFILE_BIO }" />
+            <SBtn icon="sym_r_delete" @click="onUserDelete(id)" />
+          </div>
+        </template>
+      </EMinifiedProfileCard>
+    </template>
+    <template #body>
+      <SStructure h-full>
         <SComponentWrapper py-1.5rem>
           <!-- Access to learning section -->
           <p mb-0.5rem>{{ $t('admin.detailed.accessTitle') }}</p>
@@ -134,7 +133,6 @@ const onUserDelete = (userId: User['id']) => {
             :half-range="halfRange"
             :offset="offset"
             @need-fetch="(from, to) => getAnthropometry({ userId: id, from, to, expanded: true })"
-            h-full
           >
             <template #item="{ date: dd }">
               <EAthropometricsItem
@@ -148,9 +146,9 @@ const onUserDelete = (userId: User['id']) => {
             </template>
           </SDatePagination>
         </div>
-      </template>
-    </SScaffold>
+      </SStructure>
+    </template>
+  </SScaffold>
 
-    <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onDeletionApply" type="deletion" />
-  </SStructure>
+  <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onDeletionApply" type="deletion" />
 </template>
