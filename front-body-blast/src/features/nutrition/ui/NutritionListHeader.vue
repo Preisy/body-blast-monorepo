@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { FNutritionListFormProps } from './FNutritionListForm.vue';
 
+type cat = 1 | 2 | 3;
 export interface NutritionListHeaderProps {
-  category: FNutritionListFormProps['category'];
+  category: cat;
 }
 defineProps<NutritionListHeaderProps>();
-const categoryColorMap: Record<NutritionListHeaderProps['category'], string> = {
+const categoryColorMap: Record<cat, string> = {
   1: 'bg-accent',
   2: 'bg-primary',
   3: 'bg-secondary',
