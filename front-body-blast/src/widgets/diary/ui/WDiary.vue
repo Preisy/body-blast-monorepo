@@ -69,14 +69,14 @@ const selfControlOptions = [1, 2, 3, 4, 5].map((value) => ({
           emit('update:date', newDate);
         }
       "
-      :offset="offset"
+      :page="offset"
       :half-range="halfRange"
       @need-fetch="(from, to) => getDiary({ from, to, expanded: true })"
       p="0!"
       h-full
     >
       <template #item="{ date: dd }">
-        <SStructure v-if="diaryData && diaryData.find((item) => isEqualDates(item.date, dd))" px="0!" relative>
+        <SStructure v-if="diaryData && diaryData.find((item) => isEqualDates(item.date, dd))" px="1rem!" relative>
           <!-- self-control(upper) part of diary -->
           <div>
             <h1>{{ $t('home.diary.item.selfcontrol') }}</h1>
