@@ -18,10 +18,13 @@ const isoDate = ref(moment().format('YYYY-MM-DD'));
 const calendarDate = computed(() => moment(isoDate.value).format('YYYY/MM/DD'));
 
 const fetch = (from: string, to: string) => {
+  const firstDayFrom = moment(from).startOf('month').format('YYYY-MM-DD');
+  const firstDayTo = moment(to).startOf('month').format('YYYY-MM-DD');
+
   useLoadingAction(userDiaries, async () => {
     await Promise.allSettled([
-      getUserDiaries({ id: props.id, pagination: { expanded: true, from, to } }),
-      getUserSteps({ id: props.id, pagination: { expanded: true, from, to } }),
+      getUserDiaries({ id: props.id, pagination: { expanded: true, from: firstDayFrom, to: firstDayTo } }),
+      getUserSteps({ id: props.id, pagination: { expanded: true, from: firstDayFrom, to: firstDayTo } }),
     ]);
   });
 };
@@ -53,6 +56,13 @@ const stepsSlides = computed(() => {
 
   return groupedByMonth;
 });
+
+onBeforeMount(() =>
+  fetch(
+    dateRaw.value.clone().subtract(1, 'month').format('YYYY-MM-DD'),
+    dateRaw.value.clone().add(1, 'month').format('YYYY-MM-DD'),
+  ),
+);
 </script>
 
 <template>
@@ -66,7 +76,7 @@ const stepsSlides = computed(() => {
       py-1rem
     />
 
-    <SDatePagination v-model="isoDate" :half-range="1" :offset="0" @need-fetch="fetch" type="months">
+    <SDatePagination v-model="isoDate" :half-range="3" :offset="0" @need-fetch="fetch" type="months">
       <template #item="{ date: month }">
         <SProxyScroll h-full>
           <EStepsList :weeks="stepsSlides[moment(month).format('MM')] ?? []" mb-2rem />
