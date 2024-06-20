@@ -16,4 +16,7 @@ export const AdminFoodService = {
   deleteFood: useServiceAction((data: AdminFood.Delete.Dto) =>
     api.delete<AdminFood.Delete.Response>(`/admin/food/${data.id}`),
   ),
+  deleteFoodByType: useServiceAction((data: AdminFood.DeleteByType.Dto) =>
+    api.delete<AdminFood.DeleteByType.Response>(`/admin/food`, { params: data }),
+  ),
 };
