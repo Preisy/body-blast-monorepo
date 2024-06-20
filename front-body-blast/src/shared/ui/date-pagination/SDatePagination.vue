@@ -7,7 +7,7 @@ export interface SDatePaginationProps {
   modelValue: string; //Date. YYYY-MM-DD
   halfRange: number;
   page: number;
-  borders: {
+  borders?: {
     startDate?: string;
     endDate?: string;
   };
@@ -50,15 +50,12 @@ const checkDateConstraints = (date: Moment) => {
   let canDisplay = true;
   date = date.utc(true).hour(0).minutes(0).seconds(0);
 
-  console.log(date.toISOString());
-  console.log(props.borders.startDate);
-
-  if (props.borders.startDate) {
+  if (props.borders?.startDate) {
     canDisplay =
       canDisplay && date.isSameOrAfter(moment(props.borders.startDate).utc(true).hour(0).minutes(0).seconds(1));
   }
 
-  if (props.borders.endDate) {
+  if (props.borders?.endDate) {
     canDisplay = canDisplay && date.isSameOrBefore(moment(props.borders.endDate));
   }
 
