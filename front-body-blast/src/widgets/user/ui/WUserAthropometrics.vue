@@ -7,8 +7,8 @@ import {
   Anthropometry,
   useAnthropometryStore,
 } from 'entities/anthropometry';
-import { AppBaseEntity } from 'shared/api';
-import { useLoadingAction, getUTC3Date, gtCreation, isEqualDates, isToday } from 'shared/lib';
+import { AppBaseEntity, useUserStore } from 'shared/api';
+import { useLoadingAction, getUTC3Date, isEqualDates, isToday } from 'shared/lib';
 import { SCalendar, SDatePagination, SPaginationSliderProps } from 'shared/ui';
 
 interface AthropometricsSlide extends EAthropometricsItemProps {
@@ -18,6 +18,7 @@ interface AthropometricsSlide extends EAthropometricsItemProps {
 const date = ref(getUTC3Date().format('YYYY-MM-DD'));
 const options = ref([moment().format('YYYY/MM/DD')]);
 
+const { user } = useUserStore();
 const { anthropometry, getAnthropometry, patchAnthropometry } = useAnthropometryStore();
 const anthropometryData = computed(() => anthropometry.data?.data);
 
@@ -71,7 +72,9 @@ const onSubmit = (id: AppBaseEntity['id'], values: z.infer<ReturnType<typeof Ant
             to,
           })
       "
-      :options="(date) => gtCreation(date)"
+      :borders="{
+        startDate: moment(user.data?.data.createdAt).hour(0).minute(0).second(0).toISOString(),
+      }"
       h-full
     >
       <template #item="{ date: dd }">
