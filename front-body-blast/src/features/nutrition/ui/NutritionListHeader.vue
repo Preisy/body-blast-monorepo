@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { FNutritionListFormProps } from './FNutritionListForm.vue';
-
 type cat = 1 | 2 | 3;
 export interface NutritionListHeaderProps {
   category: cat;
