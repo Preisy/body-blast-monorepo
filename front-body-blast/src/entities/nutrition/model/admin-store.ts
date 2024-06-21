@@ -4,7 +4,13 @@ import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'sh
 import { adminNutritionService, AdminNutrition } from '..';
 
 export const useAdminNutritionStore = defineStore('admin-nutrition-store', () => {
-  const nutritionList = ref(useSingleState<AdminNutrition.Get.Response>({ create: true, update: true, delete: true }));
+  const nutritionList = ref(
+    useSingleState<AdminNutrition.Get.Response>({
+      create: true,
+      update: true,
+      delete: true,
+    }),
+  );
   const getNutritions = (data?: AdminNutrition.Get.Dto) =>
     useSimpleStoreAction({
       stateWrapper: nutritionList.value,
@@ -22,7 +28,13 @@ export const useAdminNutritionStore = defineStore('admin-nutrition-store', () =>
     useStoreAction({
       state: nutritionList.value.createState,
       serviceAction: adminNutritionService.postNutrition(data),
-      onSuccess: () => {
+      onSuccess: (res) => {
+        const listData = nutritionList.value.data?.data;
+        if (!listData) return;
+        const data = res.data;
+
+        listData.push(data);
+
         Notify.createSuccess();
       },
     });

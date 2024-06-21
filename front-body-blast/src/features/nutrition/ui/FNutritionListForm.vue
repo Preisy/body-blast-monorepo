@@ -1,106 +1,158 @@
 <script setup lang="ts">
 import { toTypedSchema } from '@vee-validate/zod';
-import { uniqueId } from 'lodash';
-import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
-import { SConfirmDialog, SListControls, SForm, SInput } from 'shared/ui';
+import { omit } from 'lodash';
+import { FieldArray } from 'vee-validate';
+import { useI18n } from 'vue-i18n';
+import { z } from 'zod';
+import { AdminNutrition, Nutrition, useAdminNutritionStore } from 'entities/nutrition';
+import { User } from 'shared/api';
+import { Notify, useLoadingAction } from 'shared/lib';
+import { SConfirmDialog, SListControls, SForm, SInput, SLoading } from 'shared/ui';
 import NutritionListHeader from './NutritionListHeader.vue';
 
 export interface FNutritionListFormProps {
+  mode: 'create' | 'update';
   title: string;
-  category: 1 | 2 | 3;
+  id: Nutrition['id'] | User['id'];
+  isNeedInit?: boolean;
+  isNeedReset?: boolean;
   initValues?: Array<Nutrition.Item>;
 }
+const categories = [1, 2, 3] as const;
 
-const props = defineProps<FNutritionListFormProps>();
+const props = withDefaults(defineProps<FNutritionListFormProps>(), {
+  isNeedInit: false,
+  isNeedReset: false,
+});
 const emit = defineEmits<{
-  submit: [Array<Nutrition.Item>?];
+  submit: []; //Fired AFTER pushing request to api
 }>();
 
-// Used only for buttons loading state
-const { nutritionList } = useAdminNutritionStore();
+const { t } = useI18n();
 
-// All mealItems forms
-const forms = ref<Array<InstanceType<typeof SForm>>>();
-
-// lines === mealItems, but with _.uniqueId() as vue key property
-const lines = ref<Array<Partial<Nutrition.Item & { uniqueId: string }>>>(
-  props.initValues?.map((el) => ({ ...el, uniqueId: uniqueId('line-') })) ?? [],
-);
+const { patchNutrition, postNutrition, nutritionList } = useAdminNutritionStore();
+const form = ref<InstanceType<typeof SForm>>();
 
 // Deletion dialog ref
 const isConfirmDialogShown = ref<boolean>();
-const removeItemIndex = ref<number>(); // index to deletion
-// Called if user hits 'apply' in deletionDialog.
-const onRemoveConfirm = () => {
-  if (removeItemIndex.value === undefined || removeItemIndex.value === null) return;
-  lines.value.splice(removeItemIndex.value, 1); // Deletes line from array
-  setTimeout(() => emit('submit'), 0); // For some reason needs time to update form
-};
-// If delete btn pressed -> show dialog + save index
-const onremove = (index: number) => {
-  isConfirmDialogShown.value = true;
-  removeItemIndex.value = index;
-};
-// If add btn pressed -> push empty line to end
-const onadd = () => {
-  lines.value.push({ uniqueId: uniqueId('line-') });
-};
-// Getting mealItems from all forms
-//form.handleSubmit returns async Fn for some reason, so whole getFormValues is async
-const getFormValues = async () => {
-  if (!forms.value) return;
-  const result: Array<Nutrition.Item> = [];
-  for (const form of forms.value)
-    await form.handleSubmit((values) => result.push({ ...values, category: props.category }))();
-  return result;
-};
-// If submit btn pressed -> get values from forms and emit
-const onsubmit = () => emit('submit');
+// const removeItemIndex = ref<number>(); // index to deletion
+const onRemoveConfirm = () => console.log('Deletion confirmed');
 
-const validationSchema = toTypedSchema(
-  Nutrition.validation().pick({ mealItems: true }).shape.mealItems.element.pick({ type: true, quantity: true }),
-);
-
-defineExpose({
-  getFormValues,
-  resetForms: () => forms.value?.forEach((form) => form.resetForm()),
+const schema = z.object({
+  category_1: Nutrition.validation().partial(),
+  category_2: Nutrition.validation().partial(),
+  category_3: Nutrition.validation().partial(),
 });
 
-onMounted(() => {
-  if (!lines.value.length) lines.value.push({ uniqueId: uniqueId('line-') });
+const validationSchema = toTypedSchema(schema);
+
+const onsubmit = (values: z.infer<typeof schema>) => {
+  if (props.title.length == 0) {
+    Notify.simpleError(t('admin.nutrition.errors.titleRequired'));
+    return;
+  }
+
+  const flattenValue = Object.values(values)
+    .flatMap((v) => v.mealItems)
+    .map((item) => omit(item, 'nutritionId'))
+    .filter((item) => item.category && item.quantity && item.type);
+
+  const isAnyValidItem = flattenValue.some((i) => i.type && i.quantity && i.type.length > 0 && i.quantity.length > 0);
+
+  if (!isAnyValidItem) {
+    Notify.simpleError(t('admin.nutrition.errors.atLeastOneRequired'));
+    return;
+  }
+
+  if (props.mode == 'create')
+    useLoadingAction(nutritionList.createState, () => {
+      postNutrition({
+        userId: props.id,
+        name: props.title,
+        mealItems: flattenValue as AdminNutrition.Patch.Dto['mealItems'],
+      });
+    });
+
+  if (props.mode == 'update')
+    useLoadingAction(nutritionList.updateState, () => {
+      patchNutrition({
+        id: props.id,
+        name: props.title,
+        mealItems: flattenValue as AdminNutrition.Patch.Dto['mealItems'],
+      });
+    });
+
+  if (props.isNeedReset) form.value?.resetForm();
+  emit('submit');
+};
+
+type TInitCategory = { mealItems: Partial<Nutrition.Item>[] };
+const init = computed<{
+  category_1: TInitCategory;
+  category_2: TInitCategory;
+  category_3: TInitCategory;
+}>(() => {
+  const result = {
+    category_1: {
+      mealItems: props.initValues?.filter((v) => v.category == 1) ?? ([] as Partial<Nutrition.Item>[]),
+    },
+    category_2: {
+      mealItems: props.initValues?.filter((v) => v.category == 2) ?? ([] as Partial<Nutrition.Item>[]),
+    },
+    category_3: {
+      mealItems: props.initValues?.filter((v) => v.category == 3) ?? ([] as Partial<Nutrition.Item>[]),
+    },
+  };
+  for (const category in result) {
+    const categoryItems = result[category as keyof typeof result].mealItems;
+    if (categoryItems.length == 0) {
+      categoryItems.push({
+        type: '',
+        quantity: '',
+        category: Number(category.split('_')[1]),
+      });
+    }
+  }
+  return result;
 });
 </script>
 
 <template>
   <div flex flex-col gap-y-0.5rem>
-    <NutritionListHeader :category="category" :title="title" />
+    <SLoading v-if="initValues === undefined && isNeedInit" />
 
-    <q-intersection
-      v-for="(line, index) of lines"
-      :key="line.uniqueId"
-      transition="scale"
-      margin="50px 0px 100px 0px"
-      min-h-7rem
-    >
-      <SForm ref="forms" @submit="onsubmit" :field-schema="validationSchema" :init-values="line" p="0!">
-        <div flex gap-x-0.5rem>
-          <SInput name="type" :label="$t('admin.nutrition.type')" />
-          <SInput name="quantity" :label="$t('admin.nutrition.quantity')" />
+    <SForm v-else ref="form" :field-schema="validationSchema" :init-values="init" @submit="onsubmit" p="0!">
+      <FieldArray
+        v-for="category in categories"
+        :key="category"
+        :name="`category_${category}.mealItems`"
+        v-slot="{ fields, push, remove }"
+      >
+        <div py-1rem>
+          <NutritionListHeader :category="category" :title="title" />
+          <div v-for="(field, idx) in fields" :key="field.key">
+            <div flex gap-x-0.5rem>
+              <SInput :name="`category_${category}.mealItems[${idx}].type`" :label="$t('admin.nutrition.type')" />
+              <SInput
+                :name="`category_${category}.mealItems[${idx}].quantity`"
+                :label="$t('admin.nutrition.quantity')"
+              />
+            </div>
+
+            <SListControls
+              disabled-submit
+              :disabled-add="idx != fields.length - 1"
+              @add="push({ type: '', quantity: '', category })"
+              @remove="
+                remove(idx);
+                if (fields.length == 0) push({ type: '', quantity: '', category });
+              "
+              my-0.5rem
+            />
+          </div>
         </div>
-
-        <template #submit-btn>
-          <SListControls
-            disabled-submit
-            :disabled-add="index !== lines.length - 1"
-            :disabled-remove="!(lines.length - 1)"
-            :loading-submit="nutritionList.updateState.isLoading()"
-            @remove="() => onremove(index)"
-            @add="onadd"
-            mt-0.5rem
-          />
-        </template>
-      </SForm>
-    </q-intersection>
+      </FieldArray>
+    </SForm>
 
     <SConfirmDialog v-model="isConfirmDialogShown" @confirm="onRemoveConfirm" type="deletion" />
   </div>
