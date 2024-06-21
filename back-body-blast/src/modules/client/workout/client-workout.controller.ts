@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  ForbiddenException,
   Get,
   Param,
   ParseUUIDPipe,
@@ -23,11 +22,8 @@ import { ClientWorkoutService } from './client-workout.service';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
-import { AbilityFactory, Action } from '../../../modules/ability/ability.factory';
-import { MainException } from '../../../exceptions/main.exception';
-import { BaseWorkoutService } from 'src/modules/core/workout/base-workout.service';
-import { ForbiddenError } from '@casl/ability';
-import { GetWorkoutDTO } from 'src/modules/core/workout/dto/get-workout.dto';
+import { Action } from '../../../modules/ability/ability.factory';
+import { WorkoutHook } from '../../../modules/core/workout/workout.hook';
 
 @ApiTags('Workouts')
 @Controller('workouts')
@@ -37,25 +33,20 @@ import { GetWorkoutDTO } from 'src/modules/core/workout/dto/get-workout.dto';
 export class ClientWorkoutController {
   constructor(
     private readonly clientService: ClientWorkoutService,
-    private readonly abilityFactory: AbilityFactory,
-    private readonly baseService: BaseWorkoutService,
+    private readonly hook: WorkoutHook,
   ) {}
 
   @Get()
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Read, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    await this.hook.checkAbility(Action.Update, req.user);
     return await this.clientService.findAll(req.user.id, query);
   }
 
   @Get('date')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
   async getAllByDate(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Read, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    await this.hook.checkAbility(Action.Update, req.user);
     return await this.clientService.findAllByDate(req.user.id, query);
   }
 
@@ -66,17 +57,7 @@ export class ClientWorkoutController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateWorkoutByClientRequest,
   ) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-    const { data: workout } = await this.baseService.findOne(id);
-
-    const newWorkout = new WorkoutEntity();
-    Object.assign(newWorkout, workout);
-
-    try {
-      ForbiddenError.from(ability).throwUnlessCan(Action.Update, newWorkout, 'comment');
-      return await this.clientService.update(id, body);
-    } catch (err) {
-      throw new ForbiddenException(err.message);
-    }
+    await this.hook.checkAbility(Action.Update, req.user, id);
+    return await this.clientService.update(id, body);
   }
 }

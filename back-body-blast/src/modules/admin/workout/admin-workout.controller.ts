@@ -27,9 +27,9 @@ import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { AppAuthGuard } from '../../../modules/authentication/guards/appAuth.guard';
-import { AbilityFactory, Action } from '../../../modules/ability/ability.factory';
+import { Action } from '../../../modules/ability/ability.factory';
 import { RequestWithUser } from '../../../modules/authentication/types/requestWithUser.type';
-import { MainException } from '../../../exceptions/main.exception';
+import { WorkoutHook } from '../../../modules/core/workout/workout.hook';
 
 @Controller('admin/workouts')
 @ApiTags('Admin workouts')
@@ -39,43 +39,35 @@ import { MainException } from '../../../exceptions/main.exception';
 export class AdminWorkoutController {
   constructor(
     private readonly adminService: AdminWorkoutService,
-    private readonly abilityFactory: AbilityFactory,
+    private readonly hook: WorkoutHook,
   ) {}
 
   @Post()
   @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Req() req: RequestWithUser, @Body() request: CreateWorkoutByAdminRequest) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Manage, WorkoutEntity)) throw MainException.forbidden('Cannot create workout');
+    await this.hook.checkAbility(Action.Manage, req.user);
     return await this.adminService.create(request);
   }
 
   @Get()
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Manage, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    await this.hook.checkAbility(Action.Manage, req.user);
     return await this.adminService.findAll(query);
   }
 
   @Get('date')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
   async getAllByDate(@Req() req: RequestWithUser, @Query() query: GetWorkoutForUserByAdminRequest) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Manage, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    await this.hook.checkAbility(Action.Manage, req.user);
     return await this.adminService.findAllByDate(query);
   }
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetWorkoutByAdminDTO) })
   async getOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Manage, WorkoutEntity)) throw MainException.forbidden('Cannot get workout');
+    await this.hook.checkAbility(Action.Manage, req.user, id);
     return await this.adminService.findOne(id);
   }
 
@@ -86,18 +78,14 @@ export class AdminWorkoutController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateWorkoutByAdminRequest,
   ) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Manage, WorkoutEntity)) throw MainException.forbidden('Cannot update workout');
+    await this.hook.checkAbility(Action.Manage, req.user);
     return await this.adminService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   async deleteOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    const ability = this.abilityFactory.defineAbility(req.user);
-
-    if (!ability.can(Action.Manage, WorkoutEntity)) throw MainException.forbidden('Cannot delete workout');
+    await this.hook.checkAbility(Action.Manage, req.user);
     return await this.adminService.deleteOne(id);
   }
 }

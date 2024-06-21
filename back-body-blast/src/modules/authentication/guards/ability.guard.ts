@@ -1,7 +1,9 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { AbilityHandler, CHECK_ABILITY } from '../../../decorators/ability.decorator';
-import { AbilityFactory, Ability } from '../../../modules/ability/ability.factory';
+import { CHECK_ABILITY, RequiredRule } from '../../../decorators/ability.decorator';
+import { AbilityFactory } from '../../../modules/ability/ability.factory';
+import { ForbiddenError } from '@casl/ability';
+import { MainException } from '../../../exceptions/main.exception';
 
 @Injectable()
 export class AbilityGuard implements CanActivate {
@@ -10,18 +12,22 @@ export class AbilityGuard implements CanActivate {
     private abilityFactory: AbilityFactory,
   ) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const abilityHandlers = this.reflector.get<AbilityHandler[]>(CHECK_ABILITY, context.getHandler()) || [];
+    const abilityHandlers = this.reflector.get<RequiredRule[]>(CHECK_ABILITY, context.getHandler()) || [];
 
     const { user } = context.switchToHttp().getRequest();
     const ability = this.abilityFactory.defineAbility(user);
 
-    return abilityHandlers.every((handler) => this.execPolicyHandler(handler, ability));
-  }
+    try {
+      abilityHandlers.forEach((handler) => {
+        return ForbiddenError.from(ability).throwUnlessCan(handler.action, handler.subject, user.id);
+      });
 
-  private execPolicyHandler(handler: AbilityHandler, ability: Ability) {
-    if (typeof handler === 'function') {
-      return handler(ability);
+      return true;
+    } catch (error) {
+      if (error instanceof ForbiddenError) {
+        throw MainException.forbidden(error.message);
+      }
+      throw error;
     }
-    return handler.handle(ability);
   }
 }
