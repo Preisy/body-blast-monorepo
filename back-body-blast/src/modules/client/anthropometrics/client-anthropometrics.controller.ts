@@ -1,34 +1,31 @@
 import {
-  Controller,
-  Req,
   Body,
-  Param,
-  Patch,
-  Get,
+  Controller,
   Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Query,
+  Req,
   UseFilters,
   UsePipes,
   ValidationPipe,
-  Query,
-  ParseUUIDPipe,
-  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AppAuthGuard } from '../../authentication/guards/appAuth.guard';
-import { ClientAnthropometricsService } from './client-anthropometrics.service';
+import { Throttle } from '@nestjs/throttler';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
-import { Throttle } from '@nestjs/throttler';
-import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
-import { UpdateAnthropometricsByClientRequest } from './dto/client-update-anthropometrics.dto';
-import { AnthropometricsEntity } from '../../core/anthropometrics/entities/anthropometrics.entity';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
-import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { Action } from '../../../modules/ability/ability.factory';
-import { AbilityGuard } from '../../../modules/authentication/guards/ability.guard';
-import { CheckAbilities } from '../../../decorators/ability.decorator';
 import { AnthropometricsHook } from '../../../modules/core/anthropometrics/anthropometrics.hook';
+import { AppDatePagination } from '../../../utils/app-date-pagination.util';
+import { AppAuthGuard } from '../../authentication/guards/appAuth.guard';
+import { RequestWithUser } from '../../authentication/types/requestWithUser.type';
+import { AnthropometricsEntity } from '../../core/anthropometrics/entities/anthropometrics.entity';
+import { ClientAnthropometricsService } from './client-anthropometrics.service';
+import { UpdateAnthropometricsByClientRequest } from './dto/client-update-anthropometrics.dto';
 
 @Controller('anthropometrics')
 @ApiTags('Anthropometrics')
@@ -44,39 +41,33 @@ export class ClientAnthropometricsController {
   @Get()
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(AnthropometricsEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
-    await this.hook.checkAbilityInstance(Action.Read, req.user);
+    await this.hook.checkAbility(Action.Read, req.user);
     return await this.clientService.findAll(req.user, query);
   }
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
-  @UseGuards(AbilityGuard)
-  @CheckAbilities({ action: Action.Read, subject: AnthropometricsEntity })
   async getOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbilityInstance(Action.Read, req.user, id);
+    await this.hook.checkAbility(Action.Read, req.user, id);
     return await this.clientService.findOne(id);
   }
 
   @Patch(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
-  @UseGuards(AbilityGuard)
-  @CheckAbilities({ action: Action.Update, subject: AnthropometricsEntity })
   async update(
     @Req() req: RequestWithUser,
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateAnthropometricsByClientRequest,
   ) {
-    await this.hook.checkAbilityInstance(Action.Update, req.user, id);
+    await this.hook.checkAbility(Action.Update, req.user, id);
     return await this.clientService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
-  @UseGuards(AbilityGuard)
-  @CheckAbilities({ action: Action.Delete, subject: AnthropometricsEntity })
   @Throttle(5, 1)
   async delete(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbilityInstance(Action.Delete, req.user, id);
+    await this.hook.checkAbility(Action.Delete, req.user, id);
     return await this.clientService.delete(id);
   }
 }

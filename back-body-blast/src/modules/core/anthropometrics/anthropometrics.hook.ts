@@ -12,7 +12,7 @@ export class AnthropometricsHook {
     private readonly baseService: BaseAnthropometrcisService,
     private readonly abilityFactory: AbilityFactory,
   ) {}
-  async checkAbilityInstance(action: Action, user: UserEntity, id?: AnthropometricsEntity['id']) {
+  async checkAbility(action: Action, user: UserEntity, id?: AnthropometricsEntity['id']) {
     const ability = await this.abilityFactory.defineAbility(user);
     const newAnthrp = new AnthropometricsEntity();
 
