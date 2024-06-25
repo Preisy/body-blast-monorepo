@@ -12,6 +12,8 @@ export class WorkoutHook {
     private readonly baseService: BaseWorkoutService,
     private readonly abilityFactory: AbilityFactory,
   ) {}
+  async checkAbility(action: Action, user: UserEntity, id: WorkoutEntity['id']): Promise<void>;
+  async checkAbility(action: Action, user: UserEntity): Promise<void>;
   async checkAbility(action: Action, user: UserEntity, id?: WorkoutEntity['id']) {
     const ability = await this.abilityFactory.defineAbility(user);
     const newWorkout = new WorkoutEntity();
