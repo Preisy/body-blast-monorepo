@@ -7,6 +7,7 @@ import { BaseAnthropometricsModule } from '../../core/anthropometrics/base-anthr
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AuthModule } from '../../authentication/auth.module';
 import { MeModule } from '../me/me.module';
+import { AbilityModule } from '../../../modules/ability/ability.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MeModule } from '../me/me.module';
     forwardRef(() => AuthModule),
     BaseAnthropometricsModule,
     MeModule,
+    AbilityModule,
   ],
   controllers: [ClientAnthropometricsController],
   providers: [ClientAnthropometricsService],

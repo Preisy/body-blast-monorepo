@@ -6,12 +6,14 @@ import { AdminAnthropometricsController } from './admin-anthropometrics.controll
 import { BaseAnthropometricsModule } from '../../core/anthropometrics/base-anthropometrics.module';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { AuthModule } from '../../authentication/auth.module';
+import { AbilityModule } from '../../../modules/ability/ability.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, AnthropometricsEntity]),
     forwardRef(() => AuthModule),
     BaseAnthropometricsModule,
+    AbilityModule,
   ],
   controllers: [AdminAnthropometricsController],
   providers: [AdminAnthropometricsService],
