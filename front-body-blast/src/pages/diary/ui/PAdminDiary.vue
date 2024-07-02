@@ -42,25 +42,33 @@ const diariesSlides = computed(() => {
   }
   return groupedByMonth as Dictionary<Dictionary<Diary[]>>;
 });
+
 const stepsSlides = computed(() => {
-  //TODO: api issue in steps response
-  // startDate: 19.02
-  // endDate: 25.05
-  // month applied only to endDate
-  const groupedByMonth = groupBy(stepsData.value?.weeks, ({ endDate }) => {
-    const [dd, mm] = endDate.split('.');
-    const isoEndDate = `${moment().year()}-${mm}-${dd}`;
-    if (dd == '01') return moment(isoEndDate).subtract(1, 'month').format('MM');
-    else return moment(isoEndDate).format('MM');
-  });
+  // step 1: group all steps by startDate month
+  // it has one issue: week can be started in previous month.
+  // so we need step 2.
+  const groupedByMonth = groupBy(stepsData.value?.weeks, ({ startDate }) => startDate.split('.')[1].toString());
+
+  // step 2: check if first week is correct
+  for (const month in groupedByMonth) {
+    const slide = groupedByMonth[month];
+    // try to find week, which starts in previous month.
+    const lastSlide = stepsData.value?.weeks.find(
+      ({ startDate, endDate }) =>
+        Number(startDate.split('.')[1]) + 1 == Number(month) && endDate.split('.')[1].toString() == month,
+    );
+    // if finds -> add it to the start
+    if (lastSlide) slide.unshift(lastSlide);
+  }
 
   return groupedByMonth;
 });
 
+const halfRange = ref(3);
 onBeforeMount(() =>
   fetch(
-    dateRaw.value.clone().subtract(1, 'month').format('YYYY-MM-DD'),
-    dateRaw.value.clone().add(1, 'month').format('YYYY-MM-DD'),
+    dateRaw.value.clone().subtract(halfRange.value, 'month').format('YYYY-MM-DD'),
+    dateRaw.value.clone().add(halfRange.value, 'month').format('YYYY-MM-DD'),
   ),
 );
 </script>
@@ -76,7 +84,7 @@ onBeforeMount(() =>
       py-1rem
     />
 
-    <SDatePagination v-model="isoDate" :half-range="3" :offset="0" @need-fetch="fetch" type="months">
+    <SDatePagination v-model="isoDate" :half-range="halfRange" :offset="0" @need-fetch="fetch" type="months">
       <template #item="{ date: month }">
         <SProxyScroll h-full>
           <EStepsList :weeks="stepsSlides[moment(month).format('MM')] ?? []" mb-2rem />
