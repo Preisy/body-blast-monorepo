@@ -1,6 +1,6 @@
 import { assign } from 'lodash';
 import { defineStore } from 'pinia';
-import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
+import { Notify, useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib';
 import { AdminFood, AdminFoodService } from '..';
 
 export const useAdminFoodStore = defineStore('admin-food-store', () => {
@@ -28,6 +28,7 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
 
         listData.data.push(res.data);
         listData.count++;
+        Notify.createSuccess();
       },
     });
 
@@ -40,6 +41,7 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
         if (!foodListData) return;
         const foodIndex = foodListData.findIndex((food) => food.id === res.data.id);
         assign(foodListData[foodIndex], res.data);
+        Notify.updateSuccess();
       },
     });
 
@@ -55,6 +57,26 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
 
         const foodIndex = foodListData.findIndex((food) => food.id === data.id);
         foodListData.splice(foodIndex, 1);
+        Notify.deleteSuccess();
+      },
+    });
+
+  const deleteFoodByType = (data: AdminFood.DeleteByType.Dto) =>
+    useStoreAction({
+      state: foodList.value.deleteState,
+      serviceAction: AdminFoodService.deleteFoodByType(data),
+      onSuccess: (res) => {
+        if (!res.status) return;
+
+        const foodListData = foodList.value.data?.data;
+        if (!foodListData) return;
+
+        const filteredFood = foodListData.filter((food) => food.type === data.type);
+        filteredFood.forEach((food) => {
+          const index = foodListData.findIndex((item) => item.id === food.id);
+          foodListData.splice(index, 1);
+        });
+        Notify.deleteSuccess();
       },
     });
 
@@ -66,5 +88,6 @@ export const useAdminFoodStore = defineStore('admin-food-store', () => {
     patchFood,
     postFood,
     deleteFood,
+    deleteFoodByType,
   };
 });
