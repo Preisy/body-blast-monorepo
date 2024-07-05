@@ -16,10 +16,7 @@ const emit = defineEmits<{
 
 const deleteFood = async () => {
   if (!foodList.value) return;
-  //TODO: fix, when api will be ready
-  Promise.all(
-    foodList.value.filter((item) => item.type === props.foodType).map((item) => foodStore.deleteFood({ id: item.id })),
-  );
+  foodStore.deleteFoodByType({ type: props.foodType });
 
   emit('click');
 };

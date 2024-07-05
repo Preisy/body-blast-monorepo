@@ -33,4 +33,13 @@ export namespace AdminFood {
       status: boolean;
     }
   }
+
+  export namespace DeleteByType {
+    export interface Dto {
+      type: Food['type'];
+    }
+    export interface Response {
+      status: boolean;
+    }
+  }
 }

@@ -15,8 +15,9 @@ export namespace Food {
 
   export const validation = () =>
     z.object({
+      id: z.string(),
       type: z.string(),
       category: z.coerce.number(),
-      name: z.string(),
+      name: z.string().min(1),
     });
 }
