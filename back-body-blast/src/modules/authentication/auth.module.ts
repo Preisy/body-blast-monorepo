@@ -9,7 +9,6 @@ import { UserEntity } from '../core/user/entities/user.entity';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { TokenEntity } from './entities/token.entity';
-import { AbilityModule } from '../ability/ability.module';
 
 @Module({
   imports: [
@@ -17,7 +16,6 @@ import { AbilityModule } from '../ability/ability.module';
     BaseUserModule,
     ConfigModule,
     PassportModule,
-    AbilityModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: process.env.JWT_EXPIRATION },

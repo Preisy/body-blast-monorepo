@@ -8,14 +8,12 @@ import { Repository } from 'typeorm';
 import { ClientWorkoutService } from './client-workout.service';
 import { ClientWorkoutController } from './client-workout.controller';
 import { UserEntity } from '../../../modules/core/user/entities/user.entity';
-import { AbilityModule } from '../../../modules/ability/ability.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([WorkoutEntity, UserEntity, ExerciseEntity]),
     forwardRef(() => AuthModule),
     forwardRef(() => BaseWorkoutModule),
-    AbilityModule,
   ],
   providers: [ClientWorkoutService, Repository],
   controllers: [ClientWorkoutController],

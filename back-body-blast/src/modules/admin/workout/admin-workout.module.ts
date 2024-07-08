@@ -7,14 +7,12 @@ import { BaseWorkoutModule } from 'src/modules/core/workout/base-workout.module'
 import { WorkoutEntity } from 'src/modules/core/workout/entity/workout.entity';
 import { AdminWorkoutController } from './admin-workout.controller';
 import { AdminWorkoutService } from './admin-workout.service';
-import { AbilityModule } from 'src/modules/ability/ability.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([WorkoutEntity, UserEntity, ExerciseEntity]),
     forwardRef(() => AuthModule),
     BaseWorkoutModule,
-    AbilityModule,
   ],
   providers: [AdminWorkoutService],
   controllers: [AdminWorkoutController],

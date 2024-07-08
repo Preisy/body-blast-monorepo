@@ -14,3 +14,12 @@ export enum PeriodTime {
 export class Constants {
   public static UserRoleList = new Static(UserRole.Client, UserRole.Influencer, UserRole.Admin);
 }
+
+export enum Action {
+  All = 'manage',
+  Create = 'create',
+  Read = 'read',
+  ReadAll = 'read all',
+  Update = 'update',
+  Delete = 'delete',
+}

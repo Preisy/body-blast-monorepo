@@ -6,13 +6,9 @@ import { ExerciseEntity } from '../exerсise/entities/exercise.entity';
 import { UserEntity } from '../user/entities/user.entity';
 import { BaseWorkoutService } from './base-workout.service';
 import { WorkoutHook } from './workout.hook';
-import { AbilityModule } from '../../../modules/ability/ability.module';
+
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([WorkoutEntity, UserEntity, ExerciseEntity]),
-    forwardRef(() => AuthModule),
-    AbilityModule,
-  ],
+  imports: [TypeOrmModule.forFeature([WorkoutEntity, UserEntity, ExerciseEntity]), forwardRef(() => AuthModule)],
   exports: [BaseWorkoutService, WorkoutHook],
   providers: [BaseWorkoutService, WorkoutHook],
 })

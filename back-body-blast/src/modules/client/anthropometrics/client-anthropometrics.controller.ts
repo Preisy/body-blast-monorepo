@@ -18,7 +18,7 @@ import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { AppStatusResponse } from '../../../dto/app-status-response.dto';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
-import { Action } from '../../../modules/ability/ability.factory';
+import { Action } from '../../../constants/constants';
 import { AnthropometricsHook } from '../../../modules/core/anthropometrics/anthropometrics.hook';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { AppAuthGuard } from '../../authentication/guards/appAuth.guard';
@@ -41,14 +41,14 @@ export class ClientAnthropometricsController {
   @Get()
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(AnthropometricsEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
-    await this.hook.checkAbility(Action.Read, req.user);
+    await this.hook.checkAbility(Action.ReadAll, req.user);
     return await this.clientService.findAll(req.user, query);
   }
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
   async getOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbility(Action.Read, req.user, id);
+    await this.hook.checkAbilityWithId(Action.Read, req.user, id);
     return await this.clientService.findOne(id);
   }
 
@@ -59,7 +59,7 @@ export class ClientAnthropometricsController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateAnthropometricsByClientRequest,
   ) {
-    await this.hook.checkAbility(Action.Update, req.user, id);
+    await this.hook.checkAbilityWithId(Action.Update, req.user, id);
     return await this.clientService.update(id, body);
   }
 
@@ -67,7 +67,7 @@ export class ClientAnthropometricsController {
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   @Throttle(5, 1)
   async delete(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbility(Action.Delete, req.user, id);
+    await this.hook.checkAbilityWithId(Action.Delete, req.user, id);
     return await this.clientService.delete(id);
   }
 }

@@ -22,7 +22,7 @@ import { ClientWorkoutService } from './client-workout.service';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { UpdateWorkoutByClientRequest } from './dto/client-update-workout.dto';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
-import { Action } from '../../../modules/ability/ability.factory';
+import { Action } from '../../../constants/constants';
 import { WorkoutHook } from '../../../modules/core/workout/workout.hook';
 
 @ApiTags('Workouts')
@@ -39,14 +39,14 @@ export class ClientWorkoutController {
   @Get()
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
-    await this.hook.checkAbility(Action.Update, req.user);
+    await this.hook.checkAbility(Action.ReadAll, req.user);
     return await this.clientService.findAll(req.user.id, query);
   }
 
   @Get('date')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
   async getAllByDate(@Req() req: RequestWithUser, @Query() query: AppDatePagination.Request) {
-    await this.hook.checkAbility(Action.Update, req.user);
+    await this.hook.checkAbility(Action.ReadAll, req.user);
     return await this.clientService.findAllByDate(req.user.id, query);
   }
 
@@ -57,7 +57,7 @@ export class ClientWorkoutController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateWorkoutByClientRequest,
   ) {
-    await this.hook.checkAbility(Action.Update, req.user, id);
+    await this.hook.checkAbilityWithId(Action.Update, req.user, id);
     return await this.clientService.update(id, body);
   }
 }

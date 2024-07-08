@@ -7,7 +7,6 @@ import { UserEntity } from '../user/entities/user.entity';
 import { BaseUserModule } from '../user/base-user.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AnthropometricsHook } from './anthropometrics.hook';
-import { AbilityModule } from '../../../modules/ability/ability.module';
 
 @Module({
   imports: [
@@ -15,7 +14,6 @@ import { AbilityModule } from '../../../modules/ability/ability.module';
     forwardRef(() => AuthModule),
     forwardRef(() => BaseUserModule),
     ScheduleModule,
-    AbilityModule,
   ],
   providers: [BaseAnthropometrcisService, AnthropometricsHook],
   exports: [BaseAnthropometrcisService, AnthropometricsHook],

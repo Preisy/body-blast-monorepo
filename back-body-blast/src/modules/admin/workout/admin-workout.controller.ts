@@ -27,7 +27,7 @@ import { UpdateWorkoutByAdminRequest } from './dto/admin-update-workout.dto';
 import { WorkoutEntity } from '../../../modules/core/workout/entity/workout.entity';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
 import { AppAuthGuard } from '../../../modules/authentication/guards/appAuth.guard';
-import { Action } from '../../../modules/ability/ability.factory';
+import { Action } from '../../../constants/constants';
 import { RequestWithUser } from '../../../modules/authentication/types/requestWithUser.type';
 import { WorkoutHook } from '../../../modules/core/workout/workout.hook';
 
@@ -46,28 +46,28 @@ export class AdminWorkoutController {
   @AppResponses({ status: 201, type: AppSingleResponse.type(AppSingleResponse) })
   @Throttle(5, 1)
   async create(@Req() req: RequestWithUser, @Body() request: CreateWorkoutByAdminRequest) {
-    await this.hook.checkAbility(Action.Manage, req.user);
+    await this.hook.checkAbility(Action.All, req.user);
     return await this.adminService.create(request);
   }
 
   @Get()
   @AppResponses({ status: 200, type: AppPagination.Response.type(WorkoutEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: AppPagination.Request) {
-    await this.hook.checkAbility(Action.Manage, req.user);
+    await this.hook.checkAbility(Action.All, req.user);
     return await this.adminService.findAll(query);
   }
 
   @Get('date')
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(WorkoutEntity) })
   async getAllByDate(@Req() req: RequestWithUser, @Query() query: GetWorkoutForUserByAdminRequest) {
-    await this.hook.checkAbility(Action.Manage, req.user);
+    await this.hook.checkAbility(Action.All, req.user);
     return await this.adminService.findAllByDate(query);
   }
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(GetWorkoutByAdminDTO) })
   async getOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbility(Action.Manage, req.user, id);
+    await this.hook.checkAbilityWithId(Action.All, req.user, id);
     return await this.adminService.findOne(id);
   }
 
@@ -78,14 +78,14 @@ export class AdminWorkoutController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: UpdateWorkoutByAdminRequest,
   ) {
-    await this.hook.checkAbility(Action.Manage, req.user);
+    await this.hook.checkAbility(Action.All, req.user);
     return await this.adminService.update(id, body);
   }
 
   @Delete(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AppStatusResponse) })
   async deleteOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbility(Action.Manage, req.user);
+    await this.hook.checkAbility(Action.All, req.user);
     return await this.adminService.deleteOne(id);
   }
 }

@@ -4,7 +4,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { AppResponses } from '../../../decorators/app-responses.decorator';
 import { AppSingleResponse } from '../../../dto/app-single-response.dto';
 import { MainExceptionFilter } from '../../../exceptions/main-exception.filter';
-import { Action } from '../../../modules/ability/ability.factory';
+import { Action } from '../../../constants/constants';
 import { RequestWithUser } from '../../../modules/authentication/types/requestWithUser.type';
 import { AnthropometricsHook } from '../../../modules/core/anthropometrics/anthropometrics.hook';
 import { AppDatePagination } from '../../../utils/app-date-pagination.util';
@@ -26,14 +26,14 @@ export class AdminAnthropometricsController {
   @Get()
   @AppResponses({ status: 200, type: AppDatePagination.Response.type(AnthropometricsEntity) })
   async getAll(@Req() req: RequestWithUser, @Query() query: GetAnthropometricsForUserByAdminRequest) {
-    await this.hook.checkAbility(Action.Manage, req.user);
+    await this.hook.checkAbility(Action.All, req.user);
     return await this.adminService.findAll(query);
   }
 
   @Get(':id')
   @AppResponses({ status: 200, type: AppSingleResponse.type(AnthropometricsEntity) })
   async getOne(@Req() req: RequestWithUser, @Param('id', ParseUUIDPipe) id: string) {
-    await this.hook.checkAbility(Action.Manage, req.user, id);
+    await this.hook.checkAbilityWithId(Action.All, req.user, id);
     return await this.adminService.findOne(id);
   }
 }
