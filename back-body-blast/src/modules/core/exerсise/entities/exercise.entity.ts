@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { AppBaseEntity } from '../../../../models/app-base-entity.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { WorkoutEntity } from '../../workout/entity/workout.entity';
+import { WorkoutEntity } from '../../../workout/entity/workout.entity';
 
 @Entity('exercises')
 export class ExerciseEntity extends AppBaseEntity {

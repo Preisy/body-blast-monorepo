@@ -4,7 +4,7 @@ import { AuthModule } from '../../authentication/auth.module';
 import { BaseUserService } from '../../core/user/base-user.service';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { BaseDiaryTemplateModule } from '../diary-template/base-diary-template.module';
-import { BaseAnthropometricsModule } from '../anthropometrics/base-anthropometrics.module';
+import { AnthropometricsModule } from '../../anthropometrics/anthropometrics.module';
 import { BaseDiaryModule } from '../diary/base-diary.module';
 import { BaseNutritionModule } from '../nutrition/base-nutrition.module';
 
@@ -14,7 +14,7 @@ import { BaseNutritionModule } from '../nutrition/base-nutrition.module';
     forwardRef(() => AuthModule),
     forwardRef(() => BaseDiaryTemplateModule),
     forwardRef(() => BaseDiaryModule),
-    forwardRef(() => BaseAnthropometricsModule),
+    forwardRef(() => AnthropometricsModule),
     forwardRef(() => BaseNutritionModule),
   ],
   providers: [BaseUserService],

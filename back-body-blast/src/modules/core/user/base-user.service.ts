@@ -11,7 +11,7 @@ import { CreateUserRequest } from './dto/create-user.dto';
 import { UpdateUserRequest } from './dto/update-user.dto';
 import { UserEntity } from './entities/user.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
-import { BaseAnthropometrcisService } from '../anthropometrics/base-anthropometrics.service';
+import { AnthropometricsService } from '../../anthropometrics/anthropometrics.service';
 import { BaseDiaryService } from '../diary/base-diary.service';
 import { BaseNutritionService } from '../nutrition/base-nutrition.service';
 
@@ -21,7 +21,7 @@ export class BaseUserService {
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
     private readonly templateService: BaseDiaryTemplateService,
-    private readonly antrhpService: BaseAnthropometrcisService,
+    private readonly antrhpService: AnthropometricsService,
     @Inject(forwardRef(() => BaseDiaryService))
     private readonly diaryService: BaseDiaryService,
     private readonly nutritionService: BaseNutritionService,

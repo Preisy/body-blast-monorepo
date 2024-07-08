@@ -4,14 +4,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { AdminFileModule } from './modules/admin/file/admin-file.module';
-import { AdminWorkoutModule } from './modules/admin/workout/admin-workout.module';
 import { AuthModule } from './modules/authentication/auth.module';
 import { ClientFileModule } from './modules/client/file/client-file.module';
-import { ClientWorkoutModule } from './modules/client/workout/client-workout.module';
 import { AdminUserModule } from './modules/admin/user/admin-user.module';
 import { MeModule } from './modules/client/me/me.module';
-import { ClientAnthropometricsModule } from './modules/client/anthropometrics/client-anthropometrics.module';
-import { AdminAntropometricsModule } from './modules/admin/anthropometrics/admin-anthropomerics.module';
 import { AdminPromptModule } from './modules/admin/prompt/admin-prompt.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { AdminDiaryTemplateModule } from './modules/admin/diary-template/admin-diary-template.module';
@@ -26,6 +22,8 @@ import { AdminDiaryModule } from './modules/admin/diary/admin-diary.module';
 import { AppLoggerModule } from './logger/app-logger.module';
 import { AdminLogsModule } from './modules/admin/logging/admin-logs.module';
 import { TelegramModule } from './modules/telegram/telegram.module';
+import { WorkoutModule } from './modules/workout/workout.module';
+import { AnthropometricsModule } from './modules/anthropometrics/anthropometrics.module';
 
 @Module({
   imports: [
@@ -34,15 +32,11 @@ import { TelegramModule } from './modules/telegram/telegram.module';
     DatabaseModule,
     AuthModule,
     AdminUserModule,
-    AdminWorkoutModule,
     ClientFileModule,
-    ClientWorkoutModule,
     ClientFileModule,
     ClientBonusVideoModule,
     AdminFileModule,
     MeModule,
-    ClientAnthropometricsModule,
-    AdminAntropometricsModule,
     AdminPromptModule,
     AdminDiaryTemplateModule,
     AdminBonusVideoModule,
@@ -55,6 +49,8 @@ import { TelegramModule } from './modules/telegram/telegram.module';
     AppLoggerModule,
     AdminLogsModule,
     TelegramModule,
+    WorkoutModule,
+    AnthropometricsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

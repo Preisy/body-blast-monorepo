@@ -14,11 +14,12 @@ import { DiaryEntity } from './entity/diary.entity';
 import { UserEntity } from '../user/entities/user.entity';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { AppPagination } from '../../../utils/app-pagination.util';
-import { BaseWorkoutService } from '../workout/base-workout.service';
-import { WorkoutEntity } from '../workout/entity/workout.entity';
+import { WorkoutService } from '../../../modules/workout/workout.service';
+import { WorkoutEntity } from '../../../modules/workout/entity/workout.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 import { PeriodTime } from '../../../constants/constants';
 import _ from 'lodash';
+import { getNumberOfWeeksInBetween, getPeriodNumberOfWeekday } from '../../../functions/date.functions';
 
 @Injectable()
 export class BaseDiaryService implements OnModuleInit {
@@ -29,7 +30,7 @@ export class BaseDiaryService implements OnModuleInit {
     private readonly diaryPropsRepository: Repository<DiaryPropsEntity>,
     @Inject(forwardRef(() => BaseUserService))
     private readonly userService: BaseUserService,
-    private readonly workoutService: BaseWorkoutService,
+    private readonly workoutService: WorkoutService,
     private readonly diaryTemplateService: BaseDiaryTemplateService,
   ) {}
   async onModuleInit() {
@@ -209,17 +210,24 @@ export class BaseDiaryService implements OnModuleInit {
     const firstDayOfWeek = new Date(query.from!);
     const lastDayOfWeek = new Date(query.from!);
 
-    const firstDayOfMonth = new Date(query.from!);
-    const lastDayOfMonth = new Date(query.to!);
+    const lastDay = new Date(query.to!);
+    const days = Math.ceil(Math.abs(firstDayOfWeek.getTime() - lastDay.getTime()) / PeriodTime.dayTime);
 
-    const weeks = Math.ceil(Math.abs(firstDayOfMonth.getTime() - lastDayOfMonth.getTime()) / PeriodTime.weekTime);
+    const tempFirstDayOfMonth = new Date(firstDayOfWeek);
+    const tempLastDayOfMonth = new Date(firstDayOfWeek);
+    tempLastDayOfMonth.setDate(tempLastDayOfMonth.getDate() + 1);
+
+    const weeks = getNumberOfWeeksInBetween(tempFirstDayOfMonth, tempLastDayOfMonth, days);
+
+    const diff = 7 - getPeriodNumberOfWeekday(firstDayOfWeek);
+    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + diff);
+
+    if (weeks === 1) lastDayOfWeek.setDate(lastDay.getDate());
 
     let weeksCounter = 0;
     const result: StepsByWeek[] = [];
     while (weeksCounter < weeks) {
       let steps = 0;
-      const diff = 7 - firstDayOfWeek.getDay();
-      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + diff);
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
       newWeek.forEach((diary) => {
         if (diary.steps) steps += diary.steps;
@@ -237,7 +245,17 @@ export class BaseDiaryService implements OnModuleInit {
         }),
       );
       result.push(stepsByWeek);
-      firstDayOfWeek.setDate(lastDayOfWeek.getDate() + 1);
+
+      if (weeks - weeksCounter === 2) {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+        lastDayOfWeek.setDate(lastDay.getDate());
+      } else if (weeksCounter === 0) {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() + diff + 1);
+        lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+      } else {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+        lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 7);
+      }
       weeksCounter++;
     }
     return new GetStepsByUserIdDTO(result);

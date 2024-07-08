@@ -4,7 +4,7 @@ import { CreateUserByClientRequest } from './dto/create-client-user.dto';
 import { UpdateUserByClientRequest } from './dto/update-client-user.dto';
 import { UserEntity } from '../../core/user/entities/user.entity';
 import { Injectable } from '@nestjs/common/decorators';
-import { BaseAnthropometrcisService } from '../../../modules/core/anthropometrics/base-anthropometrics.service';
+import { AnthropometricsService } from '../../anthropometrics/anthropometrics.service';
 import { GetNotificationForClientResponse } from './dto/get-notification-for-client.dto';
 import { BaseDiaryService } from '../../../modules/core/diary/base-diary.service';
 
@@ -12,7 +12,7 @@ import { BaseDiaryService } from '../../../modules/core/diary/base-diary.service
 export class MeService {
   constructor(
     private readonly baseService: BaseUserService,
-    private readonly anthrpService: BaseAnthropometrcisService,
+    private readonly anthrpService: AnthropometricsService,
     private readonly diaryService: BaseDiaryService,
   ) {}
 
