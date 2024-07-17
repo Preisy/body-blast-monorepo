@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { QFileProps, QFile } from 'quasar';
 import { useField } from 'vee-validate';
+import { useI18n } from 'vue-i18n';
+import { Notify } from 'shared/lib';
 
 export interface SFilePickerProps extends Omit<QFileProps, 'modelValue'> {
   name: string;
@@ -11,7 +13,14 @@ defineEmits<{
   'update:model-value': [file: File | FileList | undefined];
 }>();
 
+const { t } = useI18n();
+
 const { value, errorMessage } = useField<File>(() => props.name);
+const onRejected = (rejectedEntries: { failedPropValidation: string; file: File }[]) => {
+  if (rejectedEntries[0].failedPropValidation == 'max-file-size') {
+    Notify.simpleError(t('global.errors.maxFileSize', { size: '15' }));
+  }
+};
 </script>
 
 <template>
@@ -26,9 +35,11 @@ const { value, errorMessage } = useField<File>(() => props.name);
       :ripple="{ color: 'red' }"
       hide-bottom-space
       :error="!!errorMessage"
+      :max-file-size="1024 * 1024 * 15"
       bottom-slots
       class="h-min overflow-hidden! [&]:rounded-1rem [&_.q-field\_\_label]:text-bg [&_.q-field\_\_native]:text-bg"
       :class="{ 'whitespace-nowrap': labelNoWrap }"
+      @rejected="onRejected"
     >
       <template #error>
         <div absolute bottom-0.25rem text-secondary>
