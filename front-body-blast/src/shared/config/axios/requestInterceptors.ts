@@ -1,5 +1,5 @@
 import { InternalAxiosRequestConfig } from 'axios';
-import { TokenService } from 'shared/api/auth';
+import { TokenService } from 'shared/api';
 
 export const authInterceptor = (value: InternalAxiosRequestConfig<unknown>) => {
   const { accessToken } = TokenService.getTokenPair();

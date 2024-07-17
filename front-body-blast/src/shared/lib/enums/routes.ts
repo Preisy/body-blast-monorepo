@@ -1,9 +1,9 @@
 export enum ROUTES_NAMES {
   HOME = 'home',
-  TRAINING = 'training',
+  TRAINING = 'workout',
   DIARY = 'diary',
   PROFILE = 'profile',
-  DIET = 'diet',
+  NUTRITION = 'nutrition',
   LEARNING = 'learning',
   AUTH = 'auth',
   LOGIN = 'login',
@@ -23,5 +23,6 @@ export namespace ROUTES_NAMES {
     USER_PROFILE_TRAININGS = 'USER_PROFILE_TRAININGS',
     USER_PROFILE_NUTRITION = 'USER_PROFILE_NUTRITION',
     USER_PROFILE_DIARY = 'USER_PROFILE_DIARY',
+    USER_PROFILE_DIARY_EDIT = 'USER_PROFILE_DIARY_EDIT',
   }
 }

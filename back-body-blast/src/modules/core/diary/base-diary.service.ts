@@ -19,6 +19,7 @@ import { WorkoutEntity } from '../workout/entity/workout.entity';
 import { BaseDiaryTemplateService } from '../diary-template/base-diary-template.service';
 import { PeriodTime } from '../../../constants/constants';
 import _ from 'lodash';
+import { getPeriodNumberOfWeekday, getNumberOfWeeksInBetween } from '../../../functions/date.functions';
 
 @Injectable()
 export class BaseDiaryService implements OnModuleInit {
@@ -209,17 +210,24 @@ export class BaseDiaryService implements OnModuleInit {
     const firstDayOfWeek = new Date(query.from!);
     const lastDayOfWeek = new Date(query.from!);
 
-    const firstDayOfMonth = new Date(query.from!);
-    const lastDayOfMonth = new Date(query.to!);
+    const lastDay = new Date(query.to!);
+    const days = Math.ceil(Math.abs(firstDayOfWeek.getTime() - lastDay.getTime()) / PeriodTime.dayTime);
 
-    const weeks = Math.ceil(Math.abs(firstDayOfMonth.getTime() - lastDayOfMonth.getTime()) / PeriodTime.weekTime);
+    const tempFirstDayOfMonth = new Date(firstDayOfWeek);
+    const tempLastDayOfMonth = new Date(firstDayOfWeek);
+    tempLastDayOfMonth.setDate(tempLastDayOfMonth.getDate() + 1);
+
+    const weeks = getNumberOfWeeksInBetween(tempFirstDayOfMonth, tempLastDayOfMonth, days);
+
+    const diff = 7 - getPeriodNumberOfWeekday(firstDayOfWeek);
+    lastDayOfWeek.setDate(firstDayOfWeek.getDate() + diff);
+
+    if (weeks === 1) lastDayOfWeek.setDate(lastDay.getDate());
 
     let weeksCounter = 0;
     const result: StepsByWeek[] = [];
     while (weeksCounter < weeks) {
       let steps = 0;
-      const diff = 7 - firstDayOfWeek.getDay();
-      lastDayOfWeek.setDate(firstDayOfWeek.getDate() + diff);
       const newWeek = diaries.filter((diary) => diary.date >= firstDayOfWeek && diary.date <= lastDayOfWeek);
       newWeek.forEach((diary) => {
         if (diary.steps) steps += diary.steps;
@@ -237,7 +245,17 @@ export class BaseDiaryService implements OnModuleInit {
         }),
       );
       result.push(stepsByWeek);
-      firstDayOfWeek.setDate(lastDayOfWeek.getDate() + 1);
+
+      if (weeks - weeksCounter === 2) {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+        lastDayOfWeek.setDate(lastDay.getDate());
+      } else if (weeksCounter === 0) {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() + diff + 1);
+        lastDayOfWeek.setDate(firstDayOfWeek.getDate() + 6);
+      } else {
+        firstDayOfWeek.setDate(firstDayOfWeek.getDate() + 7);
+        lastDayOfWeek.setDate(lastDayOfWeek.getDate() + 7);
+      }
       weeksCounter++;
     }
     return new GetStepsByUserIdDTO(result);
@@ -253,7 +271,7 @@ export class BaseDiaryService implements OnModuleInit {
       newLabels.sort((a, b) => (a.label > b.label ? 1 : b.label > a.label ? -1 : 0));
 
       if (!_.isEqual(newLabels, oldLabels)) {
-        throw MainException.invalidData(`Provided data is not valid: label properties do not match`);
+        throw MainException.invalidData('Provided data is not valid: label properties do not match');
       }
       diary.sum = request.props.reduce((acc, it) => acc + it.value, 0);
       await this.diaryPropsRepository.delete({

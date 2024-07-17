@@ -1,3 +1,12 @@
+const FS_LAYERS = ['app', 'processes', 'pages', 'widgets', 'features', 'entities', 'shared'];
+
+const FS_SEGMENTS = ['ui', 'model', 'lib', 'api', 'config'];
+
+const getUpperLayers = (layer) => FS_LAYERS.slice(0, FS_LAYERS.indexOf(layer));
+
+const FS_SLICED_LAYERS_REG = getUpperLayers('shared').join('|');
+const FS_SEGMENTS_REG = [...FS_SEGMENTS, ...FS_SEGMENTS.map((seg) => `${seg}.*`)].join('|');
+
 module.exports = {
   // https://eslint.org/docs/user-guide/configuring#configuration-cascading-and-hierarchy
   // This option interrupts the configuration hierarchy at this file
@@ -66,6 +75,56 @@ module.exports = {
       },
     ],
     'vue/padding-line-between-blocks': ['error'],
+    'vue/require-explicit-emits': 0,
     'arrow-body-style': 2,
+    'import/no-internal-modules': [
+      'error',
+      {
+        allow: [
+          'ui/*',
+          'model/*',
+          'api/*',
+          'lib/*',
+          'i18n/*',
+          /**
+           * Allow not segments import from slices
+           * @example
+           * 'entities/form/ui' // Fail
+           * 'entities/form' // Pass
+           */
+          `**/*(${FS_SLICED_LAYERS_REG})/!(${FS_SEGMENTS_REG})`,
+
+          /**
+           * Allow slices with structure grouping
+           * @example
+           * 'features/auth/form' // Pass
+           */
+          `**/*(${FS_SLICED_LAYERS_REG})/!(${FS_SEGMENTS_REG})/!(${FS_SEGMENTS_REG})`,
+
+          /**
+           * Allow not segments import in shared segments
+           * @example
+           * 'shared/ui/button' // Pass
+           */
+          `**/*shared/*(${FS_SEGMENTS_REG})/!(${FS_SEGMENTS_REG})`,
+
+          /**
+           * Allow import from segments in shared
+           * @example
+           * 'shared/ui' // Pass
+           */
+          `**/*shared/*(${FS_SEGMENTS_REG})`,
+
+          /** allow global modules */
+          `**/node_modules/**`,
+
+          /**
+           * allow custom shared segments with _prefix
+           */
+          `**/*shared/_*`,
+          `**/*shared/_*/*`,
+        ],
+      },
+    ],
   },
 };

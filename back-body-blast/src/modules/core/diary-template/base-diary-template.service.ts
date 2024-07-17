@@ -15,7 +15,7 @@ export class BaseDiaryTemplateService {
   constructor(
     @InjectRepository(DiaryTemplateEntity)
     private readonly diaryTemlpateRepository: Repository<DiaryTemplateEntity>,
-    @InjectRepository(DiaryTemplateEntity)
+    @InjectRepository(DiaryTemplatePropsEntity)
     private readonly templatePropsEntityRepository: Repository<DiaryTemplatePropsEntity>,
   ) {}
   public readonly relations: (keyof DiaryTemplateEntity)[] = ['props'];
@@ -72,11 +72,11 @@ export class BaseDiaryTemplateService {
     return new AppSingleResponse(template);
   }
 
-  async update(id: DiaryTemplateEntity['id'], request: UpdateDiaryTemplateRequest) {
-    const { data: template } = await this.findOne(id);
+  async update(userId: UserEntity['id'], request: UpdateDiaryTemplateRequest) {
+    const { data: template } = await this.findOneByUserId(userId);
     if (request.props) {
       await this.templatePropsEntityRepository.delete({
-        templateId: id,
+        templateId: template.id,
       });
       template.props = [];
     }

@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useAuthStore, TokenService } from 'shared/api/auth';
+import { useUserStore, TokenService } from 'shared/api';
 import { api } from '.';
 
 export const refreshInterceptor = async (error: AxiosError) => {
@@ -10,7 +10,7 @@ export const refreshInterceptor = async (error: AxiosError) => {
   if (error.code === '500') return error;
   // if request fails
   // Take refresh fn
-  const { refresh } = useAuthStore();
+  const { refresh } = useUserStore();
   const { refreshToken, accessToken } = TokenService.getTokenPair();
   // If no token -> return error
   if (!refreshToken || !accessToken) return error;

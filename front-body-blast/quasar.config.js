@@ -60,6 +60,12 @@ module.exports = configure(function (/* ctx */) {
 
       vueRouterMode: 'history', // available values: 'hash', 'history'
 
+      viteVuePluginOptions: {
+        script: {
+          defineModel: true,
+        },
+      },
+
       vitePlugins: [
         [
           '@intlify/vite-plugin-vue-i18n',
