@@ -7,6 +7,9 @@ export default {
     },
     loading: 'Загрузка...',
     error: 'Ошибка',
+    errors: {
+      maxFileSize: 'Файл не должен превышать {size} МБ',
+    },
     notification: {
       attention: 'Внимание!',
     },

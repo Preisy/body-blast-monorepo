@@ -7,6 +7,9 @@ export default {
     },
     loading: 'Loading...',
     error: 'Error',
+    errors: {
+      maxFileSize: 'File must be less than {size} MB',
+    },
     notification: {
       attention: 'Attention!',
     },
