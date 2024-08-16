@@ -7,8 +7,8 @@ defineProps<SProxyScroll>();
 const thumbStyle: Partial<CSSStyleDeclaration> = {
   borderRadius: '5px',
   backgroundColor: 'var(--q-primary-50-solid)',
-  right: '-2px',
-  bottom: '-2px',
+  right: '2px',
+  bottom: '2px',
   width: '5px',
   height: '5px',
   opacity: '0.75',
@@ -17,15 +17,18 @@ const thumbStyle: Partial<CSSStyleDeclaration> = {
 </script>
 
 <template>
+  {{ console.log($q.platform) }}
   <q-scroll-area
+    v-if="!$q.platform.is.mac || !$q.platform.is.ios || !$q.platform.is.iphone || !$q.platform.is.safari"
     v-bind="$props"
     :thumb-style="thumbStyle"
     :horizontal-thumb-style="thumbStyle"
     :style="{ contain: 'unset' }"
     h-full
-    :content-style="{ width: type === 'vertical' ? '100%' : '', height: '100%' }"
-    :content-active-style="{ width: type === 'vertical' ? '100%' : '', height: '100%' }"
   >
     <slot />
   </q-scroll-area>
+  <div overflow-y-scroll v-else>
+    <slot />
+  </div>
 </template>
