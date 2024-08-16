@@ -16,12 +16,16 @@ export namespace AdminWorkout {
   }
 
   export namespace Patch {
-    export interface Dto extends Omit<Partial<UserWorkout>, keyof AppBaseEntity | 'user'> {}
+    export interface Dto extends Pick<UserWorkout, 'name' | 'date' | 'comment' | 'cycle'> {
+      exercises: Omit<UserWorkout['exercises'][number], keyof AppBaseEntity | 'workoutId'>[];
+    }
     export interface Response extends AppBaseEntity.Response<UserWorkout> {}
   }
 
   export namespace Post {
-    export interface Dto extends Omit<UserWorkout, keyof AppBaseEntity | 'user'> {}
+    export interface Dto extends Pick<UserWorkout, 'name' | 'date' | 'comment' | 'userId' | 'cycle'> {
+      exercises: Omit<UserWorkout['exercises'][number], keyof AppBaseEntity | 'workoutId'>[];
+    }
     export interface Response extends AppBaseEntity.Response<UserWorkout> {}
   }
 

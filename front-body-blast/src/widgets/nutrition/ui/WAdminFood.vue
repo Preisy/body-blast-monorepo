@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { groupBy } from 'lodash';
 import { FDeleteFoodBtn } from 'features/food';
 import { FFoodListForm } from 'features/nutrition';
 import { Food } from 'entities/food';
-import { Notify } from 'shared/lib';
 import { SComponentWrapper } from 'shared/ui';
 
 export interface WAdminFoodProps {
@@ -11,9 +11,7 @@ export interface WAdminFoodProps {
 }
 
 const props = defineProps<WAdminFoodProps>();
-
 const foodItemsOrEmpty = computed(() => props.foodItems);
-const categories = [1, 2, 3] as const;
 
 defineEmits<{
   deleted: [];
@@ -24,23 +22,9 @@ defineEmits<{
   <SComponentWrapper>
     <div mb-1rem flex flex-row>
       <h1>{{ type }}</h1>
-      <FDeleteFoodBtn
-        :food-type="type"
-        ml-auto
-        @click="
-          $emit('deleted');
-          Notify.deleteSuccess();
-        "
-      />
+      <FDeleteFoodBtn :food-type="type" ml-auto @click="$emit('deleted')" />
     </div>
 
-    <FFoodListForm
-      v-for="category in categories"
-      :key="category"
-      :category="category"
-      :type="type"
-      :init-values="foodItemsOrEmpty.filter((food) => food.category === category)"
-      mb-1.5rem
-    />
+    <FFoodListForm :type="type" :init-values="groupBy(foodItemsOrEmpty, ({ category }) => category)" mb-1.5rem />
   </SComponentWrapper>
 </template>

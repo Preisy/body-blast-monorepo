@@ -18,6 +18,6 @@ export namespace Food {
       id: z.string(),
       type: z.string(),
       category: z.coerce.number(),
-      name: z.string().min(1),
+      name: z.string(),
     });
 }

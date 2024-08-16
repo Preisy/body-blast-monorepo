@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { cloneDeep } from 'lodash';
 import moment from 'moment';
 import { WCreateWorkout, WEditWorkout } from 'widgets/workout';
 import { Workout, useAdminWorkoutStore } from 'entities/workout';
@@ -31,8 +32,8 @@ useLoadingAction(workoutList, () =>
 const workoutListData = computed(() => workoutList.data?.data);
 
 const editingWorkout = ref<Workout | null>();
-const onEdit = (id: Workout) => {
-  editingWorkout.value = id;
+const onEdit = (v: Workout) => {
+  editingWorkout.value = cloneDeep(v); //TODO: bad?
 };
 const clearEditing = () => {
   editingWorkout.value = null;
@@ -58,6 +59,7 @@ const clearEditing = () => {
     >
       <template #item="{ date: dd }">
         <SProxyScroll h-full type="vertical">
+          <!-- TODO: bad naming. WEditWorkout takes no responsibility for edititng workout -->
           <WEditWorkout
             v-if="
               !editingWorkout && workoutListData && workoutListData.find((workout) => isEqualDates(workout.date, dd))
