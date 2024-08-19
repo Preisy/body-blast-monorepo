@@ -13,7 +13,6 @@ const props = defineProps<PAdminDiaryProps>();
 const { getUserSteps, userSteps } = useAdminUserStore();
 const { getUserDiaries, userDiaries } = useAdminDiaryStore();
 
-const dateRaw = ref(moment());
 const isoDate = ref(moment().format('YYYY-MM-DD'));
 const calendarDate = computed(() => moment(isoDate.value).format('YYYY/MM/DD'));
 
@@ -64,11 +63,15 @@ const stepsSlides = computed(() => {
   return groupedByMonth;
 });
 
+const onCalendarUpdate = (v: string) => {
+  isoDate.value = v.split('/').join('-');
+};
+
 const halfRange = ref(3);
 onBeforeMount(() =>
   fetch(
-    dateRaw.value.clone().subtract(halfRange.value, 'month').format('YYYY-MM-DD'),
-    dateRaw.value.clone().add(halfRange.value, 'month').format('YYYY-MM-DD'),
+    moment(isoDate.value).subtract(halfRange.value, 'month').format('YYYY-MM-DD'),
+    moment(isoDate.value).add(halfRange.value, 'month').format('YYYY-MM-DD'),
   ),
 );
 </script>
@@ -77,23 +80,25 @@ onBeforeMount(() =>
   <SStructure h-full flex flex-col>
     <SCalendar
       :model-value="calendarDate"
-      @update:model-value="(v) => (dateRaw = moment(v.split('/').join('-')))"
+      @update:model-value="onCalendarUpdate"
       default-view="Months"
       :emit-immediately="true"
       today-btn
       py-1rem
     />
 
-    <SDatePagination v-model="isoDate" :half-range="halfRange" :offset="0" @need-fetch="fetch" type="months">
+    <SDatePagination v-model="isoDate" :half-range="halfRange" :offset="0" @need-fetch="fetch" type="months" p="0!">
       <template #item="{ date: month }">
-        <SProxyScroll h-full>
-          <EStepsList :weeks="stepsSlides[moment(month).format('MM')] ?? []" mb-2rem />
-          <ESelfControlList
-            v-for="(slides, week) in diariesSlides[moment(month).format('YYYY-MM')]"
-            :key="week"
-            :slides="slides"
-            :week="'' + week"
-          />
+        <SProxyScroll>
+          <div p-1.5rem>
+            <EStepsList :weeks="stepsSlides[moment(month).format('MM')] ?? []" mb-2rem />
+            <ESelfControlList
+              v-for="(slides, week) in diariesSlides[moment(month).format('YYYY-MM')]"
+              :key="week"
+              :slides="slides"
+              :week="'' + week"
+            />
+          </div>
         </SProxyScroll>
       </template>
     </SDatePagination>
