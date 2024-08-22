@@ -9,7 +9,7 @@ export interface WAdminNutritionLongProps {
   nutrition: Nutrition;
 }
 const props = defineProps<WAdminNutritionLongProps>();
-const mealItems = computed(() => props.nutrition.mealItems || []);
+const mealItems = computed(() => props.nutrition.mealItems);
 
 const { nutritionList, deleteNutrition } = useAdminNutritionStore();
 

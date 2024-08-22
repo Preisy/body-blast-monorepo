@@ -6,7 +6,7 @@ import { useAdminFoodStore } from 'entities/food';
 import { useAdminNutritionStore } from 'entities/nutrition';
 import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction, tod } from 'shared/lib';
-import { SLoading, SStructure, SCenteredNav, SCenteredNavProps, SProxyScroll } from 'shared/ui';
+import { SStructure, SCenteredNav, SCenteredNavProps, SProxyScroll } from 'shared/ui';
 
 export interface PAdminUserProfileNutritionProps {
   id: AppBaseEntity['id'];
@@ -52,7 +52,7 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
       <SCenteredNav v-model="pageValue" :pages="pages" />
     </div>
 
-    <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite h-full>
+    <q-tab-panels v-model="pageValue" animated keep-alive swipeable infinite h-full>
       <q-tab-panel :name="pages[0].value" p="0!" overflow="hidden!">
         <SProxyScroll h-full>
           <WAdminNutrition
@@ -77,6 +77,5 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
         </SProxyScroll>
       </q-tab-panel>
     </q-tab-panels>
-    <SLoading v-else />
   </SStructure>
 </template>
