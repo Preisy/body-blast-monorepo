@@ -38,7 +38,7 @@ const isModalShown = ref(false);
         <q-img
           @click="isModalShown = true"
           :src="photo.data.link"
-          :class="{ 'opacity-0': videoControl?.isPlaying }"
+          :class="{ 'opacity-0 z--1': videoControl?.isPlaying }"
           h-auto
           max-h-20rem
           w-full
