@@ -60,6 +60,7 @@ module.exports = {
   },
 
   rules: {
+    '@typescript-eslint/no-unused-vars': ['warn'],
     'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
     '@typescript-eslint/no-namespace': 0,
     'vue/html-self-closing': [
