@@ -7,25 +7,27 @@ export namespace IResource {
 
   export namespace Api {
     export interface Error {
-      debugMessage: string;
+      code: string;
       message: string;
-      status: string;
-      timestamp: string;
+      status: number;
+      details: string;
     }
   }
 
   export interface Error {
     statusCode: Optional<number>;
     message: string;
+    details?: string;
     original: AxiosError<Error.Axios>;
   }
 
   export namespace Error {
-    export function build(err: AxiosError<Error.Axios>) {
+    export function build(err: AxiosError<Error.Axios>): Error {
       return {
         statusCode: err.response?.status,
         message: (err.response?.data as Api.Error)?.message || err.message,
         original: err,
+        details: (err.response?.data as Api.Error)?.details,
       };
     }
 
