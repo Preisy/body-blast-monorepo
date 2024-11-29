@@ -22,7 +22,7 @@ const userName = computed(() =>
 
 <template>
   <SStructure h-full>
-    <EMinifiedProfileCard :header="userName" :describe="$t('home.profile.header.student')" dark>
+    <EMinifiedProfileCard :header="userName" :describe="$t('home.profile.header.student')" dark class="mx--0.5rem">
       <template #action>
         <FUserLogoutBtn />
       </template>
