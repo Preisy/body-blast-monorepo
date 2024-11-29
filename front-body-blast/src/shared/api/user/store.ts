@@ -4,6 +4,20 @@ import { useSimpleStoreAction, useSingleState, useStoreAction } from 'shared/lib
 import { Auth, Logout, Refresh, SignUp, User } from './types';
 import { TokenService, UserService } from '.';
 
+type SignupData = Omit<
+  SignUp.Dto,
+  | 'token'
+  | 'role'
+  | 'tokenId'
+  | 'canWatchVideo'
+  | 'id'
+  | 'createdAt'
+  | 'deletedAt'
+  | 'updatedAt'
+  | 'stepsGoal'
+  | 'anthrpJobPeriod'
+>;
+
 export const useUserStore = defineStore('me-store', () => {
   const user = ref(useSingleState<User.Get.Response>({ update: true }));
   const clear = () => (user.value = useSingleState<User.Get.Response>({ update: true }));
@@ -20,7 +34,7 @@ export const useUserStore = defineStore('me-store', () => {
     });
 
   const isAuth = () => !!TokenService.getAccessToken();
-  const signUpRequest = ref<Partial<SignUp.Dto>>({});
+  const signUpRequest = ref<Partial<SignupData>>({});
 
   const logoutState = ref(useSingleState<Logout.Response>());
   const logout = () =>
@@ -39,7 +53,7 @@ export const useUserStore = defineStore('me-store', () => {
     });
 
   const signUpState = ref(useSingleState<SignUp.Response>());
-  const signUp = (data?: SignUp.Dto) =>
+  const signUp = (data?: SignupData) =>
     useSimpleStoreAction({
       stateWrapper: signUpState.value,
       serviceAction: UserService.signUp(data ?? signUpRequest.value),

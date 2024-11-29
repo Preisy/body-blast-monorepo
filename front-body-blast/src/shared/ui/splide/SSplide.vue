@@ -14,6 +14,9 @@ defineExpose({
   movePrev: () => {
     splide.value?.go('<');
   },
+  moveTo: (index: number) => {
+    splide.value?.go(index);
+  },
 });
 </script>
 

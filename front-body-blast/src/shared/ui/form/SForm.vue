@@ -30,6 +30,7 @@ watch(
 
 const emits = defineEmits<{
   submit: Parameters<Parameters<typeof handleSubmit>[0]>;
+  error: Parameters<Exclude<Parameters<typeof handleSubmit>[1], undefined>>;
 }>();
 defineExpose({
   handleSubmit,
@@ -37,7 +38,10 @@ defineExpose({
 });
 
 //On form submit - emits @submit event with values provided to form
-const onsubmit = handleSubmit((...data) => emits('submit', ...data));
+const onsubmit = handleSubmit(
+  (...data) => emits('submit', ...data),
+  (ctx) => emits('error', ctx),
+);
 </script>
 
 <template>
