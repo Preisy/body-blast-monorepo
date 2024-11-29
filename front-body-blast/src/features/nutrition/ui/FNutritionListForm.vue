@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { AdminNutrition, Nutrition, useAdminNutritionStore } from 'entities/nutrition';
 import { User } from 'shared/api';
 import { Notify, useLoadingAction } from 'shared/lib';
-import { SConfirmDialog, SListControls, SForm, SInput, SLoading } from 'shared/ui';
+import { SConfirmDialog, SListControls, SForm, SInput } from 'shared/ui';
 import NutritionListHeader from './NutritionListHeader.vue';
 
 export interface FNutritionListFormProps {
@@ -119,9 +119,7 @@ const init = computed<{
 
 <template>
   <div flex flex-col gap-y-0.5rem>
-    <SLoading v-if="initValues === undefined && isNeedInit" />
-
-    <SForm v-else ref="form" :field-schema="validationSchema" :init-values="init" @submit="onsubmit" p="0!">
+    <SForm ref="form" :field-schema="validationSchema" :init-values="init" @submit="onsubmit" p="0!">
       <FieldArray
         v-for="category in categories"
         :key="category"
