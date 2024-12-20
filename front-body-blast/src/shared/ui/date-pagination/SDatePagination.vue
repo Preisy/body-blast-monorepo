@@ -9,7 +9,7 @@ export interface SDatePaginationProps {
   halfRange: number;
   offset: number;
   options?: QDate['options']; //TODO:
-  type: 'days' | 'months';
+  type?: 'days' | 'months';
 }
 
 const props = withDefaults(defineProps<SDatePaginationProps>(), {

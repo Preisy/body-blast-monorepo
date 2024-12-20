@@ -18,8 +18,8 @@ export interface User extends AppBaseEntity {
   height: number;
   weight: number;
   weightInYouth: number;
-  nutritRestrict: boolean;
-  allergy: boolean;
+  nutritRestrict: string;
+  allergy: string;
   gastroDeseases: string;
   mealIntolerance: string;
   insulinResistance: boolean;
@@ -173,4 +173,7 @@ export namespace SignUp {
         goals: true,
       });
   }
+
+  export const validation = (t: ComposerTranslation) =>
+    User.validation().merge(SignUp.Credentials.validation(t).sourceType());
 }

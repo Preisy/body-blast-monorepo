@@ -6,6 +6,7 @@ export namespace Notify {
     QNotify.create({
       type: 'negative',
       message: err.message,
+      caption: err.details,
       timeout: 2000,
     });
   }

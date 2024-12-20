@@ -15,10 +15,22 @@ const props = defineProps<SFormProps>();
 const { handleSubmit, setValues, resetForm } = useForm({
   validationSchema: props.fieldSchema,
 });
-if (props.initValues) setValues(props.initValues);
+// Had a problem: on second render - form was not filled
+// if (props.initValues) setValues(props.initValues);
+// TODO: weird solution.
+watch(
+  () => props.initValues,
+  (newV) => {
+    if (newV) setValues(newV);
+  },
+  {
+    immediate: true,
+  },
+);
 
 const emits = defineEmits<{
   submit: Parameters<Parameters<typeof handleSubmit>[0]>;
+  error: Parameters<Exclude<Parameters<typeof handleSubmit>[1], undefined>>;
 }>();
 defineExpose({
   handleSubmit,
@@ -26,7 +38,10 @@ defineExpose({
 });
 
 //On form submit - emits @submit event with values provided to form
-const onsubmit = handleSubmit((...data) => emits('submit', ...data));
+const onsubmit = handleSubmit(
+  (...data) => emits('submit', ...data),
+  (ctx) => emits('error', ctx),
+);
 </script>
 
 <template>
