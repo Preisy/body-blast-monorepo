@@ -15,27 +15,60 @@ if (props.readonly && props.modelValue) setValue(props.modelValue);
 </script>
 
 <template>
-  <div
-    bg="primary/50"
-    class="s-select [&_.q-field\_\_label]:(top-0 text-bg) [&.centered_.q-field--dense.q-field--float_.q-field\_\_label]:(left-1/2 scale-3/4 -translate-x-[37.5%] -translate-y-1/3) [&.centered_.q-field\_\_label]:(left-1/2 -translate-x-2/4) [&_.q-field\_\_bottom]:display-none [&_.q-field\_\_control]:(h-auto px-1.25rem py-1rem transition-all-300) [&_.q-field--highlighted_.q-field\_\_control]:(bg-primary) [&.not\_empty]:(bg-primary) [&_.q-placeholder]:p-0 [&_.q-field]:pb-0 [&.error_.q-field\_\_control]:pb-2rem [&.centered_.q-field\_\_native]:(text-center) [&_input]:(p-0! text-base! text-bg!) [&_.q-field--highlighted_.q-placeholder]:pt-0.5rem! [&.not\_empty_.q-placeholder]:pt-0.5rem! [&_.q-field\_\_native_span]:(text-base!)"
-    relative
-    overflow-hidden
-    rounded-1rem
-    transition-all-300
+  <q-select
+    v-bind="$props"
+    v-model="value"
+    behavior="menu"
+    label-color="bg"
+    popup-content-class="bg-primary text-bg rounded-1rem [&_span]:text-base! [&_.q-item--active]:(text-secondary/70 bg-primary/80)"
+    standout
+    dense
+    emit-value
+    map-options
+    class="s-select"
     :class="{ not_empty: value !== undefined, error: !!errorMessage, centered }"
-  >
-    <q-select
-      v-bind="$props"
-      v-model="value"
-      behavior="menu"
-      label-color="bg"
-      popup-content-class="bg-primary text-bg rounded-1rem [&_span]:text-base!"
-      standout
-      dense
-      emit-value
-      map-options
-      text-bg
-      transition-all-300
-    />
-  </div>
+  />
 </template>
+
+<style scoped lang="scss">
+.s-select {
+  --uno: pb-0 overflow-hidden rounded-1rem transition-all-300 bg-primary/50;
+  color: theme('colors.bg');
+
+  :focus {
+    --uno: border border-(solid secondary) border-b-1px;
+  }
+
+  // hide error message
+  ::v-deep(.q-field__bottom) {
+    display: none;
+  }
+
+  // wrapper
+  ::v-deep(.q-field__control) {
+    --uno: px-1.25rem py-0.75rem;
+    color: theme('colors.bg');
+  }
+
+  // .q-field__native span == current option text
+  ::v-deep(.q-field__native span) {
+    color: theme('colors.bg');
+    --uno: text-base;
+  }
+
+  // .q-field__label == floating text
+  ::v-deep(.q-field__label) {
+    font-size: inherit;
+  }
+
+  // Dropdown icon (little triangle)
+  ::v-deep(.q-field__marginal) {
+    color: inherit;
+  }
+
+  // if contains value - set background color to primary(black)
+  &.not_empty {
+    --uno: bg-primary;
+  }
+}
+</style>

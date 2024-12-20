@@ -14,4 +14,9 @@ export default {
       },
     },
   },
+  register: {
+    errors: {
+      incorrectFields: 'Not all fields are filled in correctly',
+    },
+  },
 };

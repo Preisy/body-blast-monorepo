@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { groupBy } from 'lodash';
-import { StyleValue } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { WAdminFood, WAdminNewFood, WAdminNewNutrition, WAdminNutrition } from 'widgets/nutrition';
 import { useAdminFoodStore } from 'entities/food';
-import { useAdminNutritionStore, Nutrition } from 'entities/nutrition';
+import { useAdminNutritionStore } from 'entities/nutrition';
 import { AppBaseEntity } from 'shared/api';
 import { useLoadingAction, tod } from 'shared/lib';
-import { SLoading, SStructure, SCenteredNav, SCenteredNavProps, SProxyScroll } from 'shared/ui';
+import { SStructure, SCenteredNav, SCenteredNavProps, SProxyScroll } from 'shared/ui';
 
 export interface PAdminUserProfileNutritionProps {
   id: AppBaseEntity['id'];
@@ -28,8 +27,14 @@ const foodsData = computed(() => foodList.data?.data);
 const foodSlides = computed(() => groupBy(foodsData.value, ({ type }) => type));
 
 const pages = computed<SCenteredNavProps['pages']>(() => {
-  const nutritionPage = { label: t('admin.nutrition.nutrition'), value: 'nutrition' };
-  const newFoodPage = { label: t('admin.nutrition.new_food'), value: 'new_food' };
+  const nutritionPage = {
+    label: t('admin.nutrition.nutrition'),
+    value: 'nutrition',
+  };
+  const newFoodPage = {
+    label: t('admin.nutrition.new_food'),
+    value: 'new_food',
+  };
 
   if (!foodSlides.value) return [nutritionPage, newFoodPage];
   const foodPages = Object.keys(foodSlides.value).map((type) => ({
@@ -39,10 +44,6 @@ const pages = computed<SCenteredNavProps['pages']>(() => {
 
   return [nutritionPage, ...foodPages, newFoodPage];
 });
-
-const calcHeight = (nutr: Nutrition): StyleValue => ({
-  minHeight: nutr.mealItems ? `${nutr.mealItems.length * 115 + 400}px` : '500px',
-});
 </script>
 
 <template>
@@ -51,12 +52,15 @@ const calcHeight = (nutr: Nutrition): StyleValue => ({
       <SCenteredNav v-model="pageValue" :pages="pages" />
     </div>
 
-    <q-tab-panels v-if="foodSlides && nutritionsData" v-model="pageValue" animated keep-alive swipeable infinite h-full>
+    <q-tab-panels v-model="pageValue" animated keep-alive swipeable infinite h-full>
       <q-tab-panel :name="pages[0].value" p="0!" overflow="hidden!">
         <SProxyScroll h-full>
-          <q-intersection v-for="nutrition in nutritionsData" :key="nutrition.id" :style="calcHeight(nutrition)">
-            <WAdminNutrition :nutrition="nutrition" :title="pages[0].label" />
-          </q-intersection>
+          <WAdminNutrition
+            v-for="nutrition in nutritionsData"
+            :key="nutrition.id"
+            :nutrition="nutrition"
+            :title="pages[0].label"
+          />
           <WAdminNewNutrition :user-id="id" />
         </SProxyScroll>
       </q-tab-panel>
@@ -73,6 +77,5 @@ const calcHeight = (nutr: Nutrition): StyleValue => ({
         </SProxyScroll>
       </q-tab-panel>
     </q-tab-panels>
-    <SLoading v-else />
   </SStructure>
 </template>

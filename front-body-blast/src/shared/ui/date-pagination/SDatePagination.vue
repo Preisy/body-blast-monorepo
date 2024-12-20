@@ -9,9 +9,12 @@ export interface SDatePaginationProps {
   halfRange: number;
   offset: number;
   options?: QDate['options']; //TODO:
+  type?: 'days' | 'months';
 }
 
-const props = defineProps<SDatePaginationProps>();
+const props = withDefaults(defineProps<SDatePaginationProps>(), {
+  type: 'days',
+});
 const emit = defineEmits<{
   'update:model-value': [date: string];
   'update:offset': [page: number];
@@ -26,14 +29,14 @@ const localOffset = ref(props.offset);
 const start = computed(() =>
   today
     .clone()
-    .subtract(props.halfRange + 1, 'd')
-    .add(localOffset.value * props.halfRange * 2, 'd'),
+    .subtract(props.halfRange + 1, props.type)
+    .add(localOffset.value * props.halfRange * 2, props.type),
 );
 
 const handleNewPart = () => {
   const delta = moment(props.modelValue)
-    .subtract(localOffset.value * props.halfRange * 2, 'd')
-    .diff(today, 'd');
+    .subtract(localOffset.value * props.halfRange * 2, props.type)
+    .diff(today, props.type);
   if (Math.abs(delta) < props.halfRange) return;
 
   const localOffsetDelta = Math.floor((Math.abs(delta) + props.halfRange) / (2 * props.halfRange));
@@ -49,7 +52,7 @@ const handleNewPart = () => {
     start.value.format('YYYY-MM-DD'),
     start.value
       .clone()
-      .add(2 * (props.halfRange + 1), 'd')
+      .add(2 * (props.halfRange + 1), props.type)
       .format('YYYY-MM-DD'),
   );
 };
@@ -72,13 +75,13 @@ watch(() => props.modelValue, handleNewPart); //need to handle if date changes t
       <q-tab-panel :name="start.clone().format('YYYY-MM-DD')" h-full overflow-hidden p="0!" />
       <q-tab-panel
         v-for="N in 2 * (halfRange + 1) - 1"
-        :key="start.clone().add(N, 'd').format('YYYY-MM-DD')"
-        :name="start.clone().add(N, 'd').format('YYYY-MM-DD')"
+        :key="start.clone().add(N, props.type).format('YYYY-MM-DD')"
+        :name="start.clone().add(N, props.type).format('YYYY-MM-DD')"
         h-full
         overflow-hidden
         p="0!"
       >
-        <slot name="item" :date="start.clone().add(N, 'd')">
+        <slot name="item" :date="start.clone().add(N, props.type)">
           <SNoResultsScreen />
         </slot>
       </q-tab-panel>
@@ -86,7 +89,7 @@ watch(() => props.modelValue, handleNewPart); //need to handle if date changes t
         :name="
           start
             .clone()
-            .add(2 * (halfRange + 1), 'd')
+            .add(2 * (halfRange + 1), props.type)
             .format('YYYY-MM-DD')
         "
         h-full
