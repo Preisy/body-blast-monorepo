@@ -12,6 +12,21 @@ const path = require('path');
 const { configure } = require('quasar/wrappers');
 require('dotenv').config();
 
+const getChunkName = (id) => {
+  if (id.includes('node_modules')) {
+    const basic = id.toString().split('node_modules/')[1];
+    const sub1 = basic.split('/')[0];
+    let name = 'vendors/';
+    if (sub1 !== '.pnpm') {
+      name += sub1.toString();
+    } else {
+      const name2 = basic.split('/')[1];
+      name += name2.split('@')[name2[0] === '@' ? 1 : 0].toString();
+    }
+    return name;
+  }
+};
+
 module.exports = configure(function (/* ctx */) {
   return {
     // eslint: {
@@ -99,6 +114,26 @@ module.exports = configure(function (/* ctx */) {
         ],
         ['unocss/vite', { configFile: './uno.config.ts' }],
       ],
+
+      extendViteConf: (config) => {
+        if (!config.build) {
+          config.build = {};
+        }
+
+        if (!config.build.rollupOptions) {
+          config.build.rollupOptions = {};
+        }
+
+        if (!config.build.rollupOptions.output) {
+          config.build.rollupOptions.output = {};
+          config.build.rollupOptions.output.manualChunks = getChunkName;
+        }
+
+        // Not sure about it
+        if (config.build.rollupOptions.output instanceof Array) {
+          config.build.rollupOptions.output[0].manualChunks = getChunkName;
+        }
+      },
 
       alias: {
         app: path.join(__dirname, 'src/app'),
