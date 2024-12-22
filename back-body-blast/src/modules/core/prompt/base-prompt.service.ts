@@ -22,11 +22,10 @@ export class BasePromptService {
   ) {}
 
   async create(request: CreatePromptRequest): Promise<AppSingleResponse<PromptEntity>> {
-    if (!(await this.DoesExist(request.photoLink))) {
-      throw MainException.entityNotFound(`File with link: ${request.photoLink} not found`);
-    }
-    if (!(await this.DoesExist(request.videoLink)))
-      throw MainException.entityNotFound(`File with link: ${request.videoLink} not found`);
+    const photoPromise = !(await this.DoesExist(request.photoLink));
+    const videoPromise = request.videoLink && !(await this.DoesExist(request.videoLink));
+    if (photoPromise || videoPromise)
+      throw MainException.entityNotFound(`File with link: ${request.videoLink || request.photoLink} not found`);
     const newPrompt = this.promptRepository.create({
       ...request,
     });
