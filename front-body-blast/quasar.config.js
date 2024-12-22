@@ -11,6 +11,7 @@
 const path = require('path');
 const { configure } = require('quasar/wrappers');
 require('dotenv').config();
+const { mergeConfig } = require('vite');
 
 const getChunkName = (id) => {
   if (id.includes('node_modules')) {
@@ -115,24 +116,18 @@ module.exports = configure(function (/* ctx */) {
         ['unocss/vite', { configFile: './uno.config.ts' }],
       ],
 
-      extendViteConf: (config) => {
-        if (!config.build) {
-          config.build = {};
-        }
-
-        if (!config.build.rollupOptions) {
-          config.build.rollupOptions = {};
-        }
-
-        if (!config.build.rollupOptions.output) {
-          config.build.rollupOptions.output = {};
-          config.build.rollupOptions.output.manualChunks = getChunkName;
-        }
-
-        // Not sure about it
-        if (config.build.rollupOptions.output instanceof Array) {
-          config.build.rollupOptions.output[0].manualChunks = getChunkName;
-        }
+      extendViteConf(config) {
+        config.build = mergeConfig(
+          config.build,
+          {
+            rollupOptions: {
+              output: {
+                manualChunks: getChunkName,
+              },
+            },
+          },
+          false,
+        );
       },
 
       alias: {
