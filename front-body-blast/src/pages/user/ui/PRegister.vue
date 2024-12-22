@@ -12,16 +12,14 @@ import {
 } from 'entities/user';
 import { useUserStore, SignUp } from 'shared/api';
 import { ENUMS, Notify } from 'shared/lib';
-import { SBtn, SForm, SSplide, SStructure, SSplideSlide } from 'shared/ui';
+import { SForm, SStructure, SProxyScroll } from 'shared/ui';
 
 const userStore = useUserStore();
 const { t } = useI18n();
 const router = useRouter();
 
-const splide = ref<InstanceType<typeof SSplide>>();
-const moveNext = () => {
-  splide.value?.moveNext();
-};
+const formSections = ref<HTMLDivElement[]>();
+const scroll = ref<InstanceType<typeof SProxyScroll>>();
 
 const slideComponents: Array<Component> = [
   EUserCredentialsFields,
@@ -67,7 +65,7 @@ const onSubmit = async (values: ValidaionShape) => {
 };
 
 const onError = (ctx: InvalidSubmissionContext) => {
-  if (!ctx.errors || !splide.value) return;
+  if (!ctx.errors || !formSections.value || !scroll.value) return;
 
   // Submission context holds all errors
   // We can determine from which slide they are
@@ -76,28 +74,35 @@ const onError = (ctx: InvalidSubmissionContext) => {
     .map((k) => ({ field: k, page: fieldKeyToSlideMap[k as keyof ValidaionShape] }))
     .sort((a, b) => a.page - b.page);
 
-  splide.value.moveTo(errorEntries[0].page);
+  const el = formSections.value[errorEntries[0].page];
+  scroll.value.setScrollPosition('vertical', el.offsetTop, 200);
   Notify.simpleError(t(`register.errors.incorrectFields`));
 };
 </script>
 
 <template>
-  <SStructure relative>
-    <SForm
-      :field-schema="registerFieldSchema"
-      :loading="false"
-      @submit="onSubmit"
-      @error="onError"
-      disable-submit-btn
-      class="p-0!"
-    >
-      <SSplide ref="splide" :options="{ direction: 'ttb', height: '28rem', arrows: false }" class="p-1.5rem!">
-        <SSplideSlide v-for="(component, idx) in slideComponents" :key="component.name" flex flex-col gap-y-0.25rem>
+  <SStructure h-full pb-3rem>
+    <SProxyScroll ref="scroll" px-1rem>
+      <SForm
+        :field-schema="registerFieldSchema"
+        :loading="false"
+        @submit="onSubmit"
+        @error="onError"
+        class="h-full [&>.s-form-inputs]:h-full p-0!"
+        h-full
+      >
+        <div
+          ref="formSections"
+          v-for="component in slideComponents"
+          :key="component.name"
+          mb-1rem
+          flex
+          flex-col
+          gap-y-0.25rem
+        >
           <component :is="component" />
-          <SBtn v-if="idx != slideComponents.length - 1" icon="done" @click="moveNext" mt-0.5rem self-end />
-          <SBtn v-else icon="done" type="submit" mt-0.5rem self-end />
-        </SSplideSlide>
-      </SSplide>
-    </SForm>
+        </div>
+      </SForm>
+    </SProxyScroll>
   </SStructure>
 </template>
