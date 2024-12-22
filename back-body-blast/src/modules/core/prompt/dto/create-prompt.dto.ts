@@ -10,12 +10,12 @@ export class CreatePromptRequest {
   @Length(1, 255)
   public type: string;
 
-  @IsOptional()
+  @IsDefined()
   @IsString()
-  @ApiPropertyOptional()
+  @ApiProperty()
   @Length(1, 255)
   @IsPhoto()
-  public photoLink?: string;
+  public photoLink: string;
 
   @IsOptional()
   @IsString()

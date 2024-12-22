@@ -13,6 +13,6 @@ export class PromptEntity extends AppBaseEntity {
   public photoLink: string;
 
   @ApiProperty()
-  @Column({ type: 'varchar', length: 250 })
-  public videoLink: string;
+  @Column({ type: 'varchar', length: 250, nullable: true })
+  public videoLink?: string;
 }
