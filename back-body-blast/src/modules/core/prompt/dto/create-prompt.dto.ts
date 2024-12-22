@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsDefined, IsString, Length } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsDefined, IsOptional, IsString, Length } from 'class-validator';
 import { IsPhoto } from '../../../../decorators/photo-type.decorator';
 import { IsVideo } from '../../../../decorators/video-type.decorator.dto';
 
@@ -17,10 +17,10 @@ export class CreatePromptRequest {
   @IsPhoto()
   public photoLink: string;
 
-  @IsDefined()
+  @IsOptional()
   @IsString()
-  @ApiProperty()
+  @ApiPropertyOptional()
   @Length(1, 255)
   @IsVideo()
-  public videoLink: string;
+  public videoLink?: string;
 }
