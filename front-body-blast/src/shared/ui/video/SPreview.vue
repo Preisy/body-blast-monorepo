@@ -6,7 +6,7 @@ import { SLoading } from '../loading';
 
 interface Props {
   photoLink: string;
-  shown?: boolean;
+  hidden?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -20,7 +20,7 @@ const { state: photo } = useAuthLink(() => props.photoLink);
     <q-img
       @click="isModalShown = true"
       :src="photo.data.link"
-      :class="{ 'opacity-0 z--1': !shown }"
+      :class="{ 'opacity-0 z--1': hidden }"
       h-auto
       max-h-20rem
       w-full

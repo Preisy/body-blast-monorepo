@@ -42,7 +42,7 @@ const videoControl = ref<InstanceType<typeof SVideoWithPreview>>();
       :video-link="prompt.videoLink"
       :photo-link="prompt.photoLink"
     />
-    <SPreview v-else photo-link="prompt.photoLink" />
+    <SPreview v-else :photo-link="prompt.photoLink" />
 
     <div mx-5px mt-0.5rem flex flex-row gap-x-0.5rem>
       <SBtn
