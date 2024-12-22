@@ -9,7 +9,7 @@ import { useLoadingAction } from 'shared/lib';
 import { SBtn, SForm, SInput, SFilePicker } from 'shared/ui';
 
 export interface Props extends QDialogProps {
-  prompt: Prompt;
+  prompt: Prompt.WithOptionalVideo;
 }
 const props = defineProps<Props>();
 
@@ -41,7 +41,7 @@ const updatePrompt = async (values: z.infer<typeof rawSchema>) => {
 };
 
 const photoFilename = computed(() => props.prompt.photoLink.split('/').at(-1));
-const videoFilename = computed(() => props.prompt.videoLink.split('/').at(-1));
+const videoFilename = computed(() => props.prompt.videoLink?.split('/').at(-1));
 </script>
 
 <template>

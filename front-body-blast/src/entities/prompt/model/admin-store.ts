@@ -16,7 +16,7 @@ export const useAdminPromptStore = defineStore('admin-prompt-store', () => {
       serviceAction: adminPromptsService.getPrompts(data),
     });
 
-  const postPrompt = async (data: Pick<Prompt, 'photoLink' | 'videoLink' | 'type'>) =>
+  const postPrompt = async (data: Prompt.DataWithOptionalVideo) =>
     useStoreAction({
       state: prompts.value.createState,
       serviceAction: adminPromptsService.postPrompt(data),
