@@ -7,11 +7,11 @@ import {
 } from '@quasar/extras/material-symbols-rounded';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
 import { AppBaseEntity } from 'shared/api';
-import { SBtn, SPreview, SVideoWithPreview } from 'shared/ui';
+import { SBtn, SVideoWithPreview } from 'shared/ui';
 import PromptEditDialog from './PromptEditDialog.vue';
 
 export interface WPromptsProps {
-  prompt: Prompt.WithOptionalVideo;
+  prompt: Prompt;
 }
 defineProps<WPromptsProps>();
 
@@ -19,8 +19,8 @@ const { deletePrompt } = useAdminPromptStore();
 
 // Edit dialog data
 const isEditDialogOpen = ref<boolean>(false);
-const editPromptData = ref<Prompt.WithOptionalVideo>();
-const openDialog = (data: Prompt.WithOptionalVideo) => {
+const editPromptData = ref<Prompt>();
+const openDialog = (data: Prompt) => {
   editPromptData.value = data;
   isEditDialogOpen.value = true;
 };
@@ -36,13 +36,7 @@ const videoControl = ref<InstanceType<typeof SVideoWithPreview>>();
   <div>
     <h2 mb-0.75rem>{{ prompt.type }}</h2>
 
-    <SVideoWithPreview
-      v-if="prompt.videoLink"
-      ref="videoControl"
-      :video-link="prompt.videoLink"
-      :photo-link="prompt.photoLink"
-    />
-    <SPreview v-else :photo-link="prompt.photoLink" />
+    <SVideoWithPreview ref="videoControl" :video-link="prompt.videoLink" :photo-link="prompt.photoLink" />
 
     <div mx-5px mt-0.5rem flex flex-row gap-x-0.5rem>
       <SBtn

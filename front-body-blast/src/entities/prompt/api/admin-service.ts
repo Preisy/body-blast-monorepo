@@ -3,7 +3,7 @@ import { useServiceAction } from 'shared/lib';
 import { Prompt } from '..';
 
 export const adminPromptsService = {
-  postPrompt: useServiceAction((data: Prompt.DataWithOptionalVideo) =>
+  postPrompt: useServiceAction((data: Pick<Prompt, 'type' | 'photoLink' | 'videoLink'>) =>
     api.post<Prompt.Post.Response>('/admin/prompts', data),
   ),
 

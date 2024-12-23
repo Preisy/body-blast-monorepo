@@ -5,13 +5,10 @@ import { AppBaseEntity, AppPagination } from 'shared/api';
 export interface Prompt extends AppBaseEntity {
   type: string;
   photoLink: string;
-  videoLink: string;
+  videoLink?: string;
 }
 
 export namespace Prompt {
-  export type DataWithOptionalVideo = Pick<Prompt, 'type' | 'photoLink'> & Partial<Pick<Prompt, 'videoLink'>>;
-  export type WithOptionalVideo = Omit<Prompt, 'videoLink'> & Partial<Pick<Prompt, 'videoLink'>>;
-
   export namespace Post {
     export interface Dto {
       type: string;

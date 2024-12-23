@@ -6,7 +6,7 @@ import { SLoading } from '../loading';
 import SVideo from './SVideo.vue';
 
 interface Props {
-  videoLink: string;
+  videoLink?: string;
   photoLink: string;
 }
 
@@ -15,7 +15,7 @@ const videoControl = ref<InstanceType<typeof SVideo>>();
 const props = defineProps<Props>();
 const isModalShown = ref(false);
 
-const { state: video } = useAuthLink(() => props.videoLink);
+const { state: video } = props.videoLink ? useAuthLink(() => props.videoLink!) : { state: undefined };
 const { state: photo } = useAuthLink(() => props.photoLink);
 
 defineExpose({
@@ -28,8 +28,9 @@ defineExpose({
 
 <template>
   <div relative>
-    <div v-if="video.data && photo.data" overflow-hidden rounded-1rem>
+    <div v-if="photo.data" overflow-hidden rounded-1rem>
       <SVideo
+        v-if="videoLink && video?.data"
         ref="videoControl"
         :link-url="video.data.link"
         disable-btn

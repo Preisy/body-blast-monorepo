@@ -9,7 +9,7 @@ import { useLoadingAction } from 'shared/lib';
 import { SBtn, SForm, SInput, SFilePicker } from 'shared/ui';
 
 export interface Props extends QDialogProps {
-  prompt: Prompt.WithOptionalVideo;
+  prompt: Prompt;
 }
 const props = defineProps<Props>();
 
