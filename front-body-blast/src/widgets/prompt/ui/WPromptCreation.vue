@@ -18,14 +18,11 @@ const { postPrompt, prompts } = useAdminPromptStore();
 const fileStore = useAdminFileStore();
 
 const onsubmit = async (values: z.infer<typeof schema>) => {
-  //filter empty and partial values if some exists
-  const promptsDto: Array<Prompt.Post.Dto> = values.prompts
-    .filter((prompt) => prompt.photo && prompt.video && prompt.type)
-    .map<Prompt.Post.Dto>((prompt) => ({
-      photo: prompt.photo!,
-      type: prompt.type!,
-      video: prompt.video!,
-    }));
+  const promptsDto: Array<Prompt.Post.Dto> = values.prompts.map<Prompt.Post.Dto>((prompt) => ({
+    photo: prompt.photo!,
+    type: prompt.type!,
+    video: prompt.video,
+  }));
 
   //if exists prompts to push
   if (promptsDto.length) {
@@ -34,13 +31,13 @@ const onsubmit = async (values: z.infer<typeof schema>) => {
       promptsDto.map(async (prompt) => {
         const [photoLink, videoLink] = await Promise.all([
           fileStore.postFile({ file: prompt.photo }),
-          fileStore.postFile({ file: prompt.video }),
+          prompt.video && fileStore.postFile({ file: prompt.video }),
         ]);
-        if (!photoLink.data || !videoLink.data) {
+        if (!photoLink.data || (videoLink && !videoLink.data)) {
           prompts.createState.error();
           return;
         }
-        postPrompt({ type: prompt.type, photoLink: photoLink.data.link, videoLink: videoLink.data.link });
+        postPrompt({ type: prompt.type, photoLink: photoLink.data.link, videoLink: videoLink?.data.link });
       }),
     );
 
