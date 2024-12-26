@@ -41,7 +41,7 @@ const updatePrompt = async (values: z.infer<typeof rawSchema>) => {
 };
 
 const photoFilename = computed(() => props.prompt.photoLink.split('/').at(-1));
-const videoFilename = computed(() => props.prompt.videoLink.split('/').at(-1));
+const videoFilename = computed(() => props.prompt.videoLink?.split('/').at(-1));
 </script>
 
 <template>

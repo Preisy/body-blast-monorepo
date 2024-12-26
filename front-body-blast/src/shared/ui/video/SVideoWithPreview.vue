@@ -6,7 +6,7 @@ import { SLoading } from '../loading';
 import SVideo from './SVideo.vue';
 
 interface Props {
-  videoLink: string;
+  videoLink?: string;
   photoLink: string;
 }
 
@@ -28,8 +28,9 @@ defineExpose({
 
 <template>
   <div relative>
-    <div v-if="video.data && photo.data" overflow-hidden rounded-1rem>
+    <div v-if="photo.data" overflow-hidden rounded-1rem>
       <SVideo
+        v-if="videoLink && video?.data?.link"
         ref="videoControl"
         :link-url="video.data.link"
         disable-btn

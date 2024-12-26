@@ -40,6 +40,7 @@ const videoControl = ref<InstanceType<typeof SVideoWithPreview>>();
 
     <div mx-5px mt-0.5rem flex flex-row gap-x-0.5rem>
       <SBtn
+        v-if="prompt.videoLink"
         :icon="videoControl?.isPlaying ? symRoundedPause : symRoundedPlayArrow"
         bg="bg!"
         @click="videoControl?.togglePlay"

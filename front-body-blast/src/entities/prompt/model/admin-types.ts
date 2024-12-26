@@ -5,7 +5,7 @@ import { AppBaseEntity, AppPagination } from 'shared/api';
 export interface Prompt extends AppBaseEntity {
   type: string;
   photoLink: string;
-  videoLink: string;
+  videoLink?: string;
 }
 
 export namespace Prompt {
@@ -13,7 +13,7 @@ export namespace Prompt {
     export interface Dto {
       type: string;
       photo: File;
-      video: File;
+      video?: File;
     }
 
     export interface Response extends AppBaseEntity.Response<Prompt> {}
@@ -44,7 +44,9 @@ export namespace Prompt {
   export const validation = (t: ComposerTranslation) =>
     z.object({
       type: z.string().min(1),
-      photo: z.instanceof(File, { message: t('admin.prompt.errors.fileInput') }),
-      video: z.instanceof(File, { message: t('admin.prompt.errors.fileInput') }),
+      photo: z.instanceof(File, {
+        message: t('admin.prompt.errors.fileInput'),
+      }),
+      video: z.instanceof(File, { message: t('admin.prompt.errors.fileInput') }).optional(),
     });
 }
