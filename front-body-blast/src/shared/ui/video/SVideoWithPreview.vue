@@ -15,7 +15,7 @@ const videoControl = ref<InstanceType<typeof SVideo>>();
 const props = defineProps<Props>();
 const isModalShown = ref(false);
 
-const { state: video } = props.videoLink ? useAuthLink(() => props.videoLink!) : { state: undefined };
+const { state: video } = useAuthLink(() => props.videoLink);
 const { state: photo } = useAuthLink(() => props.photoLink);
 
 defineExpose({
@@ -30,7 +30,7 @@ defineExpose({
   <div relative>
     <div v-if="photo.data" overflow-hidden rounded-1rem>
       <SVideo
-        v-if="videoLink && video?.data"
+        v-if="videoLink && video?.data?.link"
         ref="videoControl"
         :link-url="video.data.link"
         disable-btn
