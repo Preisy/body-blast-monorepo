@@ -46,11 +46,11 @@ export class CreateExerciseRequest {
   @Length(1, 255)
   public photoLink: string;
 
-  @IsDefined()
-  @ApiProperty()
+  @IsOptional()
+  @ApiPropertyOptional()
   @IsString()
   @Length(1, 255)
-  public videoLink: string;
+  public videoLink?: string;
 
   @IsDefined()
   @ApiProperty()
