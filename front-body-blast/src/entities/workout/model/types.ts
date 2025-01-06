@@ -17,7 +17,7 @@ export interface Workout extends AppBaseEntity {
       pace: string;
       promptType: string;
       photoLink: string;
-      videoLink: string;
+      videoLink?: string | null;
       workoutId: AppBaseEntity['id'];
       trainerComment: string;
     }
@@ -56,7 +56,7 @@ export namespace Workout {
             id: z.string(),
             type: z.string(),
             photoLink: z.string(),
-            videoLink: z.string(),
+            videoLink: z.optional(z.string()).nullable(),
           }),
         }),
       ),
