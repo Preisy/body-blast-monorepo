@@ -17,9 +17,9 @@ export interface Workout extends AppBaseEntity {
       pace: string;
       promptType: string;
       photoLink: string;
-      videoLink: string;
+      videoLink?: string;
       workoutId: AppBaseEntity['id'];
-      trainerComment: string;
+      trainerComment?: string;
     }
   >;
   user: Optional<User>;
@@ -49,14 +49,14 @@ export namespace Workout {
           weight: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           sets: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           repetitions: z.string().min(1),
-          trainerComment: z.string().min(1),
+          trainerComment: z.optional(z.string().min(1)),
           restTime: z.coerce.number({ invalid_type_error: 'Expected number' }).min(1),
           pace: z.coerce.string().min(1),
           prompt: z.object({
             id: z.string(),
             type: z.string(),
             photoLink: z.string(),
-            videoLink: z.string(),
+            videoLink: z.optional(z.string()).nullable(),
           }),
         }),
       ),

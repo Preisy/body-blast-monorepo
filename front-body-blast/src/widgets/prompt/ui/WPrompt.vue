@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  symRoundedDelete,
-  symRoundedEdit,
-  symRoundedPause,
-  symRoundedPlayArrow,
-} from '@quasar/extras/material-symbols-rounded';
+import { symRoundedDelete, symRoundedEdit } from '@quasar/extras/material-symbols-rounded';
 import { Prompt, useAdminPromptStore } from 'entities/prompt';
 import { AppBaseEntity } from 'shared/api';
 import { SBtn, SVideoWithPreview } from 'shared/ui';
@@ -36,18 +31,12 @@ const videoControl = ref<InstanceType<typeof SVideoWithPreview>>();
   <div>
     <h2 mb-0.75rem>{{ prompt.type }}</h2>
 
-    <SVideoWithPreview ref="videoControl" :video-link="prompt.videoLink" :photo-link="prompt.photoLink" />
-
-    <div mx-5px mt-0.5rem flex flex-row gap-x-0.5rem>
-      <SBtn
-        v-if="prompt.videoLink"
-        :icon="videoControl?.isPlaying ? symRoundedPause : symRoundedPlayArrow"
-        bg="bg!"
-        @click="videoControl?.togglePlay"
-      />
-      <SBtn :icon="symRoundedEdit" bg="bg!" @click="() => openDialog(prompt)" />
-      <SBtn :icon="symRoundedDelete" ml-auto @click="() => onDeleteClick(prompt.id)" />
-    </div>
+    <SVideoWithPreview ref="videoControl" :video-link="prompt.videoLink" :photo-link="prompt.photoLink">
+      <template #controls>
+        <SBtn :icon="symRoundedEdit" bg="bg!" @click="() => openDialog(prompt)" />
+        <SBtn :icon="symRoundedDelete" ml-auto @click="() => onDeleteClick(prompt.id)" />
+      </template>
+    </SVideoWithPreview>
 
     <!-- onEditPopup -->
     <PromptEditDialog v-if="editPromptData" v-model="isEditDialogOpen" :prompt="editPromptData" />

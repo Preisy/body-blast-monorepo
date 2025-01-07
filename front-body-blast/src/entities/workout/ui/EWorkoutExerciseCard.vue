@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { Workout } from 'entities/workout';
-import { SReadonlyFieldProps, SComponentWrapper } from 'shared/ui';
+import { SReadonlyFieldProps, SComponentWrapper, SVideoWithPreview } from 'shared/ui';
 import InfoBlock from './InfoBlock.vue';
-import WorkoutVideo from './WorkoutVideo.vue';
 
 export interface EWorkoutExerciseCardProps {
   exercise: NonNullable<Workout['exercises']>[number];
-  videoLink: string;
+  videoLink?: string;
   photoLink: string;
 }
 const props = defineProps<EWorkoutExerciseCardProps>();
@@ -29,7 +28,7 @@ const cards = computed<Array<SReadonlyFieldProps>>(() => [
         <h1>{{ exercise.name }}</h1>
         <p>{{ exercise.trainerComment }}</p>
       </div>
-      <WorkoutVideo :video-link="videoLink" :photo-link="photoLink" />
+      <SVideoWithPreview :video-link="videoLink" :photo-link="photoLink" play-button-class="bg-secondary!" />
       <InfoBlock :cards="cards" />
     </div>
   </SComponentWrapper>

@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import { symRoundedPause, symRoundedPlayArrow } from '@quasar/extras/material-symbols-rounded';
 // FIXME: will be fixed, when api ready
 // eslint-disable-next-line boundaries/element-types
 import { useAuthLink } from 'entities/file';
+import { SBtn } from '../btns';
 import { SLoading } from '../loading';
 import SVideo from './SVideo.vue';
 
 interface Props {
   videoLink?: string;
   photoLink: string;
+  disablePlayButton?: boolean;
+  playButtonClass?: string;
 }
 
 const videoControl = ref<InstanceType<typeof SVideo>>();
@@ -27,38 +31,53 @@ defineExpose({
 </script>
 
 <template>
-  <div relative>
-    <div v-if="photo.data" overflow-hidden rounded-1rem>
-      <SVideo
-        v-if="videoLink && video?.data?.link"
-        ref="videoControl"
-        :link-url="video.data.link"
-        disable-btn
-        absolute
-        h-full
-        w-full
-        overflow-hidden
-        top="50%"
-        left="50%"
-        translate="-50%"
-      />
-      <q-img
-        @click="isModalShown = true"
-        :src="photo.data.link"
-        :class="{ 'opacity-0 z--1': videoControl?.isPlaying }"
-        h-auto
-        max-h-20rem
-        w-full
-        overflow-hidden
-        rounded-1rem
-      />
-    </div>
-    <template v-else>
-      <SLoading />
-    </template>
+  <div>
+    <div relative>
+      <div v-if="photo.data" overflow-hidden rounded-1rem>
+        <SVideo
+          v-if="videoLink && video?.data?.link"
+          ref="videoControl"
+          :link-url="video.data.link"
+          disable-btn
+          absolute
+          h-full
+          w-full
+          overflow-hidden
+          top="50%"
+          left="50%"
+          translate="-50%"
+        />
+        <q-img
+          @click="isModalShown = true"
+          :src="photo.data.link"
+          :class="{ 'opacity-0 z--1': videoControl?.isPlaying }"
+          h-auto
+          max-h-20rem
+          w-full
+          overflow-hidden
+          rounded-1rem
+          object-none
+        />
+      </div>
 
-    <q-dialog v-model="isModalShown">
-      <q-img :src="photo.data?.link" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
-    </q-dialog>
+      <template v-else>
+        <SLoading />
+      </template>
+
+      <q-dialog v-model="isModalShown">
+        <q-img :src="photo.data?.link" @click="isModalShown = false" overflow="hidden!" rounded="1.5rem!" />
+      </q-dialog>
+    </div>
+    <div mt-0.5rem flex flex-row gap-x-0.5rem>
+      <!-- TODO: Make playButton optional? -->
+      <SBtn
+        v-if="videoLink && !disablePlayButton"
+        :icon="videoControl?.isPlaying ? symRoundedPause : symRoundedPlayArrow"
+        bg="bg!"
+        @click="videoControl?.togglePlay"
+        :class="playButtonClass"
+      />
+      <slot name="controls" />
+    </div>
   </div>
 </template>
