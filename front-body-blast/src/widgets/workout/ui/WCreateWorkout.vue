@@ -40,7 +40,7 @@ const onsubmit = (values: z.infer<ReturnType<typeof Workout.validation>>) => {
       ...omit(ex, 'prompt'),
       promptType: ex.prompt.type,
       photoLink: ex.prompt.photoLink,
-      videoLink: ex.prompt.videoLink,
+      videoLink: ex.prompt.videoLink ?? undefined,
       workoutId: props.workoutId,
     })),
   };
@@ -72,7 +72,7 @@ const emptyExercise = {
   repetitions: '',
   restTime: undefined,
   pace: '',
-  trainerComment: '',
+  trainerComment: undefined,
 } as Partial<Exercise>;
 const emptyWorkout = {
   cycle: undefined,
